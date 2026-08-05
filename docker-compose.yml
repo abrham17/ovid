@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ovid-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ovid
+      POSTGRES_PASSWORD: ovid_dev_password
+      POSTGRES_DB: ovid_pms
+    ports:
+      - "5432:5432"
+    volumes:
+      - ovid_pgdata:/var/lib/postgresql/data
+
+volumes:
+  ovid_pgdata:

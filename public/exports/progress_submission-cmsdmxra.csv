@@ -1,0 +1,7 @@
+code,name,budget,earned,actual,progressPct
+"S1","Substructure","0","0","0","0"
+"S1-B3","Block 3","0","0","0","0"
+"S1-B3-GF","Ground Floor","0","0","0","0"
+"S1-B3-GF-W4","Wall 4 — between axes a–c on axis 4–5","763600","1416000","730000","20"
+"S1-B3-GF-S1","Slab 1 — Ground Floor","612000","0","0","0"
+"S1-FDN","Foundation works","444000","0","240000","72"

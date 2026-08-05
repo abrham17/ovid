@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────── */
+:root {
+  /* Surface */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --border: #e2e8f0;
+  --muted: #64748b;
+
+  /* Brand */
+  --brand: #047857;
+  --brand-light: #10b981;
+  --brand-foreground: #ffffff;
+
+  /* Feedback */
+  --danger: #dc2626;
+  --warn: #d97706;
+
+  /* ── Global Sidebar (dark) ───────────────────────────────────────────── */
+  --sidebar-w: 240px;
+  --sidebar-w-collapsed: 64px;
+  --sidebar-bg: #0f1724;
+  --sidebar-bg-hover: #1e2d3d;
+  --sidebar-bg-active: rgba(16, 185, 129, 0.12);
+  --sidebar-border: #1e2d3d;
+  --sidebar-fg: #94a3b8;
+  --sidebar-fg-muted: #475569;
+  --sidebar-fg-active: #f8fafc;
+  --sidebar-accent: #10b981;
+  --sidebar-logo-bg: #10b981;
+  --sidebar-transition: 220ms ease;
+
+  /* ── Project Workspace Sidebar (light) ───────────────────────────────── */
+  --ws-sidebar-w: 236px;
+  --ws-sidebar-bg: #f8fafc;
+  --ws-sidebar-border: #e2e8f0;
+  --ws-sidebar-fg: #475569;
+  --ws-sidebar-fg-active: #0f172a;
+  --ws-sidebar-active-bg: #ecfdf5;
+  --ws-sidebar-active-border: #10b981;
+  --ws-sidebar-section-fg: #94a3b8;
+}
+
+/* ─── Tailwind Theme Bridge ─────────────────────────────────────────────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans), "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* ─── Sidebar layout helpers ─────────────────────────────────────────────── */
+.sidebar-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Global sidebar */
+.g-sidebar {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  transition: width var(--sidebar-transition);
+  overflow: hidden;
+  color: var(--sidebar-fg);
+}
+
+.g-sidebar .sidebar-fg {
+  color: var(--sidebar-fg);
+}
+
+.g-sidebar .sidebar-fg-muted {
+  color: var(--sidebar-fg-muted);
+}
+
+.g-sidebar .sidebar-fg-active {
+  color: var(--sidebar-fg-active);
+}
+
+.g-sidebar .sidebar-link {
+  color: var(--sidebar-fg);
+  transition:
+    color var(--sidebar-transition),
+    background-color var(--sidebar-transition);
+}
+
+.g-sidebar .sidebar-link:hover {
+  background: var(--sidebar-bg-hover);
+  color: var(--sidebar-fg-active);
+}
+
+.g-sidebar .sidebar-link[aria-current="page"] {
+  background: var(--sidebar-bg-active);
+  color: var(--sidebar-fg-active);
+  font-weight: 600;
+}
+
+.g-sidebar .sidebar-button {
+  color: var(--sidebar-fg);
+  transition:
+    color var(--sidebar-transition),
+    background-color var(--sidebar-transition);
+}
+
+.g-sidebar .sidebar-button:hover {
+  background: var(--sidebar-bg-hover);
+  color: var(--sidebar-fg-active);
+}
+
+.g-sidebar[data-collapsed="true"] {
+  width: var(--sidebar-w-collapsed);
+}
+
+.g-sidebar-content {
+  /* page content offset = sidebar width */
+  margin-inline-start: var(--sidebar-w);
+  transition: margin-inline-start var(--sidebar-transition);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.g-sidebar[data-collapsed="true"] ~ .g-sidebar-content {
+  margin-inline-start: var(--sidebar-w-collapsed);
+}
+
+/* Workspace (inner project) sidebar */
+.ws-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.ws-sidebar {
+  flex-shrink: 0;
+  width: var(--ws-sidebar-w);
+  background: var(--ws-sidebar-bg);
+  border-right: 1px solid var(--ws-sidebar-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ws-content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* ─── Scrollbar styling ─────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+.ws-sidebar {
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* ─── Tooltip (collapsed sidebar labels) ────────────────────────────────── */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  inset-inline-start: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 100;
+}
+
+.g-sidebar[data-collapsed="true"] [data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* ─── A11y ──────────────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-light);
+  outline-offset: 2px;
+}
+
+/* ─── Mobile sidebar overlay ────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .g-sidebar {
+    transform: translateX(-100%);
+    transition:
+      transform var(--sidebar-transition),
+      width var(--sidebar-transition);
+  }
+
+  .g-sidebar[data-mobile-open="true"] {
+    transform: translateX(0);
+    width: var(--sidebar-w);
+  }
+
+  .g-sidebar-content {
+    margin-inline-start: 0 !important;
+  }
+
+  .g-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 39;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    display: none;
+  }
+
+  .g-sidebar[data-mobile-open="true"] ~ .g-sidebar-backdrop {
+    display: block;
+  }
+}
