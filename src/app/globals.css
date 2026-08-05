@@ -161,145 +161,14 @@ body {
 }
 
 .ws-sidebar {
-  display: flex;
   flex-shrink: 0;
   width: var(--ws-sidebar-w);
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--ws-sidebar-bg);
   border-right: 1px solid var(--ws-sidebar-border);
-}
-
-.ws-sidebar-brand {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 14px 14px;
-  background: #ffffff;
-  border-bottom: 1px solid var(--ws-sidebar-border);
-}
-
-.ws-project-mark {
-  display: flex;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #047857, #10b981);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  box-shadow: 0 5px 12px rgba(4, 120, 87, 0.18);
-}
-
-.ws-sidebar-context {
-  margin: 12px 12px 4px;
-  padding: 10px 11px;
-  border: 1px solid #dbe7e2;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.ws-sidebar-nav {
-  flex: 1;
-  padding: 14px 9px 18px;
-}
-
-.ws-sidebar-group + .ws-sidebar-group {
-  margin-top: 18px;
-}
-
-.ws-sidebar-group-heading {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 8px 6px;
-  color: var(--ws-sidebar-section-fg);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.ws-sidebar-group-icon {
-  display: inline-flex;
-  color: #64748b;
-}
-
-.ws-sidebar-group-line {
-  height: 1px;
-  flex: 1;
-  margin-left: 2px;
-  background: #e2e8f0;
-}
-
-.ws-sidebar-group-index {
-  color: #cbd5e1;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 9px;
-  letter-spacing: 0;
-}
-
-.ws-sidebar-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 38px;
-  padding: 7px 9px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  color: var(--ws-sidebar-fg);
-  font-size: 13px;
-  transition: 160ms ease;
-}
-
-.ws-sidebar-link:hover {
-  border-color: #d9e5e1;
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--ws-sidebar-fg-active);
-}
-
-.ws-sidebar-link.is-active {
-  border-color: #b8ead6;
-  background: #ecfdf5;
-  color: #065f46;
-  font-weight: 700;
-  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.08);
-}
-
-.ws-sidebar-link.is-active::before {
-  position: absolute;
-  inset-block: 8px;
-  inset-inline-start: -10px;
-  width: 3px;
-  border-radius: 0 4px 4px 0;
-  background: var(--ws-sidebar-active-border);
-  content: "";
-}
-
-.ws-sidebar-link-icon {
-  display: inline-flex;
-  flex-shrink: 0;
-  color: #94a3b8;
-}
-
-.ws-sidebar-link.is-active .ws-sidebar-link-icon {
-  color: #059669;
-}
-
-.ws-sidebar-access {
-  flex-shrink: 0;
-  margin: 0 10px 10px;
-  padding: 12px;
-  border: 1px solid #dbe7e2;
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.82);
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .ws-content {
@@ -366,25 +235,6 @@ body {
 
 /* ─── Mobile sidebar overlay ────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  .ws-sidebar {
-    width: 100%;
-    max-height: 46vh;
-    border-right: 0;
-    border-bottom: 1px solid var(--ws-sidebar-border);
-  }
-
-  .ws-sidebar-nav {
-    padding-bottom: 12px;
-  }
-
-  .ws-sidebar-group + .ws-sidebar-group {
-    margin-top: 14px;
-  }
-
-  .ws-sidebar-access {
-    display: none;
-  }
-
   .g-sidebar {
     transform: translateX(-100%);
     transition:
