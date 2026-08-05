@@ -122,17 +122,23 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
   const primaryProject = data.projects[0];
 
   return (
-    <div className="space-y-6 p-6">
-      {/* ── Welcome hero ──────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="dashboard-page">
+      <div className="dashboard-intro">
         <div>
-          <h1 className="text-xl font-bold text-slate-900">{props.title}</h1>
-          <p className="mt-0.5 max-w-2xl text-sm text-slate-500">{props.description}</p>
+          <p className="eyebrow-label">Operations workspace</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-950">{props.title}</h1>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-500">{props.description}</p>
         </div>
+        {primaryProject ? (
+          <div className="dashboard-context">
+            <span className="dashboard-context-dot" aria-hidden />
+            <span>Live project data</span>
+          </div>
+        ) : null}
         {primaryProject ? (
           <Link
             href={`/projects/${primaryProject.id}/overview`}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3.5 py-2 text-sm font-medium text-emerald-800 shadow-sm transition hover:bg-emerald-100"
+            className="primary-action"
           >
             <TrendingUp className="h-4 w-4" aria-hidden />
             Open active project
@@ -141,8 +147,7 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
         ) : null}
       </div>
 
-      {/* ── Metric cards ──────────────────────────────────────────────── */}
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="dashboard-metrics">
         {props.metrics.map((m) => (
           <MetricCard
             key={m.key}
@@ -158,7 +163,7 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
       </div>
 
       {/* ── Project pulse + action queue ──────────────────────────────── */}
-      <div className="grid gap-5 xl:grid-cols-[1.4fr_0.6fr]">
+      <div className="dashboard-main-grid">
         {/* Project pulse */}
         <Card>
           <CardHeader className="pb-2">
@@ -193,14 +198,12 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
                       </div>
 
                       {/* Progress bar */}
-                      <div className="mt-2.5 h-1.5 rounded-full bg-slate-100">
-                        <div
-                          className="h-1.5 rounded-full bg-emerald-500 transition-[width]"
-                          style={{
-                            width: `${Math.min(100, Math.max(0, project.progress))}%`,
-                          }}
-                        />
-                      </div>
+                      <progress
+                        className="project-progress mt-2.5"
+                        value={Math.min(100, Math.max(0, project.progress))}
+                        max="100"
+                        aria-label={`${project.name} schedule progress`}
+                      />
                       <p className="mt-1 text-[11px] text-slate-400">
                         {project.progress}% schedule progress
                       </p>
@@ -239,9 +242,10 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
       </div>
 
       {/* ── Role shortcuts ────────────────────────────────────────────── */}
-      <Card>
+      <Card className="dashboard-shortcuts-card">
         <CardHeader className="pb-2">
-          <CardTitle className="text-[15px]">Role shortcuts</CardTitle>
+          <p className="eyebrow-label">Quick access</p>
+          <CardTitle className="mt-1 text-[15px]">Role shortcuts</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -279,7 +283,7 @@ function MetricCard({
   const Icon = metric.icon;
 
   const inner = (
-    <Card className={`h-full transition hover:shadow-sm ${styles.card}`}>
+    <Card className={`metric-card h-full transition hover:-translate-y-0.5 hover:shadow-md ${styles.card}`}>
       <CardContent className="pt-5">
         <div className="flex items-start justify-between gap-2">
           <div>
@@ -293,9 +297,7 @@ function MetricCard({
           )}
         </div>
         {/* Thin accent bar at bottom */}
-        <div className="mt-3 h-0.5 rounded-full bg-slate-100">
-          <div className={`h-0.5 w-1/3 rounded-full ${styles.bar}`} />
-        </div>
+        <div className={`metric-accent ${styles.bar}`} aria-hidden />
       </CardContent>
     </Card>
   );
@@ -324,7 +326,7 @@ function ShortcutCard({ shortcut }: { shortcut: DashboardShortcut }) {
   return (
     <Link
       href={shortcut.href}
-      className="group rounded-lg border border-slate-200 p-3.5 text-sm transition hover:border-emerald-200 hover:bg-emerald-50/40"
+      className="shortcut-link group rounded-lg border border-slate-200 p-3.5 text-sm transition hover:border-emerald-200 hover:bg-emerald-50/40"
     >
       <span className="block font-semibold text-slate-900 group-hover:text-emerald-900">
         {shortcut.label}

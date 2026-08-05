@@ -23,14 +23,22 @@ export function ProjectOverviewView({
   stats: ProjectOverviewStats;
 }) {
   return (
-    <div className="space-y-6">
+    <div className="project-overview space-y-6">
+      <div className="project-overview-heading">
+        <div>
+          <p className="eyebrow-label">Project overview</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-950">Performance at a glance</h1>
+        </div>
+        <p className="project-overview-date">Updated from live project records</p>
+      </div>
+
       {stats.scopeBanner ? (
-        <p className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+        <p className="scope-banner rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
           {stats.scopeBanner}
         </p>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="project-stat-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="border-l-4 border-l-emerald-600">
           <CardContent className="pt-5">
             <div className="flex items-center justify-between">
@@ -40,12 +48,12 @@ export function ProjectOverviewView({
               </div>
               <Layers className="h-6 w-6 text-emerald-600" aria-hidden />
             </div>
-            <div className="mt-3 h-1.5 rounded-full bg-slate-100">
-              <div
-                className="h-1.5 rounded-full bg-emerald-600"
-                style={{ width: `${Math.min(100, Math.max(0, stats.avgProgress))}%` }}
-              />
-            </div>
+            <progress
+              className="project-progress mt-3"
+              value={Math.min(100, Math.max(0, stats.avgProgress))}
+              max="100"
+              aria-label="Average project progress"
+            />
           </CardContent>
         </Card>
 
@@ -91,7 +99,7 @@ export function ProjectOverviewView({
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="project-detail-grid grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Project Breakdown & Metrics</CardTitle>
@@ -165,9 +173,10 @@ export function ProjectOverviewView({
         </Card>
       </div>
 
-      <Card>
+      <Card className="authorized-modules-card">
         <CardHeader className="pb-3">
-          <CardTitle className="text-base">Authorized Workspace Modules</CardTitle>
+          <p className="eyebrow-label">Workspace access</p>
+          <CardTitle className="mt-1 text-base">Authorized Workspace Modules</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
