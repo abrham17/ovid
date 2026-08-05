@@ -23,6 +23,7 @@ export function ProjectOverviewView({
   stats: ProjectOverviewStats;
 }) {
   return (
+<<<<<<< HEAD
     <div className="project-overview space-y-6">
       <div className="project-overview-heading">
         <div>
@@ -34,11 +35,20 @@ export function ProjectOverviewView({
 
       {stats.scopeBanner ? (
         <p className="scope-banner rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+=======
+    <div className="space-y-6">
+      {stats.scopeBanner ? (
+        <p className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+>>>>>>> 1d602ff (feat:update on the ui)
           {stats.scopeBanner}
         </p>
       ) : null}
 
+<<<<<<< HEAD
       <div className="project-stat-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+=======
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+>>>>>>> 1d602ff (feat:update on the ui)
         <Card className="border-l-4 border-l-emerald-600">
           <CardContent className="pt-5">
             <div className="flex items-center justify-between">

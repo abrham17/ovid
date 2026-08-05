@@ -124,8 +124,13 @@ export function ProjectSidebarNav({ project }: Props) {
       </nav>
 
       {/* ── Access context footer ─────────────────────────────────────── */}
+<<<<<<< HEAD
       <div className="workspace-access-footer shrink-0 border-t border-[--ws-sidebar-border] px-3 py-3">
         <p className="workspace-section-label">
+=======
+      <div className="shrink-0 border-t border-[--ws-sidebar-border] px-3 py-3 space-y-3">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+>>>>>>> 1d602ff (feat:update on the ui)
           Your Access
         </p>
         <div className="flex flex-wrap gap-1.5">
@@ -138,10 +143,17 @@ export function ProjectSidebarNav({ project }: Props) {
 
         <Link
           href="/dashboard"
+<<<<<<< HEAD
           className="workspace-footer-link mt-3 flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
         >
           <BarChart3 className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
           All dashboards
+=======
+          className="flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+        >
+          <BarChart3 className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
+          Dashboard
+>>>>>>> 1d602ff (feat:update on the ui)
         </Link>
 
         <SignOutButton className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[12px] text-slate-600 transition-colors hover:bg-red-50 hover:text-red-600" />
