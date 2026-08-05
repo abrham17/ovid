@@ -16,6 +16,7 @@ import {
   FolderOpen,
   ShoppingCart,
   FileBarChart2,
+  BarChart3,
   type LucideIcon,
 } from "lucide-react";
 import type { WorkspaceTab } from "@/lib/rbac";
@@ -24,6 +25,7 @@ import { WORKSPACE_TAB_LABELS, WORKSPACE_TAB_GROUPS, ROLE_LABELS } from "@/lib/c
 import { PartyBadge } from "@/components/ui/party-badge";
 import { RoleBadge } from "@/components/ui/role-badge";
 import { StatusBadge } from "@/components/status-badge";
+import { SignOutButton } from "@/components/sign-out-button";
 
 /* ─── Icon registry ─────────────────────────────────────────────────────── */
 const TAB_ICON_MAP: Record<string, LucideIcon> = {
@@ -116,7 +118,7 @@ export function ProjectSidebarNav({ project }: Props) {
       </nav>
 
       {/* ── Access context footer ─────────────────────────────────────── */}
-      <div className="shrink-0 border-t border-[--ws-sidebar-border] px-3 py-3 space-y-2">
+      <div className="shrink-0 border-t border-[--ws-sidebar-border] px-3 py-3 space-y-3">
         <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
           Your Access
         </p>
@@ -127,6 +129,16 @@ export function ProjectSidebarNav({ project }: Props) {
         <p className="text-[11px] text-slate-500">
           {ROLE_LABELS[project.userRole]} · {project.allowedTabs.length} modules
         </p>
+
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+        >
+          <BarChart3 className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
+          Dashboard
+        </Link>
+
+        <SignOutButton className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[12px] text-slate-600 transition-colors hover:bg-red-50 hover:text-red-600" />
       </div>
     </aside>
   );

@@ -18,6 +18,31 @@ import { SiteEngineerDashboard } from "@/components/dashboards/site-engineer/Sit
 import { SuperintendentDashboard } from "@/components/dashboards/superintendent/SuperintendentDashboard";
 import type { DashboardProps } from "@/components/dashboards/dashboard-shell";
 
+export type RoleLandingTarget =
+  | { type: "path"; path: string }
+  | { type: "project"; tab?: string }
+  | { type: "dashboard" };
+
+/** Post-login landing behavior per role (see getPostLoginPath in landing.ts). */
+export const roleLandingConfig: Record<UserRole, RoleLandingTarget> = {
+  ADMIN: { type: "dashboard" },
+  FOREMAN: { type: "dashboard" },
+  SUPERINTENDENT: { type: "dashboard" },
+  SITE_ENGINEER: { type: "dashboard" },
+  DEPUTY_PM: { type: "dashboard" },
+  SENIOR_PM: { type: "dashboard" },
+  QC_INSPECTOR: { type: "dashboard" },
+  HSE_OFFICER: { type: "dashboard" },
+  QS: { type: "dashboard" },
+  PROCUREMENT: { type: "dashboard" },
+  FINANCE: { type: "dashboard" },
+  HR: { type: "dashboard" },
+  EQUIPMENT_MANAGER: { type: "dashboard" },
+  CONTRACTS_LEGAL: { type: "dashboard" },
+  CONSULTANT_ENGINEER: { type: "dashboard" },
+  CLIENT_REP: { type: "dashboard" },
+};
+
 export const dashboardRegistry: Record<UserRole, ComponentType<DashboardProps>> = {
   FOREMAN: ForemanDashboard,
   SUPERINTENDENT: SuperintendentDashboard,

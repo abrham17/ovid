@@ -1,32 +1,19 @@
 import { db } from "@/lib/db";
 import type { PartyType, UserRole } from "@/generated/prisma/enums";
+import type { DashboardMetricKey } from "@/lib/dashboard/metric-keys";
+import { DASHBOARD_METRIC_KEYS } from "@/lib/dashboard/metric-keys";
+import { getOrganizationScope } from "@/lib/rbac/organizationScope";
+import type { SessionUser } from "@/lib/rbac";
+import { aggregateDashboardMetric, getProjectScopedStats } from "@/lib/dashboard/scoped-metrics";
 
-export type MetricKey =
-  | "projects"
-  | "avgProgress"
-  | "openRisks"
-  | "openIncidents"
-  | "pendingDaily"
-  | "submittedMeasurements"
-  | "certifiedPayments"
-  | "openDefects"
-  | "openPunches"
-  | "materialDemands"
-  | "purchaseOrders"
-  | "pendingVariations"
-  | "equipmentDownHours"
-  | "laborAssignments"
-  | "documentsReview"
-  | "regulatoryReports"
-  | "users"
-  | "organizations";
+export type MetricKey = DashboardMetricKey;
 
 export type ProjectSnapshot = {
   id: string;
   name: string;
   code: string;
   status: string;
-  contractValue: unknown;
+  contractValue: number | null;
   progress: number;
   openRisks: number;
   openIncidents: number;
@@ -37,22 +24,15 @@ export type DashboardDataPayload = {
   projects: ProjectSnapshot[];
 };
 
-/**
- * Backend Data Access Service for Dashboard
- * Filters database queries strictly by Layer-1 (Organization Party) and Layer-2 (User Role).
- */
-export async function getDashboardData({
+async function getVisibleProjects({
   userId,
   organizationId,
   role,
-  partyType,
 }: {
   userId: string;
   organizationId: string;
   role: UserRole;
-  partyType: PartyType;
-}): Promise<DashboardDataPayload> {
-  // Layer 1 Filtering: ADMIN sees all; CONTRACTOR/CLIENT/CONSULTANT see projects where their org is primary; SUBCONTRACTOR/SUPPLIER/REGULATOR require membership.
+}) {
   const projectWhere =
     role === "ADMIN"
       ? {}
@@ -65,7 +45,7 @@ export async function getDashboardData({
           ],
         };
 
-  const projects = await db.project.findMany({
+  return db.project.findMany({
     where: projectWhere,
     orderBy: [{ status: "asc" }, { createdAt: "desc" }],
     take: 6,
@@ -77,111 +57,86 @@ export async function getDashboardData({
       contractValue: true,
     },
   });
+}
+
+/**
+ * Backend Data Access Service for Dashboard.
+ * Every metric is scope-safe via getOrganizationScope + METRIC_SENSITIVITY.
+ */
+export async function getDashboardData({
+  userId,
+  organizationId,
+  role,
+  partyType: _partyType,
+}: {
+  userId: string;
+  organizationId: string;
+  role: UserRole;
+  partyType: PartyType;
+}): Promise<DashboardDataPayload> {
+  void _partyType;
+
+  const user: SessionUser = {
+    id: userId,
+    role,
+    organizationId,
+    partyType: _partyType,
+    organizationName: "",
+    jobTitle: "",
+  };
+
+  const projects = await getVisibleProjects({ userId, organizationId, role });
+
+  const scopesByProject = new Map(
+    (
+      await Promise.all(
+        projects.map(async (project) => {
+          const scope = await getOrganizationScope(user, project.id);
+          return scope ? ([project.id, scope] as const) : null;
+        })
+      )
+    ).filter((entry): entry is [string, NonNullable<typeof entry>[1]] => entry !== null)
+  );
+
+  const perProjectStats = await Promise.all(
+    projects.map(async (project) => {
+      const scope = scopesByProject.get(project.id);
+      if (!scope) {
+        return {
+          projectId: project.id,
+          progress: 0,
+          openRisks: 0,
+          openIncidents: 0,
+          contractValue: null,
+        };
+      }
+      const stats = await getProjectScopedStats(project.id, scope);
+      return { projectId: project.id, ...stats };
+    })
+  );
+
+  const statsByProject = new Map(perProjectStats.map((s) => [s.projectId, s]));
   const projectIds = projects.map((p) => p.id);
 
-  const [
-    activityProgress,
-    openRisks,
-    openIncidents,
-    pendingEarthwork,
-    pendingStructure,
-    pendingRebar,
-    submittedMeasurements,
-    certifiedPayments,
-    openDefects,
-    openPunches,
-    materialDemands,
-    purchaseOrders,
-    pendingVariations,
-    equipmentUsage,
-    laborAssignments,
-    documentsReview,
-    regulatoryReports,
-    users,
-    organizations,
-    projectStats,
-  ] = await Promise.all([
-    db.scheduleActivity.aggregate({
-      _avg: { progressPercent: true },
-      where: { wbsNode: { projectId: { in: projectIds } } },
-    }),
-    db.riskEntry.count({ where: { projectId: { in: projectIds }, status: { in: ["OPEN", "MITIGATING"] } } }),
-    db.safetyIncident.count({ where: { wbsNode: { projectId: { in: projectIds } }, status: { not: "CLOSED" } } }),
-    db.earthworkDailyEntry.count({ where: { projectId: { in: projectIds }, status: "SUBMITTED" } }),
-    db.structureDailyEntry.count({ where: { projectId: { in: projectIds }, status: "SUBMITTED" } }),
-    db.rebarDailyEntry.count({ where: { projectId: { in: projectIds }, status: "SUBMITTED" } }),
-    db.measurementEntry.count({ where: { wbsNode: { projectId: { in: projectIds } }, status: "SUBMITTED" } }),
-    db.measurementEntry.count({ where: { wbsNode: { projectId: { in: projectIds } }, status: "CERTIFIED" } }),
-    db.defectLog.count({ where: { wbsNode: { projectId: { in: projectIds } }, status: { not: "VERIFIED_CLOSED" } } }),
-    db.punchListItem.count({ where: { wbsNode: { projectId: { in: projectIds } }, status: { not: "VERIFIED" } } }),
-    db.materialDemand.count({
-      where: {
-        wbsNode: { projectId: { in: projectIds } },
-        quantityDelivered: { lt: db.materialDemand.fields.quantityNeeded },
-      },
-    }),
-    db.purchaseOrder.count({
-      where: { projectId: { in: projectIds }, status: { in: ["DRAFT", "APPROVED", "ISSUED", "PARTIAL_RECEIVED"] } },
-    }),
-    db.variationOrder.count({
-      where: { projectId: { in: projectIds }, status: { notIn: ["CONSULTANT_APPROVED", "REJECTED"] } },
-    }),
-    db.equipmentUsageLog.aggregate({
-      _sum: { downHours: true },
-      where: { projectId: { in: projectIds } },
-    }),
-    db.laborAssignment.count({ where: { wbsNode: { projectId: { in: projectIds } } } }),
-    db.projectDocument.count({ where: { projectId: { in: projectIds }, status: "UNDER_REVIEW" } }),
-    db.regulatoryReport.count({ where: { projectId: { in: projectIds } } }),
-    db.user.count({ where: { active: true } }),
-    db.organization.count(),
-    Promise.all(
-      projectIds.map(async (projectId) => {
-        const [progress, risks, incidents] = await Promise.all([
-          db.scheduleActivity.aggregate({
-            _avg: { progressPercent: true },
-            where: { wbsNode: { projectId } },
-          }),
-          db.riskEntry.count({ where: { projectId, status: { in: ["OPEN", "MITIGATING"] } } }),
-          db.safetyIncident.count({ where: { wbsNode: { projectId }, status: { not: "CLOSED" } } }),
-        ]);
-        return {
-          projectId,
-          progress: Math.round(Number(progress._avg.progressPercent ?? 0)),
-          openRisks: risks,
-          openIncidents: incidents,
-        };
-      })
-    ),
-  ]);
-
-  const statsByProject = new Map(projectStats.map((stat) => [stat.projectId, stat]));
+  const metrics = Object.fromEntries(
+    await Promise.all(
+      DASHBOARD_METRIC_KEYS.map(async (key) => [
+        key,
+        await aggregateDashboardMetric(projectIds, scopesByProject, key),
+      ])
+    )
+  ) as Record<MetricKey, number>;
 
   return {
-    metrics: {
-      projects: projects.length,
-      avgProgress: Math.round(Number(activityProgress._avg.progressPercent ?? 0)),
-      openRisks,
-      openIncidents,
-      pendingDaily: pendingEarthwork + pendingStructure + pendingRebar,
-      submittedMeasurements,
-      certifiedPayments,
-      openDefects,
-      openPunches,
-      materialDemands,
-      purchaseOrders,
-      pendingVariations,
-      equipmentDownHours: Number(equipmentUsage._sum.downHours ?? 0),
-      laborAssignments,
-      documentsReview,
-      regulatoryReports,
-      users,
-      organizations,
-    },
+    metrics,
     projects: projects.map((project) => {
       const stats = statsByProject.get(project.id);
       return {
-        ...project,
+        id: project.id,
+        name: project.name,
+        code: project.code,
+        status: project.status,
+        contractValue: stats?.contractValue ?? null,
         progress: stats?.progress ?? 0,
         openRisks: stats?.openRisks ?? 0,
         openIncidents: stats?.openIncidents ?? 0,

@@ -1,5 +1,20 @@
 import { db } from "@/lib/db";
 import { getProjectParty, getWorkspaceTabs, type SessionUser, type WorkspaceTab } from "@/lib/rbac";
+import { getOrganizationScope } from "@/lib/rbac/organizationScope";
+import { buildScopeBanner, isVisible, resolveContractValue } from "@/lib/dashboard/scoped-query";
+import {
+  countActivities,
+  countCertifiedPaymentsOverview,
+  countDocuments,
+  countEquipmentLogs,
+  countOpenIncidents,
+  countOpenRisks,
+  countOverviewMeasurements,
+  countPendingDaily,
+  countWbsNodes,
+  getAvgProgress,
+  getRecentStoppages,
+} from "@/lib/dashboard/scoped-metrics";
 import type { PartyType, ProjectType, ContractType, ProjectStatus, UserRole } from "@/generated/prisma/enums";
 
 export type ProjectHeaderData = {
@@ -9,11 +24,11 @@ export type ProjectHeaderData = {
   status: ProjectStatus;
   projectType: ProjectType;
   contractType: ContractType;
-  contractValue: unknown;
-  plannedStartDate: Date;
-  plannedEndDate: Date;
-  actualStartDate: Date | null;
-  actualEndDate: Date | null;
+  contractValue: number | null;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  actualStartDate: string | null;
+  actualEndDate: string | null;
   contractorOrg: { id: string; name: string; contractorGrade: string | null };
   clientOrg: { id: string; name: string };
   consultantOrg: { id: string; name: string } | null;
@@ -27,6 +42,9 @@ export type ProjectHeaderData = {
 };
 
 export type ProjectOverviewStats = {
+  scopeBanner: string | null;
+  showOperationalMetrics: boolean;
+  showCommercialMetrics: boolean;
   wbsCount: number;
   activityCount: number;
   avgProgress: number;
@@ -57,6 +75,9 @@ export async function getProjectWorkspaceHeader(
   const party = await getProjectParty(user, projectId);
   if (!party) return null;
 
+  const scope = await getOrganizationScope(user, projectId);
+  if (!scope) return null;
+
   const project = await db.project.findUnique({
     where: { id: projectId },
     select: {
@@ -80,9 +101,23 @@ export async function getProjectWorkspaceHeader(
   if (!project) return null;
 
   const allowedTabs = getWorkspaceTabs(party.partyType, user.role);
+  const contractValue = await resolveContractValue(scope, project);
 
   return {
-    ...project,
+    id: project.id,
+    code: project.code,
+    name: project.name,
+    status: project.status,
+    projectType: project.projectType,
+    contractType: project.contractType,
+    contractValue,
+    plannedStartDate: project.plannedStartDate.toISOString(),
+    plannedEndDate: project.plannedEndDate.toISOString(),
+    actualStartDate: project.actualStartDate?.toISOString() ?? null,
+    actualEndDate: project.actualEndDate?.toISOString() ?? null,
+    contractorOrg: project.contractorOrg,
+    clientOrg: project.clientOrg,
+    consultantOrg: project.consultantOrg,
     userParty: party,
     userRole: user.role,
     allowedTabs: [...allowedTabs],
@@ -90,63 +125,68 @@ export async function getProjectWorkspaceHeader(
 }
 
 /**
- * Fetches aggregate data for the Project Overview Tab.
+ * Fetches scope-safe aggregate data for the Project Overview Tab.
  */
 export async function getProjectOverviewDetails(
   user: SessionUser,
   projectId: string
 ): Promise<ProjectOverviewStats> {
+  const scope = await getOrganizationScope(user, projectId);
+  if (!scope) {
+    return {
+      scopeBanner: null,
+      showOperationalMetrics: false,
+      showCommercialMetrics: false,
+      wbsCount: 0,
+      activityCount: 0,
+      avgProgress: 0,
+      openRisks: 0,
+      openIncidents: 0,
+      pendingDailyReports: 0,
+      measurementCount: 0,
+      certifiedPaymentsCount: 0,
+      equipmentCount: 0,
+      documentCount: 0,
+      recentStoppages: [],
+    };
+  }
+
   const [
     wbsCount,
     activityCount,
-    activityProgress,
+    avgProgress,
     openRisks,
     openIncidents,
-    pendingEarthwork,
-    pendingStructure,
-    pendingRebar,
+    pendingDailyReports,
     measurementCount,
     certifiedPaymentsCount,
     equipmentCount,
     documentCount,
     recentStoppages,
   ] = await Promise.all([
-    db.wbsNode.count({ where: { projectId } }),
-    db.scheduleActivity.count({ where: { wbsNode: { projectId } } }),
-    db.scheduleActivity.aggregate({
-      _avg: { progressPercent: true },
-      where: { wbsNode: { projectId } },
-    }),
-    db.riskEntry.count({ where: { projectId, status: { in: ["OPEN", "MITIGATING"] } } }),
-    db.safetyIncident.count({ where: { wbsNode: { projectId }, status: { not: "CLOSED" } } }),
-    db.earthworkDailyEntry.count({ where: { projectId, status: "SUBMITTED" } }),
-    db.structureDailyEntry.count({ where: { projectId, status: "SUBMITTED" } }),
-    db.rebarDailyEntry.count({ where: { projectId, status: "SUBMITTED" } }),
-    db.measurementEntry.count({ where: { wbsNode: { projectId } } }),
-    db.measurementEntry.count({ where: { wbsNode: { projectId }, status: "CERTIFIED" } }),
-    db.equipmentUsageLog.count({ where: { projectId } }),
-    db.projectDocument.count({ where: { projectId } }),
-    db.stoppageEntry.findMany({
-      where: { projectId },
-      orderBy: { startTime: "desc" },
-      take: 5,
-      select: {
-        id: true,
-        stoppageType: true,
-        reason: true,
-        startTime: true,
-        endTime: true,
-      },
-    }),
+    countWbsNodes(projectId, scope),
+    countActivities(projectId, scope),
+    getAvgProgress(projectId, scope),
+    countOpenRisks(projectId, scope),
+    countOpenIncidents(projectId, scope),
+    countPendingDaily(projectId, scope),
+    countOverviewMeasurements(projectId, scope),
+    countCertifiedPaymentsOverview(projectId, scope),
+    countEquipmentLogs(projectId, scope),
+    countDocuments(projectId, scope),
+    getRecentStoppages(projectId, scope),
   ]);
 
   return {
+    scopeBanner: buildScopeBanner(scope),
+    showOperationalMetrics: isVisible(scope, "pendingDailyReports"),
+    showCommercialMetrics: isVisible(scope, "measurementCount"),
     wbsCount,
     activityCount,
-    avgProgress: Math.round(Number(activityProgress._avg.progressPercent ?? 0)),
+    avgProgress,
     openRisks,
     openIncidents,
-    pendingDailyReports: pendingEarthwork + pendingStructure + pendingRebar,
+    pendingDailyReports,
     measurementCount,
     certifiedPaymentsCount,
     equipmentCount,

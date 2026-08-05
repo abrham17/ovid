@@ -17,7 +17,7 @@ export function ProjectTopBar({ project }: { project: ProjectHeaderData }) {
         <Link
           href="/dashboard"
           className="flex items-center gap-1 text-[12px] text-slate-500 hover:text-slate-800 transition-colors"
-          aria-label="Back to dashboard"
+          aria-label="Go to dashboard"
         >
           <ChevronLeft className="h-3.5 w-3.5" aria-hidden />
           Dashboard
@@ -38,7 +38,9 @@ export function ProjectTopBar({ project }: { project: ProjectHeaderData }) {
         <div className="ml-auto shrink-0 text-right">
           <p className="text-[10px] text-slate-400">Contract Value</p>
           <p className="text-sm font-bold text-emerald-800">
-            ETB {formatCurrency(project.contractValue)}
+            {project.contractValue != null
+              ? `ETB ${formatCurrency(project.contractValue)}`
+              : "—"}
           </p>
         </div>
       </div>

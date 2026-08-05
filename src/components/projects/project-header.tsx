@@ -39,7 +39,9 @@ export function ProjectHeader({ project }: { project: ProjectHeaderData }) {
         <div className="flex shrink-0 flex-col items-start gap-1 rounded-lg border border-emerald-100 bg-emerald-50/50 p-3 text-right md:items-end">
           <span className="text-xs font-medium text-emerald-800">Contract Value</span>
           <span className="text-xl font-bold text-emerald-900">
-            ETB {formatCurrency(project.contractValue)}
+            {project.contractValue != null
+              ? `ETB ${formatCurrency(project.contractValue)}`
+              : "—"}
           </span>
         </div>
       </div>

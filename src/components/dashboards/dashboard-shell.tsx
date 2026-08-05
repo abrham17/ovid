@@ -207,7 +207,14 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
                     </div>
 
                     <div className="grid grid-cols-3 gap-3 text-right text-[11px] sm:min-w-56">
-                      <MiniStat label="Value" value={`ETB ${formatCurrency(project.contractValue)}`} />
+                      <MiniStat
+                        label="Value"
+                        value={
+                          project.contractValue != null
+                            ? `ETB ${formatCurrency(project.contractValue)}`
+                            : "—"
+                        }
+                      />
                       <MiniStat label="Risks" value={project.openRisks} tone={project.openRisks > 0 ? "warn" : "default"} />
                       <MiniStat label="Incidents" value={project.openIncidents} tone={project.openIncidents > 0 ? "bad" : "default"} />
                     </div>

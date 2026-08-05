@@ -24,6 +24,12 @@ export function ProjectOverviewView({
 }) {
   return (
     <div className="space-y-6">
+      {stats.scopeBanner ? (
+        <p className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+          {stats.scopeBanner}
+        </p>
+      ) : null}
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="border-l-4 border-l-emerald-600">
           <CardContent className="pt-5">
@@ -73,7 +79,9 @@ export function ProjectOverviewView({
           <CardContent className="pt-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-slate-900">{stats.pendingDailyReports}</p>
+                <p className="text-2xl font-bold text-slate-900">
+                  {stats.showOperationalMetrics ? stats.pendingDailyReports : "—"}
+                </p>
                 <p className="mt-0.5 text-xs text-slate-500">Pending Daily Reports</p>
               </div>
               <ClipboardList className="h-6 w-6 text-indigo-600" aria-hidden />
@@ -105,20 +113,26 @@ export function ProjectOverviewView({
               <span className="flex items-center gap-2 text-slate-600">
                 <FileCheck2 className="h-4 w-4 text-slate-400" /> Total IPC Measurements
               </span>
-              <span className="font-semibold text-slate-900">{stats.measurementCount}</span>
+              <span className="font-semibold text-slate-900">
+                {stats.showCommercialMetrics ? stats.measurementCount : "—"}
+              </span>
             </div>
             <div className="flex justify-between py-2.5">
               <span className="flex items-center gap-2 text-slate-600">
                 <CheckCircle2 className="h-4 w-4 text-slate-400" /> Certified Payments
               </span>
-              <span className="font-semibold text-slate-900">{stats.certifiedPaymentsCount}</span>
-            </div>
-            <div className="flex justify-between py-2.5">
-              <span className="flex items-center gap-2 text-slate-600">
-                <Truck className="h-4 w-4 text-slate-400" /> Equipment Fleet Logs
+              <span className="font-semibold text-slate-900">
+                {stats.showCommercialMetrics ? stats.certifiedPaymentsCount : "—"}
               </span>
-              <span className="font-semibold text-slate-900">{stats.equipmentCount}</span>
             </div>
+            {stats.showOperationalMetrics ? (
+              <div className="flex justify-between py-2.5">
+                <span className="flex items-center gap-2 text-slate-600">
+                  <Truck className="h-4 w-4 text-slate-400" /> Equipment Fleet Logs
+                </span>
+                <span className="font-semibold text-slate-900">{stats.equipmentCount}</span>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
 

@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+import { requireUser } from "@/lib/rbac";
+import { getPostLoginPath } from "@/lib/rbac/landing";
 
 export default async function Home() {
-  const session = await auth();
-  redirect(session?.user?.id ? "/dashboard" : "/login");
+  const user = await requireUser();
+  redirect(await getPostLoginPath(user));
 }
