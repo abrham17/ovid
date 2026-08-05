@@ -91,7 +91,6 @@ body {
   scrollbar-color: #cbd5e1 transparent;
 }
 
-<<<<<<< HEAD
 /* ─── Dashboard surfaces ─────────────────────────────────────────────────── */
 .dashboard-page {
   min-height: 100%;
@@ -225,8 +224,6 @@ body {
   .dashboard-metrics { grid-template-columns: 1fr; }
 }
 
-=======
->>>>>>> 1d602ff (feat:update on the ui)
 /* ─── A11y ──────────────────────────────────────────────────────────────── */
 .sr-only {
   position: absolute;
@@ -244,7 +241,3 @@ body {
   outline: 2px solid var(--brand-light);
   outline-offset: 2px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 1d602ff (feat:update on the ui)
