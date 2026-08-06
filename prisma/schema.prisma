@@ -287,6 +287,13 @@ enum AuditAction {
   REJECT
 }
 
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
 // Sign-off lifecycle of a daily report entry (file 06 §5 Phase 1).
 enum DailyReportStatus {
   DRAFT
@@ -362,6 +369,7 @@ model Organization {
   projectsAsClient     Project[]           @relation("ProjectClient")
   projectsAsConsultant Project[]           @relation("ProjectConsultant")
   memberships          ProjectMembership[]
+  invitations          Invitation[]
   contractsExecuted    Contract[]          @relation("ContractOrg")
   employees            Employee[]
   equipment            Equipment[]
@@ -389,6 +397,8 @@ model User {
 
   organization      Organization           @relation(fields: [organizationId], references: [id])
   memberships       ProjectMembership[]
+  invitationsSent   Invitation[]           @relation("InvitationsSent")
+  invitationAccepted Invitation?           @relation("InvitationAccepted")
   signOffs          SignOff[]
   riskOwner         RiskEntry[]            @relation("RiskOwner")
   observations      SafetyObservation[]
@@ -489,6 +499,7 @@ model Project {
   clientOrg             Organization          @relation("ProjectClient", fields: [clientOrgId], references: [id])
   consultantOrg         Organization?         @relation("ProjectConsultant", fields: [consultantOrgId], references: [id])
   memberships           ProjectMembership[]
+  invitations           Invitation[]
   contracts             Contract[]
   wbsNodes              WbsNode[]
   stoppages             StoppageEntry[]
@@ -505,10 +516,47 @@ model Project {
   purchaseOrders        PurchaseOrder[]
   bids                  BidTender[]
   materialReceipts      MaterialReceipt[]
-notifications     Notification[] 
+  notifications         Notification[]
   @@index([contractorOrgId])
   @@index([clientOrgId])
   @@index([status])
+}
+
+// ============================================================
+// Team invitations (lead → worker onboarding)
+// ============================================================
+
+model Invitation {
+  id             String           @id @default(cuid())
+  email          String
+  fullName       String
+  jobTitle       String
+  role           UserRole
+  phone          String?
+
+  organizationId String
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+
+  invitedById    String
+  invitedBy      User             @relation("InvitationsSent", fields: [invitedById], references: [id])
+
+  projectId      String?
+  project        Project?         @relation(fields: [projectId], references: [id])
+  projectRole    String?
+
+  tokenHash      String           @unique
+  status         InvitationStatus @default(PENDING)
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+
+  acceptedUserId String?          @unique
+  acceptedUser   User?            @relation("InvitationAccepted", fields: [acceptedUserId], references: [id])
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([organizationId, status])
+  @@index([email])
 }
 
 model Contract {
