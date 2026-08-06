@@ -9,4 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
     seed: "tsx prisma/seed.ts",
   },
+  datasource: {
+    url: process.env.POSTGRES_PRISMA_URL,
+  },
 });
