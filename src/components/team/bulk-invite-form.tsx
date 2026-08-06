@@ -11,12 +11,13 @@ import { Label } from "@/components/ui/label";
 import { inviteUsersBulk } from "@/lib/actions/invitations";
 import { ROLE_LABELS } from "@/lib/constants";
 import type { PartyType, UserRole } from "@/generated/prisma/enums";
-import { Trash2, User, Briefcase, Shield, Phone } from "lucide-react";
+import { Trash2, Plus, Briefcase, Check, X, AlertCircle } from "lucide-react";
 
 type OrgOption = { id: string; name: string; partyType: PartyType };
 type ProjectOption = { id: string; code: string; name: string };
 
 type InviteRow = {
+  id: string;
   email: string;
   fullName: string;
   jobTitle: string;
@@ -43,24 +44,38 @@ export function BulkInviteForm({
   const [batchJobTitle, setBatchJobTitle] = useState("");
   const [results, setResults] = useState<Array<{ email: string; success: boolean; message: string }> | null>(null);
 
+  const addEmptyRow = () => {
+    setInviteRows((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        email: "",
+        fullName: "",
+        jobTitle: batchJobTitle,
+        role: batchRole,
+        phone: "",
+      },
+    ]);
+  };
+
   const parseEmails = () => {
     const lines = emailsText.split("\n").map((line) => line.trim()).filter((line) => line);
     const parsed = lines.map((email) => ({
+      id: crypto.randomUUID(),
       email,
       fullName: "",
       jobTitle: batchJobTitle,
       role: batchRole,
       phone: "",
     }));
-    setInviteRows(parsed);
+    setInviteRows((prev) => [...prev, ...parsed]);
+    setEmailsText("");
   };
 
-  const updateRow = (index: number, field: keyof InviteRow, value: string) => {
-    setInviteRows((prev) => {
-      const updated = [...prev];
-      updated[index] = { ...updated[index], [field]: value };
-      return updated;
-    });
+  const updateRow = (id: string, field: keyof InviteRow, value: string) => {
+    setInviteRows((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, [field]: value } : row))
+    );
   };
 
   const applyBatch = () => {
@@ -73,12 +88,18 @@ export function BulkInviteForm({
     );
   };
 
-  const removeRow = (index: number) => {
-    setInviteRows((prev) => prev.filter((_, i) => i !== index));
+  const removeRow = (id: string) => {
+    setInviteRows((prev) => prev.filter((row) => row.id !== id));
   };
 
-  const validRows = inviteRows.filter((row) => row.email && row.fullName && row.jobTitle);
-  const hasErrors = inviteRows.some((row) => row.email && !row.email.includes("@"));
+  const getRowStatus = (row: InviteRow): "complete" | "incomplete" | "error" => {
+    if (!row.email || !row.fullName || !row.jobTitle) return "incomplete";
+    if (row.email && !row.email.includes("@")) return "error";
+    return "complete";
+  };
+
+  const validRows = inviteRows.filter((row) => getRowStatus(row) === "complete");
+  const hasErrors = inviteRows.some((row) => getRowStatus(row) === "error");
 
   return (
     <div className="space-y-6">
@@ -96,39 +117,50 @@ export function BulkInviteForm({
         >
           <div className="space-y-3">
             <Label htmlFor="emails" className="text-sm font-medium text-slate-700">
-              Email Addresses
+              Add Emails (one per line)
             </Label>
             <Textarea
               id="emails"
               placeholder="foreman1@company.com&#10;foreman2@company.com&#10;siteengineer1@company.com"
-              className="min-h-[120px] resize-none"
+              className="min-h-[80px] resize-none"
               value={emailsText}
               onChange={(e) => setEmailsText(e.target.value)}
             />
-            <p className="text-xs text-slate-500">Enter one email address per line (max 50)</p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={parseEmails}
-              disabled={!emailsText.trim()}
-            >
-              Parse Emails
-            </Button>
-            <span className="text-sm text-slate-600">
-              {inviteRows.length} invitation{inviteRows.length !== 1 ? "s" : ""} prepared
-            </span>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={parseEmails}
+                disabled={!emailsText.trim()}
+              >
+                Add to Table
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addEmptyRow}
+                disabled={inviteRows.length >= 50}
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add Empty Row
+              </Button>
+            </div>
           </div>
 
           {inviteRows.length > 0 && (
             <>
               <div className="border-t border-slate-200 pt-6">
-                <h3 className="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                  <Briefcase className="h-4 w-4" />
-                  Batch Assignment
-                </h3>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                    <Briefcase className="h-4 w-4" />
+                    Batch Assignment
+                  </h3>
+                  <span className="text-xs text-slate-500">
+                    {inviteRows.length} / 50 rows
+                  </span>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="batchRole" className="text-xs font-medium text-slate-700">
@@ -161,109 +193,135 @@ export function BulkInviteForm({
                 <Button
                   type="button"
                   variant="secondary"
+                  size="sm"
                   onClick={applyBatch}
                   className="mt-4"
                 >
-                  Apply to All
+                  Apply to All Rows
                 </Button>
               </div>
 
               <div className="border-t border-slate-200 pt-6">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    Customize Invitations ({inviteRows.length})
+                  <h3 className="text-sm font-semibold text-slate-900">
+                    Invitation Spreadsheet ({validRows.length} complete)
                   </h3>
-                  <span className="text-xs text-slate-500">
-                    {validRows.length} complete
-                  </span>
                 </div>
-                <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-                  {inviteRows.map((row, index) => (
-                    <div
-                      key={index}
-                      className="p-4 bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                            <User className="h-4 w-4 text-emerald-600" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-slate-900">{row.email}</p>
-                            <p className="text-xs text-slate-500">#{index + 1}</p>
-                          </div>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeRow(index)}
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="space-y-1">
-                          <Label htmlFor={`fullName-${index}`} className="text-xs font-medium text-slate-700">
-                            Full Name *
-                          </Label>
-                          <Input
-                            id={`fullName-${index}`}
-                            placeholder="Abebe Kebede"
-                            value={row.fullName}
-                            onChange={(e) => updateRow(index, "fullName", e.target.value)}
-                            required
-                            className={row.fullName ? "border-emerald-300" : "border-slate-300"}
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor={`jobTitle-${index}`} className="text-xs font-medium text-slate-700">
-                            Job Title *
-                          </Label>
-                          <Input
-                            id={`jobTitle-${index}`}
-                            placeholder="Site Foreman"
-                            value={row.jobTitle}
-                            onChange={(e) => updateRow(index, "jobTitle", e.target.value)}
-                            required
-                            className={row.jobTitle ? "border-emerald-300" : "border-slate-300"}
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor={`role-${index}`} className="text-xs font-medium text-slate-700 flex items-center gap-1">
-                            <Shield className="h-3 w-3" />
-                            Role *
-                          </Label>
-                          <Select
-                            id={`role-${index}`}
-                            value={row.role}
-                            onChange={(e) => updateRow(index, "role", e.target.value as UserRole)}
-                            required
-                          >
-                            {roles.map((role) => (
-                              <option key={role} value={role}>
-                                {ROLE_LABELS[role]}
-                              </option>
-                            ))}
-                          </Select>
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor={`phone-${index}`} className="text-xs font-medium text-slate-700 flex items-center gap-1">
-                            <Phone className="h-3 w-3" />
-                            Phone
-                          </Label>
-                          <Input
-                            id={`phone-${index}`}
-                            placeholder="+251 911 123 456"
-                            value={row.phone}
-                            onChange={(e) => updateRow(index, "phone", e.target.value)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="border rounded-lg overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-slate-50 border-b">
+                        <tr>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-8">#</th>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-48">Email *</th>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-40">Full Name *</th>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-40">Job Title *</th>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-36">Role *</th>
+                          <th className="px-3 py-2 text-left font-medium text-slate-700 w-32">Phone</th>
+                          <th className="px-3 py-2 text-center font-medium text-slate-700 w-20">Status</th>
+                          <th className="px-3 py-2 text-center font-medium text-slate-700 w-12"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {inviteRows.map((row, index) => {
+                          const status = getRowStatus(row);
+                          return (
+                            <tr key={row.id} className="border-b last:border-0 hover:bg-slate-50">
+                              <td className="px-3 py-2 text-slate-500 text-center">{index + 1}</td>
+                              <td className="px-3 py-2">
+                                <Input
+                                  placeholder="email@company.com"
+                                  value={row.email}
+                                  onChange={(e) => updateRow(row.id, "email", e.target.value)}
+                                  className={`h-8 text-sm ${
+                                    status === "error"
+                                      ? "border-red-300 bg-red-50"
+                                      : status === "complete"
+                                      ? "border-emerald-300 bg-emerald-50"
+                                      : "border-slate-300"
+                                  }`}
+                                />
+                              </td>
+                              <td className="px-3 py-2">
+                                <Input
+                                  placeholder="Full name"
+                                  value={row.fullName}
+                                  onChange={(e) => updateRow(row.id, "fullName", e.target.value)}
+                                  className={`h-8 text-sm ${
+                                    row.fullName ? "border-emerald-300 bg-emerald-50" : "border-slate-300"
+                                  }`}
+                                />
+                              </td>
+                              <td className="px-3 py-2">
+                                <Input
+                                  placeholder="Job title"
+                                  value={row.jobTitle}
+                                  onChange={(e) => updateRow(row.id, "jobTitle", e.target.value)}
+                                  className={`h-8 text-sm ${
+                                    row.jobTitle ? "border-emerald-300 bg-emerald-50" : "border-slate-300"
+                                  }`}
+                                />
+                              </td>
+                              <td className="px-3 py-2">
+                                <Select
+                                  value={row.role}
+                                  onChange={(e) => updateRow(row.id, "role", e.target.value as UserRole)}
+                                  className="h-8 text-sm"
+                                >
+                                  {roles.map((role) => (
+                                    <option key={role} value={role}>
+                                      {ROLE_LABELS[role]}
+                                    </option>
+                                  ))}
+                                </Select>
+                              </td>
+                              <td className="px-3 py-2">
+                                <Input
+                                  placeholder="+251..."
+                                  value={row.phone}
+                                  onChange={(e) => updateRow(row.id, "phone", e.target.value)}
+                                  className="h-8 text-sm border-slate-300"
+                                />
+                              </td>
+                              <td className="px-3 py-2 text-center">
+                                {status === "complete" && (
+                                  <Check className="h-5 w-5 text-emerald-600 mx-auto" />
+                                )}
+                                {status === "incomplete" && (
+                                  <AlertCircle className="h-5 w-5 text-amber-500 mx-auto" />
+                                )}
+                                {status === "error" && (
+                                  <X className="h-5 w-5 text-red-600 mx-auto" />
+                                )}
+                              </td>
+                              <td className="px-3 py-2 text-center">
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => removeRow(row.id)}
+                                  className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div className="mt-3 flex gap-4 text-xs">
+                  <span className="flex items-center gap-1 text-slate-600">
+                    <Check className="h-3 w-3 text-emerald-600" /> Complete
+                  </span>
+                  <span className="flex items-center gap-1 text-slate-600">
+                    <AlertCircle className="h-3 w-3 text-amber-500" /> Incomplete
+                  </span>
+                  <span className="flex items-center gap-1 text-slate-600">
+                    <X className="h-3 w-3 text-red-600" /> Error
+                  </span>
                 </div>
               </div>
 
@@ -300,26 +358,26 @@ export function BulkInviteForm({
                 <input
                   type="hidden"
                   name="invitations"
-                  value={JSON.stringify(inviteRows.filter((row) => row.email && row.fullName && row.jobTitle))}
+                  value={JSON.stringify(validRows.map(({ id, ...rest }) => rest))}
                 />
 
                 <div className="flex flex-col gap-2">
                   <SubmitButton
                     pendingLabel="Sending invitations…"
-                    disabled={validRows.length === 0 || hasErrors || validRows.length > 50}
+                    disabled={validRows.length === 0 || hasErrors || inviteRows.length > 50}
                     className="w-full"
                   >
                     Send {validRows.length} Invitation{validRows.length !== 1 ? "s" : ""}
                   </SubmitButton>
 
-                  {validRows.length > 50 && (
+                  {inviteRows.length > 50 && (
                     <p className="text-xs text-red-600 text-center">
-                      Maximum 50 invitations per batch. You have {validRows.length}.
+                      Maximum 50 invitations per batch. You have {inviteRows.length}.
                     </p>
                   )}
                   {hasErrors && (
                     <p className="text-xs text-red-600 text-center">
-                      Please fix invalid email addresses before sending.
+                      Please fix rows with errors (marked with ✕) before sending.
                     </p>
                   )}
                 </div>
