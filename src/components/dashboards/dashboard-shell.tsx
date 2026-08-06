@@ -25,6 +25,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { EmptyState } from "@/components/empty-state";
 import { RoleBadge } from "@/components/ui/role-badge";
 import { PartyBadge } from "@/components/ui/party-badge";
+import { SignOutButton } from "@/components/sign-out-button";
 import type { PartyType, UserRole } from "@/generated/prisma/enums";
 
 export type DashboardProps = {
@@ -140,16 +141,19 @@ export async function RoleDashboard(props: DashboardProps & DashboardConfig) {
           <p className="mt-1 max-w-2xl text-xs text-slate-500 font-medium">{props.description}</p>
         </div>
 
-        {primaryProject && (
-          <Link
-            href={`/projects/${primaryProject.id}/overview`}
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-800"
-          >
-            <TrendingUp className="h-4 w-4" />
-            <span>Open Active Project</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        )}
+        <div className="flex items-center gap-3">
+          {primaryProject && (
+            <Link
+              href={`/projects/${primaryProject.id}/overview`}
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-800"
+            >
+              <TrendingUp className="h-4 w-4" />
+              <span>Open Active Project</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          )}
+          <SignOutButton />
+        </div>
       </div>
 
       {/* ── Metric Cards Grid ─────────────────────────────────────────── */}

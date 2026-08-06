@@ -7,6 +7,7 @@ import { requireUser, getProjectParty, canRecordItr, canLogDefect, canCloseDefec
 import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { ITRResult, PunchSeverity } from "@/generated/prisma/enums";
+import { assertWbsNodeVisibleToUser } from "@/lib/actions/project-guards";
 
 async function requireContractor(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
@@ -41,6 +42,7 @@ export async function createItr(formData: FormData) {
   if (!canRecordItr(user.role)) {
     throw new Error("Your role is not authorized to record inspections.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const itr = await db.inspectionTestRecord.create({
     data: {
@@ -83,6 +85,14 @@ export async function logDefect(formData: FormData) {
   await requireContractor(user, parsed.projectId);
   if (!canLogDefect(user.role)) {
     throw new Error("Your role is not authorized to log defects.");
+  }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  if (parsed.linkedItrId) {
+    const itr = await db.inspectionTestRecord.findFirst({
+      where: { id: parsed.linkedItrId, wbsNode: { projectId: parsed.projectId } },
+      select: { id: true },
+    });
+    if (!itr) throw new Error("Linked ITR does not belong to this project.");
   }
 
   const defect = await db.defectLog.create({
@@ -131,6 +141,11 @@ export async function closeDefect(formData: FormData) {
   if (!canCloseDefect(user.role)) {
     throw new Error("Your role is not authorized to close defects.");
   }
+  const defect = await db.defectLog.findFirst({
+    where: { id: defectId, wbsNode: { projectId } },
+    select: { id: true },
+  });
+  if (!defect) throw new Error("Defect does not belong to this project.");
 
   await db.defectLog.update({ where: { id: defectId }, data: { status: "VERIFIED_CLOSED" } });
   await audit({ userId: user.id, entityType: "DefectLog", entityId: defectId, action: "UPDATE", diff: { status: "VERIFIED_CLOSED" } });
@@ -162,6 +177,7 @@ export async function createPunchItem(formData: FormData) {
   if (!canManagePunchList(user.role)) {
     throw new Error("Your role is not authorized to manage the punch list.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const item = await db.punchListItem.create({
     data: {
@@ -184,6 +200,11 @@ export async function closePunchItem(formData: FormData) {
   if (!canManagePunchList(user.role)) {
     throw new Error("Your role is not authorized to close punch items.");
   }
+  const item = await db.punchListItem.findFirst({
+    where: { id: itemId, wbsNode: { projectId } },
+    select: { id: true },
+  });
+  if (!item) throw new Error("Punch item does not belong to this project.");
 
   await db.punchListItem.update({ where: { id: itemId }, data: { status: "RESOLVED" } });
   await audit({ userId: user.id, entityType: "PunchListItem", entityId: itemId, action: "UPDATE", diff: { status: "RESOLVED" } });

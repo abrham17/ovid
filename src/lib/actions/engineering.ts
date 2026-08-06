@@ -7,6 +7,10 @@ import { requireUser, getProjectParty, canEditEngineering, canRecordElementProgr
 import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { StructuralElementType } from "@/generated/prisma/enums";
+import {
+  assertStructuralElementInProject,
+  assertWbsNodeVisibleToUser,
+} from "@/lib/actions/project-guards";
 
 async function requireContractor(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
@@ -43,6 +47,7 @@ export async function createStructuralElement(formData: FormData) {
   if (!canEditEngineering(user.role)) {
     throw new Error("Your role is not authorized to edit engineering takeoff.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const el = await db.structuralElement.create({
     data: {
@@ -84,6 +89,8 @@ export async function cloneElement(formData: FormData) {
   if (!canEditEngineering(user.role)) {
     throw new Error("Your role is not authorized to edit engineering takeoff.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  await assertStructuralElementInProject(parsed.projectId, parsed.templateElementId);
 
   const template = await db.structuralElement.findUnique({
     where: { id: parsed.templateElementId },
@@ -107,6 +114,7 @@ export async function cloneElement(formData: FormData) {
           numberOfFaces: r.numberOfFaces,
           numberOfBars: r.numberOfBars,
           spanM: r.spanM,
+          computedWeightKg: r.computedWeightKg,
         })),
       },
       formworkLines: {
@@ -114,6 +122,7 @@ export async function cloneElement(formData: FormData) {
           segmentLabel: f.segmentLabel,
           lengthM: f.lengthM,
           heightM: f.heightM,
+          computedAreaM2: f.computedAreaM2,
         })),
       },
     },
@@ -153,9 +162,15 @@ export async function addRebarLine(formData: FormData) {
   if (!canEditEngineering(user.role)) {
     throw new Error("Your role is not authorized to edit engineering takeoff.");
   }
+  await assertStructuralElementInProject(parsed.projectId, parsed.structuralElementId);
 
   const wf = await db.weightFactor.findUnique({ where: { diameterMm: parsed.diameterMm } });
   if (!wf) throw new Error(`No weight factor for Ø${parsed.diameterMm} mm.`);
+  const computedWeightKg =
+    Number(wf.kgPerMeter) *
+    parsed.spanM *
+    parsed.numberOfBars *
+    parsed.numberOfFaces;
 
   const line = await db.rebarLine.create({
     data: {
@@ -166,6 +181,7 @@ export async function addRebarLine(formData: FormData) {
       numberOfFaces: parsed.numberOfFaces,
       numberOfBars: parsed.numberOfBars,
       spanM: parsed.spanM,
+      computedWeightKg,
     },
   });
   // auto-weight = Ø16 → 1.58 kg/m × span × bars × faces
@@ -174,7 +190,7 @@ export async function addRebarLine(formData: FormData) {
     entityType: "RebarLine",
     entityId: line.id,
     action: "CREATE",
-    diff: { ...parsed, weightKg: Number(wf.kgPerMeter) * parsed.spanM * parsed.numberOfBars * parsed.numberOfFaces },
+    diff: { ...parsed, computedWeightKg },
   });
   revalidatePath(`/projects/${parsed.projectId}/engineering`);
 }
@@ -200,6 +216,8 @@ export async function addFormworkLine(formData: FormData) {
   if (!canEditEngineering(user.role)) {
     throw new Error("Your role is not authorized to edit engineering takeoff.");
   }
+  await assertStructuralElementInProject(parsed.projectId, parsed.structuralElementId);
+  const computedAreaM2 = parsed.lengthM * parsed.heightM;
 
   const line = await db.formworkLine.create({
     data: {
@@ -207,9 +225,10 @@ export async function addFormworkLine(formData: FormData) {
       segmentLabel: parsed.segmentLabel,
       lengthM: parsed.lengthM,
       heightM: parsed.heightM,
+      computedAreaM2,
     },
   });
-  await audit({ userId: user.id, entityType: "FormworkLine", entityId: line.id, action: "CREATE", diff: { ...parsed, areaM2: parsed.lengthM * parsed.heightM } });
+  await audit({ userId: user.id, entityType: "FormworkLine", entityId: line.id, action: "CREATE", diff: { ...parsed, computedAreaM2 } });
   revalidatePath(`/projects/${parsed.projectId}/engineering`);
 }
 
@@ -236,6 +255,7 @@ export async function recordElementProgress(formData: FormData) {
   if (!canRecordElementProgress(user.role)) {
     throw new Error("Your role is not authorized to record element progress.");
   }
+  await assertStructuralElementInProject(parsed.projectId, parsed.structuralElementId);
 
   const existing = await db.elementProgress.findUnique({
     where: {

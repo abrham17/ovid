@@ -157,7 +157,7 @@ const PARTY_TAB_CEILING: Record<PartyType, WorkspaceTab[]> = {
   CONTRACTOR:   [...WORKSPACE_TABS],
   CONSULTANT:   ["overview", "schedule", "cost", "risk", "safety", "quality", "documents", "reports"],
   CLIENT:       ["overview", "schedule", "cost", "risk", "safety", "quality", "documents"],
-  SUBCONTRACTOR:["overview", "daily", "schedule", "cost", "risk", "safety", "quality", "documents"],
+  SUBCONTRACTOR:["overview", "daily", "schedule", "cost", "risk", "safety", "quality", "resources", "documents"],
   SUPPLIER:     ["overview", "documents", "procurement"],
   REGULATOR:    ["overview", "reports"],
 };

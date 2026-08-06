@@ -23,6 +23,7 @@ import type {
   CostSourceType,
   VariationOrderStatus,
 } from "@/generated/prisma/enums";
+import { assertWbsNodeVisibleToUser } from "@/lib/actions/project-guards";
 
 async function requireContractor(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
@@ -69,6 +70,7 @@ export async function createBoqItem(formData: FormData) {
   if (!canManageBoq(user.role)) {
     throw new Error("Your role is not authorized to manage BoQ items.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
   const item = await db.boqItem.create({
     data: {
       wbsNodeId: parsed.wbsNodeId,
@@ -112,6 +114,11 @@ export async function recordCostActual(formData: FormData) {
   if (!canRecordCostActual(user.role)) {
     throw new Error("Your role is not authorized to record cost actuals.");
   }
+  const boq = await db.boqItem.findFirst({
+    where: { id: parsed.boqItemId, wbsNode: { projectId: parsed.projectId } },
+    select: { id: true },
+  });
+  if (!boq) throw new Error("BoQ item does not belong to this project.");
 
   const actual = await db.costActual.create({
     data: {
@@ -156,6 +163,7 @@ export async function createMeasurement(formData: FormData) {
   if (!canPrepareIpc(user.role)) {
     throw new Error("Your role is not authorized to prepare IPC measurements.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const entry = await db.measurementEntry.create({
     data: {
@@ -176,9 +184,9 @@ export async function createMeasurement(formData: FormData) {
  * Mandatory gate (spec Module 2): an IPC cannot be submitted unless the WBS
  * node has a linked BoQ item (measured quantity is tied to budgeted quantity).
  */
-async function assertIpcEligible(measurementId: string): Promise<{ wbsNodeId: string; itemNo: string }> {
-  const entry = await db.measurementEntry.findUnique({
-    where: { id: measurementId },
+async function assertIpcEligible(projectId: string, measurementId: string): Promise<{ wbsNodeId: string; itemNo: string }> {
+  const entry = await db.measurementEntry.findFirst({
+    where: { id: measurementId, wbsNode: { projectId } },
     include: { wbsNode: { include: { _count: { select: { boqItems: true } } } } },
   });
   if (!entry) throw new Error("Measurement not found.");
@@ -205,16 +213,17 @@ const statusActionSchema = z.object({
  * concurrent calls, rather than a separate findUnique + update.
  */
 async function transitionMeasurement(
+  projectId: string,
   measurementId: string,
   fromStatuses: string[],
   toStatus: "SUBMITTED" | "CONSULTANT_QUERIED" | "CERTIFIED" | "PAID"
 ) {
   const result = await db.measurementEntry.updateMany({
-    where: { id: measurementId, status: { in: fromStatuses as never[] } },
+    where: { id: measurementId, wbsNode: { projectId }, status: { in: fromStatuses as never[] } },
     data: { status: toStatus },
   });
   if (result.count === 0) {
-    const current = await db.measurementEntry.findUnique({ where: { id: measurementId }, select: { status: true } });
+    const current = await db.measurementEntry.findFirst({ where: { id: measurementId, wbsNode: { projectId } }, select: { status: true } });
     throw new Error(
       current
         ? `Cannot move measurement from ${current.status} to ${toStatus} (expected one of: ${fromStatuses.join(", ")}).`
@@ -231,9 +240,9 @@ export async function submitMeasurement(formData: FormData) {
   });
   await requireContractor(user, parsed.projectId);
   if (!canPrepareIpc(user.role)) throw new Error("Your role is not authorized to submit IPC measurements.");
-  await assertIpcEligible(parsed.measurementId);
+  await assertIpcEligible(parsed.projectId, parsed.measurementId);
 
-  await transitionMeasurement(parsed.measurementId, ["DRAFT", "CONSULTANT_QUERIED"], "SUBMITTED");
+  await transitionMeasurement(parsed.projectId, parsed.measurementId, ["DRAFT", "CONSULTANT_QUERIED"], "SUBMITTED");
   await audit({ userId: user.id, entityType: "MeasurementEntry", entityId: parsed.measurementId, action: "UPDATE", diff: { status: "SUBMITTED" } });
   revalidatePath(`/projects/${parsed.projectId}/cost`);
 }
@@ -249,7 +258,7 @@ export async function queryMeasurement(formData: FormData) {
     throw new Error("Only the consultant engineer may query measurements.");
   }
 
-  await transitionMeasurement(parsed.measurementId, ["SUBMITTED"], "CONSULTANT_QUERIED");
+  await transitionMeasurement(parsed.projectId, parsed.measurementId, ["SUBMITTED"], "CONSULTANT_QUERIED");
   await audit({ userId: user.id, entityType: "MeasurementEntry", entityId: parsed.measurementId, action: "UPDATE", diff: { status: "CONSULTANT_QUERIED" } });
   revalidatePath(`/projects/${parsed.projectId}/cost`);
 }
@@ -265,7 +274,7 @@ export async function certifyMeasurement(formData: FormData) {
     throw new Error("Only the consultant engineer may certify measurements.");
   }
 
-  await transitionMeasurement(parsed.measurementId, ["SUBMITTED"], "CERTIFIED");
+  await transitionMeasurement(parsed.projectId, parsed.measurementId, ["SUBMITTED"], "CERTIFIED");
   await audit({ userId: user.id, entityType: "MeasurementEntry", entityId: parsed.measurementId, action: "APPROVE", diff: { status: "CERTIFIED" } });
   revalidatePath(`/projects/${parsed.projectId}/cost`);
 }
@@ -279,7 +288,7 @@ export async function payMeasurement(formData: FormData) {
   await requireContractor(user, parsed.projectId);
   if (!canPayIpc(user.role)) throw new Error("Your role is not authorized to pay IPC certificates.");
 
-  await transitionMeasurement(parsed.measurementId, ["CERTIFIED"], "PAID");
+  await transitionMeasurement(parsed.projectId, parsed.measurementId, ["CERTIFIED"], "PAID");
   await audit({ userId: user.id, entityType: "MeasurementEntry", entityId: parsed.measurementId, action: "APPROVE", diff: { status: "PAID" } });
   revalidatePath(`/projects/${parsed.projectId}/cost`);
 }
@@ -311,6 +320,7 @@ export async function createVariation(formData: FormData) {
   if (!canPrepareVariation(user.role)) {
     throw new Error("Your role is not authorized to prepare variation orders.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const variation = await db.variationOrder.create({
     data: {
@@ -367,11 +377,11 @@ export async function advanceVariation(formData: FormData) {
   }
 
   const result = await db.variationOrder.updateMany({
-    where: { id: parsed.variationId, status: { in: transition.from } },
+    where: { id: parsed.variationId, projectId: parsed.projectId, status: { in: transition.from } },
     data: { status: transition.target },
   });
   if (result.count === 0) {
-    const current = await db.variationOrder.findUnique({ where: { id: parsed.variationId }, select: { status: true } });
+    const current = await db.variationOrder.findFirst({ where: { id: parsed.variationId, projectId: parsed.projectId }, select: { status: true } });
     throw new Error(
       current
         ? `Cannot move variation from ${current.status} to ${transition.target} (expected: ${transition.from.join(", ")}).`
@@ -393,10 +403,11 @@ export async function rejectVariation(formData: FormData) {
     throw new Error("Only the consultant may reject a variation order.");
   }
 
-  await db.variationOrder.update({
-    where: { id: parsed.variationId },
+  const result = await db.variationOrder.updateMany({
+    where: { id: parsed.variationId, projectId: parsed.projectId, status: { notIn: ["CONSULTANT_APPROVED", "REJECTED"] } },
     data: { status: "REJECTED" },
   });
+  if (result.count === 0) throw new Error("Variation is already final or outside this project.");
   await audit({ userId: user.id, entityType: "VariationOrder", entityId: parsed.variationId, action: "REJECT", diff: { status: "REJECTED" } });
   revalidatePath(`/projects/${parsed.projectId}/cost`);
 }

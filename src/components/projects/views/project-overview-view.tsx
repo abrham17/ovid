@@ -10,9 +10,7 @@ import {
   Layers,
   ShieldAlert,
   Truck,
-  Activity,
   CalendarDays,
-  Sparkles,
 } from "lucide-react";
 import type { ProjectHeaderData, ProjectOverviewStats } from "@/lib/services/project.service";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

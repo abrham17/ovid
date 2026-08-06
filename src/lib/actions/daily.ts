@@ -7,6 +7,7 @@ import { requireUser, getProjectParty, canEnterDailyReport, canSignOffDailyRepor
 import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { SignOffRole } from "@/generated/prisma/enums";
+import { assertWbsNodeVisibleToUser } from "@/lib/actions/project-guards";
 
 const ROLE_TO_SIGNOFF: Record<string, SignOffRole> = {
   FOREMAN: "FOREMAN",
@@ -20,8 +21,8 @@ async function requireContractorEntryRole(user: SessionUser, projectId: string) 
     throw new Error("Only Foremen and Site Engineers may enter daily site reports.");
   }
   const party = await getProjectParty(user, projectId);
-  if (!party || party.partyType !== "CONTRACTOR") {
-    throw new Error("Only contractor-side users may enter daily site reports.");
+  if (!party || !["CONTRACTOR", "SUBCONTRACTOR"].includes(party.partyType)) {
+    throw new Error("Only contractor or subcontractor site users may enter daily site reports.");
   }
   return party;
 }
@@ -70,6 +71,7 @@ export async function createEarthworkEntry(formData: FormData) {
     remark: formData.get("remark") || undefined,
   });
   await requireContractorEntryRole(user, parsed.projectId);
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const entry = await db.earthworkDailyEntry.create({
     data: {
@@ -132,6 +134,7 @@ export async function createStructureEntry(formData: FormData) {
     remark: formData.get("remark") || undefined,
   });
   await requireContractorEntryRole(user, parsed.projectId);
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const entry = await db.structureDailyEntry.create({
     data: {
@@ -187,12 +190,18 @@ export async function createRebarEntry(formData: FormData) {
     remark: formData.get("remark") || undefined,
   });
   await requireContractorEntryRole(user, parsed.projectId);
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   // Validate the diameter exists in the WeightFactor reference table.
   const weight = await db.weightFactor.findUnique({
     where: { diameterMm: parsed.diameterMm },
   });
   if (!weight) throw new Error(`No weight factor for bar Ø${parsed.diameterMm}mm.`);
+  const computedWeightKg =
+    Number(weight.kgPerMeter) *
+    parsed.lengthM *
+    parsed.numberOfBars *
+    parsed.numberOfFaces;
 
   const entry = await db.rebarDailyEntry.create({
     data: {
@@ -204,13 +213,14 @@ export async function createRebarEntry(formData: FormData) {
       numberOfBars: parsed.numberOfBars,
       lengthM: parsed.lengthM,
       numberOfFaces: parsed.numberOfFaces,
+      computedWeightKg,
       shape: parsed.shape,
       remark: parsed.remark,
       createdById: user.id,
       status: "DRAFT",
     },
   });
-  await audit({ userId: user.id, entityType: "RebarDailyEntry", entityId: entry.id, action: "CREATE", diff: parsed });
+  await audit({ userId: user.id, entityType: "RebarDailyEntry", entityId: entry.id, action: "CREATE", diff: { ...parsed, computedWeightKg } });
   revalidatePath(`/projects/${parsed.projectId}/daily`);
 }
 
@@ -235,6 +245,8 @@ export async function signOffDailyEntry(formData: FormData) {
 
   const signOffRole = ROLE_TO_SIGNOFF[user.role];
   if (!signOffRole) throw new Error("Your role cannot sign off this document.");
+  await assertDailyEntityInProject(entityType, entityId, projectId);
+  await assertNextSignOff(entityType, entityId, signOffRole);
 
   // Idempotent: one SignOff row per user per document.
   const existing = await db.signOff.findFirst({
@@ -278,5 +290,36 @@ async function advanceDailyStatus(entityType: string, entityId: string) {
     await db.structureDailyEntry.update({ where: { id: entityId }, data: { status } });
   } else if (entityType === "REBAR_DAILY") {
     await db.rebarDailyEntry.update({ where: { id: entityId }, data: { status } });
+  }
+}
+
+async function assertDailyEntityInProject(entityType: string, entityId: string, projectId: string) {
+  const select = { id: true } as const;
+  if (entityType === "EARTHWORK_DAILY") {
+    const entry = await db.earthworkDailyEntry.findFirst({ where: { id: entityId, projectId }, select });
+    if (entry) return;
+  } else if (entityType === "STRUCTURE_DAILY") {
+    const entry = await db.structureDailyEntry.findFirst({ where: { id: entityId, projectId }, select });
+    if (entry) return;
+  } else if (entityType === "REBAR_DAILY") {
+    const entry = await db.rebarDailyEntry.findFirst({ where: { id: entityId, projectId }, select });
+    if (entry) return;
+  }
+  throw new Error("Daily report entry does not belong to this project.");
+}
+
+async function assertNextSignOff(entityType: string, entityId: string, signOffRole: SignOffRole) {
+  const chainRequired = DAILY_SIGN_OFF_CHAIN.map((r) => ROLE_TO_SIGNOFF[r]);
+  const expectedIndex = chainRequired.indexOf(signOffRole);
+  if (expectedIndex < 0) throw new Error("Your role cannot sign off this document.");
+
+  const signedRoles = await db.signOff.findMany({
+    where: { entityType, entityId },
+    select: { signOffRole: true },
+  });
+  const have = new Set(signedRoles.map((s) => s.signOffRole));
+  const missingPrior = chainRequired.slice(0, expectedIndex).find((role) => !have.has(role));
+  if (missingPrior) {
+    throw new Error(`Daily report must be signed by ${missingPrior.replace(/_/g, " ")} first.`);
   }
 }

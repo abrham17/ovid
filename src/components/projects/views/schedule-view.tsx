@@ -6,7 +6,6 @@ import {
   Plus,
   TrendingUp,
   AlertTriangle,
-  ShieldAlert,
   CheckCircle2,
   List,
   BarChart2,
@@ -14,7 +13,6 @@ import {
   Link as LinkIcon,
   Check,
   PauseCircle,
-  FileSpreadsheet,
 } from "lucide-react";
 import type {
   ScheduleWorkspaceData,
@@ -235,7 +233,7 @@ export function ScheduleView({ data }: { data: ScheduleWorkspaceData }) {
 
             {data.activities.length === 0 ? (
               <div className="py-12 text-center text-slate-400 text-xs">
-                No schedule activities found. Click "Add Activity" to create one.
+                No schedule activities found. Click &quot;Add Activity&quot; to create one.
               </div>
             ) : (
               <ScheduleGantt

@@ -247,7 +247,7 @@ export function WbsView({ data }: { data: WbsWorkspaceData }) {
                 {data.nodes.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-12 text-center text-slate-400">
-                      No WBS nodes found. Click "New Root Node" to create the initial structure.
+                      No WBS nodes found. Click &quot;New Root Node&quot; to create the initial structure.
                     </td>
                   </tr>
                 ) : (

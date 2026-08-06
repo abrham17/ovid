@@ -737,6 +737,7 @@ model RebarDailyEntry {
   numberOfBars   Int
   lengthM        Decimal           @db.Decimal(12, 3)
   numberOfFaces  Int
+  computedWeightKg Decimal?        @db.Decimal(18, 3)
   shape          String?
   labour         Json?
   remark         String?
@@ -1180,6 +1181,7 @@ model RebarLine {
   numberOfFaces       Int
   numberOfBars        Int
   spanM               Decimal  @db.Decimal(12, 3)
+  computedWeightKg    Decimal? @db.Decimal(18, 3)
 
   structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
   weightFactor      WeightFactor      @relation(fields: [diameterMm], references: [diameterMm])
@@ -1193,6 +1195,7 @@ model FormworkLine {
   segmentLabel        String?
   lengthM             Decimal @db.Decimal(12, 3)
   heightM             Decimal @db.Decimal(12, 3)
+  computedAreaM2      Decimal? @db.Decimal(18, 3)
 
   structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
 

@@ -12,6 +12,11 @@ import {
 } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { SafetySeverity } from "@/generated/prisma/enums";
+import {
+  assertObservationInProject,
+  assertScheduleActivityInProject,
+  assertWbsNodeVisibleToUser,
+} from "@/lib/actions/project-guards";
 
 const createObservationSchema = z.object({
   projectId: z.string().min(1),
@@ -34,12 +39,13 @@ export async function createSafetyObservation(formData: FormData) {
   });
 
   const party = await getProjectParty(user, parsed.projectId);
-  if (!party || party.partyType !== "CONTRACTOR") {
-    throw new Error("Only contractor-side users may log safety observations.");
+  if (!party || !["CONTRACTOR", "SUBCONTRACTOR"].includes(party.partyType)) {
+    throw new Error("Only contractor or subcontractor site users may log safety observations.");
   }
   if (!canLogSafetyObservation(user.role)) {
     throw new Error("Your role is not authorized to log safety observations.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const obs = await db.safetyObservation.create({
     data: {
@@ -76,12 +82,15 @@ export async function escalateToIncident(formData: FormData) {
   });
 
   const party = await getProjectParty(user, parsed.projectId);
-  if (!party || party.partyType !== "CONTRACTOR") {
-    throw new Error("Only contractor-side users may escalate safety observations.");
+  if (!party || !["CONTRACTOR", "SUBCONTRACTOR"].includes(party.partyType)) {
+    throw new Error("Only contractor or subcontractor site users may escalate safety observations.");
   }
   if (!canEscalateSafetyIncident(user.role)) {
     throw new Error("Your role is not authorized to escalate an observation into an incident.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  await assertObservationInProject(parsed.projectId, parsed.observationId);
+  await assertScheduleActivityInProject(parsed.projectId, parsed.affectsScheduleActivityId);
 
   const incident = await db.safetyIncident.create({
     data: {
@@ -115,9 +124,15 @@ export async function closeSafetyIncident(formData: FormData) {
     throw new Error("Only the HSE Officer may close safety incidents.");
   }
   const party = await getProjectParty(user, parsed.projectId);
-  if (!party || party.partyType !== "CONTRACTOR") {
-    throw new Error("Only contractor-side users may close safety incidents.");
+  if (!party || !["CONTRACTOR", "SUBCONTRACTOR"].includes(party.partyType)) {
+    throw new Error("Only contractor or subcontractor HSE users may close safety incidents.");
   }
+  const incident = await db.safetyIncident.findFirst({
+    where: { id: parsed.incidentId, wbsNode: { projectId: parsed.projectId } },
+    select: { wbsNodeId: true },
+  });
+  if (!incident) throw new Error("Safety incident does not belong to this project.");
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, incident.wbsNodeId);
 
   await db.safetyIncident.update({
     where: { id: parsed.incidentId },

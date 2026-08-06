@@ -15,6 +15,7 @@ import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import { ok, fail, runAction, type ActionResult } from "@/lib/action-result";
 import type { BidStatus, POStatus } from "@/generated/prisma/enums";
+import { assertWbsNodeVisibleToUser } from "@/lib/actions/project-guards";
 
 /**
  * Purchase orders, receipts, and bids are all created/managed BY the
@@ -39,7 +40,6 @@ export async function createPurchaseOrder(formData: FormData): Promise<ActionRes
       supplierOrgId: z.string().min(1),
       poNo: z.string().min(1),
       expectedDelivery: z.coerce.date().optional(),
-      amount: z.coerce.number().optional(),
       materialItemId: z.string().min(1),
       quantityOrdered: z.coerce.number().positive(),
       unitPrice: z.coerce.number().min(0),
@@ -51,7 +51,6 @@ export async function createPurchaseOrder(formData: FormData): Promise<ActionRes
       supplierOrgId: formData.get("supplierOrgId"),
       poNo: formData.get("poNo"),
       expectedDelivery: formData.get("expectedDelivery") || undefined,
-      amount: formData.get("amount") || undefined,
       materialItemId: formData.get("materialItemId"),
       quantityOrdered: formData.get("quantityOrdered"),
       unitPrice: formData.get("unitPrice"),
@@ -62,9 +61,16 @@ export async function createPurchaseOrder(formData: FormData): Promise<ActionRes
     if (!canManagePurchaseOrders(user.role)) {
       return fail("Your role cannot create purchase orders.");
     }
+    await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+    if (parsed.materialDemandId) {
+      const demand = await db.materialDemand.findFirst({
+        where: { id: parsed.materialDemandId, wbsNode: { projectId: parsed.projectId } },
+        select: { id: true },
+      });
+      if (!demand) return fail("Selected material demand is not in this project.");
+    }
 
-    const amount =
-      parsed.amount ?? parsed.quantityOrdered * parsed.unitPrice;
+    const amount = parsed.quantityOrdered * parsed.unitPrice;
 
     const po = await db.purchaseOrder.create({
       data: {
@@ -106,6 +112,11 @@ export async function approvePurchaseOrder(formData: FormData): Promise<ActionRe
     if (!canApprovePurchaseOrder(user.role)) {
       return fail("Your role cannot approve purchase orders.");
     }
+    const existing = await db.purchaseOrder.findFirst({
+      where: { id: purchaseOrderId, projectId },
+      select: { id: true },
+    });
+    if (!existing) return fail("Purchase order is not in this project.");
     const po = await db.purchaseOrder.update({
       where: { id: purchaseOrderId },
       data: { status: "APPROVED" as POStatus },
@@ -131,7 +142,7 @@ export async function issuePurchaseOrder(formData: FormData): Promise<ActionResu
     if (!canManagePurchaseOrders(user.role)) {
       return fail("Your role cannot issue purchase orders.");
     }
-    const existing = await db.purchaseOrder.findUnique({ where: { id: purchaseOrderId } });
+    const existing = await db.purchaseOrder.findFirst({ where: { id: purchaseOrderId, projectId } });
     if (!existing || existing.status !== "APPROVED") {
       return fail("Only approved POs can be issued.");
     }
@@ -176,6 +187,12 @@ export async function recordMaterialReceipt(formData: FormData): Promise<ActionR
     if (!canRecordReceipt(user.role)) {
       return fail("Your role cannot record receipts.");
     }
+    await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+    const po = await db.purchaseOrder.findFirst({
+      where: { id: parsed.purchaseOrderId, projectId: parsed.projectId },
+      select: { id: true },
+    });
+    if (!po) return fail("Purchase order is not in this project.");
 
     const receipt = await db.materialReceipt.create({
       data: {
@@ -289,6 +306,11 @@ export async function updateBidResult(formData: FormData): Promise<ActionResult>
     if (!canManageBids(user.role)) {
       return fail("Your role cannot manage bids.");
     }
+    const existing = await db.bidTender.findFirst({
+      where: { id: bidId, projectId },
+      select: { id: true },
+    });
+    if (!existing) return fail("Bid is not in this project.");
     if (!["SUBMITTED", "WON", "LOST", "CANCELLED"].includes(result)) {
       return fail("Invalid bid result.");
     }

@@ -7,6 +7,11 @@ import { requireUser, getProjectParty, canCreateRisk, canCloseRisk, canEscalateR
 import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { RiskCategory, StoppageType } from "@/generated/prisma/enums";
+import {
+  assertProjectMember,
+  assertScheduleActivityInProject,
+  assertWbsNodeVisibleToUser,
+} from "@/lib/actions/project-guards";
 
 async function requireContractor(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
@@ -46,6 +51,8 @@ export async function createRisk(formData: FormData) {
   if (!canCreateRisk(user.role)) {
     throw new Error("Your role is not authorized to record risks.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  await assertProjectMember(parsed.projectId, parsed.ownerId);
 
   const risk = await db.riskEntry.create({
     data: {
@@ -80,10 +87,11 @@ export async function closeRisk(formData: FormData) {
     throw new Error("Your role is not authorized to close risks.");
   }
 
-  await db.riskEntry.update({
-    where: { id: parsed.riskId },
+  const result = await db.riskEntry.updateMany({
+    where: { id: parsed.riskId, projectId: parsed.projectId, status: { in: ["OPEN", "MITIGATING"] } },
     data: { status: "CLOSED" },
   });
+  if (result.count === 0) throw new Error("Risk is not open, mitigating, or in this project.");
   await audit({ userId: user.id, entityType: "RiskEntry", entityId: parsed.riskId, action: "UPDATE", diff: { status: "CLOSED" } });
   revalidatePath(`/projects/${parsed.projectId}/risk`);
 }
@@ -123,6 +131,9 @@ export async function escalateRiskToStoppage(formData: FormData) {
   if (!canEscalateRisk(user.role)) {
     throw new Error("Your role is not authorized to realise risks.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  await assertScheduleActivityInProject(parsed.projectId, parsed.scheduleActivityId);
+  await assertRiskCanRealize(parsed.projectId, parsed.riskId);
 
   const stoppage = await db.stoppageEntry.create({
     data: {
@@ -135,10 +146,11 @@ export async function escalateRiskToStoppage(formData: FormData) {
       endTime: parsed.endTime,
     },
   });
-  await db.riskEntry.update({
-    where: { id: parsed.riskId },
+  const result = await db.riskEntry.updateMany({
+    where: { id: parsed.riskId, projectId: parsed.projectId, status: { in: ["OPEN", "MITIGATING"] } },
     data: { status: "REALIZED", realizedAsStoppageId: stoppage.id },
   });
+  if (result.count === 0) throw new Error("Risk is already closed, realized, or outside this project.");
   await audit({ userId: user.id, entityType: "RiskEntry", entityId: parsed.riskId, action: "UPDATE", diff: { status: "REALIZED", stoppageId: stoppage.id } });
   revalidatePath(`/projects/${parsed.projectId}/risk`);
 }
@@ -168,6 +180,8 @@ export async function escalateRiskToVariation(formData: FormData) {
   if (!canEscalateRisk(user.role)) {
     throw new Error("Your role is not authorized to realise risks.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  await assertRiskCanRealize(parsed.projectId, parsed.riskId);
 
   const variation = await db.variationOrder.create({
     data: {
@@ -180,10 +194,19 @@ export async function escalateRiskToVariation(formData: FormData) {
       status: "CONTRACTOR_PREPARED",
     },
   });
-  await db.riskEntry.update({
-    where: { id: parsed.riskId },
+  const result = await db.riskEntry.updateMany({
+    where: { id: parsed.riskId, projectId: parsed.projectId, status: { in: ["OPEN", "MITIGATING"] } },
     data: { status: "REALIZED", realizedAsVariationId: variation.id },
   });
+  if (result.count === 0) throw new Error("Risk is already closed, realized, or outside this project.");
   await audit({ userId: user.id, entityType: "RiskEntry", entityId: parsed.riskId, action: "UPDATE", diff: { status: "REALIZED", variationId: variation.id } });
   revalidatePath(`/projects/${parsed.projectId}/risk`);
+}
+
+async function assertRiskCanRealize(projectId: string, riskId: string) {
+  const risk = await db.riskEntry.findFirst({
+    where: { id: riskId, projectId, status: { in: ["OPEN", "MITIGATING"] } },
+    select: { id: true },
+  });
+  if (!risk) throw new Error("Risk is already closed, realized, or outside this project.");
 }

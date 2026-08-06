@@ -6,11 +6,13 @@ import {
 } from "@/lib/services/project.service";
 import { getWbsWorkspaceData } from "@/lib/services/wbs.service";
 import { getScheduleWorkspaceData } from "@/lib/services/schedule.service";
+import { getWorkspaceModuleData } from "@/lib/services/workspace-modules.service";
 
 import { ProjectOverviewView } from "@/components/projects/views/project-overview-view";
 import { WbsView } from "@/components/projects/views/wbs-view";
 import { ScheduleView } from "@/components/projects/views/schedule-view";
 import { ProjectTabModuleView } from "@/components/projects/views/project-tab-module-view";
+import { WorkspaceModuleView } from "@/components/projects/views/workspace-module-view";
 
 import { ROLE_LABELS, WORKSPACE_TAB_LABELS } from "@/lib/constants";
 import { Card, CardContent } from "@/components/ui/card";
@@ -80,6 +82,11 @@ export default async function ProjectTabPage({
     const scheduleData = await getScheduleWorkspaceData(user, id);
     if (!scheduleData) redirect("/dashboard");
     return <ScheduleView data={scheduleData} />;
+  }
+
+  const moduleData = await getWorkspaceModuleData(user, id, currentTab);
+  if (moduleData) {
+    return <WorkspaceModuleView project={project} module={moduleData} />;
   }
 
   return <ProjectTabModuleView project={project} tab={currentTab} />;

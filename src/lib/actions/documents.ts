@@ -17,6 +17,10 @@ import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
 import type { DocCategory } from "@/generated/prisma/enums";
 import { ok, fail, runAction, type ActionResult } from "@/lib/action-result";
+import {
+  assertDocumentInProject,
+  assertWbsNodeVisibleToUser,
+} from "@/lib/actions/project-guards";
 
 async function requireMember(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
@@ -28,6 +32,24 @@ async function saveUpload(file: File | null, projectId: string): Promise<string 
   if (!file || file.size === 0) return undefined;
   const maxBytes = 15 * 1024 * 1024;
   if (file.size > maxBytes) throw new Error("File must be under 15 MB.");
+  const extension = path.extname(file.name).toLowerCase();
+  const allowedExtensions = new Set([
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+    ".csv",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".dwg",
+    ".dxf",
+  ]);
+  if (!allowedExtensions.has(extension)) {
+    throw new Error("Unsupported file type for project documents.");
+  }
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const dir = path.join(process.cwd(), "public", "uploads", projectId);
   await mkdir(dir, { recursive: true });
@@ -54,23 +76,26 @@ const documentSchema = z.object({
 export async function createDocument(formData: FormData): Promise<ActionResult> {
   return runAction(async () => {
     const user = await requireUser();
-    const file = formData.get("file");
-    const uploadedPath =
-      file instanceof File ? await saveUpload(file, String(formData.get("projectId") ?? "")) : undefined;
+    const rawProjectId = String(formData.get("projectId") ?? "");
 
     const parsed = documentSchema.parse({
-      projectId: formData.get("projectId"),
+      projectId: rawProjectId,
       wbsNodeId: formData.get("wbsNodeId") || undefined,
       docNo: formData.get("docNo"),
       title: formData.get("title"),
       category: formData.get("category"),
-      filePath: uploadedPath || formData.get("filePath") || undefined,
+      filePath: formData.get("filePath") || undefined,
       effectiveDate: formData.get("effectiveDate") || undefined,
     });
     await requireMember(user, parsed.projectId);
     if (!canIssueDocument(user.role)) {
       return fail("Your role is not authorized to issue documents.");
     }
+    await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+    const file = formData.get("file");
+    const uploadedPath =
+      file instanceof File ? await saveUpload(file, parsed.projectId) : undefined;
+    const filePath = uploadedPath || parsed.filePath;
 
     const latest = await db.projectDocument.findFirst({
       where: { projectId: parsed.projectId, docNo: parsed.docNo },
@@ -86,7 +111,7 @@ export async function createDocument(formData: FormData): Promise<ActionResult> 
         title: parsed.title,
         category: parsed.category as DocCategory,
         revisionNo,
-        filePath: parsed.filePath,
+        filePath,
         issuedByUserId: user.id,
         effectiveDate: parsed.effectiveDate,
         supersededById: null,
@@ -108,7 +133,7 @@ export async function createDocument(formData: FormData): Promise<ActionResult> 
       entityType: "ProjectDocument",
       entityId: doc.id,
       action: "CREATE",
-      diff: { ...parsed, revisionNo },
+      diff: { ...parsed, filePath, revisionNo },
     });
     revalidatePath(`/projects/${parsed.projectId}/documents`);
     return ok(revisionNo > 1 ? `Revision ${revisionNo} issued.` : "Document created.");
@@ -124,6 +149,7 @@ export async function approveDocument(formData: FormData): Promise<ActionResult>
     if (!canApproveDocument(party.partyType, user.role)) {
       return fail("Your role is not authorized to approve documents.");
     }
+    await assertDocumentInProject(projectId, documentId);
 
     await db.projectDocument.update({
       where: { id: documentId },
@@ -167,6 +193,8 @@ export async function createDecision(formData: FormData) {
   if (!canRecordDecision(user.role)) {
     throw new Error("Your role is not authorized to record decisions.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
+  if (parsed.documentId) await assertDocumentInProject(parsed.projectId, parsed.documentId);
 
   const entry = await db.decisionLog.create({
     data: {
@@ -206,6 +234,7 @@ export async function createLesson(formData: FormData) {
   if (!canRecordLessons(user.role)) {
     throw new Error("Your role is not authorized to record lessons learned.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const lesson = await db.lessonsLearned.create({
     data: {

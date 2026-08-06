@@ -13,11 +13,12 @@ import {
 } from "@/lib/rbac";
 import type { SessionUser } from "@/lib/rbac";
 import { audit } from "@/lib/audit";
+import { assertWbsNodeVisibleToUser } from "@/lib/actions/project-guards";
 
 async function requireContractor(user: SessionUser, projectId: string) {
   const party = await getProjectParty(user, projectId);
-  if (!party || party.partyType !== "CONTRACTOR") {
-    throw new Error("Only contractor-side users may modify resources.");
+  if (!party || !["CONTRACTOR", "SUBCONTRACTOR"].includes(party.partyType)) {
+    throw new Error("Only contractor or subcontractor users may modify resources.");
   }
   return party;
 }
@@ -35,6 +36,24 @@ function assertOwnOrganization(user: SessionUser, organizationId: string) {
   if (user.role !== "ADMIN" && organizationId !== user.organizationId) {
     throw new Error("You may only manage resources under your own organization.");
   }
+}
+
+async function assertEmployeeBelongsToCaller(user: SessionUser, employeeId: string) {
+  const employee = await db.employee.findUnique({
+    where: { id: employeeId },
+    select: { organizationId: true },
+  });
+  if (!employee) throw new Error("Selected employee does not exist.");
+  assertOwnOrganization(user, employee.organizationId);
+}
+
+async function assertEquipmentBelongsToCaller(user: SessionUser, equipmentId: string) {
+  const equipment = await db.equipment.findUnique({
+    where: { id: equipmentId },
+    select: { organizationId: true },
+  });
+  if (!equipment) throw new Error("Selected equipment does not exist.");
+  assertOwnOrganization(user, equipment.organizationId);
 }
 
 // ---------------------------------------------------------------
@@ -89,6 +108,7 @@ export async function createMaterialDemand(formData: FormData) {
   if (!canManageMaterials(user.role)) {
     throw new Error("Your role is not authorized to manage materials.");
   }
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const demand = await db.materialDemand.create({
     data: {
@@ -192,6 +212,8 @@ export async function logEquipmentUsage(formData: FormData) {
   if (!canManageEquipment(user.role)) {
     throw new Error("Your role is not authorized to log equipment usage.");
   }
+  await assertEquipmentBelongsToCaller(user, parsed.equipmentId);
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const log = await db.equipmentUsageLog.create({
     data: {
@@ -268,6 +290,7 @@ export async function recordAttendance(formData: FormData) {
   if (!canRecordLabor(user.role)) {
     throw new Error("Your role is not authorized to manage labor.");
   }
+  await assertEmployeeBelongsToCaller(user, parsed.employeeId);
 
   const existing = await db.laborAttendance.findUnique({
     where: { employeeId_date: { employeeId: parsed.employeeId, date: parsed.date } },
@@ -307,6 +330,8 @@ export async function recordLaborAssignment(formData: FormData) {
   if (!canRecordLabor(user.role)) {
     throw new Error("Your role is not authorized to manage labor.");
   }
+  await assertEmployeeBelongsToCaller(user, parsed.employeeId);
+  await assertWbsNodeVisibleToUser(user, parsed.projectId, parsed.wbsNodeId);
 
   const assignment = await db.laborAssignment.create({
     data: {
@@ -352,6 +377,9 @@ export async function recordCustodyTransfer(formData: FormData) {
   if (!parsed.materialItemId && !parsed.equipmentId) {
     throw new Error("A custody transfer must reference a material or equipment.");
   }
+  if (parsed.equipmentId) {
+    await assertEquipmentBelongsToCaller(user, parsed.equipmentId);
+  }
 
   const log = await db.custodyLog.create({
     data: {
@@ -375,6 +403,14 @@ export async function acknowledgeCustody(formData: FormData) {
   await requireContractor(user, projectId);
   if (!canRecordCustody(user.role)) {
     throw new Error("Your role is not authorized to manage custody logs.");
+  }
+  const log = await db.custodyLog.findUnique({
+    where: { id: custodyId },
+    select: { equipmentId: true },
+  });
+  if (!log) throw new Error("Custody log not found.");
+  if (log.equipmentId) {
+    await assertEquipmentBelongsToCaller(user, log.equipmentId);
   }
 
   await db.custodyLog.update({
