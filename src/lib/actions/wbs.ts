@@ -143,19 +143,43 @@ export async function archiveWbsNode(formData: FormData): Promise<ActionResult> 
   });
 }
 
+export async function toggleDesignReady(formData: FormData): Promise<ActionResult> {
+  return runAction(async () => {
+    const user = await requireUser();
+    const projectId = String(formData.get("projectId") ?? "");
+    const nodeId = String(formData.get("nodeId") ?? "");
+    const designReady = formData.get("designReady") === "true";
+
+    if (!projectId || !nodeId) return fail("Missing project or node ID.");
+    await ensureContractor(user, projectId);
+
+    const node = await db.wbsNode.update({
+      where: { id: nodeId },
+      data: { designReady: !designReady },
+    });
+
+    await audit({
+      userId: user.id,
+      entityType: "WbsNode",
+      entityId: node.id,
+      action: "UPDATE",
+      diff: { designReady: node.designReady },
+    });
+    revalidatePath(`/projects/${projectId}/wbs`);
+    return ok(`Design status updated.`);
+  });
+}
+
 /**
  * Walks up from `proposedParentId` toward the root, following parentId.
- * Returns true if `nodeId` appears anywhere in that ancestor chain — i.e.
- * nodeId is an ancestor of proposedParentId, so re-parenting nodeId under
- * proposedParentId would create a cycle (A -> B -> A). The prior code only
- * caught the direct self-parent case (A -> A), not deeper cycles.
+ * Returns true if `nodeId` appears anywhere in that ancestor chain.
  */
 async function createsCycle(nodeId: string, proposedParentId: string): Promise<boolean> {
   let currentId: string | null = proposedParentId;
   const visited = new Set<string>();
   while (currentId) {
     if (currentId === nodeId) return true;
-    if (visited.has(currentId)) return false; // pre-existing cycle elsewhere; not this call's concern
+    if (visited.has(currentId)) return false;
     visited.add(currentId);
     const current: { parentId: string | null } | null = await db.wbsNode.findUnique({
       where: { id: currentId },

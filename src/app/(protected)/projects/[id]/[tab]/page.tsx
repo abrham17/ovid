@@ -4,8 +4,14 @@ import {
   getProjectWorkspaceHeader,
   getProjectOverviewDetails,
 } from "@/lib/services/project.service";
+import { getWbsWorkspaceData } from "@/lib/services/wbs.service";
+import { getScheduleWorkspaceData } from "@/lib/services/schedule.service";
+
 import { ProjectOverviewView } from "@/components/projects/views/project-overview-view";
+import { WbsView } from "@/components/projects/views/wbs-view";
+import { ScheduleView } from "@/components/projects/views/schedule-view";
 import { ProjectTabModuleView } from "@/components/projects/views/project-tab-module-view";
+
 import { ROLE_LABELS, WORKSPACE_TAB_LABELS } from "@/lib/constants";
 import { Card, CardContent } from "@/components/ui/card";
 import { PartyBadge } from "@/components/ui/party-badge";
@@ -62,6 +68,18 @@ export default async function ProjectTabPage({
   if (currentTab === "overview") {
     const stats = await getProjectOverviewDetails(user, id);
     return <ProjectOverviewView project={project} stats={stats} />;
+  }
+
+  if (currentTab === "wbs") {
+    const wbsData = await getWbsWorkspaceData(user, id);
+    if (!wbsData) redirect("/dashboard");
+    return <WbsView data={wbsData} />;
+  }
+
+  if (currentTab === "schedule") {
+    const scheduleData = await getScheduleWorkspaceData(user, id);
+    if (!scheduleData) redirect("/dashboard");
+    return <ScheduleView data={scheduleData} />;
   }
 
   return <ProjectTabModuleView project={project} tab={currentTab} />;
