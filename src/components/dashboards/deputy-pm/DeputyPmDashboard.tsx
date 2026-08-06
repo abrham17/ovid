@@ -16,6 +16,7 @@ export function DeputyPmDashboard(props: DashboardProps) {
       queueTitle="Control Queue"
       queue={["openRisks", "pendingVariations", "openIncidents", "documentsReview"]}
       shortcuts={[
+        { href: "/team", label: "Invite team", detail: "Send email invitations for your organization." },
         makeShortcut("risk", "Risk register", "Escalate risks into stoppages or variations."),
         makeShortcut("cost", "Variation queue", "Review contractor-side variation movement."),
         makeShortcut("documents", "Decisions", "Record decisions and supporting rationale."),

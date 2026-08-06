@@ -16,6 +16,7 @@ export function SuperintendentDashboard(props: DashboardProps) {
       queueTitle="Execution Queue"
       queue={["pendingDaily", "openIncidents", "openDefects", "openRisks"]}
       shortcuts={[
+        { href: "/team", label: "Invite site crew", detail: "Invite foremen, site engineers, HSE, and QC." },
         makeShortcut("daily", "Countersign reports", "Review field reports waiting in the chain."),
         makeShortcut("schedule", "Schedule control", "Inspect activity progress and stoppages."),
         makeShortcut("quality", "Quality closeout", "Follow defects and punch-list pressure."),

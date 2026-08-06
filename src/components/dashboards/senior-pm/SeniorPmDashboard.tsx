@@ -16,6 +16,7 @@ export function SeniorPmDashboard(props: DashboardProps) {
       queueTitle="Approval Queue"
       queue={["pendingVariations", "openRisks", "certifiedPayments", "documentsReview"]}
       shortcuts={[
+        { href: "/team", label: "Invite team", detail: "Send email invitations for site and office roles." },
         makeShortcut("overview", "Project health", "Scan schedule, cost, risk, safety, and quality."),
         makeShortcut("cost", "Commercial approvals", "Review IPCs, payments, and variations."),
         makeShortcut("reports", "Compliance reports", "Generate executive and regulatory exports."),

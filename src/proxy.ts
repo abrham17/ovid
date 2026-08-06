@@ -9,6 +9,9 @@ export function proxy(request: NextRequest) {
   // Auth actions themselves must always pass through.
   if (pathname.startsWith("/api/auth")) return NextResponse.next();
 
+  // Public invitation acceptance (token in path).
+  if (pathname.startsWith("/invite/")) return NextResponse.next();
+
   const hasSession = SESSION_COOKIES.some((name) => request.cookies.get(name));
 
   if (!hasSession && pathname !== "/login") {

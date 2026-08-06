@@ -16,6 +16,7 @@ export function HrDashboard(props: DashboardProps) {
       queueTitle="Workforce Queue"
       queue={["laborAssignments", "projects", "openIncidents", "pendingDaily"]}
       shortcuts={[
+        { href: "/team", label: "Invite team", detail: "Send email invitations to join your organization." },
         makeShortcut("resources", "Labor records", "Maintain employees, attendance, and task assignment."),
         makeShortcut("daily", "Daily context", "Review reports that affect labor planning."),
         makeShortcut("safety", "Safety impact", "See incidents affecting workforce availability."),
