@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* ── Design Tokens (Warm Editorial) ────────────────────────────────────────── */
+@theme {
+  /* ── Brand palette ──────────────────────────────────── */
+  --color-terracotta-50: #fdf1ee;
+  --color-terracotta-100: #fae2d8;
+  --color-terracotta-200: #f5c4b0;
+  --color-terracotta-300: #eea688;
+  --color-terracotta-400: #dd764e;
+  --color-terracotta-500: #c04928;  /* primary */
+  --color-terracotta-600: #a33a1f;
+  --color-terracotta-700: #862e18;
+  --color-terracotta-800: #692311;
+  --color-terracotta-900: #4c190b;
+
+  --color-sand-50: #faf7f2;  /* cream bg */
+  --color-sand-100: #f5f0e8;
+  --color-sand-200: #efe8de;  /* cream border */
+  --color-sand-300: #e0d5c5;  /* subtle border */
+  --color-sand-400: #c9bbaa;
+  --color-sand-500: #a08f7a;
+  --color-sand-600: #7a6b59;
+  --color-sand-700: #5c4f3f;
+  --color-sand-800: #3d3428;
+  --color-sand-900: #2c2420;  /* dark text */
+
+  /* ── Primary (terracotta) ────────────────────────────── */
+  --color-primary: #c04928;
+  --color-primary-hover: #a33a1f;
+  --color-primary-active: #862e18;
+  --color-primary-subtle: #fdf1ee;
+  --color-primary-foreground: #ffffff;
+
+  /* ── Accent (warm gold) ──────────────────────────────── */
+  --color-accent: #b8860b;
+  --color-accent-hover: #9a7209;
+  --color-accent-subtle: #fef7e6;
+  --color-accent-foreground: #ffffff;
+
+  /* ── Surface hierarchy ───────────────────────────────── */
+  --color-surface-raised: #fdfcf9;  /* warm white card */
+  --color-surface-default: #faf7f2;  /* cream bg */
+  --color-surface-sunken: #f5f0e8;  /* subtle warm */
+  --color-surface-overlay: #ffffff;
+
+  /* ── Foreground (text) ───────────────────────────────── */
+  --color-fg-default: #2c2420;   /* warm brown-black */
+  --color-fg-muted: #7a6b59;     /* warm grey */
+  --color-fg-subtle: #a08f7a;    /* light warm grey */
+  --color-fg-inverse: #fdfcf9;
+
+  /* ── Border system ───────────────────────────────────── */
+  --color-border-default: #efe8de;
+  --color-border-subtle: #f5f0e8;
+  --color-border-strong: #d8cdc0;
+
+  /* ── Status / semantic ───────────────────────────────── */
+  --color-success: #2e7d32;
+  --color-success-subtle: #e3f2e6;
+  --color-warning: #b8860b;
+  --color-warning-subtle: #fef7e6;
+  --color-danger: #c04928;
+  --color-danger-subtle: #fdf1ee;
+  --color-info: #5b6abf;
+  --color-info-subtle: #eeeff9;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Radius scale ────────────────────────────────────── */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* ── Shadow system ───────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(44, 36, 32, 0.04);
+  --shadow-sm: 0 1px 3px rgba(44, 36, 32, 0.06), 0 1px 2px rgba(44, 36, 32, 0.04);
+  --shadow-md: 0 4px 6px rgba(44, 36, 32, 0.05), 0 2px 4px rgba(44, 36, 32, 0.03);
+  --shadow-lg: 0 10px 15px rgba(44, 36, 32, 0.06), 0 4px 6px rgba(44, 36, 32, 0.03);
+  --shadow-xl: 0 20px 25px rgba(44, 36, 32, 0.08), 0 8px 10px rgba(44, 36, 32, 0.03);
+
+  /* ── Animations ──────────────────────────────────────── */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-slide-up: slide-up 0.2s ease-out;
+  --animate-slide-down: slide-down 0.2s ease-out;
+  --animate-scale-in: scale-in 0.15s ease-out;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Dark mode variant ──────────────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Dark theme overrides ────────────────────────────────────────────────────── */
+.dark {
+  --color-primary: #eea688;
+  --color-primary-hover: #f5c4b0;
+  --color-primary-active: #fae2d8;
+  --color-primary-subtle: #2c1810;
+  --color-primary-foreground: #1a0f0a;
+
+  --color-accent: #e0b354;
+  --color-accent-hover: #e8c46f;
+  --color-accent-subtle: #2c1f00;
+  --color-accent-foreground: #1a0f0a;
+
+  --color-surface-raised: #2c2420;
+  --color-surface-default: #1c1613;
+  --color-surface-sunken: #2c2420;
+  --color-surface-overlay: #3d3428;
+
+  --color-fg-default: #f5f0e8;
+  --color-fg-muted: #a08f7a;
+  --color-fg-subtle: #7a6b59;
+  --color-fg-inverse: #1c1613;
+
+  --color-border-default: #3d3428;
+  --color-border-subtle: #2c2420;
+  --color-border-strong: #5c4f3f;
+
+  --color-success-subtle: #1a3a1a;
+  --color-warning-subtle: #2c1f00;
+  --color-danger-subtle: #2c1810;
+  --color-info-subtle: #1a1e3a;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.45), 0 4px 6px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 8px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Base layer ────────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border-default;
+  }
+
+  body {
+    @apply bg-surface-default text-fg-default antialiased;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-fg-subtle);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-primary-subtle);
+    color: var(--color-primary);
+  }
+}
+
+/* ── Keyframes ──────────────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ── Shadcn/ui animation utilities ──────────────────────────────────────────── */
+@utility animate-in {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --enter-opacity: 1;
+  --enter-scale: 1;
+  --enter-rotate: 0deg;
+  --enter-translate-x: 0;
+  --enter-translate-y: 0;
+}
+
+@utility animate-out {
+  animation-name: exit;
+  animation-duration: 150ms;
+  --exit-opacity: 0;
+  --exit-scale: 0.95;
+  --exit-rotate: 0deg;
+  --exit-translate-x: 0;
+  --exit-translate-y: 0;
+}
+
+@utility fade-in-0 { --enter-opacity: 0; }
+@utility fade-out-0 { --exit-opacity: 0; }
+@utility zoom-in-95 { --enter-scale: 0.95; }
+@utility zoom-out-95 { --exit-scale: 0.95; }
+@utility slide-in-from-left { --enter-translate-x: -100%; }
+@utility slide-out-to-left { --exit-translate-x: -100%; }
+@utility slide-in-from-right { --enter-translate-x: 100%; }
+@utility slide-out-to-right { --exit-translate-x: 100%; }
+@utility slide-in-from-top { --enter-translate-y: -100%; }
+@utility slide-out-to-top { --exit-translate-y: -100%; }
+@utility slide-in-from-bottom { --enter-translate-y: 100%; }
+@utility slide-out-to-bottom { --exit-translate-y: 100%; }
+
+@keyframes enter {
+  from {
+    opacity: var(--enter-opacity, 1);
+    transform: translate3d(var(--enter-translate-x, 0), var(--enter-translate-y, 0), 0) scale3d(var(--enter-scale, 1), var(--enter-scale, 1), 1) rotate(var(--enter-rotate, 0deg));
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: var(--exit-opacity, 1);
+    transform: translate3d(var(--exit-translate-x, 0), var(--exit-translate-y, 0), 0) scale3d(var(--exit-scale, 1), var(--exit-scale, 1), 1) rotate(var(--exit-rotate, 0deg));
+  }
+}

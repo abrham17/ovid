@@ -1,0 +1,1706 @@
+// Ovid Construction PLC — Project Management System
+// Data model per design file 07 (PMS Data Model — Table-by-Table Catalog).
+// All 14 domains, mirroring ISO 9001/10006 document control and Ethiopian
+// Grade-1 construction practice (IPC, FIDIC variations, MoUDC grading).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// Enums
+// ============================================================
+
+// Layer 1 — organization/party layer of the RBAC model (file 09).
+enum PartyType {
+  CONTRACTOR
+  CLIENT
+  CONSULTANT
+  SUBCONTRACTOR
+  SUPPLIER
+  REGULATOR
+}
+
+enum ContractorGrade {
+  GRADE_1
+  GRADE_2
+  GRADE_3
+  GRADE_4
+  GRADE_5
+  GRADE_6
+  GRADE_7
+  GRADE_8
+  GRADE_9
+  GRADE_10
+}
+
+// Layer 2 — functional role (16 values, file 07 §1.2 / file 09).
+enum UserRole {
+  FOREMAN
+  SUPERINTENDENT
+  SITE_ENGINEER
+  DEPUTY_PM
+  SENIOR_PM
+  QC_INSPECTOR
+  HSE_OFFICER
+  QS
+  PROCUREMENT
+  FINANCE
+  HR
+  EQUIPMENT_MANAGER
+  CONTRACTS_LEGAL
+  CONSULTANT_ENGINEER
+  CLIENT_REP
+  ADMIN
+  SUBCONTRACTOR_PM
+}
+
+enum DocDept {
+  ENG
+  QC
+  HSE
+  FINANCE
+  HR
+  PROCUREMENT
+  CONTRACTS
+}
+
+enum SignOffRole {
+  FOREMAN
+  SUPERINTENDENT
+  DEPUTY_PM
+  SENIOR_PM
+  CONTRACTOR_PREPARED_BY
+  CONTRACTOR_CHECKED_BY
+  CONSULTANT_CHECKED_BY
+  CONSULTANT_APPROVED_BY
+  RESIDENT_ENGINEER
+  WORK_INSPECTOR
+  CONTRACTOR_REP
+}
+
+enum ProjectType {
+  ROAD
+  BUILDING
+  HOUSING
+  ENERGY
+  GREEN_PARK
+  OTHER
+}
+
+enum ContractType {
+  FIDIC_RED
+  FIDIC_YELLOW
+  ETHIO_STANDARD
+  OTHER
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  SUSPENDED
+  COMPLETE
+  CLOSED
+}
+
+enum WBSNodeType {
+  PHASE
+  SECTION
+  FLOOR
+  STATION_RANGE
+  STRUCTURAL_ELEMENT
+  ACTIVITY
+}
+
+enum ActivityStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETE
+  ON_HOLD
+}
+
+enum DependencyType {
+  FS
+  SS
+  FF
+  SF
+}
+
+enum StoppageType {
+  WEATHER
+  DESIGN_CHANGE
+  MATERIAL_SHORTAGE
+  CLIENT_INSTRUCTION
+  EQUIPMENT_BREAKDOWN
+  LABOR_DISPUTE
+  FORCE_MAJEURE
+  CONTRACTOR_DEFAULT
+  OTHER
+}
+
+enum ResponsibleParty {
+  CLIENT
+  CONSULTANT
+  CONTRACTOR
+  SUBCONTRACTOR
+  NEUTRAL
+}
+
+enum CostType {
+  COMMITTED
+  ACTUAL
+}
+
+enum CostSourceType {
+  PURCHASE_ORDER
+  INVOICE
+  PAYROLL
+  EQUIPMENT_USAGE
+  VARIATION_ORDER
+}
+
+enum MeasurementStatus {
+  DRAFT
+  SUBMITTED
+  CONSULTANT_QUERIED
+  CERTIFIED
+  PAID
+}
+
+enum VariationOrderStatus {
+  DRAFT
+  CONTRACTOR_PREPARED
+  CONTRACTOR_CHECKED
+  CONSULTANT_CHECKED
+  CONSULTANT_APPROVED
+  REJECTED
+}
+
+enum RiskCategory {
+  DESIGN
+  PROCUREMENT
+  WEATHER
+  FX_IMPORT
+  GEOTECHNICAL
+  REGULATORY
+  LABOR
+  SECURITY_THEFT
+  FINANCIAL
+  OTHER
+}
+
+enum RiskStatus {
+  OPEN
+  MITIGATING
+  CLOSED
+  REALIZED
+}
+
+enum SafetySeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentType {
+  NEAR_MISS
+  FIRST_AID
+  MEDICAL_TREATMENT
+  LOST_TIME
+  FATALITY
+}
+
+enum IncidentStatus {
+  OPEN
+  ACTION_PENDING
+  CLOSED
+}
+
+enum ITRResult {
+  PASS
+  FAIL
+  CONDITIONAL_PASS
+}
+
+enum DefectStatus {
+  OPEN
+  REWORK_IN_PROGRESS
+  VERIFIED_CLOSED
+}
+
+enum PunchSeverity {
+  MINOR
+  MAJOR
+}
+
+enum PunchStatus {
+  OPEN
+  RESOLVED
+  VERIFIED
+}
+
+enum EmploymentType {
+  PERMANENT
+  DAILY_CASUAL
+  SUBCONTRACTOR_STAFF
+}
+
+enum StructuralElementType {
+  SHEAR_WALL
+  BEAM
+  SLAB
+  STAIRCASE
+  COLUMN
+  FOOTING
+  NON_SHEAR_WALL
+}
+
+enum Discipline {
+  REBAR
+  FORMWORK
+  CONCRETE
+}
+
+enum Checkpoint {
+  Q1
+  Q2
+  Q3
+}
+
+enum RegulatoryReportType {
+  GRADING_RENEWAL
+  PROGRESS_SUBMISSION
+  SAFETY_COMPLIANCE
+  OTHER
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  APPROVE
+  REJECT
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
+// Sign-off lifecycle of a daily report entry (file 06 §5 Phase 1).
+enum DailyReportStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+}
+
+// ISO 9001 §7.5 document-control repository (Module 7).
+enum DocCategory {
+  DRAWING
+  SPECIFICATION
+  CONTRACT
+  CORRESPONDENCE
+  PERMIT
+  METHOD_STATEMENT
+  REPORT
+  OTHER
+}
+
+enum DocStatus {
+  DRAFT
+  UNDER_REVIEW
+  ISSUED
+  SUPERSEDED
+  WITHDRAWN
+}
+
+enum DecisionType {
+  DESIGN_CHANGE
+  DELAY_RULING
+  VARIATION_APPROVAL
+  RESOURCE_ALLOCATION
+  SAFETY_STOPPAGE
+  OTHER
+}
+
+// Procurement (Module 8).
+enum POStatus {
+  DRAFT
+  APPROVED
+  ISSUED
+  PARTIAL_RECEIVED
+  RECEIVED
+  CLOSED
+  CANCELLED
+}
+
+enum BidStatus {
+  DRAFT
+  SUBMITTED
+  WON
+  LOST
+  CANCELLED
+}
+
+// ============================================================
+// 1. Identity & Organization
+// ============================================================
+
+model Organization {
+  id              String           @id @default(cuid())
+  name            String
+  nameAmharic     String?
+  partyType       PartyType
+  contractorGrade ContractorGrade?
+  licenseNumber   String?
+  taxId           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  users                User[]
+  projectsAsContractor Project[]           @relation("ProjectContractor")
+  projectsAsClient     Project[]           @relation("ProjectClient")
+  projectsAsConsultant Project[]           @relation("ProjectConsultant")
+  memberships          ProjectMembership[]
+  invitations          Invitation[]
+  contractsExecuted    Contract[]          @relation("ContractOrg")
+  employees            Employee[]
+  equipment            Equipment[]
+  defectsResponsible   DefectLog[]
+  purchaseOrders       PurchaseOrder[]     @relation("POSupplier")
+  bids                 BidTender[]         @relation("BidOrg")
+
+  @@index([partyType])
+  @@index([name])
+}
+
+model User {
+  id                String   @id @default(cuid())
+  organizationId    String
+  fullName          String
+  email             String   @unique
+  passwordHash      String
+  phone             String?
+  jobTitle          String
+  role              UserRole
+  signatureImageUrl String?
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  organization      Organization           @relation(fields: [organizationId], references: [id])
+  memberships       ProjectMembership[]
+  invitationsSent   Invitation[]           @relation("InvitationsSent")
+  invitationAccepted Invitation?           @relation("InvitationAccepted")
+  signOffs          SignOff[]
+  riskOwner         RiskEntry[]            @relation("RiskOwner")
+  observations      SafetyObservation[]
+  incidentsVerified SafetyIncident[]       @relation("IncidentVerifiedBy")
+  inspections       InspectionTestRecord[]
+  custodyTransfers  CustodyLog[]           @relation("CustodyTransferor")
+  custodyReceipts   CustodyLog[]           @relation("CustodyReceiver")
+  auditEntries      AuditLog[]
+  earthworkEntries  EarthworkDailyEntry[]  @relation("EarthworkEntriesCreated")
+  structureEntries  StructureDailyEntry[]  @relation("StructureEntriesCreated")
+  rebarEntries      RebarDailyEntry[]      @relation("RebarEntriesCreated")
+  documentsIssued   ProjectDocument[]      @relation("DocIssuedBy")
+  documentsApproved ProjectDocument[]      @relation("DocApprovedBy")
+  decisions         DecisionLog[]
+  lessonsLearned    LessonsLearned[]
+  bidsSubmitted     BidTender[]            @relation("BidSubmittedBy")
+  materialReceipts  MaterialReceipt[]
+  notifications     Notification[]
+  activityAssignments     ActivityAssignment[] @relation("ActivityAssignedTo")
+  assignedAssignments     ActivityAssignment[] @relation("ActivityAssignedBy")
+  dependencyRequestsMade  PendingDependencyRequest[] @relation("DepReqRequestedBy")
+  dependencyRequestsReviewed PendingDependencyRequest[] @relation("DepReqReviewedBy")
+  disputesOpened          DisputeRecord[] @relation("DisputeOpenedBy")
+  disputesResolved        DisputeRecord[] @relation("DisputeResolvedBy")
+  reviewComments          ReviewComment[]
+  scheduleChangesRequested ScheduleChangeRequest[] @relation("ScheduleChangeRequester")
+  scheduleChangesReviewed  ScheduleChangeRequest[] @relation("ScheduleChangeReviewer")
+  @@index([organizationId])
+  @@index([role])
+}
+
+model ProjectMembership {
+  id             String @id @default(cuid())
+  projectId      String
+  userId         String
+  organizationId String
+  projectRole    String
+
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([projectId, userId, organizationId])
+  @@index([userId])
+  @@index([organizationId])
+}
+
+// ============================================================
+// 2. Document Control (ISO 9001 §7.5 backbone)
+// ============================================================
+
+model DocumentTemplate {
+  id                String   @id @default(cuid())
+  docNo             String   @unique
+  title             String
+  issuingDepartment DocDept
+  revisionNo        Int
+  effectiveDate     DateTime
+  supersededById    String?
+  formSchema        Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  supersededBy DocumentTemplate?  @relation("DocRevisions", fields: [supersededById], references: [id])
+  revisions    DocumentTemplate[] @relation("DocRevisions")
+}
+
+model SignOff {
+  id          String      @id @default(cuid())
+  entityType  String
+  entityId    String
+  userId      String
+  signOffRole SignOffRole
+  signedAt    DateTime
+  comment     String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([userId])
+  @@index([signOffRole])
+}
+
+// ============================================================
+// 3. Project & Contract
+// ============================================================
+
+model Project {
+  id               String        @id @default(cuid())
+  code             String        @unique
+  name             String
+  projectType      ProjectType
+  contractorOrgId  String
+  clientOrgId      String
+  consultantOrgId  String?
+  contractValue    Decimal       @db.Decimal(18, 2)
+  contractType     ContractType
+  plannedStartDate DateTime
+  plannedEndDate   DateTime
+  actualStartDate  DateTime?
+  actualEndDate    DateTime?
+  status           ProjectStatus @default(PLANNING)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  contractorOrg         Organization          @relation("ProjectContractor", fields: [contractorOrgId], references: [id])
+  clientOrg             Organization          @relation("ProjectClient", fields: [clientOrgId], references: [id])
+  consultantOrg         Organization?         @relation("ProjectConsultant", fields: [consultantOrgId], references: [id])
+  memberships           ProjectMembership[]
+  invitations           Invitation[]
+  contracts             Contract[]
+  wbsNodes              WbsNode[]
+  stoppages             StoppageEntry[]
+  variations            VariationOrder[]
+  risks                 RiskEntry[]
+  equipmentUsage        EquipmentUsageLog[]
+  regulatoryReports     RegulatoryReport[]
+  earthworkDailyEntries EarthworkDailyEntry[]
+  structureDailyEntries StructureDailyEntry[]
+  rebarDailyEntries     RebarDailyEntry[]
+  documents             ProjectDocument[]
+  decisions             DecisionLog[]
+  lessonsLearned        LessonsLearned[]
+  purchaseOrders        PurchaseOrder[]
+  bids                  BidTender[]
+  materialReceipts      MaterialReceipt[]
+  notifications         Notification[]
+  pendingDependencyRequests PendingDependencyRequest[]
+  disputeRecords          DisputeRecord[]
+  reviewComments          ReviewComment[]
+  scheduleChangeRequests   ScheduleChangeRequest[]
+  @@index([contractorOrgId])
+  @@index([clientOrgId])
+  @@index([status])
+}
+
+// ============================================================
+// Team invitations (lead → worker onboarding)
+// ============================================================
+
+model Invitation {
+  id             String           @id @default(cuid())
+  email          String
+  fullName       String
+  jobTitle       String
+  role           UserRole
+  phone          String?
+
+  organizationId String
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+
+  invitedById    String
+  invitedBy      User             @relation("InvitationsSent", fields: [invitedById], references: [id])
+
+  projectId      String?
+  project        Project?         @relation(fields: [projectId], references: [id])
+  projectRole    String?
+
+  tokenHash      String           @unique
+  status         InvitationStatus @default(PENDING)
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+
+  acceptedUserId String?          @unique
+  acceptedUser   User?            @relation("InvitationAccepted", fields: [acceptedUserId], references: [id])
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([organizationId, status])
+  @@index([email])
+}
+
+model Contract {
+  id               String         @id @default(cuid())
+  projectId        String
+  parentContractId String?
+  contractorOrgId  String
+  scopeWbsNodeId   String?
+  scopeDescription String
+  contractValue    Decimal        @db.Decimal(18, 2)
+  retentionPercent Decimal        @default(5) @db.Decimal(5, 2)
+  status           ContractStatus @default(ACTIVE)
+  terminatedAt     DateTime?
+  supersedesContractId String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parentContract    Contract?          @relation("Subcontracts", fields: [parentContractId], references: [id])
+  subcontracts      Contract[]         @relation("Subcontracts")
+  contractorOrg     Organization       @relation("ContractOrg", fields: [contractorOrgId], references: [id])
+  scopeWbsNode      WbsNode?           @relation(fields: [scopeWbsNodeId], references: [id])
+  supersedes        Contract?          @relation("ContractSupersedeChain", fields: [supersedesContractId], references: [id])
+  supersededBy      Contract[]         @relation("ContractSupersedeChain")
+  measurements      MeasurementEntry[]
+
+  @@index([projectId])
+  @@index([parentContractId])
+  @@index([contractorOrgId])
+  @@index([status])
+  @@index([scopeWbsNodeId])
+}
+
+// ============================================================
+// 4. Work Breakdown Structure (the shared spine)
+// ============================================================
+
+model WbsNode {
+  id          String      @id @default(cuid())
+  projectId   String
+  parentId    String?
+  code        String
+  name        String
+  nodeType    WBSNodeType
+  designReady Boolean     @default(false)
+  plannedStartDate DateTime?
+  plannedEndDate   DateTime?
+  status      String          @default("ACTIVE")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  project               Project                @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parent                WbsNode?               @relation("WBSChildren", fields: [parentId], references: [id], onDelete: Cascade)
+  children              WbsNode[]              @relation("WBSChildren")
+  activities            ScheduleActivity[]
+  boqItems              BoqItem[]
+  stoppages             StoppageEntry[]
+  measurements          MeasurementEntry[]
+  variations            VariationOrder[]
+  risks                 RiskEntry[]
+  safetyObservations    SafetyObservation[]
+  safetyIncidents       SafetyIncident[]
+  inspections           InspectionTestRecord[]
+  defects               DefectLog[]
+  punchListItems        PunchListItem[]
+  laborAssignments      LaborAssignment[]
+  equipmentUsage        EquipmentUsageLog[]
+  materialDemands       MaterialDemand[]
+  structuralElements    StructuralElement[]
+  earthworkDailyEntries EarthworkDailyEntry[]
+  structureDailyEntries StructureDailyEntry[]
+  rebarDailyEntries     RebarDailyEntry[]
+  documents             ProjectDocument[]
+  purchaseOrderItems    PurchaseOrderItem[]
+  materialReceipts      MaterialReceipt[]
+  decisions             DecisionLog[]
+  lessonsLearned        LessonsLearned[]
+  contractsAsScope     Contract[]
+  disputeRecords       DisputeRecord[]
+
+  @@unique([projectId, code])
+  @@index([parentId])
+  @@index([projectId, nodeType])
+  @@map("WBSNode")
+}
+
+// ============================================================
+// 5. Schedule
+// ============================================================
+
+model ScheduleActivity {
+  id              String         @id @default(cuid())
+  wbsNodeId       String
+  name            String
+  baselineStart   DateTime
+  baselineFinish  DateTime
+  plannedStart    DateTime
+  plannedFinish   DateTime
+  actualStart     DateTime?
+  actualFinish    DateTime?
+  progressPercent Decimal        @default(0) @db.Decimal(6, 2)
+  status          ActivityStatus @default(NOT_STARTED)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  wbsNode                WbsNode              @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  predecessors           ScheduleDependency[] @relation("DependencyPredecessor")
+  successors             ScheduleDependency[] @relation("DependencySuccessor")
+  stoppages              StoppageEntry[]
+  safetyBlockedIncidents SafetyIncident[]
+  assignments            ActivityAssignment[]
+  dependencyRequests     PendingDependencyRequest[] @relation("DependencyRequestSuccessor")
+  dependencyRequestsAs   PendingDependencyRequest[] @relation("DependencyRequestPredecessor")
+  scheduleChangeRequests   ScheduleChangeRequest[]
+
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+model ActivityAssignment {
+  id             String         @id @default(cuid())
+  scheduleActivityId String
+  userId         String
+  role           AssignmentRole
+  assignedById   String
+  assignedAt     DateTime       @default(now())
+  endedAt        DateTime?
+  supersededById String?
+
+  scheduleActivity ScheduleActivity      @relation(fields: [scheduleActivityId], references: [id], onDelete: Cascade)
+  user             User                  @relation("ActivityAssignedTo", fields: [userId], references: [id])
+  assignedBy       User                  @relation("ActivityAssignedBy", fields: [assignedById], references: [id])
+  supersededBy     ActivityAssignment?   @relation("ActivityAssignmentSupersede", fields: [supersededById], references: [id])
+  supersedes       ActivityAssignment[]  @relation("ActivityAssignmentSupersede")
+
+  @@index([scheduleActivityId])
+  @@index([userId])
+  @@index([role])
+  @@index([userId, role, endedAt])
+}
+
+model ScheduleDependency {
+  id             String         @id @default(cuid())
+  predecessorId  String
+  successorId    String
+  dependencyType DependencyType @default(FS)
+  lagDays        Int            @default(0)
+
+  predecessor ScheduleActivity @relation("DependencyPredecessor", fields: [predecessorId], references: [id], onDelete: Cascade)
+  successor   ScheduleActivity @relation("DependencySuccessor", fields: [successorId], references: [id], onDelete: Cascade)
+
+  @@index([predecessorId])
+  @@index([successorId])
+}
+
+model PendingDependencyRequest {
+  id             String               @id @default(cuid())
+  projectId      String
+  predecessorId  String
+  successorId    String
+  dependencyType DependencyType       @default(FS)
+  lagDays        Int                  @default(0)
+  justification  String
+  requestedById  String
+  reviewedById   String?
+  status         DependencyRequestStatus @default(PENDING)
+  declineReason  String?
+  createdAt      DateTime             @default(now())
+  reviewedAt     DateTime?
+
+  project    Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  predecessor ScheduleActivity @relation("DependencyRequestPredecessor", fields: [predecessorId], references: [id])
+  successor   ScheduleActivity @relation("DependencyRequestSuccessor", fields: [successorId], references: [id])
+  requestedBy User             @relation("DepReqRequestedBy", fields: [requestedById], references: [id])
+  reviewedBy  User?            @relation("DepReqReviewedBy", fields: [reviewedById], references: [id])
+
+  @@index([projectId, status])
+  @@index([requestedById])
+  @@index([reviewedById])
+}
+
+// Digital twin of the On-Site Work Stoppage Report (file 05 §1.5) —
+// the single highest-leverage table in the system.
+model StoppageEntry {
+  id                      String            @id @default(cuid())
+  projectId               String
+  wbsNodeId               String?
+  scheduleActivityId      String?
+  stoppageType            StoppageType
+  reason                  String
+  stationFrom             String?
+  stationTo               String?
+  startTime               DateTime
+  endTime                 DateTime
+  resourcesAssigned       Json?
+  inspectorComment        String?
+  contractorRepComment    String?
+  residentEngineerComment String?
+  responsibleParty        ResponsibleParty?
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+
+  project          Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode          WbsNode?          @relation(fields: [wbsNodeId], references: [id])
+  scheduleActivity ScheduleActivity? @relation(fields: [scheduleActivityId], references: [id])
+  realizedRisks    RiskEntry[]
+
+  @@index([projectId])
+  @@index([wbsNodeId])
+  @@index([scheduleActivityId])
+  @@index([stoppageType])
+}
+
+// ============================================================
+// 5b. Daily Site Reports (digital twins — file 06 §2.1–2.3)
+// ============================================================
+
+// Earth Work Daily Report Format — IMS/OF/ENG/018 (file 06 §2.1).
+// OH/IH/DH fields feed the cross-project Equipment Utilization view.
+model EarthworkDailyEntry {
+  id                  String            @id @default(cuid())
+  projectId           String
+  wbsNodeId           String
+  date                DateTime          @db.Date
+  station             String?
+  activityDescription String
+  equipmentType       String?
+  equipmentPlateNo    String?
+  operatingHours      Decimal?          @db.Decimal(6, 2)
+  idleHours           Decimal?          @db.Decimal(6, 2)
+  downHours           Decimal?          @db.Decimal(6, 2)
+  quantityLength      Decimal?          @db.Decimal(12, 3)
+  quantityWidth       Decimal?          @db.Decimal(12, 3)
+  quantityDepth       Decimal?          @db.Decimal(12, 3)
+  manpower            Json?
+  remark              String?
+  status              DailyReportStatus @default(DRAFT)
+  createdById         String
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode   WbsNode @relation(fields: [wbsNodeId], references: [id])
+  createdBy User    @relation("EarthworkEntriesCreated", fields: [createdById], references: [id])
+
+  @@index([projectId, date])
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+// Structure Daily Report Format — IMS/001 (file 06 §2.2).
+// design/actual quantity variance closes the subjective-progress gap.
+model StructureDailyEntry {
+  id                  String            @id @default(cuid())
+  projectId           String
+  wbsNodeId           String
+  date                DateTime          @db.Date
+  activityDescription String
+  designQuantity      Decimal?          @db.Decimal(12, 3)
+  actualQuantity      Decimal?          @db.Decimal(12, 3)
+  materialUsed        String?
+  concreteGrade       String?
+  labour              Json?
+  equipmentType       String?
+  equipmentSerialNo   String?
+  operatingHours      Decimal?          @db.Decimal(6, 2)
+  idleHours           Decimal?          @db.Decimal(6, 2)
+  downHours           Decimal?          @db.Decimal(6, 2)
+  remark              String?
+  status              DailyReportStatus @default(DRAFT)
+  createdById         String
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode   WbsNode @relation(fields: [wbsNodeId], references: [id])
+  createdBy User    @relation("StructureEntriesCreated", fields: [createdById], references: [id])
+
+  @@index([projectId, date])
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+// Bar Schedule (Rebar) Daily Report — IMS/OF/ENG/019 (file 06 §2.3).
+// Weight auto-computed from the WeightFactor lookup, replacing manual arithmetic.
+model RebarDailyEntry {
+  id             String            @id @default(cuid())
+  projectId      String
+  wbsNodeId      String
+  date           DateTime          @db.Date
+  barDesignation String
+  diameterMm     Int
+  numberOfBars   Int
+  lengthM        Decimal           @db.Decimal(12, 3)
+  numberOfFaces  Int
+  computedWeightKg Decimal?        @db.Decimal(18, 3)
+  shape          String?
+  labour         Json?
+  remark         String?
+  status         DailyReportStatus @default(DRAFT)
+  createdById    String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode      WbsNode      @relation(fields: [wbsNodeId], references: [id])
+  createdBy    User         @relation("RebarEntriesCreated", fields: [createdById], references: [id])
+  weightFactor WeightFactor @relation(fields: [diameterMm], references: [diameterMm])
+
+  @@index([projectId, date])
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+// ============================================================
+// 6. Cost, BoQ & Payment
+// ============================================================
+
+model BoqItem {
+  id               String   @id @default(cuid())
+  wbsNodeId        String
+  itemCode         String
+  description      String
+  unit             String
+  budgetedQuantity Decimal  @db.Decimal(18, 3)
+  unitRate         Decimal  @db.Decimal(18, 2)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  wbsNode WbsNode      @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  actuals CostActual[]
+
+  @@index([wbsNodeId])
+  @@map("BoQItem")
+}
+
+model CostActual {
+  id         String         @id @default(cuid())
+  boqItemId  String
+  costType   CostType
+  amount     Decimal        @db.Decimal(18, 2)
+  sourceType CostSourceType
+  sourceId   String
+  recordedAt DateTime
+  createdAt  DateTime       @default(now())
+
+  boqItem BoqItem @relation(fields: [boqItemId], references: [id], onDelete: Cascade)
+  defectLogs DefectLog[]
+
+  @@index([boqItemId])
+  @@index([costType])
+  @@index([sourceType, sourceId])
+}
+
+// Generalized IPC / subcontract measurement (file 06 §2.6).
+model MeasurementEntry {
+  id            String            @id @default(cuid())
+  contractId    String
+  wbsNodeId     String
+  itemNo        String
+  locationFrom  String?
+  locationTo    String?
+  side          String?
+  length        Decimal?          @db.Decimal(18, 3)
+  width         Decimal?          @db.Decimal(18, 3)
+  depth         Decimal?          @db.Decimal(18, 3)
+  quantity      Decimal           @db.Decimal(18, 3)
+  unitRate      Decimal           @db.Decimal(18, 2)
+  certificateNo String?
+  status        MeasurementStatus @default(DRAFT)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  wbsNode  WbsNode  @relation(fields: [wbsNodeId], references: [id])
+
+  @@index([contractId])
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+// Digital twin of the Day Work Format → Variation Order (file 06 §2.4).
+model VariationOrder {
+  id              String               @id @default(cuid())
+  projectId       String
+  wbsNodeId       String?
+  itemNo          String
+  workDescription String
+  equipmentUsed   Json?
+  manpowerUsed    Json?
+  materialUsed    Json?
+  costImpact      Decimal?             @db.Decimal(18, 2)
+  timeImpactDays  Int?
+  status          VariationOrderStatus @default(DRAFT)
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+
+  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode       WbsNode?    @relation(fields: [wbsNodeId], references: [id])
+  realizedRisks RiskEntry[]
+  decisions     DecisionLog[]
+
+  @@index([projectId])
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+// ============================================================
+// 7. Risk
+// ============================================================
+
+model RiskEntry {
+  id                    String       @id @default(cuid())
+  projectId             String
+  wbsNodeId             String?
+  category              RiskCategory
+  description           String
+  likelihood            Int
+  impact                Int
+  ownerId               String
+  mitigationPlan        String?
+  status                RiskStatus   @default(OPEN)
+  realizedAsStoppageId  String?
+  realizedAsVariationId String?
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+
+  project             Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode             WbsNode?        @relation(fields: [wbsNodeId], references: [id])
+  owner               User            @relation("RiskOwner", fields: [ownerId], references: [id])
+  realizedAsStoppage  StoppageEntry?  @relation(fields: [realizedAsStoppageId], references: [id])
+  realizedAsVariation VariationOrder? @relation(fields: [realizedAsVariationId], references: [id])
+  decisions           DecisionLog[]
+
+  @@index([projectId])
+  @@index([wbsNodeId])
+  @@index([ownerId])
+  @@index([status])
+  @@index([category])
+}
+
+// ============================================================
+// 8. Safety
+// ============================================================
+
+model SafetyObservation {
+  id                   String         @id @default(cuid())
+  wbsNodeId            String
+  observedByUserId     String
+  hazardDescription    String
+  severity             SafetySeverity
+  immediateActionTaken String?
+  observedAt           DateTime
+  createdAt            DateTime       @default(now())
+
+  wbsNode    WbsNode          @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  observedBy User             @relation(fields: [observedByUserId], references: [id])
+  incidents  SafetyIncident[]
+
+  @@index([wbsNodeId])
+  @@index([severity])
+  @@index([observedAt])
+}
+
+model SafetyIncident {
+  id                               String         @id @default(cuid())
+  wbsNodeId                        String
+  linkedObservationId              String?
+  incidentType                     IncidentType
+  description                      String
+  correctiveAction                 String?
+  correctiveActionVerifiedByUserId String?
+  status                           IncidentStatus @default(OPEN)
+  affectsScheduleActivityId        String?
+  createdAt                        DateTime       @default(now())
+  updatedAt                        DateTime       @updatedAt
+
+  wbsNode                    WbsNode            @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  linkedObservation          SafetyObservation? @relation(fields: [linkedObservationId], references: [id])
+  correctiveActionVerifiedBy User?              @relation("IncidentVerifiedBy", fields: [correctiveActionVerifiedByUserId], references: [id])
+  affectsScheduleActivity    ScheduleActivity?  @relation(fields: [affectsScheduleActivityId], references: [id])
+
+  @@index([wbsNodeId])
+  @@index([status])
+  @@index([incidentType])
+}
+
+// ============================================================
+// 9. Quality
+// ============================================================
+
+model InspectionTestRecord {
+  id                String    @id @default(cuid())
+  wbsNodeId         String
+  inspectionType    String
+  result            ITRResult
+  inspectedByUserId String
+  inspectedAt       DateTime
+  createdAt         DateTime  @default(now())
+
+  wbsNode     WbsNode     @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  inspectedBy User        @relation(fields: [inspectedByUserId], references: [id])
+  defects     DefectLog[]
+  disputesFromInspection  DisputeRecord[]
+
+  @@index([wbsNodeId])
+  @@index([result])
+}
+
+model DefectLog {
+  id                 String       @id @default(cuid())
+  linkedItrId        String?
+  wbsNodeId          String
+  description        String
+  disputesFromDefect DisputeRecord[]
+  responsibleOrgId   String?
+  reworkCostActualId String?
+  reworkDelayDays    Int?
+  status             DefectStatus @default(OPEN)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  linkedItr      InspectionTestRecord? @relation(fields: [linkedItrId], references: [id])
+  wbsNode        WbsNode               @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  responsibleOrg Organization?         @relation(fields: [responsibleOrgId], references: [id])
+  reworkCostActual CostActual?         @relation(fields: [reworkCostActualId], references: [id])
+
+  @@index([wbsNodeId])
+  @@index([status])
+}
+
+model DisputeRecord {
+  id             String        @id @default(cuid())
+  defectLogId    String?
+  itrId          String?
+  projectId      String
+  wbsNodeId      String?
+  disputedById   String
+  reason         String
+  resolution     String?
+  status         DisputeStatus @default(OPEN)
+  resolvedById   String?
+  resolvedAt     DateTime?
+  escalationTo   String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  defectLog  DefectLog?  @relation(fields: [defectLogId], references: [id])
+  itr        InspectionTestRecord? @relation(fields: [itrId], references: [id])
+  project    Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode    WbsNode?    @relation(fields: [wbsNodeId], references: [id])
+  disputedBy User        @relation("DisputeOpenedBy", fields: [disputedById], references: [id])
+  resolvedBy User?       @relation("DisputeResolvedBy", fields: [resolvedById], references: [id])
+
+  @@index([projectId])
+  @@index([defectLogId])
+  @@index([status])
+}
+
+model PunchListItem {
+  id          String        @id @default(cuid())
+  wbsNodeId   String
+  description String
+  severity    PunchSeverity
+  status      PunchStatus   @default(OPEN)
+  patternTag  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  wbsNode WbsNode @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+
+  @@index([wbsNodeId])
+  @@index([status])
+  @@index([patternTag])
+}
+
+// ============================================================
+// 10. Resources — Labor
+// ============================================================
+
+model Employee {
+  id             String         @id @default(cuid())
+  organizationId String
+  fullName       String
+  profession     String
+  employmentType EmploymentType
+  active         Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization Organization      @relation(fields: [organizationId], references: [id])
+  attendance   LaborAttendance[]
+  assignments  LaborAssignment[]
+
+  @@index([organizationId])
+  @@index([employmentType])
+}
+
+model LaborAttendance {
+  id         String   @id @default(cuid())
+  employeeId String
+  date       DateTime @db.Date
+  present    Boolean
+  hours      Decimal  @db.Decimal(5, 2)
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, date])
+}
+
+model LaborAssignment {
+  id          String   @id @default(cuid())
+  employeeId  String
+  wbsNodeId   String
+  date        DateTime @db.Date
+  hoursOnTask Decimal  @db.Decimal(5, 2)
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  wbsNode  WbsNode  @relation(fields: [wbsNodeId], references: [id])
+
+  @@index([employeeId, date])
+  @@index([wbsNodeId])
+}
+
+// ============================================================
+// 11. Resources — Equipment
+// ============================================================
+
+model Equipment {
+  id             String   @id @default(cuid())
+  organizationId String
+  equipmentType  String
+  plateNo        String?
+  serialNo       String?
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization        @relation(fields: [organizationId], references: [id])
+  usageLogs    EquipmentUsageLog[]
+  custodyLogs  CustodyLog[]
+
+  @@index([organizationId])
+}
+
+model EquipmentUsageLog {
+  id             String   @id @default(cuid())
+  equipmentId    String
+  wbsNodeId      String
+  projectId      String
+  date           DateTime @db.Date
+  operatingHours Decimal  @db.Decimal(6, 2)
+  idleHours      Decimal  @db.Decimal(6, 2)
+  downHours      Decimal  @db.Decimal(6, 2)
+
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  wbsNode   WbsNode   @relation(fields: [wbsNodeId], references: [id])
+  project   Project   @relation(fields: [projectId], references: [id])
+
+  @@index([equipmentId, date])
+  @@index([projectId])
+  @@index([wbsNodeId])
+}
+
+// ============================================================
+// 12. Resources — Materials & Chain of Custody
+// ============================================================
+
+model MaterialItem {
+  id              String   @id @default(cuid())
+  name            String
+  unit            String
+  importDependent Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  demands     MaterialDemand[]
+  custodyLogs CustodyLog[]
+  purchaseOrderItems PurchaseOrderItem[]
+  receipts           MaterialReceipt[]
+
+  @@index([name])
+}
+
+model MaterialDemand {
+  id                String   @id @default(cuid())
+  wbsNodeId         String
+  materialItemId    String
+  neededByDate      DateTime @db.Date
+  quantityNeeded    Decimal  @db.Decimal(18, 3)
+  quantityDelivered Decimal  @default(0) @db.Decimal(18, 3)
+
+  wbsNode      WbsNode      @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  materialItem MaterialItem @relation(fields: [materialItemId], references: [id])
+
+  purchaseOrderItems PurchaseOrderItem[]
+
+  @@index([wbsNodeId])
+  @@index([materialItemId])
+  @@index([neededByDate])
+}
+
+// Anti-theft / chain-of-custody tracking (file 03 §6).
+model CustodyLog {
+  id                  String   @id @default(cuid())
+  materialItemId      String?
+  equipmentId         String?
+  fromLocation        String
+  toLocation          String
+  transferredByUserId String
+  receivedByUserId    String?
+  transferredAt       DateTime
+  quantity            Decimal? @db.Decimal(18, 3)
+
+  materialItem  MaterialItem? @relation(fields: [materialItemId], references: [id])
+  equipment     Equipment?    @relation(fields: [equipmentId], references: [id])
+  transferredBy User          @relation("CustodyTransferor", fields: [transferredByUserId], references: [id])
+  receivedBy    User?         @relation("CustodyReceiver", fields: [receivedByUserId], references: [id])
+
+  @@index([materialItemId])
+  @@index([equipmentId])
+  @@index([receivedByUserId])
+  @@index([transferredAt])
+}
+
+// ============================================================
+// 13. Engineering / Estimating (Rebar & Formwork Takeoff)
+// ============================================================
+
+model StructuralElement {
+  id                String                @id @default(cuid())
+  wbsNodeId         String
+  elementType       StructuralElementType
+  axisFrom          String?
+  axisTo            String?
+  floor             String?
+  templateElementId String?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  wbsNode         WbsNode             @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  templateElement StructuralElement?  @relation("ElementTemplates", fields: [templateElementId], references: [id])
+  clones          StructuralElement[] @relation("ElementTemplates")
+  rebarLines      RebarLine[]
+  formworkLines   FormworkLine[]
+  progress        ElementProgress[]
+
+  @@index([wbsNodeId])
+  @@index([templateElementId])
+}
+
+// Reference table: bar diameter → kg/m (transcribed verbatim from file 05 §1.3).
+model WeightFactor {
+  diameterMm Int     @id
+  kgPerMeter Decimal @db.Decimal(6, 3)
+
+  rebarLines        RebarLine[]
+  rebarDailyEntries RebarDailyEntry[]
+}
+
+model RebarLine {
+  id                  String   @id @default(cuid())
+  structuralElementId String
+  barDesignation      String
+  diameterMm          Int
+  spacingM            Decimal? @db.Decimal(6, 3)
+  numberOfFaces       Int
+  numberOfBars        Int
+  spanM               Decimal  @db.Decimal(12, 3)
+  computedWeightKg    Decimal? @db.Decimal(18, 3)
+
+  structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
+  weightFactor      WeightFactor      @relation(fields: [diameterMm], references: [diameterMm])
+
+  @@index([structuralElementId])
+}
+
+model FormworkLine {
+  id                  String  @id @default(cuid())
+  structuralElementId String
+  segmentLabel        String?
+  lengthM             Decimal @db.Decimal(12, 3)
+  heightM             Decimal @db.Decimal(12, 3)
+  computedAreaM2      Decimal? @db.Decimal(18, 3)
+
+  structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
+
+  @@index([structuralElementId])
+}
+
+// ============================================================
+// 14. Progress, Compliance & Audit
+// ============================================================
+
+model ElementProgress {
+  id                  String     @id @default(cuid())
+  structuralElementId String
+  discipline          Discipline
+  checkpoint          Checkpoint
+  completedDate       DateTime?  @db.Date
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
+
+  @@unique([structuralElementId, discipline, checkpoint])
+}
+
+model RegulatoryReport {
+  id          String               @id @default(cuid())
+  projectId   String
+  reportType  RegulatoryReportType
+  generatedAt DateTime             @default(now())
+  filePath    String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([reportType])
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  entityType String
+  entityId   String
+  action     AuditAction
+  userId     String
+  changedAt  DateTime    @default(now())
+  diff       Json?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([userId])
+  @@index([changedAt])
+}
+
+// ============================================================
+// 15. Project Document Repository (ISO 9001 §7.5) & Decision Log
+// ============================================================
+
+model ProjectDocument {
+  id             String      @id @default(cuid())
+  projectId      String
+  wbsNodeId      String?
+  docNo          String
+  title          String
+  category       DocCategory
+  revisionNo     Int         @default(1)
+  status         DocStatus   @default(DRAFT)
+  filePath       String?
+  issuedByUserId String
+  issuedAt       DateTime    @default(now())
+  effectiveDate  DateTime?
+  approvedById   String?
+  supersededById String?
+
+  project       Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode       WbsNode?          @relation(fields: [wbsNodeId], references: [id])
+  issuedBy      User              @relation("DocIssuedBy", fields: [issuedByUserId], references: [id])
+  approvedBy    User?             @relation("DocApprovedBy", fields: [approvedById], references: [id])
+  supersededBy  ProjectDocument?  @relation("DocSupersedeChain", fields: [supersededById], references: [id])
+  revisions     ProjectDocument[] @relation("DocSupersedeChain")
+  decisions     DecisionLog[]
+
+  @@unique([projectId, docNo, revisionNo])
+  @@index([projectId])
+  @@index([wbsNodeId])
+  @@index([category])
+  @@index([status])
+}
+
+model DecisionLog {
+  id           String       @id @default(cuid())
+  projectId    String
+  wbsNodeId    String?
+  documentId   String?
+  riskId       String?
+  variationId  String?
+  decisionType DecisionType
+  decision     String
+  rationale    String?
+  madeByUserId String
+  decidedAt    DateTime     @default(now())
+
+  project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode   WbsNode?         @relation(fields: [wbsNodeId], references: [id])
+  document  ProjectDocument? @relation(fields: [documentId], references: [id])
+  risk      RiskEntry?       @relation(fields: [riskId], references: [id])
+  variation VariationOrder?  @relation(fields: [variationId], references: [id])
+  madeBy    User             @relation(fields: [madeByUserId], references: [id])
+
+  @@index([projectId])
+  @@index([wbsNodeId])
+  @@index([documentId])
+  @@index([riskId])
+  @@index([variationId])
+}
+
+model LessonsLearned {
+  id               String   @id @default(cuid())
+  projectId        String
+  wbsNodeId        String?
+  phase            String?
+  category         String
+  lesson           String
+  recommendation   String?
+  recordedByUserId String
+  recordedAt       DateTime @default(now())
+
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode    WbsNode? @relation(fields: [wbsNodeId], references: [id])
+  recordedBy User     @relation(fields: [recordedByUserId], references: [id])
+
+  @@index([projectId])
+  @@index([wbsNodeId])
+}
+
+// ============================================================
+// 16. Procurement — Purchase Orders & Bid/Tender Registry
+// ============================================================
+
+model PurchaseOrder {
+  id               String     @id @default(cuid())
+  projectId        String
+  supplierOrgId    String
+  poNo             String
+  status           POStatus   @default(DRAFT)
+  issueDate        DateTime   @default(now())
+  expectedDelivery DateTime?
+  amount           Decimal?   @db.Decimal(18, 2)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  project  Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  supplier Organization         @relation("POSupplier", fields: [supplierOrgId], references: [id])
+  items    PurchaseOrderItem[]
+  receipts MaterialReceipt[]
+
+  @@unique([projectId, poNo])
+  @@index([supplierOrgId])
+  @@index([status])
+}
+
+model PurchaseOrderItem {
+  id               String         @id @default(cuid())
+  purchaseOrderId  String
+  materialItemId   String
+  materialDemandId String?
+  wbsNodeId        String?
+  quantityOrdered  Decimal        @db.Decimal(18, 3)
+  unitPrice        Decimal        @db.Decimal(18, 2)
+  quantityReceived Decimal        @default(0) @db.Decimal(18, 3)
+
+  purchaseOrder  PurchaseOrder   @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  materialItem   MaterialItem    @relation(fields: [materialItemId], references: [id])
+  materialDemand MaterialDemand? @relation(fields: [materialDemandId], references: [id])
+  wbsNode        WbsNode?        @relation(fields: [wbsNodeId], references: [id])
+
+  @@index([purchaseOrderId])
+  @@index([materialDemandId])
+  @@index([materialItemId])
+}
+
+model MaterialReceipt {
+  id               String   @id @default(cuid())
+  purchaseOrderId  String
+  materialItemId   String
+  wbsNodeId        String?
+  projectId        String
+  quantityReceived Decimal  @db.Decimal(18, 3)
+  receiptDate      DateTime @db.Date
+  receivedByUserId String
+  remark           String?
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  materialItem  MaterialItem  @relation(fields: [materialItemId], references: [id])
+  wbsNode       WbsNode?      @relation(fields: [wbsNodeId], references: [id])
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  receivedBy    User          @relation(fields: [receivedByUserId], references: [id])
+
+  @@index([purchaseOrderId])
+  @@index([materialItemId])
+  @@index([receiptDate])
+}
+
+model BidTender {
+  id                String     @id @default(cuid())
+  projectId         String
+  supplierOrgId     String?
+  bidNo             String
+  title             String
+  description       String?
+  amount            Decimal?   @db.Decimal(18, 2)
+  submittedAt       DateTime?
+  result            BidStatus  @default(DRAFT)
+  submittedByUserId String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  supplier    Organization? @relation("BidOrg", fields: [supplierOrgId], references: [id])
+  submittedBy User?         @relation("BidSubmittedBy", fields: [submittedByUserId], references: [id])
+
+  @@unique([projectId, bidNo])
+  @@index([result])
+  @@index([supplierOrgId])
+}
+
+enum ContractStatus {
+  ACTIVE
+  TERMINATED
+  COMPLETED
+}
+
+enum AssignmentRole {
+  SITE_ENGINEER
+  FOREMAN
+}
+
+enum DependencyRequestStatus {
+  PENDING
+  APPROVED
+  DECLINED
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED
+}
+
+enum NotificationType {
+  DAILY_REPORT_PENDING_SIGNOFF
+  SAFETY_INCIDENT_OPEN
+  RISK_UNASSIGNED
+  MEASUREMENT_PENDING_CERTIFICATION
+  VARIATION_PENDING_APPROVAL
+  DOCUMENT_PENDING_APPROVAL
+  PO_PENDING_APPROVAL
+  CUSTODY_PENDING_ACKNOWLEDGEMENT
+  ACTIVITY_ASSIGNED
+  DEPENDENCY_REQUEST_PENDING
+  DISPUTE_OPENED
+  CONTRACT_STATUS_CHANGED
+  REVIEW_COMMENT_ADDED
+  SCHEDULE_CHANGE_PENDING
+  OTHER
+}
+
+// Feeds the role-agnostic "My Tasks" pattern (file 09 §6): one row per
+// person per pending action, polymorphic over the entity that needs it.
+model Notification {
+  id         String           @id @default(cuid())
+  userId     String
+  projectId  String?
+  entityType String
+  entityId   String
+  type       NotificationType
+  message    String
+  readAt     DateTime?
+  createdAt  DateTime         @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+  @@index([entityType, entityId])
+  @@index([projectId])
+}
+
+/// Polymorphic review/comment system.
+/// entityType can be: "daily_report", "inspection", "activity", "dependency_request",
+/// "schedule_change", "contract", "document", "defect", "punch_item", "measurement", "variation"
+/// Comments are append-only — never edited or deleted.
+model ReviewComment {
+  id          String   @id @default(cuid())
+  projectId   String
+  entityType  String
+  entityId    String
+  userId      String
+  parentId    String?  // for threaded replies; null = top-level comment
+  body        String
+  isDecision  Boolean  @default(false) // marks a formal review decision
+  decisionLabel String? // "APPROVED", "CHANGES_REQUESTED", "REJECTED", etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user    User            @relation(fields: [userId], references: [id])
+  project Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parent  ReviewComment?  @relation("CommentReply", fields: [parentId], references: [id])
+  replies ReviewComment[] @relation("CommentReply")
+
+  @@index([entityType, entityId, createdAt])
+  @@index([projectId, entityType])
+  @@index([userId])
+  @@index([parentId])
+}
+
+enum ScheduleChangeStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+/// A request to change an activity's planned dates while preserving the original baseline.
+/// Only PMs with schedule "approve" permission can approve/reject.
+model ScheduleChangeRequest {
+  id             String               @id @default(cuid())
+  projectId      String
+  activityId     String
+  requestedById  String
+  newStart       DateTime
+  newFinish      DateTime
+  reason         String
+  status         ScheduleChangeStatus @default(PENDING)
+  reviewedById   String?
+  reviewedAt     DateTime?
+  decisionReason String?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  activity    ScheduleActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  requestedBy User             @relation("ScheduleChangeRequester", fields: [requestedById], references: [id])
+  reviewedBy  User?            @relation("ScheduleChangeReviewer", fields: [reviewedById], references: [id])
+
+  @@index([projectId, status])
+  @@index([activityId])
+  @@index([requestedById])
+}
