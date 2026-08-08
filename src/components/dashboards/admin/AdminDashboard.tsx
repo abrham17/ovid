@@ -1,3 +1,6 @@
+"use client";
+
+
 import { RoleDashboard, makeShortcut, metric, type DashboardProps } from "@/components/dashboards/role-dashboard-shell";
 
 export function AdminDashboard(props: DashboardProps) {

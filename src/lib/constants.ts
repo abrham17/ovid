@@ -1,6 +1,5 @@
 import type { UserRole, PartyType, ProjectStatus, ActivityStatus } from "@/generated/prisma/enums";
 
-export const APP_NAME = "Ovid PMS";
 export const APP_TAGLINE = "Construction Project Management for Grade-1 Practice";
 
 export const ROLE_LABELS: Record<UserRole, string> = {

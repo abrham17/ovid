@@ -1,6 +1,4 @@
-import type { UserRole, PartyType } from "@/generated/prisma/enums";
-import type { SessionUser } from "@/lib/auth";
-import { db } from "@/lib/db";
+import type { UserRole } from "@/generated/prisma/enums";
 
 /**
  * Permission matrix for Ovid PMS.
@@ -258,77 +256,6 @@ export function can(
   const perms = ROLE_PERMISSIONS[role]?.[resource];
   if (!perms) return false;
   return perms.includes(action);
-}
-
-export function assertPermission(
-  user: SessionUser,
-  resource: Resource,
-  action: PermissionAction
-) {
-  if (!can(user.role, resource, action)) {
-    throw new PermissionError(
-      `Role ${user.role} cannot ${action} ${resource}`
-    );
-  }
-}
-
-export class PermissionError extends Error {
-  status = 403;
-  constructor(message: string) {
-    super(message);
-    this.name = "PermissionError";
-  }
-}
-
-/**
- * Verify the user is a member of the given project (or is ADMIN of the same org).
- * Returns the membership record when present.
- */
-export async function assertProjectAccess(
-  user: SessionUser,
-  projectId: string
-) {
-  // ADMIN: any project linked to their org as contractor / client / consultant
-  if (user.role === "ADMIN") {
-    const project = await db.project.findFirst({
-      where: {
-        id: projectId,
-        OR: [
-          { contractorOrgId: user.organizationId },
-          { clientOrgId: user.organizationId },
-          { consultantOrgId: user.organizationId },
-        ],
-      },
-    });
-    if (!project) throw new PermissionError("Project not found or access denied");
-    return { role: user.role as UserRole, project };
-  }
-
-  const membership = await db.projectMembership.findFirst({
-    where: {
-      projectId,
-      userId: user.id,
-    },
-    include: { project: true },
-  });
-
-  if (!membership) {
-    // Also allow same-org contractor staff without explicit membership for read paths
-    const project = await db.project.findFirst({
-      where: {
-        id: projectId,
-        OR: [
-          { contractorOrgId: user.organizationId },
-          { clientOrgId: user.organizationId },
-          { consultantOrgId: user.organizationId },
-        ],
-      },
-    });
-    if (!project) throw new PermissionError("You are not a member of this project");
-    return { role: user.role as UserRole, project };
-  }
-
-  return { role: (membership.projectRole as UserRole) || user.role, project: membership.project };
 }
 
 /** Roles that can invite new users into a project */

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
-import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
+import { APP_TAGLINE } from "@/lib/constants";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,10 +15,6 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: APP_NAME,
-    template: `%s · ${APP_NAME}`,
-  },
   description: APP_TAGLINE,
 };
 

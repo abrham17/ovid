@@ -32,7 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { APP_NAME, ROLE_LABELS } from "@/lib/constants";
+import {ROLE_LABELS } from "@/lib/constants";
 import { titleCase } from "@/lib/constants";
 
 const NAV_ITEMS = [
@@ -79,15 +79,7 @@ export function DashboardShell({ children, session }: DashboardShellProps) {
 
   const SidebarContent = () => (
     <div className="flex h-full flex-col bg-[#fdfcf9]">
-      {/* Logo */}
-      <div className="flex h-14 items-center gap-2.5 px-5 border-b border-[#efe8de]">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#c04928] shadow-sm">
-          <HardHat className="h-4 w-4 text-white" />
-        </div>
-        <span className="font-serif text-lg font-bold tracking-tight text-[#2c2420]">
-          {APP_NAME}
-        </span>
-      </div>
+
 
       <Separator className="bg-[#efe8de]" />
 
@@ -131,21 +123,6 @@ export function DashboardShell({ children, session }: DashboardShellProps) {
           );
         })}
       </nav>
-
-      {/* Bottom */}
-      <div className="border-t border-[#efe8de] p-3">
-        <button
-          onClick={toggleDarkMode}
-          className="flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm text-[#7a6b59] hover:bg-[#f5f0e8] hover:text-[#2c2420] transition-colors font-sans"
-        >
-          {mounted && darkMode ? (
-            <Sun className="h-4 w-4 text-[#a08f7a]" />
-          ) : (
-            <Moon className="h-4 w-4 text-[#a08f7a]" />
-          )}
-          {mounted && darkMode ? "Light mode" : "Dark mode"}
-        </button>
-      </div>
     </div>
   );
 
@@ -178,9 +155,6 @@ export function DashboardShell({ children, session }: DashboardShellProps) {
                 </Button>
               </SheetTrigger>
 
-              <span className="font-serif text-base font-bold text-[#2c2420] lg:hidden">
-                {APP_NAME}
-              </span>
             </div>
 
             <div className="flex items-center gap-2">

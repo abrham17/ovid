@@ -25,10 +25,10 @@ type WbsNode = { id: string; code: string; name: string; nodeType?: string };
 type Activity = {
   id: string;
   name: string;
-  baselineStart: string | Date;
-  baselineFinish: string | Date;
-  plannedStart: string | Date;
-  plannedFinish: string | Date;
+  baselineStart: string | Date | null;
+  baselineFinish: string | Date | null;
+  plannedStart: string | Date | null;
+  plannedFinish: string | Date | null;
   actualStart?: string | Date | null;
   actualFinish?: string | Date | null;
   progressPercent: number | string;
@@ -449,7 +449,7 @@ export function ScheduleView({
                 <tbody className="divide-y divide-[#EFE8DE]">
                   {activities.map((a) => {
                     const finish = a.actualFinish || a.plannedFinish;
-                    const v = varianceDays(a.baselineFinish, finish);
+                    const v = finish ? varianceDays(formatDate(a.baselineFinish), finish) : null;
                     return (
                       <tr key={a.id} className="hover:bg-[#FAF7F2]/60">
                         <td className="px-4 py-3 font-medium text-stone-800">{a.name}</td>
@@ -466,7 +466,7 @@ export function ScheduleView({
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-1.5">
                             <StatusBadge status={a.status} />
-                            {computeActivityStatus({
+                            {a.plannedStart && a.plannedFinish && computeActivityStatus({
                               plannedStart: new Date(a.plannedStart),
                               plannedFinish: new Date(a.plannedFinish),
                               actualStart: a.actualStart ? new Date(a.actualStart) : null,

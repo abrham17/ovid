@@ -3,7 +3,7 @@ import { getSession } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
+import { APP_TAGLINE } from "@/lib/constants";
 import {
   HardHat,
   Shield,
@@ -54,12 +54,7 @@ export default async function HomePage() {
     <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #1c1613 0%, #2c1810 50%, #2c2420 100%)" }}>
       {/* Top nav */}
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-terracotta-500 shadow-lg" style={{ boxShadow: "0 4px 14px rgba(192, 73, 40, 0.3)" }}>
-            <HardHat className="h-6 w-6 text-white" />
-          </div>
-          <span className="font-serif text-xl font-bold tracking-tight text-sand-50">{APP_NAME}</span>
-        </div>
++
         <div className="flex items-center gap-3">
           <Link href="/login">
             <Button variant="ghost" className="text-sand-400 hover:text-sand-200 hover:bg-sand-800/30">
@@ -146,10 +141,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="mt-24 border-t border-sand-800 pt-8 text-center text-sm text-sand-500">
-          <p>© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
-        </footer>
+
       </main>
     </div>
   );
