@@ -5,6 +5,7 @@ import { getWbsTree } from "@/lib/services/project.service";
 import { RiskView } from "@/components/projects/views/risk-view";
 import { can } from "@/lib/permissions";
 import { db } from "@/lib/db";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -21,13 +22,14 @@ export default async function RiskPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [risks, tree, memberships] = await Promise.all([
+  const [risks, tree, memberships, hints] = await Promise.all([
     listRisks(session, projectId),
     getWbsTree(session, projectId),
     db.projectMembership.findMany({
       where: { projectId },
       include: { user: { select: { id: true, fullName: true, role: true } } },
     }),
+    getScopeUiHints(session, projectId),
   ]);
 
   const owners = memberships.map((m) => m.user);
@@ -36,10 +38,13 @@ export default async function RiskPage({ params }: Props) {
     <RiskView
       projectId={projectId}
       risks={risks as any}
-      wbsNodes={flattenWbs(tree as any[])}
+      wbsNodes={filterWritableWbsOptions(flattenWbs(tree as any[]), hints.writableWbsIds)}
       owners={owners}
-      canCreate={can(session.role, "risk", "create")}
-      canUpdate={can(session.role, "risk", "update")}
+      canCreate={can(session.role, "risk", "create") && hints.hasWritableScope}
+      canUpdate={can(session.role, "risk", "update") && hints.hasWritableScope}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

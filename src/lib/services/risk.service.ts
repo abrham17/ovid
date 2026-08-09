@@ -3,6 +3,12 @@ import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
 import { DomainError, assertStatusTransition, RISK_TRANSITIONS } from "@/lib/domain-rules";
 import type { CreateRiskInput, UpdateRiskInput } from "@/lib/validations/risk";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  isAll,
+  applyFieldRedaction,
+} from "@/lib/scope";
 
 /** Risk score = likelihood × impact (1–25). */
 export function riskScore(likelihood: number, impact: number) {
@@ -20,8 +26,20 @@ export async function listRisks(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "risk", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+
   const risks = await db.riskEntry.findMany({
-    where: { projectId },
+    where: {
+      projectId,
+      ...(isAll(scope.visibleWbsNodeIds)
+        ? {}
+        : {
+            OR: [
+              { wbsNodeId: null },
+              { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+            ],
+          }),
+    },
     orderBy: [{ status: "asc" }, { createdAt: "desc" }],
     include: {
       wbsNode: { select: { id: true, code: true, name: true } },
@@ -35,11 +53,16 @@ export async function listRisks(user: SessionUser, projectId: string) {
     },
   });
 
-  return risks.map((r) => ({
-    ...r,
-    score: riskScore(r.likelihood, r.impact),
-    band: riskBand(riskScore(r.likelihood, r.impact)),
-  }));
+  return risks.map((r) =>
+    applyFieldRedaction(
+      {
+        ...r,
+        score: riskScore(r.likelihood, r.impact),
+        band: riskBand(riskScore(r.likelihood, r.impact)),
+      } as any,
+      scope
+    )
+  );
 }
 
 export async function createRisk(
@@ -50,11 +73,13 @@ export async function createRisk(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "risk", "create");
 
+  const scope = await getEffectiveScope(user, projectId);
   if (input.wbsNodeId) {
     const wbs = await db.wbsNode.findFirst({
       where: { id: input.wbsNodeId, projectId },
     });
     if (!wbs) throw new Error("WBS node not found");
+    assertScopeWritable(scope, input.wbsNodeId);
   }
 
   return db.riskEntry.create({

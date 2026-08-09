@@ -9,29 +9,40 @@ import type {
   CreateUsageLogInput,
 } from "@/lib/validations/resources";
 import { Prisma } from "@/generated/prisma/client";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+} from "@/lib/scope";
 
 /**
- * Phase 3 — Labor & Equipment for Ovid.
- * OH/IH/DH equipment logs feed utilization; labor assignments feed productivity.
+ * Labor & Equipment — scoped to org roster + visible WBS assignments.
  */
 
 export async function listResources(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "labor", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
   const project = await db.project.findUniqueOrThrow({
     where: { id: projectId },
     select: { contractorOrgId: true },
   });
 
+  // Subcontractor sees their own org roster; contractor/others see contractor org
+  const rosterOrgId =
+    user.partyType === "SUBCONTRACTOR" ? user.organizationId : project.contractorOrgId;
+
   const [employees, assignments, equipment, usageLogs] = await Promise.all([
     db.employee.findMany({
-      where: { organizationId: project.contractorOrgId, active: true },
+      where: { organizationId: rosterOrgId, active: true },
       orderBy: { fullName: "asc" },
       take: 100,
     }),
     db.laborAssignment.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { date: "desc" },
       take: 80,
       include: {
@@ -40,12 +51,15 @@ export async function listResources(user: SessionUser, projectId: string) {
       },
     }),
     db.equipment.findMany({
-      where: { organizationId: project.contractorOrgId, active: true },
+      where: { organizationId: rosterOrgId, active: true },
       orderBy: { equipmentType: "asc" },
       take: 80,
     }),
     db.equipmentUsageLog.findMany({
-      where: { projectId },
+      where: {
+        projectId,
+        ...(wbsFilter.wbsNodeId ? { wbsNodeId: wbsFilter.wbsNodeId } : {}),
+      },
       orderBy: { date: "desc" },
       take: 80,
       include: {
@@ -55,7 +69,6 @@ export async function listResources(user: SessionUser, projectId: string) {
     }),
   ]);
 
-  // Simple utilization: OH / (OH+IH+DH)
   const utilization = usageLogs.reduce(
     (acc, log) => {
       const oh = Number(log.operatingHours);
@@ -116,6 +129,8 @@ export async function createAssignment(
     where: { id: input.wbsNodeId, projectId },
   });
   if (!wbs) throw new Error("WBS node not found");
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.laborAssignment.create({
     data: {

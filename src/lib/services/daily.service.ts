@@ -8,6 +8,12 @@ import type {
   RebarEntryInput,
 } from "@/lib/validations/daily";
 import { Prisma } from "@/generated/prisma/client";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+  isWbsVisible,
+} from "@/lib/scope";
 
 const wbsSelect = { id: true, code: true, name: true } as const;
 
@@ -21,10 +27,6 @@ function dateFilter(from?: string, to?: string) {
   };
 }
 
-/**
- * List daily reports for an Ovid Construction project.
- * Scoped by project membership + two-layer RBAC (partyType + role).
- */
 export async function listDailyReports(
   user: SessionUser,
   projectId: string,
@@ -38,8 +40,12 @@ export async function listDailyReports(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "daily_report", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
   const baseWhere = {
     projectId,
+    ...wbsFilter,
     ...dateFilter(opts?.from, opts?.to),
     ...(opts?.status ? { status: opts.status as any } : {}),
   };
@@ -83,10 +89,11 @@ export async function listDailyReports(
   return { earthwork, structure, rebar };
 }
 
-/** Create Earthwork Daily Entry (Foreman / Site Engineer / Superintendent). */
 export async function createEarthworkEntry(user: SessionUser, input: EarthworkEntryInput) {
   await assertProjectAccess(user, input.projectId);
   assertPermission(user, "daily_report", "create");
+  const scope = await getEffectiveScope(user, input.projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.earthworkDailyEntry.create({
     data: {
@@ -116,10 +123,11 @@ export async function createEarthworkEntry(user: SessionUser, input: EarthworkEn
   });
 }
 
-/** Create Structure Daily Entry — primary form for Ovid multi-storey housing/building. */
 export async function createStructureEntry(user: SessionUser, input: StructureEntryInput) {
   await assertProjectAccess(user, input.projectId);
   assertPermission(user, "daily_report", "create");
+  const scope = await getEffectiveScope(user, input.projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.structureDailyEntry.create({
     data: {
@@ -148,13 +156,11 @@ export async function createStructureEntry(user: SessionUser, input: StructureEn
   });
 }
 
-/**
- * Create Rebar Daily Entry.
- * Auto-computes weight from WeightFactor lookup (diameter → kg/m).
- */
 export async function createRebarEntry(user: SessionUser, input: RebarEntryInput) {
   await assertProjectAccess(user, input.projectId);
   assertPermission(user, "daily_report", "create");
+  const scope = await getEffectiveScope(user, input.projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   const factor = await db.weightFactor.findUnique({
     where: { diameterMm: input.diameterMm },
@@ -187,10 +193,6 @@ export async function createRebarEntry(user: SessionUser, input: RebarEntryInput
   });
 }
 
-/**
- * Submit daily entry for sign-off (DRAFT → SUBMITTED).
- * Ovid chain: Foreman → Superintendent → Deputy PM → Senior PM
- */
 export async function submitDailyEntry(
   user: SessionUser,
   type: "earthwork" | "structure" | "rebar",
@@ -207,6 +209,8 @@ export async function submitDailyEntry(
 
   const entry = await (model as any).findUniqueOrThrow({ where: { id: entryId } });
   await assertProjectAccess(user, entry.projectId);
+  const scope = await getEffectiveScope(user, entry.projectId);
+  assertScopeWritable(scope, entry.wbsNodeId);
 
   assertStatusTransition(entry.status, "SUBMITTED", DAILY_TRANSITIONS, "Daily report");
 
@@ -216,7 +220,6 @@ export async function submitDailyEntry(
   });
 }
 
-/** Approve / countersign submitted entry (Superintendent / Deputy PM / Senior PM). */
 export async function approveDailyEntry(
   user: SessionUser,
   type: "earthwork" | "structure" | "rebar",
@@ -233,6 +236,10 @@ export async function approveDailyEntry(
 
   const entry = await (model as any).findUniqueOrThrow({ where: { id: entryId } });
   await assertProjectAccess(user, entry.projectId);
+  const scope = await getEffectiveScope(user, entry.projectId);
+  if (!isWbsVisible(scope.visibleWbsNodeIds, entry.wbsNodeId)) {
+    throw new DomainError("Entry is outside your visible scope", 403);
+  }
 
   assertStatusTransition(entry.status, "APPROVED", DAILY_TRANSITIONS, "Daily report");
 

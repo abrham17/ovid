@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { formatDate, formatDateTime } from "@/lib/utils";
 import { computeActivityStatus } from "@/lib/schedule-status";
 import { titleCase } from "@/lib/constants";
@@ -20,6 +21,7 @@ import {
   AlertTriangle,
   Clock,
 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string; nodeType?: string };
 type Activity = {
@@ -68,6 +70,9 @@ type Props = {
   wbsNodes: WbsNode[];
   canCreate: boolean;
   canApprove: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 function varianceDays(baseline: Date | string, actual: Date | string | null | undefined) {
@@ -100,6 +105,9 @@ export function ScheduleView({
   wbsNodes,
   canCreate,
   canApprove,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [tab, setTab] = useState("activities");
@@ -221,6 +229,10 @@ export function ScheduleView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle && activities.length === 0 && stoppages.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">
@@ -452,7 +464,14 @@ export function ScheduleView({
                     const v = finish ? varianceDays(formatDate(a.baselineFinish), finish) : null;
                     return (
                       <tr key={a.id} className="hover:bg-[#FAF7F2]/60">
-                        <td className="px-4 py-3 font-medium text-stone-800">{a.name}</td>
+                        <td className="px-4 py-3 font-medium text-stone-800">
+                          <Link
+                            href={`/projects/${projectId}/activities/${a.id}`}
+                            className="hover:text-[#C04928] hover:underline underline-offset-2"
+                          >
+                            {a.name}
+                          </Link>
+                        </td>
                         <td className="px-4 py-3 font-mono text-xs text-stone-600">{a.wbsNode?.code ?? "—"}</td>
                         <td className="whitespace-nowrap px-4 py-3 text-xs text-stone-600">
                           {formatDate(a.baselineStart)} → {formatDate(a.baselineFinish)}

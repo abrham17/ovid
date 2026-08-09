@@ -5,7 +5,7 @@ import {
   listProjectTeam,
 } from "@/lib/services/invitation.service";
 import { TeamView } from "@/components/projects/views/team-view";
-import { canInvite } from "@/lib/permissions";
+import { can, canInvite } from "@/lib/permissions";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -14,9 +14,13 @@ export default async function TeamPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
+  const canReadInvites = can(session.role, "invitation", "read");
+
   const [memberships, invitations] = await Promise.all([
     listProjectTeam(session, projectId),
-    listInvitations(session, projectId),
+    canReadInvites
+      ? listInvitations(session, projectId)
+      : Promise.resolve([]),
   ]);
 
   return (

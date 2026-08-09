@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { StatusBadge } from "@/components/status-badge";
 import { EmptyState } from "@/components/empty-state";
 import { AlertOctagon, Plus, Loader2 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string };
 type UserOpt = { id: string; fullName: string; role?: string };
@@ -38,6 +39,9 @@ type Props = {
   owners: UserOpt[];
   canCreate: boolean;
   canUpdate: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 const CATEGORIES = [
@@ -73,6 +77,9 @@ export function RiskView({
   owners,
   canCreate,
   canUpdate,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
@@ -161,6 +168,10 @@ export function RiskView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle && risks.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

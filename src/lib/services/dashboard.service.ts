@@ -372,17 +372,166 @@ export async function getDashboardData(params: {
 }): Promise<DashboardDataPayload> {
   const user = {
     id: params.userId,
+    email: "",
+    name: "",
     organizationId: params.organizationId,
-    role: params.role,
-  } as SessionUser;
+    organizationName: "",
+    role: params.role as SessionUser["role"],
+    partyType: params.partyType as SessionUser["partyType"],
+  } satisfies SessionUser;
+
+  // Single-project scoped dashboard (Overview) — apply EffectiveScope WBS filters
+  if (params.projectId) {
+    const { getEffectiveScope, isAll, activityWbsFilter } = await import("@/lib/scope");
+    const { getProjectHealth, computeProjectProgress } = await import(
+      "@/lib/services/progress.service"
+    );
+    const scope = await getEffectiveScope(user, params.projectId);
+    const wbsFilter = activityWbsFilter(scope.visibleWbsNodeIds);
+    const projectId = params.projectId;
+
+    const health = await getProjectHealth(projectId, user);
+    const progress = await computeProjectProgress(projectId, user);
+
+    const [
+      openIncidents,
+      openDefects,
+      openPunches,
+      openRisks,
+      pendingMeasurements,
+      pendingDaily,
+      documentsReview,
+    ] = await Promise.all([
+      db.safetyIncident.count({
+        where: {
+          wbsNode: { projectId },
+          ...wbsFilter,
+          status: { in: ["OPEN", "ACTION_PENDING"] },
+        },
+      }),
+      db.defectLog.count({
+        where: {
+          wbsNode: { projectId },
+          ...wbsFilter,
+          status: { in: ["OPEN", "REWORK_IN_PROGRESS"] },
+        },
+      }),
+      db.punchListItem.count({
+        where: {
+          wbsNode: { projectId },
+          ...wbsFilter,
+          status: { in: ["OPEN", "RESOLVED"] },
+        },
+      }),
+      db.riskEntry.count({
+        where: {
+          projectId,
+          status: { in: ["OPEN", "MITIGATING"] },
+          ...(isAll(scope.visibleWbsNodeIds)
+            ? {}
+            : {
+                OR: [
+                  { wbsNodeId: null },
+                  { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+                ],
+              }),
+        },
+      }),
+      db.measurementEntry.count({
+        where: {
+          wbsNode: { projectId },
+          ...wbsFilter,
+          status: { in: ["DRAFT", "SUBMITTED", "CONSULTANT_QUERIED"] },
+        },
+      }),
+      db.structureDailyEntry.count({
+        where: {
+          projectId,
+          ...(!isAll(scope.visibleWbsNodeIds)
+            ? { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } }
+            : {}),
+          status: { in: ["DRAFT", "SUBMITTED"] },
+        },
+      }),
+      db.projectDocument.count({
+        where: {
+          projectId,
+          status: { in: ["DRAFT", "UNDER_REVIEW"] },
+          ...(isAll(scope.visibleWbsNodeIds)
+            ? {}
+            : {
+                OR: [
+                  { wbsNodeId: null },
+                  { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+                ],
+              }),
+        },
+      }),
+    ]);
+
+    const project = await db.project.findUnique({
+      where: { id: projectId },
+      select: {
+        id: true,
+        code: true,
+        name: true,
+        status: true,
+        projectType: true,
+        contractValue: true,
+      },
+    });
+
+    return {
+      metrics: {
+        openIncidents,
+        openDefects,
+        openPunches,
+        openRisks,
+        pendingMeasurements,
+        pendingDaily,
+        documentsReview,
+        overallProgress: Math.round(progress),
+        overdueActivities: health.overdue,
+        avgProgress: Math.round(progress),
+        projects: 1,
+        activeProjects: project?.status === "ACTIVE" ? 1 : 0,
+      },
+      projects: project
+        ? [
+            {
+              id: project.id,
+              code: project.code,
+              name: project.name,
+              status: project.status,
+              projectType: project.projectType,
+              contractValue: scope.canViewCostDetail
+                ? Number(project.contractValue)
+                : undefined,
+              progress: Math.round(progress),
+              openRisks,
+              openIncidents,
+            },
+          ]
+        : [],
+      portfolio: [],
+      recentActivity: [],
+    };
+  }
+
   const result = await getPortfolioDashboard(user);
-  
-  // Add progress and risk/incident counts to projects array
+
   const projectsWithStats = result.projects.map((p) => {
     const portfolioItem = result.portfolio.find((pp) => pp.id === p.id);
     return {
       ...p,
-      progress: portfolioItem ? Math.round((1 - (portfolioItem.pendingMeasurements / Math.max(1, portfolioItem.pendingMeasurements + 10))) * 100) : 0,
+      progress: portfolioItem
+        ? Math.round(
+            (1 -
+              portfolioItem.pendingMeasurements /
+                Math.max(1, portfolioItem.pendingMeasurements + 10)) *
+              100
+          )
+        : 0,
       openRisks: portfolioItem?.openRisks ?? 0,
       openIncidents: portfolioItem?.openIncidents ?? 0,
     };

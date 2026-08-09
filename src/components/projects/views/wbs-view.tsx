@@ -7,8 +7,9 @@ import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus, ChevronRight, ChevronDown, Loader2, Trash2, CalendarRange } from "lucide-react";
+import { Plus, ChevronRight, ChevronDown, Loader2, Trash2, CalendarRange, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 function formatShortDate(date: string | Date | null | undefined): string {
   if (!date) return "";
@@ -26,6 +27,8 @@ export type WbsTreeNode = {
   plannedStartDate?: string | Date | null;
   plannedEndDate?: string | Date | null;
   status?: string;
+  /** From EffectiveScope — false means read-only for this user. */
+  canWrite?: boolean;
   children: WbsTreeNode[];
 };
 
@@ -35,6 +38,11 @@ type Props = {
   canCreate: boolean;
   canUpdate: boolean;
   canDelete: boolean;
+  /** Role may create root nodes only when writable scope is ALL. */
+  canCreateRoot?: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 const NODE_TYPES = [
@@ -46,7 +54,17 @@ const NODE_TYPES = [
   "ACTIVITY",
 ] as const;
 
-export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Props) {
+export function WbsView({
+  projectId,
+  tree,
+  canCreate,
+  canUpdate,
+  canDelete,
+  canCreateRoot = canCreate,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
+}: Props) {
   const router = useRouter();
   const [expanded, setExpanded] = useState<Set<string>>(
     () => new Set(tree.map((n) => n.id))
@@ -165,6 +183,8 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
     const hasChildren = (node.children?.length ?? 0) > 0;
     const isOpen = expanded.has(node.id);
     const isSelected = selectedNodeId === node.id;
+    const nodeCreatable = node.canWrite !== false && canCreate;
+    const nodeDeletable = node.canWrite !== false && canDelete;
 
     return (
       <div key={node.id} className="space-y-1">
@@ -174,7 +194,8 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
             "group flex cursor-pointer items-center justify-between rounded-lg px-4 py-2.5 transition-colors duration-150",
             isSelected
               ? "bg-[#FAF2E9] text-stone-900 font-semibold"
-              : "hover:bg-[#F7F2EB] text-stone-700"
+              : "hover:bg-[#F7F2EB] text-stone-700",
+            node.canWrite === false && "opacity-90"
           )}
           style={{ paddingLeft: `${depth * 28 + 16}px` }}
         >
@@ -196,6 +217,15 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
 
             <span className="font-sans text-sm font-semibold text-stone-600 w-8">{node.code}</span>
             <span className="truncate text-sm font-medium text-stone-800">{node.name}</span>
+            {node.canWrite === false && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-stone-500"
+                title="Read-only for your assignment"
+              >
+                <Lock className="h-2.5 w-2.5" />
+                Read-only
+              </span>
+            )}
             {node.plannedStartDate && node.plannedEndDate && (
               <span className="hidden text-[11px] text-stone-500 md:inline whitespace-nowrap">
                 {formatShortDate(node.plannedStartDate)} → {formatShortDate(node.plannedEndDate)}
@@ -215,7 +245,7 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
             )}
 
             <div className="hidden opacity-0 group-hover:opacity-100 sm:flex items-center gap-1">
-              {canCreate && (
+              {nodeCreatable && (
                 <button
                   type="button"
                   className="rounded p-1 text-stone-500 hover:bg-stone-200 hover:text-stone-800"
@@ -228,7 +258,7 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                   <Plus className="h-3.5 w-3.5" />
                 </button>
               )}
-              {canDelete && !hasChildren && (
+              {nodeDeletable && !hasChildren && (
                 <button
                   type="button"
                   className="rounded p-1 text-red-500 hover:bg-red-50"
@@ -265,6 +295,11 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                   )}>
                     {selectedNode.designReady ? "DESIGN READY" : "DESIGN PENDING"}
                   </span>
+                  {selectedNode.canWrite === false && (
+                    <span className="inline-flex items-center gap-1 rounded bg-stone-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                      <Lock className="h-2.5 w-2.5" /> Read-only
+                    </span>
+                  )}
                 </div>
                 {selectedNode.plannedStartDate && selectedNode.plannedEndDate && (
                   <div className="mt-2 flex items-center gap-2 text-xs text-stone-600">
@@ -279,9 +314,9 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                 )}
               </div>
 
-              {/* Action buttons */}
+              {/* Action buttons — only when this node is writable */}
               <div className="flex flex-wrap items-center gap-2">
-                {canUpdate && (
+                {selectedNode.canWrite !== false && canUpdate && (
                   <button
                     type="button"
                     disabled={busyId === selectedNode.id}
@@ -292,7 +327,7 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                     {selectedNode.designReady ? "Mark design pending" : "Mark design ready"}
                   </button>
                 )}
-                {canCreate && (
+                {selectedNode.canWrite !== false && canCreate && (
                   <button
                     type="button"
                     onClick={() => openCreate(selectedNode.id)}
@@ -301,12 +336,6 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                     Add child node
                   </button>
                 )}
-                <button
-                  type="button"
-                  className="rounded-lg border border-[#D8D0C5] bg-white px-4 py-2 text-xs font-medium text-stone-800 transition hover:bg-[#FAF7F2]"
-                >
-                  Link activity
-                </button>
               </div>
             </div>
 
@@ -324,8 +353,10 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                   <span className="font-semibold text-stone-800">{selectedNode.children?.length || 0}</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-[#EFE8DE]">
-                  <span className="text-stone-500">Activities linked</span>
-                  <span className="font-semibold text-stone-800">2</span>
+                  <span className="text-stone-500">Write access</span>
+                  <span className="font-semibold text-stone-800">
+                    {selectedNode.canWrite === false ? "Read-only" : "Editable"}
+                  </span>
                 </div>
                 <div className="flex justify-between py-1.5">
                   <span className="text-stone-500">Design ready</span>
@@ -335,7 +366,6 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
                 </div>
               </div>
 
-              {/* Design gate callout box matching screenshot */}
               <div className="rounded-xl border border-[#F8E3DD] bg-[#FDF3F0] p-4">
                 <h4 className="font-serif text-sm font-bold text-[#C04928]">Design gate</h4>
                 <p className="mt-1 text-xs text-[#8A341C] leading-relaxed">
@@ -351,10 +381,13 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
     );
   }
 
+  const isScopeEmpty = tree.length === 0 && Boolean(scopeEmptyTitle);
+
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
 
-      {canCreate && !showForm && (
+      {canCreateRoot && !showForm && (
         <Button
           size="sm"
           onClick={() => openCreate(null)}
@@ -420,7 +453,13 @@ export function WbsView({ projectId, tree, canCreate, canUpdate, canDelete }: Pr
 
       {/* Main WBS Tree Card Container */}
       <div className="rounded-2xl border border-[#EFE8DE] bg-[#FDFCF9] p-6 sm:p-8 shadow-xs space-y-3">
-        {tree.length === 0 ? (
+        {isScopeEmpty ? (
+          <ScopeEmptyState
+            show
+            title={scopeEmptyTitle}
+            description={scopeEmptyDescription}
+          />
+        ) : tree.length === 0 ? (
           <div className="py-12 text-center text-stone-500 font-serif">
             No WBS structure nodes created yet. Click &quot;Add root node&quot; to begin.
           </div>

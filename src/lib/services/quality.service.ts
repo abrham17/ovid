@@ -7,6 +7,12 @@ import type {
   CreateDefectInput,
   CreatePunchInput,
 } from "@/lib/validations/quality";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+  applyFieldRedactionList,
+} from "@/lib/scope";
 
 async function assertWbs(projectId: string, wbsNodeId: string) {
   const n = await db.wbsNode.findFirst({ where: { id: wbsNodeId, projectId } });
@@ -18,9 +24,12 @@ export async function listQuality(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "quality", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
   const [itrs, defects, punches] = await Promise.all([
     db.inspectionTestRecord.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { inspectedAt: "desc" },
       take: 80,
       include: {
@@ -30,7 +39,7 @@ export async function listQuality(user: SessionUser, projectId: string) {
       },
     }),
     db.defectLog.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { createdAt: "desc" },
       take: 80,
       include: {
@@ -40,7 +49,7 @@ export async function listQuality(user: SessionUser, projectId: string) {
       },
     }),
     db.punchListItem.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { createdAt: "desc" },
       take: 80,
       include: {
@@ -49,7 +58,11 @@ export async function listQuality(user: SessionUser, projectId: string) {
     }),
   ]);
 
-  return { itrs, defects, punches };
+  return {
+    itrs: applyFieldRedactionList(itrs as any[], scope),
+    defects: applyFieldRedactionList(defects as any[], scope),
+    punches: applyFieldRedactionList(punches as any[], scope),
+  };
 }
 
 export async function createItr(
@@ -60,6 +73,8 @@ export async function createItr(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "quality", "create");
   await assertWbs(projectId, input.wbsNodeId);
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.inspectionTestRecord.create({
     data: {
@@ -84,6 +99,8 @@ export async function createDefect(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "quality", "create");
   await assertWbs(projectId, input.wbsNodeId);
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.defectLog.create({
     data: {
@@ -128,6 +145,8 @@ export async function createPunch(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "quality", "create");
   await assertWbs(projectId, input.wbsNodeId);
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.punchListItem.create({
     data: {

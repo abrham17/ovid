@@ -4,6 +4,7 @@ import { listCostOverview } from "@/lib/services/cost.service";
 import { getWbsTree } from "@/lib/services/project.service";
 import { CostView } from "@/components/projects/views/cost-view";
 import { can } from "@/lib/permissions";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -20,15 +21,17 @@ export default async function CostPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [overview, tree] = await Promise.all([
+  const [overview, tree, hints] = await Promise.all([
     listCostOverview(session, projectId),
     getWbsTree(session, projectId),
+    getScopeUiHints(session, projectId),
   ]);
 
-  // Layer-1: hide rates from pure client/consultant viewing as non-contractor
-  // (contractors, admin, QS, finance see rates)
-  const showRates = !["CLIENT_REP", "CONSULTANT_ENGINEER"].includes(session.role) ||
-    can(session.role, "cost", "create");
+  const showRates = overview.canViewCostDetail;
+  const wbsNodes = filterWritableWbsOptions(
+    flattenWbs(tree as any[]),
+    hints.writableWbsIds
+  );
 
   return (
     <CostView
@@ -37,13 +40,24 @@ export default async function CostPage({ params }: Props) {
       measurements={overview.measurements as any}
       variations={overview.variations as any}
       contracts={overview.contracts as any}
-      totals={overview.totals}
-      wbsNodes={flattenWbs(tree as any[])}
-      canCreateCost={can(session.role, "cost", "create")}
-      canCreateMeasurement={can(session.role, "measurement", "create")}
-      canApproveMeasurement={can(session.role, "measurement", "approve")}
-      canApproveCost={can(session.role, "cost", "approve")}
+      totals={{
+        budgeted: overview.totals.budgeted ?? 0,
+        committed: overview.totals.committed ?? 0,
+        actual: overview.totals.actual ?? 0,
+      }}
+      wbsNodes={wbsNodes}
+      canCreateCost={can(session.role, "cost", "create") && hints.hasWritableScope}
+      canCreateMeasurement={
+        can(session.role, "measurement", "create") && hints.hasWritableScope
+      }
+      canApproveMeasurement={
+        can(session.role, "measurement", "approve") && hints.hasVisibleScope
+      }
+      canApproveCost={can(session.role, "cost", "approve") && hints.hasVisibleScope}
       showRates={showRates}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

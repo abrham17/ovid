@@ -8,6 +8,12 @@ import type {
   UpdateWbsNodeInput,
 } from "@/lib/validations/project";
 import { Prisma } from "@/generated/prisma/client";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  isAll,
+  isWbsVisible,
+} from "@/lib/scope";
 
 export async function listProjects(
   user: SessionUser,
@@ -51,6 +57,13 @@ export async function getProject(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "project", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const visibleIds = isAll(scope.visibleWbsNodeIds)
+    ? null
+    : [...scope.visibleWbsNodeIds];
+  const wbsIdIn = visibleIds ? { id: { in: visibleIds } } : undefined;
+  const wbsNodeIdIn = visibleIds ? { wbsNodeId: { in: visibleIds } } : {};
+
   const project = await db.project.findUniqueOrThrow({
     where: { id: projectId },
     include: {
@@ -66,21 +79,85 @@ export async function getProject(user: SessionUser, projectId: string) {
           organization: { select: { id: true, name: true, partyType: true } },
         },
       },
-      _count: { select: { memberships: true, wbsNodes: true, stoppages: true, variations: true, risks: true, earthworkDailyEntries: true } },
     },
   });
 
-  // Count nested relations (through WbsNode)
-  const [scheduleActivitiesCount, defectLogsCount, safetyIncidentsCount] = await Promise.all([
-    db.scheduleActivity.count({ where: { wbsNode: { projectId } } }),
-    db.defectLog.count({ where: { wbsNode: { projectId } } }),
-    db.safetyIncident.count({ where: { wbsNode: { projectId } } }),
+  const [
+    wbsNodesCount,
+    stoppagesCount,
+    variationsCount,
+    risksCount,
+    earthworkCount,
+    scheduleActivitiesCount,
+    defectLogsCount,
+    safetyIncidentsCount,
+  ] = await Promise.all([
+    db.wbsNode.count({
+      where: { projectId, ...(wbsIdIn ? wbsIdIn : {}) },
+    }),
+    db.stoppageEntry.count({
+      where: {
+        projectId,
+        ...(visibleIds
+          ? {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: visibleIds } },
+              ],
+            }
+          : {}),
+      },
+    }),
+    db.variationOrder.count({
+      where: {
+        projectId,
+        ...(visibleIds
+          ? {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: visibleIds } },
+              ],
+            }
+          : {}),
+      },
+    }),
+    db.riskEntry.count({
+      where: {
+        projectId,
+        ...(visibleIds
+          ? {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: visibleIds } },
+              ],
+            }
+          : {}),
+      },
+    }),
+    db.earthworkDailyEntry.count({
+      where: { projectId, ...wbsNodeIdIn },
+    }),
+    db.scheduleActivity.count({
+      where: { wbsNode: { projectId, ...(wbsIdIn ?? {}) } },
+    }),
+    db.defectLog.count({
+      where: { wbsNode: { projectId, ...(wbsIdIn ?? {}) } },
+    }),
+    db.safetyIncident.count({
+      where: { wbsNode: { projectId, ...(wbsIdIn ?? {}) } },
+    }),
   ]);
 
   return {
     ...project,
+    contractValue: scope.canViewCostDetail ? project.contractValue : null,
     _count: {
-      ...project._count,
+      memberships: project.memberships.length,
+      wbsNodes: wbsNodesCount,
+      stoppages: stoppagesCount,
+      variations: variationsCount,
+      risks: risksCount,
+      earthworkDailyEntries: earthworkCount,
       scheduleActivities: scheduleActivitiesCount,
       defectLogs: defectLogsCount,
       safetyIncidents: safetyIncidentsCount,
@@ -169,15 +246,31 @@ export async function getWbsTree(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "wbs", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+
+  // SE/Superintendent: full org-ceiling tree for context; Foreman: assignment context only
+  const readSet =
+    scope.scheduleReadMode === "org_ceiling"
+      ? scope.orgVisibleWbsNodeIds
+      : scope.visibleWbsNodeIds;
+
   const nodes = await db.wbsNode.findMany({
-    where: { projectId },
+    where: {
+      projectId,
+      ...(isAll(readSet) ? {} : { id: { in: [...readSet] } }),
+    },
     orderBy: [{ code: "asc" }],
   });
 
-  // Build tree
-  type Node = (typeof nodes)[0] & { children: Node[] };
+  type Node = (typeof nodes)[0] & { children: Node[]; canWrite: boolean };
   const map = new Map<string, Node>();
-  nodes.forEach((n) => map.set(n.id, { ...n, children: [] }));
+  nodes.forEach((n) =>
+    map.set(n.id, {
+      ...n,
+      children: [],
+      canWrite: isWbsVisible(scope.writableWbsNodeIds, n.id),
+    })
+  );
   const roots: Node[] = [];
   for (const n of map.values()) {
     if (n.parentId && map.has(n.parentId)) {
@@ -193,11 +286,18 @@ export async function createWbsNode(user: SessionUser, projectId: string, input:
   await assertProjectAccess(user, projectId);
   assertPermission(user, "wbs", "create");
 
+  const scope = await getEffectiveScope(user, projectId);
   if (input.parentId) {
     const parent = await db.wbsNode.findFirst({
       where: { id: input.parentId, projectId },
     });
     if (!parent) throw new Error("Parent WBS node not found on this project");
+    assertScopeWritable(scope, input.parentId);
+  } else {
+    // Creating a root requires full writable (PM-tier)
+    if (!isAll(scope.writableWbsNodeIds)) {
+      throw new Error("You cannot create a root WBS node outside your writable scope");
+    }
   }
 
   const codeClash = await db.wbsNode.findFirst({
@@ -230,6 +330,9 @@ export async function updateWbsNode(
 
   const node = await db.wbsNode.findFirst({ where: { id: nodeId, projectId } });
   if (!node) throw new Error("WBS node not found");
+
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, nodeId);
 
   if (input.parentId) {
     if (input.parentId === nodeId) {
@@ -289,6 +392,9 @@ export async function toggleDesignReady(
   const node = await db.wbsNode.findFirst({ where: { id: nodeId, projectId } });
   if (!node) throw new Error("WBS node not found");
 
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, nodeId);
+
   return db.wbsNode.update({
     where: { id: nodeId },
     data: { designReady },
@@ -304,6 +410,9 @@ export async function deleteWbsNode(user: SessionUser, projectId: string, nodeId
     include: { _count: { select: { children: true, activities: true } } },
   });
   if (!node) throw new Error("WBS node not found");
+
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, nodeId);
   if (node._count.children > 0) {
     throw new Error("Cannot delete a node that still has children — remove children first");
   }

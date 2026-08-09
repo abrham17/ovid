@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   Send,
 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string };
 type CreatedBy = { id: string; name: string };
@@ -85,6 +86,9 @@ type Props = {
   canCreate: boolean;
   canApprove?: boolean;
   wbsNodes?: WbsNode[];
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 function num(v: number | string | null | undefined) {
@@ -100,6 +104,9 @@ export function DailyReportsView({
   canCreate,
   canApprove = false,
   wbsNodes = [],
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [tab, setTab] = useState("structure");
@@ -253,6 +260,16 @@ export function DailyReportsView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+
+      {scopeEmptyTitle && earthwork.length + structure.length + rebar.length === 0 ? (
+        <ScopeEmptyState
+          show
+          title={scopeEmptyTitle}
+          description={scopeEmptyDescription}
+        />
+      ) : null}
+
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

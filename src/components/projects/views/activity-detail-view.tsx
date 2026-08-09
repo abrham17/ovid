@@ -18,6 +18,8 @@ import { CommentThread, type CommentData } from "@/components/ui/comment-thread"
 import { ActivityTimeline, type TimelineEvent } from "@/components/ui/activity-timeline";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { computeActivityStatus, type ActivityStatusInfo } from "@/lib/schedule-status";
+import { ActivityCrewPanel } from "@/components/projects/views/activity-crew-panel";
+import type { ActivityCrewPanelProps } from "@/components/projects/views/activity-crew-panel";
 import {
   CalendarDays,
   User,
@@ -68,6 +70,7 @@ export type ActivityDetailPageProps = {
   comments: CommentData[];
   timeline: TimelineEvent[];
   onAddComment: (body: string, parentId?: string) => Promise<void>;
+  crew?: Omit<ActivityCrewPanelProps, "projectId" | "activityId">;
   className?: string;
 };
 
@@ -141,6 +144,7 @@ export function ActivityDetailPage({
   comments,
   timeline,
   onAddComment,
+  crew,
   className,
 }: ActivityDetailPageProps) {
   const computed = useMemo(
@@ -257,32 +261,47 @@ export function ActivityDetailPage({
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold">
               <User className="h-4 w-4 text-primary" />
-              Assignments
+              Crew assignments
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center gap-3 text-sm">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                <HardHat className="h-4 w-4" />
+          <CardContent>
+            {crew ? (
+              <ActivityCrewPanel
+                projectId={projectId}
+                activityId={activity.id}
+                assignments={crew.assignments}
+                canManage={crew.canManage}
+                canAssignSiteEngineer={crew.canAssignSiteEngineer}
+                canAssignForeman={crew.canAssignForeman}
+                mustStayInOwnOrg={crew.mustStayInOwnOrg}
+                candidates={crew.candidates}
+              />
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-sm">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                    <HardHat className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-fg-muted">Site Engineer</p>
+                    <p className="font-medium text-fg-default">
+                      {activity.assignedEngineer?.name ?? "Not assigned"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+                    <HardHat className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-fg-muted">Foreman</p>
+                    <p className="font-medium text-fg-default">
+                      {activity.assignedForeman?.name ?? "Not assigned"}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-xs text-fg-muted">Site Engineer</p>
-                <p className="font-medium text-fg-default">
-                  {activity.assignedEngineer?.name ?? "Not assigned"}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-sm">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
-                <HardHat className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-xs text-fg-muted">Foreman</p>
-                <p className="font-medium text-fg-default">
-                  {activity.assignedForeman?.name ?? "Not assigned"}
-                </p>
-              </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </div>

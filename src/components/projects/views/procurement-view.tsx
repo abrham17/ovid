@@ -12,6 +12,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/status-badge";
 import { EmptyState } from "@/components/empty-state";
 import { Package, Plus, Loader2 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type Props = {
   projectId: string;
@@ -22,6 +23,9 @@ type Props = {
   suppliers: any[];
   canCreate: boolean;
   canApprove: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 const PO_NEXT: Record<string, string | null> = {
@@ -43,6 +47,9 @@ export function ProcurementView({
   suppliers,
   canCreate,
   canApprove,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [tab, setTab] = useState("pos");
@@ -93,6 +100,11 @@ export function ProcurementView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle &&
+      purchaseOrders.length + bids.length + materials.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

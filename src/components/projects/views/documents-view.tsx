@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { StatusBadge } from "@/components/status-badge";
 import { EmptyState } from "@/components/empty-state";
 import { FileText, Plus, Loader2 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string };
 
@@ -21,6 +22,9 @@ type Props = {
   canCreate: boolean;
   canUpdate: boolean;
   canApprove: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 const CATEGORIES = [
@@ -49,6 +53,9 @@ export function DocumentsView({
   canCreate,
   canUpdate,
   canApprove,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
@@ -90,6 +97,10 @@ export function DocumentsView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle && documents.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

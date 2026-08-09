@@ -12,6 +12,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/status-badge";
 import { EmptyState } from "@/components/empty-state";
 import { Users, Plus, Loader2, Truck } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string };
 
@@ -26,6 +27,9 @@ type Props = {
   wbsNodes: WbsNode[];
   canLabor: boolean;
   canEquipment: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 export function ResourcesView({
@@ -39,6 +43,9 @@ export function ResourcesView({
   wbsNodes,
   canLabor,
   canEquipment,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [tab, setTab] = useState("labor");
@@ -89,6 +96,10 @@ export function ResourcesView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle && assignments.length + usageLogs.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

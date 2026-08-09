@@ -15,14 +15,31 @@ import {
   PO_TRANSITIONS,
   BID_TRANSITIONS,
 } from "@/lib/domain-rules";
+import { getEffectiveScope } from "@/lib/scope";
 
 export async function listProcurement(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "procurement", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+
+  // Supplier: only their own POs / receipts
+  const poWhere =
+    scope.scopeMode === "procurement_own" || user.partyType === "SUPPLIER"
+      ? { projectId, supplierOrgId: user.organizationId }
+      : user.partyType === "SUBCONTRACTOR"
+        ? { projectId /* org-scoped POs if any; main contractor POs not shared */ }
+        : { projectId };
+
+  // For subcontractor without dedicated buyer org on PO, show empty unless they are supplier
+  const effectivePoWhere =
+    user.partyType === "SUBCONTRACTOR"
+      ? { projectId, supplierOrgId: user.organizationId }
+      : poWhere;
+
   const [purchaseOrders, bids, materials, receipts, suppliers] = await Promise.all([
     db.purchaseOrder.findMany({
-      where: { projectId },
+      where: effectivePoWhere,
       orderBy: { issueDate: "desc" },
       take: 50,
       include: {
@@ -36,7 +53,10 @@ export async function listProcurement(user: SessionUser, projectId: string) {
       },
     }),
     db.bidTender.findMany({
-      where: { projectId },
+      where:
+        user.partyType === "SUPPLIER"
+          ? { projectId, supplierOrgId: user.organizationId }
+          : { projectId },
       orderBy: { createdAt: "desc" },
       take: 40,
       include: {
@@ -46,22 +66,25 @@ export async function listProcurement(user: SessionUser, projectId: string) {
     }),
     db.materialItem.findMany({ orderBy: { name: "asc" }, take: 100 }),
     db.materialReceipt.findMany({
-      where: { projectId },
+      where:
+        user.partyType === "SUPPLIER"
+          ? { projectId, purchaseOrder: { supplierOrgId: user.organizationId } }
+          : { projectId },
       orderBy: { receiptDate: "desc" },
-      take: 40,
+      take: 50,
       include: {
-        materialItem: { select: { id: true, name: true, unit: true } },
-        receivedBy: { select: { id: true, fullName: true } },
+        purchaseOrder: { select: { id: true, poNo: true } },
+        wbsNode: { select: { id: true, code: true, name: true } },
       },
     }),
     db.organization.findMany({
       where: { partyType: { in: ["SUPPLIER", "SUBCONTRACTOR"] } },
       select: { id: true, name: true, partyType: true },
-      orderBy: { name: "asc" },
+      take: 50,
     }),
   ]);
 
-  return { purchaseOrders, bids, materials, receipts, suppliers };
+  return { purchaseOrders, bids, materials, receipts, suppliers, scopeMode: scope.scopeMode };
 }
 
 export async function createMaterial(

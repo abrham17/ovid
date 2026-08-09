@@ -15,20 +15,34 @@ import {
   MEASUREMENT_TRANSITIONS,
   VARIATION_TRANSITIONS,
 } from "@/lib/domain-rules";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+  redactCostList,
+  isAll,
+} from "@/lib/scope";
 
 /**
- * Phase 2 — Cost, BOQ, IPC measurements, Variation Orders for Ovid.
- * Party-type rules: margin/unit rates hidden from CLIENT/CONSULTANT where appropriate
- * is enforced at UI; here we gate by RBAC cost/measurement permissions.
+ * Cost / BOQ / measurements / VOs.
+ * Rates & margin stripped when !scope.canViewCostDetail (Site Engineer, Consultant, Client, Sub).
  */
 
 export async function listCostOverview(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "cost", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
+  const contractWhere =
+    user.partyType === "SUBCONTRACTOR"
+      ? { projectId, contractorOrgId: user.organizationId }
+      : { projectId };
+
   const [boqItems, measurements, variations, contracts] = await Promise.all([
     db.boqItem.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { itemCode: "asc" },
       include: {
         wbsNode: { select: { id: true, code: true, name: true } },
@@ -36,7 +50,7 @@ export async function listCostOverview(user: SessionUser, projectId: string) {
       },
     }),
     db.measurementEntry.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { createdAt: "desc" },
       take: 80,
       include: {
@@ -45,7 +59,17 @@ export async function listCostOverview(user: SessionUser, projectId: string) {
       },
     }),
     db.variationOrder.findMany({
-      where: { projectId },
+      where: {
+        projectId,
+        ...(isAll(scope.visibleWbsNodeIds)
+          ? {}
+          : {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+              ],
+            }),
+      },
       orderBy: { createdAt: "desc" },
       take: 50,
       include: {
@@ -53,7 +77,7 @@ export async function listCostOverview(user: SessionUser, projectId: string) {
       },
     }),
     db.contract.findMany({
-      where: { projectId },
+      where: contractWhere,
       orderBy: { createdAt: "asc" },
       include: {
         contractorOrg: { select: { id: true, name: true, partyType: true } },
@@ -61,7 +85,6 @@ export async function listCostOverview(user: SessionUser, projectId: string) {
     }),
   ]);
 
-  // Budget vs actual rollup
   const rows = boqItems.map((item) => {
     const budgeted = Number(item.budgetedQuantity) * Number(item.unitRate);
     const committed = item.actuals
@@ -89,7 +112,21 @@ export async function listCostOverview(user: SessionUser, projectId: string) {
     { budgeted: 0, committed: 0, actual: 0 }
   );
 
-  return { boqItems: rows, measurements, variations, contracts, totals };
+  const redactedRows = redactCostList(rows as any[], scope);
+  const redactedMeasurements = redactCostList(measurements as any[], scope);
+  const redactedVariations = redactCostList(variations as any[], scope);
+  const redactedContracts = redactCostList(contracts as any[], scope);
+
+  return {
+    boqItems: redactedRows,
+    measurements: redactedMeasurements,
+    variations: redactedVariations,
+    contracts: redactedContracts,
+    totals: scope.canViewCostDetail
+      ? totals
+      : { budgeted: null, committed: null, actual: null },
+    canViewCostDetail: scope.canViewCostDetail,
+  };
 }
 
 export async function createBoqItem(
@@ -99,6 +136,8 @@ export async function createBoqItem(
 ) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "cost", "create");
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   const wbs = await db.wbsNode.findFirst({
     where: { id: input.wbsNodeId, projectId },

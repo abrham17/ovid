@@ -4,6 +4,7 @@ import { listResources } from "@/lib/services/resources.service";
 import { getWbsTree } from "@/lib/services/project.service";
 import { ResourcesView } from "@/components/projects/views/resources-view";
 import { can } from "@/lib/permissions";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -20,10 +21,16 @@ export default async function ResourcesPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [data, tree] = await Promise.all([
+  const [data, tree, hints] = await Promise.all([
     listResources(session, projectId),
     getWbsTree(session, projectId),
+    getScopeUiHints(session, projectId),
   ]);
+
+  const wbsNodes = filterWritableWbsOptions(
+    flattenWbs(tree as any[]),
+    hints.writableWbsIds
+  );
 
   return (
     <ResourcesView
@@ -34,9 +41,12 @@ export default async function ResourcesPage({ params }: Props) {
       usageLogs={data.usageLogs as any}
       utilizationPct={data.utilizationPct}
       hours={data.hours}
-      wbsNodes={flattenWbs(tree as any[])}
-      canLabor={can(session.role, "labor", "create")}
-      canEquipment={can(session.role, "equipment", "create")}
+      wbsNodes={wbsNodes}
+      canLabor={can(session.role, "labor", "create") && hints.hasWritableScope}
+      canEquipment={can(session.role, "equipment", "create") && hints.hasWritableScope}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

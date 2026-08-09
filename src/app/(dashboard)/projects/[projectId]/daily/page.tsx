@@ -4,6 +4,7 @@ import { listDailyReports } from "@/lib/services/daily.service";
 import { getWbsTree } from "@/lib/services/project.service";
 import { DailyReportsView } from "@/components/projects/views/daily-reports-view";
 import { can } from "@/lib/permissions";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -20,12 +21,16 @@ export default async function DailyPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [data, tree] = await Promise.all([
+  const [data, tree, hints] = await Promise.all([
     listDailyReports(session, projectId),
     getWbsTree(session, projectId),
+    getScopeUiHints(session, projectId),
   ]);
 
-  const wbsNodes = flattenWbs(tree as any[]);
+  const wbsNodes = filterWritableWbsOptions(
+    flattenWbs(tree as any[]),
+    hints.writableWbsIds
+  );
 
   return (
     <DailyReportsView
@@ -33,9 +38,12 @@ export default async function DailyPage({ params }: Props) {
       earthwork={data.earthwork as any}
       structure={data.structure as any}
       rebar={data.rebar as any}
-      canCreate={can(session.role, "daily_report", "create")}
-      canApprove={can(session.role, "daily_report", "approve")}
+      canCreate={can(session.role, "daily_report", "create") && hints.hasWritableScope}
+      canApprove={can(session.role, "daily_report", "approve") && hints.hasVisibleScope}
       wbsNodes={wbsNodes}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

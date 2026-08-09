@@ -7,11 +7,17 @@ import type {
   CreateIncidentInput,
   UpdateIncidentInput,
 } from "@/lib/validations/safety";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+  applyFieldRedactionList,
+} from "@/lib/scope";
 
 /**
  * Safety for Ovid PMS — observations + incidents with mandatory closeout.
- * Design intent: make safety logging a daily habit (not weekly) and block
- * schedule continuation until corrective action is verified closed.
+ * HSE Officer: no individual narrowing (org ceiling only via EffectiveScope).
+ * SE/Foreman: section/task scoped.
  */
 
 async function assertWbsOnProject(wbsNodeId: string, projectId: string) {
@@ -26,9 +32,12 @@ export async function listSafety(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "safety", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
   const [observations, incidents] = await Promise.all([
     db.safetyObservation.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { observedAt: "desc" },
       take: 100,
       include: {
@@ -38,7 +47,7 @@ export async function listSafety(user: SessionUser, projectId: string) {
       },
     }),
     db.safetyIncident.findMany({
-      where: { wbsNode: { projectId } },
+      where: { wbsNode: { projectId }, ...wbsFilter },
       orderBy: { createdAt: "desc" },
       take: 100,
       include: {
@@ -56,7 +65,10 @@ export async function listSafety(user: SessionUser, projectId: string) {
     }),
   ]);
 
-  return { observations, incidents };
+  return {
+    observations: applyFieldRedactionList(observations as any[], scope),
+    incidents: applyFieldRedactionList(incidents as any[], scope),
+  };
 }
 
 export async function createObservation(
@@ -67,6 +79,8 @@ export async function createObservation(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "safety", "create");
   await assertWbsOnProject(input.wbsNodeId, projectId);
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   return db.safetyObservation.create({
     data: {
@@ -92,6 +106,8 @@ export async function createIncident(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "safety", "create");
   await assertWbsOnProject(input.wbsNodeId, projectId);
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
 
   if (input.linkedObservationId) {
     const obs = await db.safetyObservation.findFirst({

@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { assertProjectAccess, assertPermission } from "@/lib/permissions";
+import { assertProjectAccess, assertPermission, can } from "@/lib/permissions";
 import { db } from "@/lib/db";
 import { ActivityDetailPage } from "@/components/projects/views/activity-detail-view";
 import { getEntityComments } from "@/lib/services/review.service";
+import { getActivityCrewPanelData } from "@/lib/services/assignment.service";
 
 export const dynamic = "force-dynamic";
 
@@ -47,9 +48,8 @@ export default async function ActivityDetailRoute({
     },
   });
 
-  if (!activity) return notFound();
+  if (!activity || activity.wbsNode.projectId !== projectId) notFound();
 
-  // Fetch ITRs for the activity's WBS node for quality status
   const itrs = await db.inspectionTestRecord.findMany({
     where: { wbsNodeId: activity.wbsNodeId },
     select: { id: true, result: true },
@@ -62,7 +62,12 @@ export default async function ActivityDetailRoute({
     (a) => a.role === "FOREMAN"
   )?.user;
 
-  const comments = await getEntityComments(session, "activity", activityId, projectId);
+  const [comments, crewData] = await Promise.all([
+    getEntityComments(session, "activity", activityId, projectId),
+    can(session.role, "assignment", "read")
+      ? getActivityCrewPanelData(session, projectId, activityId).catch(() => null)
+      : Promise.resolve(null),
+  ]);
 
   const timeline = [
     {
@@ -109,9 +114,28 @@ export default async function ActivityDetailRoute({
       projectId={projectId}
       comments={comments}
       timeline={timeline}
-      onAddComment={async () => {
-        // Server Action will be wired on next pass
-      }}
+      onAddComment={async () => {}}
+      crew={
+        crewData
+          ? {
+              assignments: crewData.assignments.map((a) => ({
+                id: a.id,
+                role: a.role,
+                user: {
+                  id: a.user.id,
+                  fullName: a.user.fullName,
+                  role: a.user.role,
+                },
+                assignedBy: a.assignedBy,
+              })),
+              canManage: crewData.capabilities.canManage,
+              canAssignSiteEngineer: crewData.capabilities.canAssignSiteEngineer,
+              canAssignForeman: crewData.capabilities.canAssignForeman,
+              mustStayInOwnOrg: crewData.capabilities.mustStayInOwnOrg,
+              candidates: crewData.candidates,
+            }
+          : undefined
+      }
     />
   );
 }

@@ -16,6 +16,12 @@ import {
   wouldCreateCycle,
 } from "@/lib/domain-rules";
 import type { DependencyType } from "@/generated/prisma/enums";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  expandForemanScheduleActivityIds,
+  activityWbsFilter,
+} from "@/lib/scope";
 
 // ── Existing Schedule Service Functions ──────────────────────────────
 
@@ -23,8 +29,23 @@ export async function listActivities(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "schedule", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+
+  let where: Prisma.ScheduleActivityWhereInput = { wbsNode: { projectId } };
+
+  if (scope.scheduleReadMode === "org_ceiling") {
+    const orgFilter = activityWbsFilter(scope.orgVisibleWbsNodeIds);
+    where = { wbsNode: { projectId }, ...orgFilter };
+  } else if (scope.scheduleReadMode === "assignment_plus_deps") {
+    const ids = await expandForemanScheduleActivityIds(scope);
+    where = { wbsNode: { projectId }, id: { in: [...ids] } };
+  } else {
+    const vis = activityWbsFilter(scope.visibleWbsNodeIds);
+    where = { wbsNode: { projectId }, ...vis };
+  }
+
   return db.scheduleActivity.findMany({
-    where: { wbsNode: { projectId } },
+    where,
     orderBy: { updatedAt: "desc" },
     include: {
       wbsNode: { select: { id: true, code: true, name: true } },
@@ -61,14 +82,17 @@ export async function createActivity(
     throw new DomainError("WBS node not found or not in this project", 404);
   }
 
+  const scope = await getEffectiveScope(user, projectId);
+  assertScopeWritable(scope, input.wbsNodeId);
+
   return db.scheduleActivity.create({
     data: {
       wbsNodeId: input.wbsNodeId,
       name: input.name,
-      baselineStart: input.baselineStart ?? input.plannedStart,
-      baselineFinish: input.baselineFinish ?? input.plannedFinish,
-      plannedStart: input.plannedStart,
-      plannedFinish: input.plannedFinish,
+      baselineStart: new Date(input.baselineStart ?? input.plannedStart),
+      baselineFinish: new Date(input.baselineFinish ?? input.plannedFinish),
+      plannedStart: new Date(input.plannedStart),
+      plannedFinish: new Date(input.plannedFinish),
     },
     include: {
       wbsNode: { select: { id: true, code: true, name: true } },
@@ -83,11 +107,19 @@ export async function updateActivity(
 ) {
   const activity = await db.scheduleActivity.findUnique({
     where: { id: activityId },
-    select: { wbsNode: { select: { projectId: true } }, status: true, progressPercent: true },
+    select: {
+      wbsNodeId: true,
+      wbsNode: { select: { projectId: true } },
+      status: true,
+      progressPercent: true,
+    },
   });
   if (!activity) throw new DomainError("Schedule activity not found", 404);
   await assertProjectAccess(user, activity.wbsNode.projectId);
   assertPermission(user, "schedule", "update");
+
+  const scope = await getEffectiveScope(user, activity.wbsNode.projectId);
+  assertScopeWritable(scope, activity.wbsNodeId);
 
   if (input.plannedStart && input.plannedFinish) {
     assertDateOrder(input.plannedStart, input.plannedFinish);
@@ -109,10 +141,20 @@ export async function updateActivity(
     where: { id: activityId },
     data: {
       name: input.name,
-      plannedStart: input.plannedStart,
-      plannedFinish: input.plannedFinish,
-      actualStart: input.actualStart,
-      actualFinish: input.actualFinish,
+      plannedStart: input.plannedStart ? new Date(input.plannedStart) : undefined,
+      plannedFinish: input.plannedFinish ? new Date(input.plannedFinish) : undefined,
+      actualStart:
+        input.actualStart === null
+          ? null
+          : input.actualStart
+            ? new Date(input.actualStart)
+            : undefined,
+      actualFinish:
+        input.actualFinish === null
+          ? null
+          : input.actualFinish
+            ? new Date(input.actualFinish)
+            : undefined,
       status: input.status,
       progressPercent: input.progressPercent,
     },

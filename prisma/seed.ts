@@ -52,6 +52,7 @@ async function wipe() {
     "ReviewComment",
     "ScheduleChangeRequest",
     "ActivityAssignment",
+    "SectionAssignment",
     "PendingDependencyRequest",
     "DisputeRecord",
     "Notification",
@@ -624,8 +625,8 @@ async function main() {
 
   const a3 = await db.scheduleActivity.create({
     data: {
-      wbsNodeId: wall4.id,
-      name: "Wall 4 concrete pour",
+      wbsNodeId: slab.id,
+      name: "Ground floor slab concrete pour",
       baselineStart: new Date(today.getFullYear(), 2, 22),
       baselineFinish: new Date(today.getFullYear(), 2, 24),
       plannedStart: new Date(today.getFullYear(), 2, 25),
@@ -1378,11 +1379,96 @@ async function main() {
     data: [
       { scheduleActivityId: a1.id, userId: users.get("SITE_ENGINEER_siteengineer1")!, role: "SITE_ENGINEER", assignedById: users.get("SENIOR_PM_seniorpm")! },
       { scheduleActivityId: a1.id, userId: users.get("FOREMAN_foreman1")!, role: "FOREMAN", assignedById: users.get("SITE_ENGINEER_siteengineer1")! },
-      { scheduleActivityId: a2.id, userId: users.get("SITE_ENGINEER_siteengineer2")!, role: "SITE_ENGINEER", assignedById: users.get("SENIOR_PM_seniorpm")! },
-      { scheduleActivityId: a2.id, userId: users.get("steel_steel_foreman1")!, role: "FOREMAN", assignedById: users.get("SITE_ENGINEER_siteengineer2")! },
-      { scheduleActivityId: a3.id, userId: users.get("SITE_ENGINEER_siteengineer3")!, role: "SITE_ENGINEER", assignedById: users.get("SENIOR_PM_seniorpm")! },
-      { scheduleActivityId: a3.id, userId: users.get("concrete_concrete_foreman1")!, role: "FOREMAN", assignedById: users.get("SITE_ENGINEER_siteengineer3")! },
+      { scheduleActivityId: a2.id, userId: users.get("steel_steel_se1")!, role: "SITE_ENGINEER", assignedById: users.get("steel_pm")! },
+      { scheduleActivityId: a2.id, userId: users.get("steel_steel_foreman1")!, role: "FOREMAN", assignedById: users.get("steel_pm")! },
+      { scheduleActivityId: a3.id, userId: users.get("concrete_concrete_se1")!, role: "SITE_ENGINEER", assignedById: users.get("concrete_pm")! },
+      { scheduleActivityId: a3.id, userId: users.get("concrete_concrete_foreman1")!, role: "FOREMAN", assignedById: users.get("concrete_pm")! },
     ],
+  });
+
+  // --- Section assignments (SE/Super demo + Subcontractor PM WBS ownership) ---
+  await db.sectionAssignment.createMany({
+    data: [
+      {
+        projectId: project.id,
+        userId: users.get("SITE_ENGINEER_siteengineer1")!,
+        wbsNodeId: foundation.id,
+        role: "SITE_ENGINEER_OWNER",
+        assignedById: users.get("SENIOR_PM_seniorpm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("SITE_ENGINEER_siteengineer2")!,
+        wbsNodeId: gf.id,
+        role: "SITE_ENGINEER_OWNER",
+        assignedById: users.get("SENIOR_PM_seniorpm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("SUPERINTENDENT_superintendent1")!,
+        wbsNodeId: block.id,
+        role: "SUPERINTENDENT_OWNER",
+        assignedById: users.get("SENIOR_PM_seniorpm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("SITE_ENGINEER_siteengineer3")!,
+        wbsNodeId: slab.id,
+        role: "SITE_ENGINEER_OWNER",
+        assignedById: users.get("DEPUTY_PM_deputypm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("steel_pm")!,
+        wbsNodeId: wall4.id,
+        role: "SUBCONTRACTOR_OWNER",
+        assignedById: users.get("SENIOR_PM_seniorpm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("concrete_pm")!,
+        wbsNodeId: slab.id,
+        role: "SUBCONTRACTOR_OWNER",
+        assignedById: users.get("SENIOR_PM_seniorpm")!,
+      },
+      {
+        projectId: project.id,
+        userId: users.get("electrical_pm")!,
+        wbsNodeId: gf.id,
+        role: "SUBCONTRACTOR_OWNER",
+        assignedById: users.get("DEPUTY_PM_deputypm")!,
+      },
+    ],
+  });
+
+  // Sync subcontract org ceilings to assigned WBS roots
+  await db.contract.update({
+    where: { id: subContract.id },
+    data: { scopeWbsNodeId: wall4.id, status: "ACTIVE" },
+  });
+  await db.contract.create({
+    data: {
+      projectId: project.id,
+      parentContractId: mainContract.id,
+      contractorOrgId: concreteSub.id,
+      scopeDescription: "Concrete works subcontract",
+      contractValue: 12000000,
+      retentionPercent: 5,
+      scopeWbsNodeId: slab.id,
+      status: "ACTIVE",
+    },
+  });
+  await db.contract.create({
+    data: {
+      projectId: project.id,
+      parentContractId: mainContract.id,
+      contractorOrgId: electricalSub.id,
+      scopeDescription: "Electrical works subcontract",
+      contractValue: 4500000,
+      retentionPercent: 5,
+      scopeWbsNodeId: gf.id,
+      status: "ACTIVE",
+    },
   });
 
   // --- Update WBS nodes with planned dates ---

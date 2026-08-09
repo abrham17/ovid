@@ -4,6 +4,7 @@ import { listDocuments } from "@/lib/services/document.service";
 import { getWbsTree } from "@/lib/services/project.service";
 import { DocumentsView } from "@/components/projects/views/documents-view";
 import { can } from "@/lib/permissions";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -20,19 +21,28 @@ export default async function DocumentsPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [documents, tree] = await Promise.all([
+  const [documents, tree, hints] = await Promise.all([
     listDocuments(session, projectId),
     getWbsTree(session, projectId),
+    getScopeUiHints(session, projectId),
   ]);
+
+  const wbsNodes = filterWritableWbsOptions(
+    flattenWbs(tree as any[]),
+    hints.writableWbsIds
+  );
 
   return (
     <DocumentsView
       projectId={projectId}
       documents={documents as any}
-      wbsNodes={flattenWbs(tree as any[])}
-      canCreate={can(session.role, "document", "create")}
-      canUpdate={can(session.role, "document", "update")}
-      canApprove={can(session.role, "document", "approve")}
+      wbsNodes={wbsNodes}
+      canCreate={can(session.role, "document", "create") && hints.hasWritableScope}
+      canUpdate={can(session.role, "document", "update") && hints.hasWritableScope}
+      canApprove={can(session.role, "document", "approve") && hints.hasVisibleScope}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

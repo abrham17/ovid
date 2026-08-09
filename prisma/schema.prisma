@@ -421,6 +421,8 @@ model User {
   notifications     Notification[]
   activityAssignments     ActivityAssignment[] @relation("ActivityAssignedTo")
   assignedAssignments     ActivityAssignment[] @relation("ActivityAssignedBy")
+  sectionAssignments      SectionAssignment[]  @relation("SectionAssignedTo")
+  assignedSections        SectionAssignment[]  @relation("SectionAssignedBy")
   dependencyRequestsMade  PendingDependencyRequest[] @relation("DepReqRequestedBy")
   dependencyRequestsReviewed PendingDependencyRequest[] @relation("DepReqReviewedBy")
   disputesOpened          DisputeRecord[] @relation("DisputeOpenedBy")
@@ -532,6 +534,7 @@ model Project {
   disputeRecords          DisputeRecord[]
   reviewComments          ReviewComment[]
   scheduleChangeRequests   ScheduleChangeRequest[]
+  sectionAssignments       SectionAssignment[]
   @@index([contractorOrgId])
   @@index([clientOrgId])
   @@index([status])
@@ -651,6 +654,7 @@ model WbsNode {
   lessonsLearned        LessonsLearned[]
   contractsAsScope     Contract[]
   disputeRecords       DisputeRecord[]
+  sectionAssignments   SectionAssignment[]
 
   @@unique([projectId, code])
   @@index([parentId])
@@ -1590,6 +1594,36 @@ enum ContractStatus {
 enum AssignmentRole {
   SITE_ENGINEER
   FOREMAN
+}
+
+enum SectionAssignmentRole {
+  SITE_ENGINEER_OWNER
+  SUPERINTENDENT_OWNER
+  SUBCONTRACTOR_OWNER
+}
+
+model SectionAssignment {
+  id             String                 @id @default(cuid())
+  projectId      String
+  userId         String
+  wbsNodeId      String
+  role           SectionAssignmentRole
+  assignedById   String
+  assignedAt     DateTime               @default(now())
+  endedAt        DateTime?
+  supersededById String?
+
+  project      Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User               @relation("SectionAssignedTo", fields: [userId], references: [id])
+  assignedBy   User               @relation("SectionAssignedBy", fields: [assignedById], references: [id])
+  wbsNode      WbsNode            @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  supersededBy SectionAssignment? @relation("SectionAssignmentSupersede", fields: [supersededById], references: [id])
+  supersedes   SectionAssignment[] @relation("SectionAssignmentSupersede")
+
+  @@index([userId, endedAt])
+  @@index([projectId, wbsNodeId])
+  @@index([wbsNodeId])
+  @@index([userId, role, endedAt])
 }
 
 enum DependencyRequestStatus {

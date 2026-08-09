@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/status-badge";
 import { MetricCard } from "@/components/ui/metric-card";
-import { PageHeader } from "@/components/ui/page-header";
 import { formatCurrency, titleCase } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
+import { getScopeUiHints } from "@/lib/scope-ui";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 import {
   Users,
   Network,
@@ -28,7 +29,10 @@ export default async function ProjectOverviewPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const project = await getProject(session, projectId);
+  const [project, hints] = await Promise.all([
+    getProject(session, projectId),
+    getScopeUiHints(session, projectId),
+  ]);
 
   const stats = [
     {
@@ -75,8 +79,21 @@ export default async function ProjectOverviewPage({ params }: Props) {
     },
   ];
 
+  const showEmpty =
+    Boolean(hints.emptyTitle) &&
+    project._count.wbsNodes === 0 &&
+    project._count.scheduleActivities === 0;
+
   return (
     <div className="space-y-6">
+      <ScopeBanner message={hints.banner} />
+      {showEmpty ? (
+        <ScopeEmptyState
+          show
+          title={hints.emptyTitle}
+          description={hints.emptyDescription}
+        />
+      ) : null}
       {/* Project header card */}
       <Card className="overflow-hidden">
         <div className="h-1.5  from-terracotta-500 via-accent to-sand-300" />

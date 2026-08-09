@@ -20,6 +20,7 @@ import {
   CheckCircle2,
   Ban,
 } from "lucide-react";
+import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
 
 type WbsNode = { id: string; code: string; name: string };
 type Activity = { id: string; name: string; status?: string };
@@ -61,6 +62,9 @@ type Props = {
   canCreate: boolean;
   canUpdate: boolean;
   canApprove: boolean;
+  scopeBanner?: string | null;
+  scopeEmptyTitle?: string | null;
+  scopeEmptyDescription?: string | null;
 };
 
 const SEVERITIES = ["LOW", "MEDIUM", "HIGH", "CRITICAL"] as const;
@@ -93,6 +97,9 @@ export function SafetyView({
   canCreate,
   canUpdate,
   canApprove,
+  scopeBanner,
+  scopeEmptyTitle,
+  scopeEmptyDescription,
 }: Props) {
   const router = useRouter();
   const [tab, setTab] = useState("observations");
@@ -226,6 +233,10 @@ export function SafetyView({
 
   return (
     <div className="space-y-8">
+      <ScopeBanner message={scopeBanner} />
+      {scopeEmptyTitle && observations.length + incidents.length === 0 ? (
+        <ScopeEmptyState show title={scopeEmptyTitle} description={scopeEmptyDescription} />
+      ) : null}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#2C2420]">

@@ -3,18 +3,46 @@ import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
 import { assertStatusTransition, DOC_TRANSITIONS } from "@/lib/domain-rules";
 import type { CreateDocumentInput } from "@/lib/validations/document";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  isAll,
+  getAncestorIds,
+} from "@/lib/scope";
 
 /**
- * Phase 3 — Document control (ISO 9001 §7.5 style).
- * docNo + revision, status chain, supersede support.
+ * Document control — visible nodes + ancestor inheritance; never sibling branches outside scope.
  */
 
 export async function listDocuments(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "document", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+
+  let allowedIds: string[] | null = null;
+  if (!isAll(scope.visibleWbsNodeIds)) {
+    const visible = [...scope.visibleWbsNodeIds];
+    const withAncestors = new Set(visible);
+    for (const id of visible) {
+      const anc = await getAncestorIds(id);
+      for (const a of anc) withAncestors.add(a);
+    }
+    allowedIds = [...withAncestors];
+  }
+
   return db.projectDocument.findMany({
-    where: { projectId },
+    where: {
+      projectId,
+      ...(allowedIds
+        ? {
+            OR: [
+              { wbsNodeId: null },
+              { wbsNodeId: { in: allowedIds } },
+            ],
+          }
+        : {}),
+    },
     orderBy: [{ docNo: "asc" }, { revisionNo: "desc" }],
     take: 100,
     include: {
@@ -33,11 +61,13 @@ export async function createDocument(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "document", "create");
 
+  const scope = await getEffectiveScope(user, projectId);
   if (input.wbsNodeId) {
     const wbs = await db.wbsNode.findFirst({
       where: { id: input.wbsNodeId, projectId },
     });
     if (!wbs) throw new Error("WBS node not found");
+    assertScopeWritable(scope, input.wbsNodeId);
   }
 
   return db.projectDocument.create({

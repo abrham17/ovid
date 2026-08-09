@@ -1,14 +1,14 @@
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
-import { DomainError, assertDateOrder } from "@/lib/domain-rules";
+import { assertDateOrder } from "@/lib/domain-rules";
 import type { CreateStoppageInput, UpdateStoppageInput } from "@/lib/validations/stoppage";
+import {
+  getEffectiveScope,
+  assertScopeWritable,
+  scopeWbsFilter,
+} from "@/lib/scope";
 
-/**
- * Stoppage / Delay-Cause Log — highest-leverage schedule feature for Ovid.
- * Digital twin of the three-party On-Site Work Stoppage Report.
- * Links delay cause + responsible party to WBS / schedule activity in real time.
- */
 export async function listStoppages(
   user: SessionUser,
   projectId: string,
@@ -17,9 +17,13 @@ export async function listStoppages(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "schedule", "read");
 
+  const scope = await getEffectiveScope(user, projectId);
+  const wbsFilter = scopeWbsFilter(scope);
+
   return db.stoppageEntry.findMany({
     where: {
       projectId,
+      ...wbsFilter,
       ...(opts?.type ? { stoppageType: opts.type as any } : {}),
       ...(opts?.from || opts?.to
         ? {
@@ -42,6 +46,11 @@ export async function listStoppages(
 export async function createStoppage(user: SessionUser, input: CreateStoppageInput) {
   await assertProjectAccess(user, input.projectId);
   assertPermission(user, "schedule", "create");
+
+  const scope = await getEffectiveScope(user, input.projectId);
+  if (input.wbsNodeId) {
+    assertScopeWritable(scope, input.wbsNodeId);
+  }
 
   const start = new Date(input.startTime);
   const end = new Date(input.endTime);
@@ -79,6 +88,10 @@ export async function updateStoppage(
   const existing = await db.stoppageEntry.findUniqueOrThrow({ where: { id: stoppageId } });
   await assertProjectAccess(user, existing.projectId);
   assertPermission(user, "schedule", "update");
+  const scope = await getEffectiveScope(user, existing.projectId);
+  if (existing.wbsNodeId) {
+    assertScopeWritable(scope, existing.wbsNodeId);
+  }
 
   return db.stoppageEntry.update({
     where: { id: stoppageId },
@@ -91,7 +104,6 @@ export async function updateStoppage(
   });
 }
 
-/** Assign delay responsibility after three-party comments are in (Senior PM / Contracts). */
 export async function assignResponsibility(
   user: SessionUser,
   stoppageId: string,
@@ -107,7 +119,6 @@ export async function assignResponsibility(
   });
 }
 
-/** Duration in hours for variance / claims. */
 export function stoppageDurationHours(start: Date, end: Date) {
   return Math.max(0, (end.getTime() - start.getTime()) / (1000 * 60 * 60));
 }

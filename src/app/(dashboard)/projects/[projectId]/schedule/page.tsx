@@ -5,6 +5,7 @@ import { listStoppages } from "@/lib/services/stoppage.service";
 import { getWbsTree } from "@/lib/services/project.service";
 import { ScheduleView } from "@/components/projects/views/schedule-view";
 import { can } from "@/lib/permissions";
+import { getScopeUiHints, filterWritableWbsOptions } from "@/lib/scope-ui";
 
 type Props = { params: Promise<{ projectId: string }> };
 
@@ -115,10 +116,11 @@ export default async function SchedulePage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [activities, stoppages, tree] = await Promise.all([
+  const [activities, stoppages, tree, hints] = await Promise.all([
     listActivities(session, projectId),
     listStoppages(session, projectId),
     getWbsTree(session, projectId),
+    getScopeUiHints(session, projectId),
   ]);
 
   const serializedActivities = activities.map(serializeActivity);
@@ -129,9 +131,12 @@ export default async function SchedulePage({ params }: Props) {
       projectId={projectId}
       activities={serializedActivities}
       stoppages={serializedStoppages}
-      wbsNodes={flattenWbs(tree)}
-      canCreate={can(session.role, "schedule", "create")}
+      wbsNodes={filterWritableWbsOptions(flattenWbs(tree), hints.writableWbsIds)}
+      canCreate={can(session.role, "schedule", "create") && hints.hasWritableScope}
       canApprove={can(session.role, "schedule", "approve")}
+      scopeBanner={hints.banner}
+      scopeEmptyTitle={hints.emptyTitle}
+      scopeEmptyDescription={hints.emptyDescription}
     />
   );
 }

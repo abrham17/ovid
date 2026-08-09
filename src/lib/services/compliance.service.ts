@@ -6,15 +6,21 @@ import type {
   CreateDecisionInput,
   CreateLessonInput,
 } from "@/lib/validations/compliance";
+import {
+  getEffectiveScope,
+  applyFieldRedactionList,
+  isAll,
+} from "@/lib/scope";
 
 /**
- * Phase 4 — Compliance exports, decision log, lessons learned.
- * Supports MoUDC grading / progress / safety compliance registers.
+ * Compliance exports, decision log, lessons learned — fieldMode redaction applied.
  */
 
 export async function listCompliance(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "project", "read");
+
+  const scope = await getEffectiveScope(user, projectId);
 
   const [reports, decisions, lessons] = await Promise.all([
     db.regulatoryReport.findMany({
@@ -23,7 +29,17 @@ export async function listCompliance(user: SessionUser, projectId: string) {
       take: 50,
     }),
     db.decisionLog.findMany({
-      where: { projectId },
+      where: {
+        projectId,
+        ...(isAll(scope.visibleWbsNodeIds)
+          ? {}
+          : {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+              ],
+            }),
+      },
       orderBy: { decidedAt: "desc" },
       take: 50,
       include: {
@@ -32,7 +48,17 @@ export async function listCompliance(user: SessionUser, projectId: string) {
       },
     }),
     db.lessonsLearned.findMany({
-      where: { projectId },
+      where: {
+        projectId,
+        ...(isAll(scope.visibleWbsNodeIds)
+          ? {}
+          : {
+              OR: [
+                { wbsNodeId: null },
+                { wbsNodeId: { in: [...scope.visibleWbsNodeIds] } },
+              ],
+            }),
+      },
       orderBy: { recordedAt: "desc" },
       take: 50,
       include: {
@@ -42,7 +68,12 @@ export async function listCompliance(user: SessionUser, projectId: string) {
     }),
   ]);
 
-  return { reports, decisions, lessons };
+  return {
+    reports: applyFieldRedactionList(reports as any[], scope),
+    decisions: applyFieldRedactionList(decisions as any[], scope),
+    lessons: applyFieldRedactionList(lessons as any[], scope),
+    fieldMode: scope.fieldMode,
+  };
 }
 
 export async function createRegulatoryReport(

@@ -7,30 +7,26 @@ import {
   type ComputedActivityStatus,
   type ActivityStatusInfo,
 } from "@/lib/schedule-status";
+import {
+  getEffectiveScope,
+  activityWbsFilter,
+  isAll,
+  type EffectiveScope,
+} from "@/lib/scope";
 
-// Re-export types and pure functions for both server and client consumers
 export type { ComputedActivityStatus, ActivityStatusInfo };
 
-/**
- * Pure-status computation — delegates to @/lib/schedule-status.
- * This function is safe to import in client components.
- */
 export function computeActivityStatus(
   input: Parameters<typeof _computeActivityStatus>[0]
 ): ActivityStatusInfo {
   return _computeActivityStatus(input);
 }
 
-/**
- * Batch version.
- */
 export function computeActivityStatuses(
   activities: Parameters<typeof _computeActivityStatuses>[0]
 ): Map<string, ActivityStatusInfo> {
   return _computeActivityStatuses(activities);
 }
-
-// ── Progress Rollup ──────────────────────────────────────────────────
 
 type WeightedProgress = {
   wbsNodeId: string;
@@ -38,10 +34,6 @@ type WeightedProgress = {
   weight: number;
 };
 
-/**
- * Get the budget-based weight for a WBS node (sum of BOQ item budgetedQty × unitRate).
- * Returns 1 as minimum to avoid division by zero.
- */
 async function getWbsNodeWeight(wbsNodeId: string): Promise<number> {
   const boqItems = await db.boqItem.findMany({
     where: { wbsNodeId },
@@ -55,11 +47,11 @@ async function getWbsNodeWeight(wbsNodeId: string): Promise<number> {
   return Math.max(total, 1);
 }
 
-/**
- * Compute the progress of a ScheduleActivity.
- * Uses the existing progressPercent field (which can be set programmatically via
- * daily report verified quantities).
- */
+function nodeInScope(scope: EffectiveScope | null, wbsNodeId: string): boolean {
+  if (!scope || isAll(scope.visibleWbsNodeIds)) return true;
+  return scope.visibleWbsNodeIds.has(wbsNodeId);
+}
+
 export async function computeActivityProgress(activityId: string): Promise<number> {
   const activity = await db.scheduleActivity.findUnique({
     where: { id: activityId },
@@ -69,22 +61,24 @@ export async function computeActivityProgress(activityId: string): Promise<numbe
   return Number(activity.progressPercent);
 }
 
-/**
- * Compute WBS node progress as weighted average of its child WBS nodes
- * and/or direct ScheduleActivities.
- *
- * If the node has child WBS nodes → recurse and weight them.
- * If the node has direct activities → average their progress.
- * Falls back to the mean of both if both exist.
- */
 export async function computeWbsProgress(
   wbsNodeId: string,
-  user?: SessionUser
+  user?: SessionUser,
+  scope?: EffectiveScope | null
 ): Promise<number> {
-  if (user) {
-    const node = await db.wbsNode.findUniqueOrThrow({ where: { id: wbsNodeId }, select: { projectId: true } });
+  let effectiveScope = scope ?? null;
+  if (user && !effectiveScope) {
+    const node = await db.wbsNode.findUniqueOrThrow({
+      where: { id: wbsNodeId },
+      select: { projectId: true },
+    });
     await assertProjectAccess(user, node.projectId);
     assertPermission(user, "wbs", "read");
+    effectiveScope = await getEffectiveScope(user, node.projectId);
+  }
+
+  if (effectiveScope && !nodeInScope(effectiveScope, wbsNodeId)) {
+    return 0;
   }
 
   const [children, activities] = await Promise.all([
@@ -98,29 +92,29 @@ export async function computeWbsProgress(
     }),
   ]);
 
-  // If no children and no activities, progress is 0
-  if (children.length === 0 && activities.length === 0) return 0;
+  const scopedChildren = children.filter((c) => nodeInScope(effectiveScope, c.id));
 
-  // Recurse into child WBS nodes
+  if (scopedChildren.length === 0 && activities.length === 0) return 0;
+
   const childProgresses: WeightedProgress[] = [];
-  for (const child of children) {
-    const progress = await computeWbsProgress(child.id, user);
+  for (const child of scopedChildren) {
+    const progress = await computeWbsProgress(child.id, user, effectiveScope);
     const weight = await getWbsNodeWeight(child.id);
     childProgresses.push({ wbsNodeId: child.id, progressPercent: progress, weight });
   }
 
-  // Direct activities
   const activityEntries: WeightedProgress[] = activities.map((a) => ({
     wbsNodeId: a.id,
     progressPercent: Number(a.progressPercent),
     weight: 1,
   }));
 
-  const allEntries = childProgresses.length > 0 && activityEntries.length > 0
-    ? [...childProgresses, ...activityEntries]
-    : childProgresses.length > 0
-      ? childProgresses
-      : activityEntries;
+  const allEntries =
+    childProgresses.length > 0 && activityEntries.length > 0
+      ? [...childProgresses, ...activityEntries]
+      : childProgresses.length > 0
+        ? childProgresses
+        : activityEntries;
 
   const totalWeight = allEntries.reduce((sum, e) => sum + e.weight, 0);
   if (totalWeight === 0) return 0;
@@ -129,17 +123,27 @@ export async function computeWbsProgress(
   return Math.round((weightedSum / totalWeight) * 100) / 100;
 }
 
-/**
- * Compute overall project progress as weighted average of top-level WBS nodes.
- * Top-level WBS nodes are those without a parentId.
- */
 export async function computeProjectProgress(
   projectId: string,
   user?: SessionUser
 ): Promise<number> {
+  let scope: EffectiveScope | null = null;
   if (user) {
     await assertProjectAccess(user, projectId);
     assertPermission(user, "project", "read");
+    scope = await getEffectiveScope(user, projectId);
+  }
+
+  if (scope && !isAll(scope.visibleWbsNodeIds)) {
+    const ids = [...scope.visibleWbsNodeIds];
+    if (ids.length === 0) return 0;
+    const activities = await db.scheduleActivity.findMany({
+      where: { wbsNodeId: { in: ids } },
+      select: { progressPercent: true },
+    });
+    if (activities.length === 0) return 0;
+    const sum = activities.reduce((s, a) => s + Number(a.progressPercent), 0);
+    return Math.round((sum / activities.length) * 100) / 100;
   }
 
   const rootNodes = await db.wbsNode.findMany({
@@ -151,7 +155,7 @@ export async function computeProjectProgress(
 
   const progresses: WeightedProgress[] = [];
   for (const node of rootNodes) {
-    const progress = await computeWbsProgress(node.id, user);
+    const progress = await computeWbsProgress(node.id, user, scope);
     const weight = await getWbsNodeWeight(node.id);
     progresses.push({ wbsNodeId: node.id, progressPercent: progress, weight });
   }
@@ -162,8 +166,6 @@ export async function computeProjectProgress(
   const weightedSum = progresses.reduce((sum, e) => sum + e.progressPercent * e.weight, 0);
   return Math.round((weightedSum / totalWeight) * 100) / 100;
 }
-
-// ── Dashboard Aggregations ───────────────────────────────────────────
 
 export type ProjectHealthSummary = {
   totalActivities: number;
@@ -176,21 +178,21 @@ export type ProjectHealthSummary = {
   overallProgress: number;
 };
 
-/**
- * Compute a health summary for dashboard display.
- * Returns counts of activities in each computed status bucket plus overall progress.
- */
 export async function getProjectHealth(
   projectId: string,
   user?: SessionUser
 ): Promise<ProjectHealthSummary> {
+  let scope: EffectiveScope | null = null;
   if (user) {
     await assertProjectAccess(user, projectId);
     assertPermission(user, "project", "read");
+    scope = await getEffectiveScope(user, projectId);
   }
 
+  const wbsFilter = scope ? activityWbsFilter(scope.visibleWbsNodeIds) : {};
+
   const activities = await db.scheduleActivity.findMany({
-    where: { wbsNode: { projectId } },
+    where: { wbsNode: { projectId }, ...wbsFilter },
     select: {
       id: true,
       plannedStart: true,
