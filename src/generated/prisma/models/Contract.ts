@@ -292,6 +292,11 @@ export type ContractWhereInput = {
   supersedes?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
   supersededBy?: Prisma.ContractListRelationFilter
   measurements?: Prisma.MeasurementEntryListRelationFilter
+  planSubmissions?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  oversightDailyEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
+  materialDemands?: Prisma.MaterialDemandListRelationFilter
 }
 
 export type ContractOrderByWithRelationInput = {
@@ -316,6 +321,11 @@ export type ContractOrderByWithRelationInput = {
   supersedes?: Prisma.ContractOrderByWithRelationInput
   supersededBy?: Prisma.ContractOrderByRelationAggregateInput
   measurements?: Prisma.MeasurementEntryOrderByRelationAggregateInput
+  planSubmissions?: Prisma.WbsPlanSubmissionOrderByRelationAggregateInput
+  oversightAssignments?: Prisma.OversightAssignmentOrderByRelationAggregateInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryOrderByRelationAggregateInput
+  resourceRequests?: Prisma.ResourceRequestOrderByRelationAggregateInput
+  materialDemands?: Prisma.MaterialDemandOrderByRelationAggregateInput
 }
 
 export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -343,6 +353,11 @@ export type ContractWhereUniqueInput = Prisma.AtLeast<{
   supersedes?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
   supersededBy?: Prisma.ContractListRelationFilter
   measurements?: Prisma.MeasurementEntryListRelationFilter
+  planSubmissions?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  oversightDailyEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
+  materialDemands?: Prisma.MaterialDemandListRelationFilter
 }, "id">
 
 export type ContractOrderByWithAggregationInput = {
@@ -402,6 +417,11 @@ export type ContractCreateInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateInput = {
@@ -421,6 +441,11 @@ export type ContractUncheckedCreateInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUpdateInput = {
@@ -440,6 +465,11 @@ export type ContractUpdateInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateInput = {
@@ -459,6 +489,11 @@ export type ContractUncheckedUpdateInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractCreateManyInput = {
@@ -842,6 +877,78 @@ export type ContractUpdateOneRequiredWithoutMeasurementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutMeasurementsInput, Prisma.ContractUpdateWithoutMeasurementsInput>, Prisma.ContractUncheckedUpdateWithoutMeasurementsInput>
 }
 
+export type ContractCreateNestedOneWithoutMaterialDemandsInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutMaterialDemandsInput, Prisma.ContractUncheckedCreateWithoutMaterialDemandsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutMaterialDemandsInput
+  connect?: Prisma.ContractWhereUniqueInput
+}
+
+export type ContractUpdateOneWithoutMaterialDemandsNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutMaterialDemandsInput, Prisma.ContractUncheckedCreateWithoutMaterialDemandsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutMaterialDemandsInput
+  upsert?: Prisma.ContractUpsertWithoutMaterialDemandsInput
+  disconnect?: Prisma.ContractWhereInput | boolean
+  delete?: Prisma.ContractWhereInput | boolean
+  connect?: Prisma.ContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutMaterialDemandsInput, Prisma.ContractUpdateWithoutMaterialDemandsInput>, Prisma.ContractUncheckedUpdateWithoutMaterialDemandsInput>
+}
+
+export type ContractCreateNestedOneWithoutPlanSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedCreateWithoutPlanSubmissionsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutPlanSubmissionsInput
+  connect?: Prisma.ContractWhereUniqueInput
+}
+
+export type ContractUpdateOneRequiredWithoutPlanSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedCreateWithoutPlanSubmissionsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutPlanSubmissionsInput
+  upsert?: Prisma.ContractUpsertWithoutPlanSubmissionsInput
+  connect?: Prisma.ContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutPlanSubmissionsInput, Prisma.ContractUpdateWithoutPlanSubmissionsInput>, Prisma.ContractUncheckedUpdateWithoutPlanSubmissionsInput>
+}
+
+export type ContractCreateNestedOneWithoutOversightAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutOversightAssignmentsInput
+  connect?: Prisma.ContractWhereUniqueInput
+}
+
+export type ContractUpdateOneRequiredWithoutOversightAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutOversightAssignmentsInput
+  upsert?: Prisma.ContractUpsertWithoutOversightAssignmentsInput
+  connect?: Prisma.ContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutOversightAssignmentsInput, Prisma.ContractUpdateWithoutOversightAssignmentsInput>, Prisma.ContractUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type ContractCreateNestedOneWithoutOversightDailyEntriesInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedCreateWithoutOversightDailyEntriesInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutOversightDailyEntriesInput
+  connect?: Prisma.ContractWhereUniqueInput
+}
+
+export type ContractUpdateOneRequiredWithoutOversightDailyEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedCreateWithoutOversightDailyEntriesInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutOversightDailyEntriesInput
+  upsert?: Prisma.ContractUpsertWithoutOversightDailyEntriesInput
+  connect?: Prisma.ContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutOversightDailyEntriesInput, Prisma.ContractUpdateWithoutOversightDailyEntriesInput>, Prisma.ContractUncheckedUpdateWithoutOversightDailyEntriesInput>
+}
+
+export type ContractCreateNestedOneWithoutResourceRequestsInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutResourceRequestsInput, Prisma.ContractUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutResourceRequestsInput
+  connect?: Prisma.ContractWhereUniqueInput
+}
+
+export type ContractUpdateOneRequiredWithoutResourceRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractCreateWithoutResourceRequestsInput, Prisma.ContractUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.ContractCreateOrConnectWithoutResourceRequestsInput
+  upsert?: Prisma.ContractUpsertWithoutResourceRequestsInput
+  connect?: Prisma.ContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractUpdateToOneWithWhereWithoutResourceRequestsInput, Prisma.ContractUpdateWithoutResourceRequestsInput>, Prisma.ContractUncheckedUpdateWithoutResourceRequestsInput>
+}
+
 export type ContractCreateWithoutContractorOrgInput = {
   id?: string
   scopeDescription: string
@@ -858,6 +965,11 @@ export type ContractCreateWithoutContractorOrgInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutContractorOrgInput = {
@@ -876,6 +988,11 @@ export type ContractUncheckedCreateWithoutContractorOrgInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutContractorOrgInput = {
@@ -939,6 +1056,11 @@ export type ContractCreateWithoutProjectInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutProjectInput = {
@@ -957,6 +1079,11 @@ export type ContractUncheckedCreateWithoutProjectInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutProjectInput = {
@@ -1001,6 +1128,11 @@ export type ContractCreateWithoutSubcontractsInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutSubcontractsInput = {
@@ -1019,6 +1151,11 @@ export type ContractUncheckedCreateWithoutSubcontractsInput = {
   updatedAt?: Date | string
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutSubcontractsInput = {
@@ -1042,6 +1179,11 @@ export type ContractCreateWithoutParentContractInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutParentContractInput = {
@@ -1060,6 +1202,11 @@ export type ContractUncheckedCreateWithoutParentContractInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutParentContractInput = {
@@ -1088,6 +1235,11 @@ export type ContractCreateWithoutSupersededByInput = {
   scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutSupersededByInput = {
@@ -1106,6 +1258,11 @@ export type ContractUncheckedCreateWithoutSupersededByInput = {
   updatedAt?: Date | string
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutSupersededByInput = {
@@ -1129,6 +1286,11 @@ export type ContractCreateWithoutSupersedesInput = {
   scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutSupersedesInput = {
@@ -1147,6 +1309,11 @@ export type ContractUncheckedCreateWithoutSupersedesInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutSupersedesInput = {
@@ -1186,6 +1353,11 @@ export type ContractUpdateWithoutSubcontractsInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutSubcontractsInput = {
@@ -1204,6 +1376,11 @@ export type ContractUncheckedUpdateWithoutSubcontractsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUpsertWithWhereUniqueWithoutParentContractInput = {
@@ -1249,6 +1426,11 @@ export type ContractUpdateWithoutSupersededByInput = {
   scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutSupersededByInput = {
@@ -1267,6 +1449,11 @@ export type ContractUncheckedUpdateWithoutSupersededByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUpsertWithWhereUniqueWithoutSupersedesInput = {
@@ -1301,6 +1488,11 @@ export type ContractCreateWithoutScopeWbsNodeInput = {
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutScopeWbsNodeInput = {
@@ -1319,6 +1511,11 @@ export type ContractUncheckedCreateWithoutScopeWbsNodeInput = {
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
   measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutScopeWbsNodeInput = {
@@ -1363,6 +1560,11 @@ export type ContractCreateWithoutMeasurementsInput = {
   scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
   supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
   supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractUncheckedCreateWithoutMeasurementsInput = {
@@ -1381,6 +1583,11 @@ export type ContractUncheckedCreateWithoutMeasurementsInput = {
   updatedAt?: Date | string
   subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
   supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
 }
 
 export type ContractCreateOrConnectWithoutMeasurementsInput = {
@@ -1415,6 +1622,11 @@ export type ContractUpdateWithoutMeasurementsInput = {
   scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutMeasurementsInput = {
@@ -1433,6 +1645,551 @@ export type ContractUncheckedUpdateWithoutMeasurementsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractCreateWithoutMaterialDemandsInput = {
+  id?: string
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractsInput
+  parentContract?: Prisma.ContractCreateNestedOneWithoutSubcontractsInput
+  subcontracts?: Prisma.ContractCreateNestedManyWithoutParentContractInput
+  contractorOrg: Prisma.OrganizationCreateNestedOneWithoutContractsExecutedInput
+  scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
+  supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
+  supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+}
+
+export type ContractUncheckedCreateWithoutMaterialDemandsInput = {
+  id?: string
+  projectId: string
+  parentContractId?: string | null
+  contractorOrgId: string
+  scopeWbsNodeId?: string | null
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  supersedesContractId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
+  supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+}
+
+export type ContractCreateOrConnectWithoutMaterialDemandsInput = {
+  where: Prisma.ContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractCreateWithoutMaterialDemandsInput, Prisma.ContractUncheckedCreateWithoutMaterialDemandsInput>
+}
+
+export type ContractUpsertWithoutMaterialDemandsInput = {
+  update: Prisma.XOR<Prisma.ContractUpdateWithoutMaterialDemandsInput, Prisma.ContractUncheckedUpdateWithoutMaterialDemandsInput>
+  create: Prisma.XOR<Prisma.ContractCreateWithoutMaterialDemandsInput, Prisma.ContractUncheckedCreateWithoutMaterialDemandsInput>
+  where?: Prisma.ContractWhereInput
+}
+
+export type ContractUpdateToOneWithWhereWithoutMaterialDemandsInput = {
+  where?: Prisma.ContractWhereInput
+  data: Prisma.XOR<Prisma.ContractUpdateWithoutMaterialDemandsInput, Prisma.ContractUncheckedUpdateWithoutMaterialDemandsInput>
+}
+
+export type ContractUpdateWithoutMaterialDemandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractsNestedInput
+  parentContract?: Prisma.ContractUpdateOneWithoutSubcontractsNestedInput
+  subcontracts?: Prisma.ContractUpdateManyWithoutParentContractNestedInput
+  contractorOrg?: Prisma.OrganizationUpdateOneRequiredWithoutContractsExecutedNestedInput
+  scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
+  supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
+  supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+}
+
+export type ContractUncheckedUpdateWithoutMaterialDemandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractorOrgId?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeWbsNodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supersedesContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
+  supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+}
+
+export type ContractCreateWithoutPlanSubmissionsInput = {
+  id?: string
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractsInput
+  parentContract?: Prisma.ContractCreateNestedOneWithoutSubcontractsInput
+  subcontracts?: Prisma.ContractCreateNestedManyWithoutParentContractInput
+  contractorOrg: Prisma.OrganizationCreateNestedOneWithoutContractsExecutedInput
+  scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
+  supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
+  supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractUncheckedCreateWithoutPlanSubmissionsInput = {
+  id?: string
+  projectId: string
+  parentContractId?: string | null
+  contractorOrgId: string
+  scopeWbsNodeId?: string | null
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  supersedesContractId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
+  supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractCreateOrConnectWithoutPlanSubmissionsInput = {
+  where: Prisma.ContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractCreateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedCreateWithoutPlanSubmissionsInput>
+}
+
+export type ContractUpsertWithoutPlanSubmissionsInput = {
+  update: Prisma.XOR<Prisma.ContractUpdateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedUpdateWithoutPlanSubmissionsInput>
+  create: Prisma.XOR<Prisma.ContractCreateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedCreateWithoutPlanSubmissionsInput>
+  where?: Prisma.ContractWhereInput
+}
+
+export type ContractUpdateToOneWithWhereWithoutPlanSubmissionsInput = {
+  where?: Prisma.ContractWhereInput
+  data: Prisma.XOR<Prisma.ContractUpdateWithoutPlanSubmissionsInput, Prisma.ContractUncheckedUpdateWithoutPlanSubmissionsInput>
+}
+
+export type ContractUpdateWithoutPlanSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractsNestedInput
+  parentContract?: Prisma.ContractUpdateOneWithoutSubcontractsNestedInput
+  subcontracts?: Prisma.ContractUpdateManyWithoutParentContractNestedInput
+  contractorOrg?: Prisma.OrganizationUpdateOneRequiredWithoutContractsExecutedNestedInput
+  scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
+  supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
+  supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractUncheckedUpdateWithoutPlanSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractorOrgId?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeWbsNodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supersedesContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
+  supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractsInput
+  parentContract?: Prisma.ContractCreateNestedOneWithoutSubcontractsInput
+  subcontracts?: Prisma.ContractCreateNestedManyWithoutParentContractInput
+  contractorOrg: Prisma.OrganizationCreateNestedOneWithoutContractsExecutedInput
+  scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
+  supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
+  supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractUncheckedCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  projectId: string
+  parentContractId?: string | null
+  contractorOrgId: string
+  scopeWbsNodeId?: string | null
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  supersedesContractId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
+  supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractCreateOrConnectWithoutOversightAssignmentsInput = {
+  where: Prisma.ContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractCreateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedCreateWithoutOversightAssignmentsInput>
+}
+
+export type ContractUpsertWithoutOversightAssignmentsInput = {
+  update: Prisma.XOR<Prisma.ContractUpdateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedUpdateWithoutOversightAssignmentsInput>
+  create: Prisma.XOR<Prisma.ContractCreateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedCreateWithoutOversightAssignmentsInput>
+  where?: Prisma.ContractWhereInput
+}
+
+export type ContractUpdateToOneWithWhereWithoutOversightAssignmentsInput = {
+  where?: Prisma.ContractWhereInput
+  data: Prisma.XOR<Prisma.ContractUpdateWithoutOversightAssignmentsInput, Prisma.ContractUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type ContractUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractsNestedInput
+  parentContract?: Prisma.ContractUpdateOneWithoutSubcontractsNestedInput
+  subcontracts?: Prisma.ContractUpdateManyWithoutParentContractNestedInput
+  contractorOrg?: Prisma.OrganizationUpdateOneRequiredWithoutContractsExecutedNestedInput
+  scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
+  supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
+  supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractUncheckedUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractorOrgId?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeWbsNodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supersedesContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
+  supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractCreateWithoutOversightDailyEntriesInput = {
+  id?: string
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractsInput
+  parentContract?: Prisma.ContractCreateNestedOneWithoutSubcontractsInput
+  subcontracts?: Prisma.ContractCreateNestedManyWithoutParentContractInput
+  contractorOrg: Prisma.OrganizationCreateNestedOneWithoutContractsExecutedInput
+  scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
+  supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
+  supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractUncheckedCreateWithoutOversightDailyEntriesInput = {
+  id?: string
+  projectId: string
+  parentContractId?: string | null
+  contractorOrgId: string
+  scopeWbsNodeId?: string | null
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  supersedesContractId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
+  supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractCreateOrConnectWithoutOversightDailyEntriesInput = {
+  where: Prisma.ContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractCreateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedCreateWithoutOversightDailyEntriesInput>
+}
+
+export type ContractUpsertWithoutOversightDailyEntriesInput = {
+  update: Prisma.XOR<Prisma.ContractUpdateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedUpdateWithoutOversightDailyEntriesInput>
+  create: Prisma.XOR<Prisma.ContractCreateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedCreateWithoutOversightDailyEntriesInput>
+  where?: Prisma.ContractWhereInput
+}
+
+export type ContractUpdateToOneWithWhereWithoutOversightDailyEntriesInput = {
+  where?: Prisma.ContractWhereInput
+  data: Prisma.XOR<Prisma.ContractUpdateWithoutOversightDailyEntriesInput, Prisma.ContractUncheckedUpdateWithoutOversightDailyEntriesInput>
+}
+
+export type ContractUpdateWithoutOversightDailyEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractsNestedInput
+  parentContract?: Prisma.ContractUpdateOneWithoutSubcontractsNestedInput
+  subcontracts?: Prisma.ContractUpdateManyWithoutParentContractNestedInput
+  contractorOrg?: Prisma.OrganizationUpdateOneRequiredWithoutContractsExecutedNestedInput
+  scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
+  supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
+  supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractUncheckedUpdateWithoutOversightDailyEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractorOrgId?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeWbsNodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supersedesContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
+  supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractCreateWithoutResourceRequestsInput = {
+  id?: string
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractsInput
+  parentContract?: Prisma.ContractCreateNestedOneWithoutSubcontractsInput
+  subcontracts?: Prisma.ContractCreateNestedManyWithoutParentContractInput
+  contractorOrg: Prisma.OrganizationCreateNestedOneWithoutContractsExecutedInput
+  scopeWbsNode?: Prisma.WbsNodeCreateNestedOneWithoutContractsAsScopeInput
+  supersedes?: Prisma.ContractCreateNestedOneWithoutSupersededByInput
+  supersededBy?: Prisma.ContractCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractUncheckedCreateWithoutResourceRequestsInput = {
+  id?: string
+  projectId: string
+  parentContractId?: string | null
+  contractorOrgId: string
+  scopeWbsNodeId?: string | null
+  scopeDescription: string
+  contractValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ContractStatus
+  terminatedAt?: Date | string | null
+  supersedesContractId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcontracts?: Prisma.ContractUncheckedCreateNestedManyWithoutParentContractInput
+  supersededBy?: Prisma.ContractUncheckedCreateNestedManyWithoutSupersedesInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutContractInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutContractInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutContractInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutContractInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput
+}
+
+export type ContractCreateOrConnectWithoutResourceRequestsInput = {
+  where: Prisma.ContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractCreateWithoutResourceRequestsInput, Prisma.ContractUncheckedCreateWithoutResourceRequestsInput>
+}
+
+export type ContractUpsertWithoutResourceRequestsInput = {
+  update: Prisma.XOR<Prisma.ContractUpdateWithoutResourceRequestsInput, Prisma.ContractUncheckedUpdateWithoutResourceRequestsInput>
+  create: Prisma.XOR<Prisma.ContractCreateWithoutResourceRequestsInput, Prisma.ContractUncheckedCreateWithoutResourceRequestsInput>
+  where?: Prisma.ContractWhereInput
+}
+
+export type ContractUpdateToOneWithWhereWithoutResourceRequestsInput = {
+  where?: Prisma.ContractWhereInput
+  data: Prisma.XOR<Prisma.ContractUpdateWithoutResourceRequestsInput, Prisma.ContractUncheckedUpdateWithoutResourceRequestsInput>
+}
+
+export type ContractUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractsNestedInput
+  parentContract?: Prisma.ContractUpdateOneWithoutSubcontractsNestedInput
+  subcontracts?: Prisma.ContractUpdateManyWithoutParentContractNestedInput
+  contractorOrg?: Prisma.OrganizationUpdateOneRequiredWithoutContractsExecutedNestedInput
+  scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
+  supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
+  supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
+}
+
+export type ContractUncheckedUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractorOrgId?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeWbsNodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopeDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  contractValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  retentionPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supersedesContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
+  supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractCreateManyContractorOrgInput = {
@@ -1466,6 +2223,11 @@ export type ContractUpdateWithoutContractorOrgInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutContractorOrgInput = {
@@ -1484,6 +2246,11 @@ export type ContractUncheckedUpdateWithoutContractorOrgInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateManyWithoutContractorOrgInput = {
@@ -1532,6 +2299,11 @@ export type ContractUpdateWithoutProjectInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutProjectInput = {
@@ -1550,6 +2322,11 @@ export type ContractUncheckedUpdateWithoutProjectInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateManyWithoutProjectInput = {
@@ -1613,6 +2390,11 @@ export type ContractUpdateWithoutParentContractInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutParentContractInput = {
@@ -1631,6 +2413,11 @@ export type ContractUncheckedUpdateWithoutParentContractInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateManyWithoutParentContractInput = {
@@ -1664,6 +2451,11 @@ export type ContractUpdateWithoutSupersedesInput = {
   scopeWbsNode?: Prisma.WbsNodeUpdateOneWithoutContractsAsScopeNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutSupersedesInput = {
@@ -1682,6 +2474,11 @@ export type ContractUncheckedUpdateWithoutSupersedesInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateManyWithoutSupersedesInput = {
@@ -1730,6 +2527,11 @@ export type ContractUpdateWithoutScopeWbsNodeInput = {
   supersedes?: Prisma.ContractUpdateOneWithoutSupersededByNestedInput
   supersededBy?: Prisma.ContractUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateWithoutScopeWbsNodeInput = {
@@ -1748,6 +2550,11 @@ export type ContractUncheckedUpdateWithoutScopeWbsNodeInput = {
   subcontracts?: Prisma.ContractUncheckedUpdateManyWithoutParentContractNestedInput
   supersededBy?: Prisma.ContractUncheckedUpdateManyWithoutSupersedesNestedInput
   measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutContractNestedInput
+  planSubmissions?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutContractNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutContractNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutContractNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutContractNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput
 }
 
 export type ContractUncheckedUpdateManyWithoutScopeWbsNodeInput = {
@@ -1774,12 +2581,22 @@ export type ContractCountOutputType = {
   subcontracts: number
   supersededBy: number
   measurements: number
+  planSubmissions: number
+  oversightAssignments: number
+  oversightDailyEntries: number
+  resourceRequests: number
+  materialDemands: number
 }
 
 export type ContractCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subcontracts?: boolean | ContractCountOutputTypeCountSubcontractsArgs
   supersededBy?: boolean | ContractCountOutputTypeCountSupersededByArgs
   measurements?: boolean | ContractCountOutputTypeCountMeasurementsArgs
+  planSubmissions?: boolean | ContractCountOutputTypeCountPlanSubmissionsArgs
+  oversightAssignments?: boolean | ContractCountOutputTypeCountOversightAssignmentsArgs
+  oversightDailyEntries?: boolean | ContractCountOutputTypeCountOversightDailyEntriesArgs
+  resourceRequests?: boolean | ContractCountOutputTypeCountResourceRequestsArgs
+  materialDemands?: boolean | ContractCountOutputTypeCountMaterialDemandsArgs
 }
 
 /**
@@ -1813,6 +2630,41 @@ export type ContractCountOutputTypeCountMeasurementsArgs<ExtArgs extends runtime
   where?: Prisma.MeasurementEntryWhereInput
 }
 
+/**
+ * ContractCountOutputType without action
+ */
+export type ContractCountOutputTypeCountPlanSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * ContractCountOutputType without action
+ */
+export type ContractCountOutputTypeCountOversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightAssignmentWhereInput
+}
+
+/**
+ * ContractCountOutputType without action
+ */
+export type ContractCountOutputTypeCountOversightDailyEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightDailyEntryWhereInput
+}
+
+/**
+ * ContractCountOutputType without action
+ */
+export type ContractCountOutputTypeCountResourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
+/**
+ * ContractCountOutputType without action
+ */
+export type ContractCountOutputTypeCountMaterialDemandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialDemandWhereInput
+}
+
 
 export type ContractSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1836,6 +2688,11 @@ export type ContractSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   supersedes?: boolean | Prisma.Contract$supersedesArgs<ExtArgs>
   supersededBy?: boolean | Prisma.Contract$supersededByArgs<ExtArgs>
   measurements?: boolean | Prisma.Contract$measurementsArgs<ExtArgs>
+  planSubmissions?: boolean | Prisma.Contract$planSubmissionsArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.Contract$oversightAssignmentsArgs<ExtArgs>
+  oversightDailyEntries?: boolean | Prisma.Contract$oversightDailyEntriesArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.Contract$resourceRequestsArgs<ExtArgs>
+  materialDemands?: boolean | Prisma.Contract$materialDemandsArgs<ExtArgs>
   _count?: boolean | Prisma.ContractCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contract"]>
 
@@ -1907,6 +2764,11 @@ export type ContractInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   supersedes?: boolean | Prisma.Contract$supersedesArgs<ExtArgs>
   supersededBy?: boolean | Prisma.Contract$supersededByArgs<ExtArgs>
   measurements?: boolean | Prisma.Contract$measurementsArgs<ExtArgs>
+  planSubmissions?: boolean | Prisma.Contract$planSubmissionsArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.Contract$oversightAssignmentsArgs<ExtArgs>
+  oversightDailyEntries?: boolean | Prisma.Contract$oversightDailyEntriesArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.Contract$resourceRequestsArgs<ExtArgs>
+  materialDemands?: boolean | Prisma.Contract$materialDemandsArgs<ExtArgs>
   _count?: boolean | Prisma.ContractCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContractIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1935,6 +2797,11 @@ export type $ContractPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     supersedes: Prisma.$ContractPayload<ExtArgs> | null
     supersededBy: Prisma.$ContractPayload<ExtArgs>[]
     measurements: Prisma.$MeasurementEntryPayload<ExtArgs>[]
+    planSubmissions: Prisma.$WbsPlanSubmissionPayload<ExtArgs>[]
+    oversightAssignments: Prisma.$OversightAssignmentPayload<ExtArgs>[]
+    oversightDailyEntries: Prisma.$OversightDailyEntryPayload<ExtArgs>[]
+    resourceRequests: Prisma.$ResourceRequestPayload<ExtArgs>[]
+    materialDemands: Prisma.$MaterialDemandPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2352,6 +3219,11 @@ export interface Prisma__ContractClient<T, Null = never, ExtArgs extends runtime
   supersedes<T extends Prisma.Contract$supersedesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$supersedesArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   supersededBy<T extends Prisma.Contract$supersededByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$supersededByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   measurements<T extends Prisma.Contract$measurementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$measurementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeasurementEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSubmissions<T extends Prisma.Contract$planSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$planSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightAssignments<T extends Prisma.Contract$oversightAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$oversightAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightDailyEntries<T extends Prisma.Contract$oversightDailyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$oversightDailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequests<T extends Prisma.Contract$resourceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$resourceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  materialDemands<T extends Prisma.Contract$materialDemandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contract$materialDemandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialDemandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2916,6 +3788,126 @@ export type Contract$measurementsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.MeasurementEntryScalarFieldEnum | Prisma.MeasurementEntryScalarFieldEnum[]
+}
+
+/**
+ * Contract.planSubmissions
+ */
+export type Contract$planSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+  orderBy?: Prisma.WbsPlanSubmissionOrderByWithRelationInput | Prisma.WbsPlanSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.WbsPlanSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WbsPlanSubmissionScalarFieldEnum | Prisma.WbsPlanSubmissionScalarFieldEnum[]
+}
+
+/**
+ * Contract.oversightAssignments
+ */
+export type Contract$oversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightAssignment
+   */
+  select?: Prisma.OversightAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightAssignment
+   */
+  omit?: Prisma.OversightAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightAssignmentInclude<ExtArgs> | null
+  where?: Prisma.OversightAssignmentWhereInput
+  orderBy?: Prisma.OversightAssignmentOrderByWithRelationInput | Prisma.OversightAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.OversightAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightAssignmentScalarFieldEnum | Prisma.OversightAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Contract.oversightDailyEntries
+ */
+export type Contract$oversightDailyEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightDailyEntry
+   */
+  select?: Prisma.OversightDailyEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightDailyEntry
+   */
+  omit?: Prisma.OversightDailyEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightDailyEntryInclude<ExtArgs> | null
+  where?: Prisma.OversightDailyEntryWhereInput
+  orderBy?: Prisma.OversightDailyEntryOrderByWithRelationInput | Prisma.OversightDailyEntryOrderByWithRelationInput[]
+  cursor?: Prisma.OversightDailyEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightDailyEntryScalarFieldEnum | Prisma.OversightDailyEntryScalarFieldEnum[]
+}
+
+/**
+ * Contract.resourceRequests
+ */
+export type Contract$resourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
+}
+
+/**
+ * Contract.materialDemands
+ */
+export type Contract$materialDemandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialDemand
+   */
+  select?: Prisma.MaterialDemandSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialDemand
+   */
+  omit?: Prisma.MaterialDemandOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialDemandInclude<ExtArgs> | null
+  where?: Prisma.MaterialDemandWhereInput
+  orderBy?: Prisma.MaterialDemandOrderByWithRelationInput | Prisma.MaterialDemandOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialDemandWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialDemandScalarFieldEnum | Prisma.MaterialDemandScalarFieldEnum[]
 }
 
 /**

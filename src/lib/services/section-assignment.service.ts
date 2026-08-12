@@ -7,10 +7,17 @@ import {
   getOrganizationScope,
   isAll,
 } from "@/lib/scope";
-import type { SectionAssignmentRole } from "@/generated/prisma/enums";
+import type { SectionAssignmentRole, UserRole } from "@/generated/prisma/enums";
 
-/** Only main-contractor PM tier may assign WBS sections to Subcontractor PMs. */
+/** Only main-contractor PM tier may assign WBS sections. */
 const SECTION_ASSIGNERS = new Set(["SENIOR_PM", "DEPUTY_PM", "ADMIN"]);
+
+/** Each section-ownership role may only be granted to its matching user role. */
+const SECTION_ROLE_TARGET: Record<SectionAssignmentRole, UserRole> = {
+  SUBCONTRACTOR_OWNER: "SUBCONTRACTOR_PM",
+  SUPERINTENDENT_OWNER: "SUPERINTENDENT",
+  SITE_ENGINEER_OWNER: "SITE_ENGINEER",
+};
 
 export async function listSectionAssignments(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
@@ -39,16 +46,14 @@ export async function assignToSection(
 
   if (!SECTION_ASSIGNERS.has(user.role)) {
     throw new DomainError(
-      "Only Senior or Deputy Project Managers can assign WBS sections to Subcontractor PMs",
+      "Only Senior or Deputy Project Managers can assign WBS sections",
       403
     );
   }
 
-  if (role !== "SUBCONTRACTOR_OWNER") {
-    throw new DomainError(
-      "WBS section assignment is only supported for Subcontractor PMs",
-      400
-    );
+  const expectedTargetRole = SECTION_ROLE_TARGET[role];
+  if (!expectedTargetRole) {
+    throw new DomainError(`Unsupported section ownership role: ${role}`, 400);
   }
 
   const wbs = await db.wbsNode.findFirst({
@@ -73,9 +78,9 @@ export async function assignToSection(
   });
   if (!target) throw new DomainError("Target user not found", 404);
 
-  if (target.role !== "SUBCONTRACTOR_PM") {
+  if (target.role !== expectedTargetRole) {
     throw new DomainError(
-      "Section ownership can only be assigned to a Subcontractor Project Manager",
+      `${role} can only be assigned to a user with role ${expectedTargetRole}`,
       400
     );
   }
@@ -102,7 +107,7 @@ export async function assignToSection(
       projectId,
       userId: targetUserId,
       wbsNodeId,
-      role: "SUBCONTRACTOR_OWNER",
+      role,
       assignedById: user.id,
     },
     include: {
@@ -112,15 +117,19 @@ export async function assignToSection(
     },
   });
 
-  // Keep org Layer-1 ceiling in sync so the subcontractor party can see this branch
-  await db.contract.updateMany({
-    where: {
-      projectId,
-      contractorOrgId: target.organizationId,
-      status: "ACTIVE",
-    },
-    data: { scopeWbsNodeId: wbsNodeId },
-  });
+  // Keep org Layer-1 ceiling in sync so the subcontractor party can see this branch.
+  // Internal staff (superintendent / site engineer) sit under the main contractor's
+  // own contract, whose scope must never be clamped to a single branch.
+  if (role === "SUBCONTRACTOR_OWNER") {
+    await db.contract.updateMany({
+      where: {
+        projectId,
+        contractorOrgId: target.organizationId,
+        status: "ACTIVE",
+      },
+      data: { scopeWbsNodeId: wbsNodeId },
+    });
+  }
 
   return assignment;
 }

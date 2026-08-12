@@ -194,6 +194,7 @@ export type MaterialItemWhereInput = {
   custodyLogs?: Prisma.CustodyLogListRelationFilter
   purchaseOrderItems?: Prisma.PurchaseOrderItemListRelationFilter
   receipts?: Prisma.MaterialReceiptListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }
 
 export type MaterialItemOrderByWithRelationInput = {
@@ -207,6 +208,7 @@ export type MaterialItemOrderByWithRelationInput = {
   custodyLogs?: Prisma.CustodyLogOrderByRelationAggregateInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemOrderByRelationAggregateInput
   receipts?: Prisma.MaterialReceiptOrderByRelationAggregateInput
+  resourceRequests?: Prisma.ResourceRequestOrderByRelationAggregateInput
 }
 
 export type MaterialItemWhereUniqueInput = Prisma.AtLeast<{
@@ -223,6 +225,7 @@ export type MaterialItemWhereUniqueInput = Prisma.AtLeast<{
   custodyLogs?: Prisma.CustodyLogListRelationFilter
   purchaseOrderItems?: Prisma.PurchaseOrderItemListRelationFilter
   receipts?: Prisma.MaterialReceiptListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }, "id">
 
 export type MaterialItemOrderByWithAggregationInput = {
@@ -260,6 +263,7 @@ export type MaterialItemCreateInput = {
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUncheckedCreateInput = {
@@ -273,6 +277,7 @@ export type MaterialItemUncheckedCreateInput = {
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUpdateInput = {
@@ -286,6 +291,7 @@ export type MaterialItemUpdateInput = {
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemUncheckedUpdateInput = {
@@ -299,6 +305,7 @@ export type MaterialItemUncheckedUpdateInput = {
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemCreateManyInput = {
@@ -423,6 +430,22 @@ export type MaterialItemUpdateOneRequiredWithoutReceiptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialItemUpdateToOneWithWhereWithoutReceiptsInput, Prisma.MaterialItemUpdateWithoutReceiptsInput>, Prisma.MaterialItemUncheckedUpdateWithoutReceiptsInput>
 }
 
+export type MaterialItemCreateNestedOneWithoutResourceRequestsInput = {
+  create?: Prisma.XOR<Prisma.MaterialItemCreateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.MaterialItemCreateOrConnectWithoutResourceRequestsInput
+  connect?: Prisma.MaterialItemWhereUniqueInput
+}
+
+export type MaterialItemUpdateOneWithoutResourceRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialItemCreateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.MaterialItemCreateOrConnectWithoutResourceRequestsInput
+  upsert?: Prisma.MaterialItemUpsertWithoutResourceRequestsInput
+  disconnect?: Prisma.MaterialItemWhereInput | boolean
+  delete?: Prisma.MaterialItemWhereInput | boolean
+  connect?: Prisma.MaterialItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialItemUpdateToOneWithWhereWithoutResourceRequestsInput, Prisma.MaterialItemUpdateWithoutResourceRequestsInput>, Prisma.MaterialItemUncheckedUpdateWithoutResourceRequestsInput>
+}
+
 export type MaterialItemCreateWithoutDemandsInput = {
   id?: string
   name: string
@@ -433,6 +456,7 @@ export type MaterialItemCreateWithoutDemandsInput = {
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUncheckedCreateWithoutDemandsInput = {
@@ -445,6 +469,7 @@ export type MaterialItemUncheckedCreateWithoutDemandsInput = {
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemCreateOrConnectWithoutDemandsInput = {
@@ -473,6 +498,7 @@ export type MaterialItemUpdateWithoutDemandsInput = {
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemUncheckedUpdateWithoutDemandsInput = {
@@ -485,6 +511,7 @@ export type MaterialItemUncheckedUpdateWithoutDemandsInput = {
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemCreateWithoutCustodyLogsInput = {
@@ -497,6 +524,7 @@ export type MaterialItemCreateWithoutCustodyLogsInput = {
   demands?: Prisma.MaterialDemandCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUncheckedCreateWithoutCustodyLogsInput = {
@@ -509,6 +537,7 @@ export type MaterialItemUncheckedCreateWithoutCustodyLogsInput = {
   demands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemCreateOrConnectWithoutCustodyLogsInput = {
@@ -537,6 +566,7 @@ export type MaterialItemUpdateWithoutCustodyLogsInput = {
   demands?: Prisma.MaterialDemandUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemUncheckedUpdateWithoutCustodyLogsInput = {
@@ -549,6 +579,7 @@ export type MaterialItemUncheckedUpdateWithoutCustodyLogsInput = {
   demands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemCreateWithoutPurchaseOrderItemsInput = {
@@ -561,6 +592,7 @@ export type MaterialItemCreateWithoutPurchaseOrderItemsInput = {
   demands?: Prisma.MaterialDemandCreateNestedManyWithoutMaterialItemInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUncheckedCreateWithoutPurchaseOrderItemsInput = {
@@ -573,6 +605,7 @@ export type MaterialItemUncheckedCreateWithoutPurchaseOrderItemsInput = {
   demands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutMaterialItemInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutMaterialItemInput
   receipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemCreateOrConnectWithoutPurchaseOrderItemsInput = {
@@ -601,6 +634,7 @@ export type MaterialItemUpdateWithoutPurchaseOrderItemsInput = {
   demands?: Prisma.MaterialDemandUpdateManyWithoutMaterialItemNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemUncheckedUpdateWithoutPurchaseOrderItemsInput = {
@@ -613,6 +647,7 @@ export type MaterialItemUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   demands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutMaterialItemNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutMaterialItemNestedInput
   receipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemCreateWithoutReceiptsInput = {
@@ -625,6 +660,7 @@ export type MaterialItemCreateWithoutReceiptsInput = {
   demands?: Prisma.MaterialDemandCreateNestedManyWithoutMaterialItemInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemUncheckedCreateWithoutReceiptsInput = {
@@ -637,6 +673,7 @@ export type MaterialItemUncheckedCreateWithoutReceiptsInput = {
   demands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutMaterialItemInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutMaterialItemInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialItemInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutMaterialItemInput
 }
 
 export type MaterialItemCreateOrConnectWithoutReceiptsInput = {
@@ -665,6 +702,7 @@ export type MaterialItemUpdateWithoutReceiptsInput = {
   demands?: Prisma.MaterialDemandUpdateManyWithoutMaterialItemNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutMaterialItemNestedInput
 }
 
 export type MaterialItemUncheckedUpdateWithoutReceiptsInput = {
@@ -677,6 +715,75 @@ export type MaterialItemUncheckedUpdateWithoutReceiptsInput = {
   demands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutMaterialItemNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutMaterialItemNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialItemNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutMaterialItemNestedInput
+}
+
+export type MaterialItemCreateWithoutResourceRequestsInput = {
+  id?: string
+  name: string
+  unit: string
+  importDependent?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  demands?: Prisma.MaterialDemandCreateNestedManyWithoutMaterialItemInput
+  custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutMaterialItemInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialItemInput
+  receipts?: Prisma.MaterialReceiptCreateNestedManyWithoutMaterialItemInput
+}
+
+export type MaterialItemUncheckedCreateWithoutResourceRequestsInput = {
+  id?: string
+  name: string
+  unit: string
+  importDependent?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  demands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutMaterialItemInput
+  custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutMaterialItemInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialItemInput
+  receipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutMaterialItemInput
+}
+
+export type MaterialItemCreateOrConnectWithoutResourceRequestsInput = {
+  where: Prisma.MaterialItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.MaterialItemCreateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedCreateWithoutResourceRequestsInput>
+}
+
+export type MaterialItemUpsertWithoutResourceRequestsInput = {
+  update: Prisma.XOR<Prisma.MaterialItemUpdateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedUpdateWithoutResourceRequestsInput>
+  create: Prisma.XOR<Prisma.MaterialItemCreateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedCreateWithoutResourceRequestsInput>
+  where?: Prisma.MaterialItemWhereInput
+}
+
+export type MaterialItemUpdateToOneWithWhereWithoutResourceRequestsInput = {
+  where?: Prisma.MaterialItemWhereInput
+  data: Prisma.XOR<Prisma.MaterialItemUpdateWithoutResourceRequestsInput, Prisma.MaterialItemUncheckedUpdateWithoutResourceRequestsInput>
+}
+
+export type MaterialItemUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  importDependent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demands?: Prisma.MaterialDemandUpdateManyWithoutMaterialItemNestedInput
+  custodyLogs?: Prisma.CustodyLogUpdateManyWithoutMaterialItemNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialItemNestedInput
+  receipts?: Prisma.MaterialReceiptUpdateManyWithoutMaterialItemNestedInput
+}
+
+export type MaterialItemUncheckedUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  importDependent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutMaterialItemNestedInput
+  custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutMaterialItemNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialItemNestedInput
+  receipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutMaterialItemNestedInput
 }
 
 
@@ -689,6 +796,7 @@ export type MaterialItemCountOutputType = {
   custodyLogs: number
   purchaseOrderItems: number
   receipts: number
+  resourceRequests: number
 }
 
 export type MaterialItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -696,6 +804,7 @@ export type MaterialItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   custodyLogs?: boolean | MaterialItemCountOutputTypeCountCustodyLogsArgs
   purchaseOrderItems?: boolean | MaterialItemCountOutputTypeCountPurchaseOrderItemsArgs
   receipts?: boolean | MaterialItemCountOutputTypeCountReceiptsArgs
+  resourceRequests?: boolean | MaterialItemCountOutputTypeCountResourceRequestsArgs
 }
 
 /**
@@ -736,6 +845,13 @@ export type MaterialItemCountOutputTypeCountReceiptsArgs<ExtArgs extends runtime
   where?: Prisma.MaterialReceiptWhereInput
 }
 
+/**
+ * MaterialItemCountOutputType without action
+ */
+export type MaterialItemCountOutputTypeCountResourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
 
 export type MaterialItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -748,6 +864,7 @@ export type MaterialItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   custodyLogs?: boolean | Prisma.MaterialItem$custodyLogsArgs<ExtArgs>
   purchaseOrderItems?: boolean | Prisma.MaterialItem$purchaseOrderItemsArgs<ExtArgs>
   receipts?: boolean | Prisma.MaterialItem$receiptsArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.MaterialItem$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialItem"]>
 
@@ -784,6 +901,7 @@ export type MaterialItemInclude<ExtArgs extends runtime.Types.Extensions.Interna
   custodyLogs?: boolean | Prisma.MaterialItem$custodyLogsArgs<ExtArgs>
   purchaseOrderItems?: boolean | Prisma.MaterialItem$purchaseOrderItemsArgs<ExtArgs>
   receipts?: boolean | Prisma.MaterialItem$receiptsArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.MaterialItem$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -796,6 +914,7 @@ export type $MaterialItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
     custodyLogs: Prisma.$CustodyLogPayload<ExtArgs>[]
     purchaseOrderItems: Prisma.$PurchaseOrderItemPayload<ExtArgs>[]
     receipts: Prisma.$MaterialReceiptPayload<ExtArgs>[]
+    resourceRequests: Prisma.$ResourceRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1202,6 +1321,7 @@ export interface Prisma__MaterialItemClient<T, Null = never, ExtArgs extends run
   custodyLogs<T extends Prisma.MaterialItem$custodyLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialItem$custodyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustodyLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseOrderItems<T extends Prisma.MaterialItem$purchaseOrderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialItem$purchaseOrderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receipts<T extends Prisma.MaterialItem$receiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialItem$receiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequests<T extends Prisma.MaterialItem$resourceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialItem$resourceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1718,6 +1838,30 @@ export type MaterialItem$receiptsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.MaterialReceiptScalarFieldEnum | Prisma.MaterialReceiptScalarFieldEnum[]
+}
+
+/**
+ * MaterialItem.resourceRequests
+ */
+export type MaterialItem$resourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
 }
 
 /**

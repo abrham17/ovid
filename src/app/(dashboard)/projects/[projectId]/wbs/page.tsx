@@ -17,13 +17,14 @@ function flattenWbs(
     code: string;
     name: string;
     children?: unknown[];
-  }>
-): Array<{ id: string; code: string; name: string }> {
-  const out: Array<{ id: string; code: string; name: string }> = [];
+  }>,
+  depth = 0
+): Array<{ id: string; code: string; name: string; depth: number }> {
+  const out: Array<{ id: string; code: string; name: string; depth: number }> = [];
   for (const n of nodes) {
-    out.push({ id: n.id, code: n.code, name: n.name });
+    out.push({ id: n.id, code: n.code, name: n.name, depth });
     if (Array.isArray(n.children) && n.children.length) {
-      out.push(...flattenWbs(n.children as typeof nodes));
+      out.push(...flattenWbs(n.children as typeof nodes, depth + 1));
     }
   }
   return out;
@@ -34,7 +35,7 @@ export default async function WbsPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const canManageSubAssignments =
+  const canManageSectionAssignments =
     session.role === "SENIOR_PM" ||
     session.role === "DEPUTY_PM" ||
     session.role === "ADMIN";
@@ -42,10 +43,10 @@ export default async function WbsPage({ params }: Props) {
   const [tree, hints, sectionAssignments, memberships] = await Promise.all([
     getWbsTree(session, projectId),
     getScopeUiHints(session, projectId),
-    canManageSubAssignments
+    canManageSectionAssignments
       ? listSectionAssignments(session, projectId).catch(() => [])
       : Promise.resolve([]),
-    canManageSubAssignments
+    canManageSectionAssignments
       ? listProjectTeam(session, projectId).catch(() => [])
       : Promise.resolve([]),
   ]);
@@ -67,13 +68,13 @@ export default async function WbsPage({ params }: Props) {
         scopeEmptyTitle={hints.emptyTitle}
         scopeEmptyDescription={hints.emptyDescription}
       />
-      {canManageSubAssignments && (
+      {canManageSectionAssignments && (
         <SectionAssignmentsPanel
           projectId={projectId}
           assignments={sectionAssignments as any}
           members={memberships as any}
           wbsOptions={flattenWbs(tree as any)}
-          canAssign={canManageSubAssignments && can(session.role, "assignment", "create")}
+          canAssign={canManageSectionAssignments && can(session.role, "assignment", "create")}
         />
       )}
     </div>

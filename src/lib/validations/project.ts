@@ -19,6 +19,11 @@ export const createProjectSchema = z.object({
 
 export const updateProjectSchema = createProjectSchema.partial();
 
+export const weightPercentSchema = z
+  .number()
+  .min(0, "Weight cannot be negative")
+  .max(100, "Weight cannot exceed 100");
+
 export const createWbsNodeSchema = z.object({
   parentId: z.string().cuid().optional().nullable(),
   name: z.string().min(1).max(200),
@@ -34,11 +39,45 @@ export const createWbsNodeSchema = z.object({
   designReady: z.boolean().optional().default(false),
   plannedStartDate: optionalDate,
   plannedEndDate: optionalDate,
+  /** Share of the parent's completion, 0-100 (file 20 §2.2). */
+  weightPercent: weightPercentSchema.optional().nullable(),
+  /**
+   * Attach this node to an open plan submission. The node is created DRAFT and
+   * stays out of the live rollup until that submission is approved.
+   */
+  planSubmissionId: z.string().cuid().optional().nullable(),
 });
 
-export const updateWbsNodeSchema = createWbsNodeSchema.partial();
+export const updateWbsNodeSchema = createWbsNodeSchema
+  .omit({ planSubmissionId: true })
+  .partial();
+
+export const setWbsWeightsSchema = z.object({
+  entries: z
+    .array(
+      z.object({
+        wbsNodeId: z.string().cuid(),
+        weightPercent: weightPercentSchema,
+      })
+    )
+    .min(1),
+});
+
+export const setActivityWeightsSchema = z.object({
+  wbsNodeId: z.string().cuid(),
+  entries: z
+    .array(
+      z.object({
+        activityId: z.string().cuid(),
+        weightPercent: weightPercentSchema,
+      })
+    )
+    .min(1),
+});
 
 export type CreateProjectInput = z.infer<typeof createProjectSchema>;
 export type UpdateProjectInput = z.infer<typeof updateProjectSchema>;
 export type CreateWbsNodeInput = z.infer<typeof createWbsNodeSchema>;
 export type UpdateWbsNodeInput = z.infer<typeof updateWbsNodeSchema>;
+export type SetWbsWeightsInput = z.infer<typeof setWbsWeightsSchema>;
+export type SetActivityWeightsInput = z.infer<typeof setActivityWeightsSchema>;

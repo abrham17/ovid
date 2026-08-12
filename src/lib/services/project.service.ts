@@ -305,6 +305,31 @@ export async function createWbsNode(user: SessionUser, projectId: string, input:
   });
   if (codeClash) throw new Error(`WBS code "${input.code}" already exists on this project`);
 
+  // A node created inside an open plan submission is DRAFT: excluded from the
+  // live rollup and from other parties until the Contractor PM approves the
+  // whole submission (file 20 §3.2).
+  let status: "DRAFT" | "ACTIVE" = "ACTIVE";
+  if (input.planSubmissionId) {
+    const submission = await db.wbsPlanSubmission.findFirst({
+      where: { id: input.planSubmissionId, projectId },
+      select: { id: true, status: true, createdById: true, contractId: true },
+    });
+    if (!submission) {
+      throw new Error("Plan submission not found on this project");
+    }
+    if (submission.status === "APPROVED") {
+      throw new Error(
+        "This plan submission is already approved — create a new submission for further detail"
+      );
+    }
+    if (submission.status === "SUBMITTED") {
+      throw new Error(
+        "This plan submission is under review — wait for the outcome before editing it"
+      );
+    }
+    status = "DRAFT";
+  }
+
   return db.wbsNode.create({
     data: {
       projectId,
@@ -315,6 +340,9 @@ export async function createWbsNode(user: SessionUser, projectId: string, input:
       designReady: input.designReady ?? false,
       plannedStartDate: input.plannedStartDate ?? null,
       plannedEndDate: input.plannedEndDate ?? null,
+      weightPercent: input.weightPercent ?? null,
+      planSubmissionId: input.planSubmissionId ?? null,
+      status,
     },
   });
 }
@@ -375,6 +403,8 @@ export async function updateWbsNode(
       nodeType: input.nodeType,
       parentId: input.parentId === undefined ? undefined : input.parentId,
       designReady: input.designReady,
+      weightPercent:
+        input.weightPercent === undefined ? undefined : input.weightPercent,
     },
   });
 }

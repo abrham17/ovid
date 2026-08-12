@@ -31,6 +31,14 @@ export type IndividualScope = {
   scheduleReadMode: ScheduleReadMode;
   /** Activity IDs for Foreman assignment_plus_deps mode. */
   assignedActivityIds?: Set<string>;
+  /**
+   * Branches this user oversees on the contractor's behalf (file 20 §5.4).
+   * Grants read of the mirrored branch but never execution write — the
+   * subcontractor executes, this user verifies.
+   */
+  oversightWbsNodeIds?: WbsIdSet;
+  /** Contracts this user is the oversight gate for. */
+  oversightContractIds?: Set<string>;
 };
 
 export type EffectiveScope = {
@@ -45,6 +53,9 @@ export type EffectiveScope = {
   assignedActivityIds: Set<string>;
   /** Org-ceiling WBS before individual narrowing — used for schedule org_ceiling reads. */
   orgVisibleWbsNodeIds: WbsIdSet;
+  /** Overseen branches, already folded into visibleWbsNodeIds. */
+  oversightWbsNodeIds: WbsIdSet;
+  oversightContractIds: Set<string>;
 };
 
 export function isAll(set: WbsIdSet): set is "ALL" {
@@ -59,6 +70,11 @@ export function intersectWbs(a: WbsIdSet, b: WbsIdSet): WbsIdSet {
     if (b.has(id)) out.add(id);
   }
   return out;
+}
+
+export function unionWbs(a: WbsIdSet, b: WbsIdSet): WbsIdSet {
+  if (a === "ALL" || b === "ALL") return "ALL";
+  return new Set([...a, ...b]);
 }
 
 export function wbsIdsArray(set: WbsIdSet): string[] | null {

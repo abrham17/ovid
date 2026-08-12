@@ -11,6 +11,7 @@ export type {
 export {
   isAll,
   intersectWbs,
+  unionWbs,
   wbsIdsArray,
   wbsNodeIdFilter,
   activityWbsFilter,
@@ -33,6 +34,8 @@ export {
   assertScopeWritable,
   assertScopeVisible,
   hasFullWbsVisibility,
+  hasOversight,
+  isOversightOnly,
 } from "@/lib/scope/effective-scope";
 export {
   redactCostEntity,
@@ -48,3 +51,5 @@ export {
   getOneLevelUpContext,
   getAllProjectWbsIds,
 } from "@/lib/scope/wbs-tree";
+export { getOversightContext } from "@/lib/scope/oversight-scope";
+export type { OversightContext } from "@/lib/scope/oversight-scope";

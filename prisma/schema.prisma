@@ -430,6 +430,14 @@ model User {
   reviewComments          ReviewComment[]
   scheduleChangesRequested ScheduleChangeRequest[] @relation("ScheduleChangeRequester")
   scheduleChangesReviewed  ScheduleChangeRequest[] @relation("ScheduleChangeReviewer")
+  plansCreated             WbsPlanSubmission[]  @relation("PlanCreatedBy")
+  plansSubmitted           WbsPlanSubmission[]  @relation("PlanSubmittedBy")
+  plansReviewed            WbsPlanSubmission[]  @relation("PlanReviewedBy")
+  oversightAssignments     OversightAssignment[] @relation("OversightAssignedTo")
+  assignedOversights       OversightAssignment[] @relation("OversightAssignedBy")
+  oversightEntries         OversightDailyEntry[] @relation("OversightEntriesCreated")
+  resourceRequestsMade     ResourceRequest[]     @relation("ResourceRequestedBy")
+  resourceRequestsReviewed ResourceRequest[]     @relation("ResourceRequestReviewedBy")
   @@index([organizationId])
   @@index([role])
 }
@@ -535,6 +543,10 @@ model Project {
   reviewComments          ReviewComment[]
   scheduleChangeRequests   ScheduleChangeRequest[]
   sectionAssignments       SectionAssignment[]
+  wbsPlanSubmissions       WbsPlanSubmission[]
+  oversightAssignments     OversightAssignment[]
+  oversightDailyEntries    OversightDailyEntry[]
+  resourceRequests         ResourceRequest[]
   @@index([contractorOrgId])
   @@index([clientOrgId])
   @@index([status])
@@ -600,6 +612,11 @@ model Contract {
   supersedes        Contract?          @relation("ContractSupersedeChain", fields: [supersedesContractId], references: [id])
   supersededBy      Contract[]         @relation("ContractSupersedeChain")
   measurements      MeasurementEntry[]
+  planSubmissions      WbsPlanSubmission[]
+  oversightAssignments OversightAssignment[]
+  oversightDailyEntries OversightDailyEntry[]
+  resourceRequests     ResourceRequest[]
+  materialDemands      MaterialDemand[]
 
   @@index([projectId])
   @@index([parentContractId])
@@ -622,7 +639,16 @@ model WbsNode {
   designReady Boolean     @default(false)
   plannedStartDate DateTime?
   plannedEndDate   DateTime?
-  status      String          @default("ACTIVE")
+  status      WbsNodeStatus   @default(ACTIVE)
+  /// This node's share of its PARENT's completion, 0-100 (file 20 §2.2).
+  /// Siblings must sum to 100 (the enforced "100% Rule"). Null on root nodes,
+  /// which are 100% of their own subtree by definition, and null on legacy
+  /// nodes created before weighting existed — the rollup falls back to equal
+  /// weighting among unweighted siblings rather than silently scoring them 0.
+  weightPercent Decimal?      @db.Decimal(7, 4)
+  /// Set when this node was created as part of a subcontractor's plan
+  /// submission; nodes stay DRAFT until that submission is approved.
+  planSubmissionId String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
@@ -655,10 +681,17 @@ model WbsNode {
   contractsAsScope     Contract[]
   disputeRecords       DisputeRecord[]
   sectionAssignments   SectionAssignment[]
+  planSubmission       WbsPlanSubmission?    @relation("PlanSubmissionNodes", fields: [planSubmissionId], references: [id], onDelete: SetNull)
+  planSubmissionsAsRoot WbsPlanSubmission[]  @relation("PlanSubmissionRoot")
+  oversightAssignments OversightAssignment[]
+  oversightDailyEntries OversightDailyEntry[]
+  resourceRequests     ResourceRequest[]
 
   @@unique([projectId, code])
   @@index([parentId])
   @@index([projectId, nodeType])
+  @@index([projectId, status])
+  @@index([planSubmissionId])
   @@map("WBSNode")
 }
 
@@ -678,6 +711,10 @@ model ScheduleActivity {
   actualFinish    DateTime?
   progressPercent Decimal        @default(0) @db.Decimal(6, 2)
   status          ActivityStatus @default(NOT_STARTED)
+  /// This activity's share of its WbsNode's completion, 0-100 (file 20 §2.2).
+  /// Sibling activities under one node must sum to 100. Null falls back to
+  /// equal weighting among unweighted siblings.
+  weightPercent   Decimal?       @db.Decimal(7, 4)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
@@ -1217,6 +1254,7 @@ model Equipment {
   organization Organization        @relation(fields: [organizationId], references: [id])
   usageLogs    EquipmentUsageLog[]
   custodyLogs  CustodyLog[]
+  resourceRequests ResourceRequest[]
 
   @@index([organizationId])
 }
@@ -1256,6 +1294,7 @@ model MaterialItem {
   custodyLogs CustodyLog[]
   purchaseOrderItems PurchaseOrderItem[]
   receipts           MaterialReceipt[]
+  resourceRequests   ResourceRequest[]
 
   @@index([name])
 }
@@ -1267,15 +1306,21 @@ model MaterialDemand {
   neededByDate      DateTime @db.Date
   quantityNeeded    Decimal  @db.Decimal(18, 3)
   quantityDelivered Decimal  @default(0) @db.Decimal(18, 3)
+  /// Set when this demand originated from a subcontractor's resource request
+  /// (file 20 §5.4) rather than the main contractor's own planning.
+  requestedForContractId String?
 
   wbsNode      WbsNode      @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
   materialItem MaterialItem @relation(fields: [materialItemId], references: [id])
+  requestedForContract Contract? @relation(fields: [requestedForContractId], references: [id])
 
   purchaseOrderItems PurchaseOrderItem[]
+  resourceRequest    ResourceRequest?
 
   @@index([wbsNodeId])
   @@index([materialItemId])
   @@index([neededByDate])
+  @@index([requestedForContractId])
 }
 
 // Anti-theft / chain-of-custody tracking (file 03 §6).
@@ -1653,6 +1698,12 @@ enum NotificationType {
   CONTRACT_STATUS_CHANGED
   REVIEW_COMMENT_ADDED
   SCHEDULE_CHANGE_PENDING
+  WBS_PLAN_PENDING_REVIEW
+  WBS_PLAN_REVIEWED
+  OVERSIGHT_ASSIGNED
+  OVERSIGHT_VARIANCE_FLAGGED
+  RESOURCE_REQUEST_PENDING
+  RESOURCE_REQUEST_REVIEWED
   OTHER
 }
 
@@ -1737,4 +1788,212 @@ model ScheduleChangeRequest {
   @@index([projectId, status])
   @@index([activityId])
   @@index([requestedById])
+}
+
+// ============================================================
+// 14. Weighted progress tracking, plan approval & oversight
+//     (file 20 — the contractor↔subcontractor verification chain)
+// ============================================================
+
+/// A WBS node is not authoritative until it is ACTIVE. Nodes created inside a
+/// subcontractor's plan submission stay DRAFT: excluded from the progress
+/// rollup, from daily reporting, and from every party outside the submitting
+/// org until the Contractor PM approves the submission (file 20 §3.2).
+enum WbsNodeStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum WbsPlanSubmissionStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+  REVISION_REQUESTED
+}
+
+/// Bundles a subcontractor's whole decomposition of one contracted branch into
+/// a single review unit. Approving node-by-node would let a plan go live while
+/// only partly decomposed, silently breaking the 100% Rule mid-review — so the
+/// Contractor PM approves a complete, internally consistent plan or nothing
+/// (file 20 §3.2).
+model WbsPlanSubmission {
+  id                String                  @id @default(cuid())
+  projectId         String
+  contractId        String
+  /// The contract's scope root being decomposed. Every node in this submission
+  /// must be a descendant of it.
+  rootWbsNodeId     String
+  title             String
+  status            WbsPlanSubmissionStatus @default(DRAFT)
+  createdById       String
+  submittedById     String?
+  submittedAt       DateTime?
+  reviewedById      String?
+  reviewedAt        DateTime?
+  reviewComments    String?
+  /// Snapshot of the recursive 100%-Rule check that passed at submission time.
+  validationSummary Json?
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
+
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  contract    Contract  @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  rootWbsNode WbsNode   @relation("PlanSubmissionRoot", fields: [rootWbsNodeId], references: [id], onDelete: Cascade)
+  createdBy   User      @relation("PlanCreatedBy", fields: [createdById], references: [id])
+  submittedBy User?     @relation("PlanSubmittedBy", fields: [submittedById], references: [id])
+  reviewedBy  User?     @relation("PlanReviewedBy", fields: [reviewedById], references: [id])
+  /// Every WBSNode created as part of this submission (file 20's linkedWbsNodeIds,
+  /// normalized as a back-relation).
+  nodes       WbsNode[] @relation("PlanSubmissionNodes")
+
+  @@index([projectId, status])
+  @@index([contractId, status])
+  @@index([rootWbsNodeId])
+  @@index([createdById])
+}
+
+/// Contractor staff mirroring a subcontract's branch to independently verify it
+/// — clerk-of-works / owner's-representative authority. Deliberately a separate
+/// table from SectionAssignment/ActivityAssignment: those record who EXECUTES
+/// work, this records who VERIFIES it. Conflating them would blur the same
+/// segregation-of-duties line file 18 §7.2 draws for QC independence
+/// (file 20 §5.4).
+model OversightAssignment {
+  id             String    @id @default(cuid())
+  projectId      String
+  userId         String
+  contractId     String
+  /// Mirrors the subcontract's own scopeWbsNodeId — the same branch, watched
+  /// from the other side.
+  scopeWbsNodeId String
+  assignedById   String
+  assignedAt     DateTime  @default(now())
+  endedAt        DateTime?
+  supersededById String?
+
+  project      Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User                 @relation("OversightAssignedTo", fields: [userId], references: [id])
+  assignedBy   User                 @relation("OversightAssignedBy", fields: [assignedById], references: [id])
+  contract     Contract             @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  scopeWbsNode WbsNode              @relation(fields: [scopeWbsNodeId], references: [id], onDelete: Cascade)
+  supersededBy OversightAssignment? @relation("OversightSupersede", fields: [supersededById], references: [id])
+  supersedes   OversightAssignment[] @relation("OversightSupersede")
+  dailyEntries OversightDailyEntry[]
+
+  @@index([userId, endedAt])
+  @@index([projectId, contractId, endedAt])
+  @@index([contractId, endedAt])
+  @@index([scopeWbsNodeId])
+}
+
+/// How the oversight observer's own measurement compares to what the
+/// subcontractor reported for the same work on the same day.
+enum OversightAssessment {
+  NOT_ASSESSED
+  MATCHES_REPORTED
+  BELOW_REPORTED
+  ABOVE_REPORTED
+}
+
+/// The contractor's OWN daily record over a subcontractor's work — a
+/// structurally separate record, not a countersignature on the subcontractor's
+/// entry. Two independent, attributable reports covering the same physical work
+/// from two organizations, so a later completion claim that was never
+/// corroborated is documented in real time rather than discovered at
+/// IPC-reconciliation time (file 20 §5.4).
+model OversightDailyEntry {
+  id                    String              @id @default(cuid())
+  projectId             String
+  contractId            String
+  wbsNodeId             String
+  oversightAssignmentId String
+  date                  DateTime            @db.Date
+  activityDescription   String
+  /// What the oversight observer independently measured.
+  observedQuantity      Decimal?            @db.Decimal(12, 3)
+  observedUnit          String?
+  /// What the subcontractor reported for the same work/day, captured at entry
+  /// time so the variance is frozen against what was actually claimed then.
+  reportedQuantity      Decimal?            @db.Decimal(12, 3)
+  quantityAssessment    OversightAssessment @default(NOT_ASSESSED)
+  qualityAssessment     String?
+  concernsRaised        String?
+  manpowerObserved      Int?
+  status                DailyReportStatus   @default(DRAFT)
+  createdById           String
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  project             Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  contract            Contract            @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  wbsNode             WbsNode             @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  oversightAssignment OversightAssignment @relation(fields: [oversightAssignmentId], references: [id], onDelete: Cascade)
+  createdBy           User                @relation("OversightEntriesCreated", fields: [createdById], references: [id])
+
+  @@index([projectId, date])
+  @@index([contractId, date])
+  @@index([wbsNodeId])
+  @@index([oversightAssignmentId])
+  @@index([status])
+}
+
+enum ResourceRequestKind {
+  MATERIAL
+  EQUIPMENT
+  LABOR
+}
+
+enum ResourceRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  FULFILLED
+}
+
+/// A subcontractor asking the main contractor to source materials/equipment for
+/// their branch. Approval is gated to the holder of an active
+/// OversightAssignment over the requesting contract — they have watched the
+/// actual progress firsthand, so they can judge whether the ask is justified,
+/// rather than routing every request to the Contractor PM (file 20 §5.4).
+model ResourceRequest {
+  id               String                @id @default(cuid())
+  projectId        String
+  contractId       String
+  wbsNodeId        String
+  kind             ResourceRequestKind
+  materialItemId   String?
+  equipmentId      String?
+  description      String
+  quantity         Decimal               @db.Decimal(18, 3)
+  unit             String?
+  neededByDate     DateTime              @db.Date
+  justification    String
+  status           ResourceRequestStatus @default(PENDING)
+  requestedById    String
+  reviewedById     String?
+  reviewedAt       DateTime?
+  decisionReason   String?
+  /// Populated on approval — the MaterialDemand this request became, so the
+  /// existing procurement pipeline picks it up unchanged.
+  materialDemandId String?               @unique
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  contract       Contract        @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  wbsNode        WbsNode         @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  materialItem   MaterialItem?   @relation(fields: [materialItemId], references: [id])
+  equipment      Equipment?      @relation(fields: [equipmentId], references: [id])
+  requestedBy    User            @relation("ResourceRequestedBy", fields: [requestedById], references: [id])
+  reviewedBy     User?           @relation("ResourceRequestReviewedBy", fields: [reviewedById], references: [id])
+  materialDemand MaterialDemand? @relation(fields: [materialDemandId], references: [id])
+
+  @@index([projectId, status])
+  @@index([contractId, status])
+  @@index([wbsNodeId])
+  @@index([requestedById])
+  @@index([neededByDate])
 }

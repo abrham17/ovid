@@ -62,7 +62,14 @@ const postSchema = z.discriminatedUnion("kind", [
     kind: z.literal("assign_section"),
     userId: z.string().cuid(),
     wbsNodeId: z.string().cuid(),
-    role: z.enum(["SUBCONTRACTOR_OWNER"]).default("SUBCONTRACTOR_OWNER"),
+    role: z
+      .enum([
+        "SUBCONTRACTOR_OWNER",
+        "SUPERINTENDENT_OWNER",
+        "SITE_ENGINEER_OWNER",
+      ])
+      .default("SUBCONTRACTOR_OWNER"),
+
   }),
   z.object({
     kind: z.literal("unassign_section"),

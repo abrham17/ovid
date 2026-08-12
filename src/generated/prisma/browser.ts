@@ -268,6 +268,11 @@ export type MaterialReceipt = Prisma.MaterialReceiptModel
  */
 export type BidTender = Prisma.BidTenderModel
 /**
+ * Model SectionAssignment
+ * 
+ */
+export type SectionAssignment = Prisma.SectionAssignmentModel
+/**
  * Model Notification
  * 
  */
@@ -286,3 +291,41 @@ export type ReviewComment = Prisma.ReviewCommentModel
  * Only PMs with schedule "approve" permission can approve/reject.
  */
 export type ScheduleChangeRequest = Prisma.ScheduleChangeRequestModel
+/**
+ * Model WbsPlanSubmission
+ * Bundles a subcontractor's whole decomposition of one contracted branch into
+ * a single review unit. Approving node-by-node would let a plan go live while
+ * only partly decomposed, silently breaking the 100% Rule mid-review — so the
+ * Contractor PM approves a complete, internally consistent plan or nothing
+ * (file 20 §3.2).
+ */
+export type WbsPlanSubmission = Prisma.WbsPlanSubmissionModel
+/**
+ * Model OversightAssignment
+ * Contractor staff mirroring a subcontract's branch to independently verify it
+ * — clerk-of-works / owner's-representative authority. Deliberately a separate
+ * table from SectionAssignment/ActivityAssignment: those record who EXECUTES
+ * work, this records who VERIFIES it. Conflating them would blur the same
+ * segregation-of-duties line file 18 §7.2 draws for QC independence
+ * (file 20 §5.4).
+ */
+export type OversightAssignment = Prisma.OversightAssignmentModel
+/**
+ * Model OversightDailyEntry
+ * The contractor's OWN daily record over a subcontractor's work — a
+ * structurally separate record, not a countersignature on the subcontractor's
+ * entry. Two independent, attributable reports covering the same physical work
+ * from two organizations, so a later completion claim that was never
+ * corroborated is documented in real time rather than discovered at
+ * IPC-reconciliation time (file 20 §5.4).
+ */
+export type OversightDailyEntry = Prisma.OversightDailyEntryModel
+/**
+ * Model ResourceRequest
+ * A subcontractor asking the main contractor to source materials/equipment for
+ * their branch. Approval is gated to the holder of an active
+ * OversightAssignment over the requesting contract — they have watched the
+ * actual progress firsthand, so they can judge whether the ask is justified,
+ * rather than routing every request to the Contractor PM (file 20 §5.4).
+ */
+export type ResourceRequest = Prisma.ResourceRequestModel

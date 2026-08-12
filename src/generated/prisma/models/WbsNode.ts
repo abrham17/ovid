@@ -20,8 +20,18 @@ export type WbsNodeModel = runtime.Types.Result.DefaultSelection<Prisma.$WbsNode
 
 export type AggregateWbsNode = {
   _count: WbsNodeCountAggregateOutputType | null
+  _avg: WbsNodeAvgAggregateOutputType | null
+  _sum: WbsNodeSumAggregateOutputType | null
   _min: WbsNodeMinAggregateOutputType | null
   _max: WbsNodeMaxAggregateOutputType | null
+}
+
+export type WbsNodeAvgAggregateOutputType = {
+  weightPercent: runtime.Decimal | null
+}
+
+export type WbsNodeSumAggregateOutputType = {
+  weightPercent: runtime.Decimal | null
 }
 
 export type WbsNodeMinAggregateOutputType = {
@@ -34,7 +44,9 @@ export type WbsNodeMinAggregateOutputType = {
   designReady: boolean | null
   plannedStartDate: Date | null
   plannedEndDate: Date | null
-  status: string | null
+  status: $Enums.WbsNodeStatus | null
+  weightPercent: runtime.Decimal | null
+  planSubmissionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -49,7 +61,9 @@ export type WbsNodeMaxAggregateOutputType = {
   designReady: boolean | null
   plannedStartDate: Date | null
   plannedEndDate: Date | null
-  status: string | null
+  status: $Enums.WbsNodeStatus | null
+  weightPercent: runtime.Decimal | null
+  planSubmissionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,11 +79,21 @@ export type WbsNodeCountAggregateOutputType = {
   plannedStartDate: number
   plannedEndDate: number
   status: number
+  weightPercent: number
+  planSubmissionId: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type WbsNodeAvgAggregateInputType = {
+  weightPercent?: true
+}
+
+export type WbsNodeSumAggregateInputType = {
+  weightPercent?: true
+}
 
 export type WbsNodeMinAggregateInputType = {
   id?: true
@@ -82,6 +106,8 @@ export type WbsNodeMinAggregateInputType = {
   plannedStartDate?: true
   plannedEndDate?: true
   status?: true
+  weightPercent?: true
+  planSubmissionId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -97,6 +123,8 @@ export type WbsNodeMaxAggregateInputType = {
   plannedStartDate?: true
   plannedEndDate?: true
   status?: true
+  weightPercent?: true
+  planSubmissionId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +140,8 @@ export type WbsNodeCountAggregateInputType = {
   plannedStartDate?: true
   plannedEndDate?: true
   status?: true
+  weightPercent?: true
+  planSubmissionId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -155,6 +185,18 @@ export type WbsNodeAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: WbsNodeAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: WbsNodeSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: WbsNodeMinAggregateInputType
@@ -185,6 +227,8 @@ export type WbsNodeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: WbsNodeCountAggregateInputType | true
+  _avg?: WbsNodeAvgAggregateInputType
+  _sum?: WbsNodeSumAggregateInputType
   _min?: WbsNodeMinAggregateInputType
   _max?: WbsNodeMaxAggregateInputType
 }
@@ -199,10 +243,14 @@ export type WbsNodeGroupByOutputType = {
   designReady: boolean
   plannedStartDate: Date | null
   plannedEndDate: Date | null
-  status: string
+  status: $Enums.WbsNodeStatus
+  weightPercent: runtime.Decimal | null
+  planSubmissionId: string | null
   createdAt: Date
   updatedAt: Date
   _count: WbsNodeCountAggregateOutputType | null
+  _avg: WbsNodeAvgAggregateOutputType | null
+  _sum: WbsNodeSumAggregateOutputType | null
   _min: WbsNodeMinAggregateOutputType | null
   _max: WbsNodeMaxAggregateOutputType | null
 }
@@ -235,7 +283,9 @@ export type WbsNodeWhereInput = {
   designReady?: Prisma.BoolFilter<"WbsNode"> | boolean
   plannedStartDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
   plannedEndDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
-  status?: Prisma.StringFilter<"WbsNode"> | string
+  status?: Prisma.EnumWbsNodeStatusFilter<"WbsNode"> | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"WbsNode"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.StringNullableFilter<"WbsNode"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
@@ -266,6 +316,12 @@ export type WbsNodeWhereInput = {
   lessonsLearned?: Prisma.LessonsLearnedListRelationFilter
   contractsAsScope?: Prisma.ContractListRelationFilter
   disputeRecords?: Prisma.DisputeRecordListRelationFilter
+  sectionAssignments?: Prisma.SectionAssignmentListRelationFilter
+  planSubmission?: Prisma.XOR<Prisma.WbsPlanSubmissionNullableScalarRelationFilter, Prisma.WbsPlanSubmissionWhereInput> | null
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  oversightDailyEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }
 
 export type WbsNodeOrderByWithRelationInput = {
@@ -279,6 +335,8 @@ export type WbsNodeOrderByWithRelationInput = {
   plannedStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
   plannedEndDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSubmissionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
@@ -309,6 +367,12 @@ export type WbsNodeOrderByWithRelationInput = {
   lessonsLearned?: Prisma.LessonsLearnedOrderByRelationAggregateInput
   contractsAsScope?: Prisma.ContractOrderByRelationAggregateInput
   disputeRecords?: Prisma.DisputeRecordOrderByRelationAggregateInput
+  sectionAssignments?: Prisma.SectionAssignmentOrderByRelationAggregateInput
+  planSubmission?: Prisma.WbsPlanSubmissionOrderByWithRelationInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionOrderByRelationAggregateInput
+  oversightAssignments?: Prisma.OversightAssignmentOrderByRelationAggregateInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryOrderByRelationAggregateInput
+  resourceRequests?: Prisma.ResourceRequestOrderByRelationAggregateInput
 }
 
 export type WbsNodeWhereUniqueInput = Prisma.AtLeast<{
@@ -325,7 +389,9 @@ export type WbsNodeWhereUniqueInput = Prisma.AtLeast<{
   designReady?: Prisma.BoolFilter<"WbsNode"> | boolean
   plannedStartDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
   plannedEndDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
-  status?: Prisma.StringFilter<"WbsNode"> | string
+  status?: Prisma.EnumWbsNodeStatusFilter<"WbsNode"> | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"WbsNode"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.StringNullableFilter<"WbsNode"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
@@ -356,6 +422,12 @@ export type WbsNodeWhereUniqueInput = Prisma.AtLeast<{
   lessonsLearned?: Prisma.LessonsLearnedListRelationFilter
   contractsAsScope?: Prisma.ContractListRelationFilter
   disputeRecords?: Prisma.DisputeRecordListRelationFilter
+  sectionAssignments?: Prisma.SectionAssignmentListRelationFilter
+  planSubmission?: Prisma.XOR<Prisma.WbsPlanSubmissionNullableScalarRelationFilter, Prisma.WbsPlanSubmissionWhereInput> | null
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  oversightDailyEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }, "id" | "projectId_code">
 
 export type WbsNodeOrderByWithAggregationInput = {
@@ -369,11 +441,15 @@ export type WbsNodeOrderByWithAggregationInput = {
   plannedStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
   plannedEndDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSubmissionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.WbsNodeCountOrderByAggregateInput
+  _avg?: Prisma.WbsNodeAvgOrderByAggregateInput
   _max?: Prisma.WbsNodeMaxOrderByAggregateInput
   _min?: Prisma.WbsNodeMinOrderByAggregateInput
+  _sum?: Prisma.WbsNodeSumOrderByAggregateInput
 }
 
 export type WbsNodeScalarWhereWithAggregatesInput = {
@@ -389,7 +465,9 @@ export type WbsNodeScalarWhereWithAggregatesInput = {
   designReady?: Prisma.BoolWithAggregatesFilter<"WbsNode"> | boolean
   plannedStartDate?: Prisma.DateTimeNullableWithAggregatesFilter<"WbsNode"> | Date | string | null
   plannedEndDate?: Prisma.DateTimeNullableWithAggregatesFilter<"WbsNode"> | Date | string | null
-  status?: Prisma.StringWithAggregatesFilter<"WbsNode"> | string
+  status?: Prisma.EnumWbsNodeStatusWithAggregatesFilter<"WbsNode"> | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.DecimalNullableWithAggregatesFilter<"WbsNode"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.StringNullableWithAggregatesFilter<"WbsNode"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WbsNode"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WbsNode"> | Date | string
 }
@@ -402,7 +480,8 @@ export type WbsNodeCreateInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -433,6 +512,12 @@ export type WbsNodeCreateInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateInput = {
@@ -445,7 +530,9 @@ export type WbsNodeUncheckedCreateInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -474,6 +561,11 @@ export type WbsNodeUncheckedCreateInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUpdateInput = {
@@ -484,7 +576,8 @@ export type WbsNodeUpdateInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -515,6 +608,12 @@ export type WbsNodeUpdateInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateInput = {
@@ -527,7 +626,9 @@ export type WbsNodeUncheckedUpdateInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -556,6 +657,11 @@ export type WbsNodeUncheckedUpdateInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateManyInput = {
@@ -568,7 +674,9 @@ export type WbsNodeCreateManyInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -581,7 +689,8 @@ export type WbsNodeUpdateManyMutationInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -596,7 +705,9 @@ export type WbsNodeUncheckedUpdateManyInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -632,8 +743,14 @@ export type WbsNodeCountOrderByAggregateInput = {
   plannedStartDate?: Prisma.SortOrder
   plannedEndDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
+  planSubmissionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type WbsNodeAvgOrderByAggregateInput = {
+  weightPercent?: Prisma.SortOrder
 }
 
 export type WbsNodeMaxOrderByAggregateInput = {
@@ -647,6 +764,8 @@ export type WbsNodeMaxOrderByAggregateInput = {
   plannedStartDate?: Prisma.SortOrder
   plannedEndDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
+  planSubmissionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -662,8 +781,14 @@ export type WbsNodeMinOrderByAggregateInput = {
   plannedStartDate?: Prisma.SortOrder
   plannedEndDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
+  planSubmissionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type WbsNodeSumOrderByAggregateInput = {
+  weightPercent?: Prisma.SortOrder
 }
 
 export type WbsNodeScalarRelationFilter = {
@@ -751,6 +876,18 @@ export type WbsNodeUncheckedCreateNestedManyWithoutParentInput = {
 
 export type EnumWBSNodeTypeFieldUpdateOperationsInput = {
   set?: $Enums.WBSNodeType
+}
+
+export type EnumWbsNodeStatusFieldUpdateOperationsInput = {
+  set?: $Enums.WbsNodeStatus
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type WbsNodeUpdateOneWithoutChildrenNestedInput = {
@@ -1145,6 +1282,118 @@ export type WbsNodeUpdateOneWithoutMaterialReceiptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutMaterialReceiptsInput, Prisma.WbsNodeUpdateWithoutMaterialReceiptsInput>, Prisma.WbsNodeUncheckedUpdateWithoutMaterialReceiptsInput>
 }
 
+export type WbsNodeCreateNestedOneWithoutSectionAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutSectionAssignmentsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutSectionAssignmentsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeUpdateOneRequiredWithoutSectionAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutSectionAssignmentsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutSectionAssignmentsInput
+  upsert?: Prisma.WbsNodeUpsertWithoutSectionAssignmentsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutSectionAssignmentsInput, Prisma.WbsNodeUpdateWithoutSectionAssignmentsInput>, Prisma.WbsNodeUncheckedUpdateWithoutSectionAssignmentsInput>
+}
+
+export type WbsNodeCreateNestedOneWithoutPlanSubmissionsAsRootInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionsAsRootInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeCreateNestedManyWithoutPlanSubmissionInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput> | Prisma.WbsNodeCreateWithoutPlanSubmissionInput[] | Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput[]
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput | Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput[]
+  createMany?: Prisma.WbsNodeCreateManyPlanSubmissionInputEnvelope
+  connect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+}
+
+export type WbsNodeUncheckedCreateNestedManyWithoutPlanSubmissionInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput> | Prisma.WbsNodeCreateWithoutPlanSubmissionInput[] | Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput[]
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput | Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput[]
+  createMany?: Prisma.WbsNodeCreateManyPlanSubmissionInputEnvelope
+  connect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+}
+
+export type WbsNodeUpdateOneRequiredWithoutPlanSubmissionsAsRootNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionsAsRootInput
+  upsert?: Prisma.WbsNodeUpsertWithoutPlanSubmissionsAsRootInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUpdateWithoutPlanSubmissionsAsRootInput>, Prisma.WbsNodeUncheckedUpdateWithoutPlanSubmissionsAsRootInput>
+}
+
+export type WbsNodeUpdateManyWithoutPlanSubmissionNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput> | Prisma.WbsNodeCreateWithoutPlanSubmissionInput[] | Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput[]
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput | Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput[]
+  upsert?: Prisma.WbsNodeUpsertWithWhereUniqueWithoutPlanSubmissionInput | Prisma.WbsNodeUpsertWithWhereUniqueWithoutPlanSubmissionInput[]
+  createMany?: Prisma.WbsNodeCreateManyPlanSubmissionInputEnvelope
+  set?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  disconnect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  delete?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  connect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  update?: Prisma.WbsNodeUpdateWithWhereUniqueWithoutPlanSubmissionInput | Prisma.WbsNodeUpdateWithWhereUniqueWithoutPlanSubmissionInput[]
+  updateMany?: Prisma.WbsNodeUpdateManyWithWhereWithoutPlanSubmissionInput | Prisma.WbsNodeUpdateManyWithWhereWithoutPlanSubmissionInput[]
+  deleteMany?: Prisma.WbsNodeScalarWhereInput | Prisma.WbsNodeScalarWhereInput[]
+}
+
+export type WbsNodeUncheckedUpdateManyWithoutPlanSubmissionNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput> | Prisma.WbsNodeCreateWithoutPlanSubmissionInput[] | Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput[]
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput | Prisma.WbsNodeCreateOrConnectWithoutPlanSubmissionInput[]
+  upsert?: Prisma.WbsNodeUpsertWithWhereUniqueWithoutPlanSubmissionInput | Prisma.WbsNodeUpsertWithWhereUniqueWithoutPlanSubmissionInput[]
+  createMany?: Prisma.WbsNodeCreateManyPlanSubmissionInputEnvelope
+  set?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  disconnect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  delete?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  connect?: Prisma.WbsNodeWhereUniqueInput | Prisma.WbsNodeWhereUniqueInput[]
+  update?: Prisma.WbsNodeUpdateWithWhereUniqueWithoutPlanSubmissionInput | Prisma.WbsNodeUpdateWithWhereUniqueWithoutPlanSubmissionInput[]
+  updateMany?: Prisma.WbsNodeUpdateManyWithWhereWithoutPlanSubmissionInput | Prisma.WbsNodeUpdateManyWithWhereWithoutPlanSubmissionInput[]
+  deleteMany?: Prisma.WbsNodeScalarWhereInput | Prisma.WbsNodeScalarWhereInput[]
+}
+
+export type WbsNodeCreateNestedOneWithoutOversightAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutOversightAssignmentsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeUpdateOneRequiredWithoutOversightAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutOversightAssignmentsInput
+  upsert?: Prisma.WbsNodeUpsertWithoutOversightAssignmentsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutOversightAssignmentsInput, Prisma.WbsNodeUpdateWithoutOversightAssignmentsInput>, Prisma.WbsNodeUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type WbsNodeCreateNestedOneWithoutOversightDailyEntriesInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutOversightDailyEntriesInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeUpdateOneRequiredWithoutOversightDailyEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutOversightDailyEntriesInput
+  upsert?: Prisma.WbsNodeUpsertWithoutOversightDailyEntriesInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutOversightDailyEntriesInput, Prisma.WbsNodeUpdateWithoutOversightDailyEntriesInput>, Prisma.WbsNodeUncheckedUpdateWithoutOversightDailyEntriesInput>
+}
+
+export type WbsNodeCreateNestedOneWithoutResourceRequestsInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutResourceRequestsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeUpdateOneRequiredWithoutResourceRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutResourceRequestsInput
+  upsert?: Prisma.WbsNodeUpsertWithoutResourceRequestsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutResourceRequestsInput, Prisma.WbsNodeUpdateWithoutResourceRequestsInput>, Prisma.WbsNodeUncheckedUpdateWithoutResourceRequestsInput>
+}
+
 export type WbsNodeCreateWithoutProjectInput = {
   id?: string
   code: string
@@ -1153,7 +1402,8 @@ export type WbsNodeCreateWithoutProjectInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
@@ -1183,6 +1433,12 @@ export type WbsNodeCreateWithoutProjectInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutProjectInput = {
@@ -1194,7 +1450,9 @@ export type WbsNodeUncheckedCreateWithoutProjectInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -1223,6 +1481,11 @@ export type WbsNodeUncheckedCreateWithoutProjectInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutProjectInput = {
@@ -1264,7 +1527,9 @@ export type WbsNodeScalarWhereInput = {
   designReady?: Prisma.BoolFilter<"WbsNode"> | boolean
   plannedStartDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
   plannedEndDate?: Prisma.DateTimeNullableFilter<"WbsNode"> | Date | string | null
-  status?: Prisma.StringFilter<"WbsNode"> | string
+  status?: Prisma.EnumWbsNodeStatusFilter<"WbsNode"> | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"WbsNode"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.StringNullableFilter<"WbsNode"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WbsNode"> | Date | string
 }
@@ -1277,7 +1542,8 @@ export type WbsNodeCreateWithoutContractsAsScopeInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -1307,6 +1573,12 @@ export type WbsNodeCreateWithoutContractsAsScopeInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutContractsAsScopeInput = {
@@ -1319,7 +1591,9 @@ export type WbsNodeUncheckedCreateWithoutContractsAsScopeInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -1347,6 +1621,11 @@ export type WbsNodeUncheckedCreateWithoutContractsAsScopeInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutContractsAsScopeInput = {
@@ -1373,7 +1652,8 @@ export type WbsNodeUpdateWithoutContractsAsScopeInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -1403,6 +1683,12 @@ export type WbsNodeUpdateWithoutContractsAsScopeInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutContractsAsScopeInput = {
@@ -1415,7 +1701,9 @@ export type WbsNodeUncheckedUpdateWithoutContractsAsScopeInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -1443,6 +1731,11 @@ export type WbsNodeUncheckedUpdateWithoutContractsAsScopeInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutChildrenInput = {
@@ -1453,7 +1746,8 @@ export type WbsNodeCreateWithoutChildrenInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -1483,6 +1777,12 @@ export type WbsNodeCreateWithoutChildrenInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutChildrenInput = {
@@ -1495,7 +1795,9 @@ export type WbsNodeUncheckedCreateWithoutChildrenInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -1523,6 +1825,11 @@ export type WbsNodeUncheckedCreateWithoutChildrenInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutChildrenInput = {
@@ -1538,7 +1845,8 @@ export type WbsNodeCreateWithoutParentInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -1568,6 +1876,12 @@ export type WbsNodeCreateWithoutParentInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutParentInput = {
@@ -1579,7 +1893,9 @@ export type WbsNodeUncheckedCreateWithoutParentInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -1608,6 +1924,11 @@ export type WbsNodeUncheckedCreateWithoutParentInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutParentInput = {
@@ -1639,7 +1960,8 @@ export type WbsNodeUpdateWithoutChildrenInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -1669,6 +1991,12 @@ export type WbsNodeUpdateWithoutChildrenInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutChildrenInput = {
@@ -1681,7 +2009,9 @@ export type WbsNodeUncheckedUpdateWithoutChildrenInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -1709,6 +2039,11 @@ export type WbsNodeUncheckedUpdateWithoutChildrenInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUpsertWithWhereUniqueWithoutParentInput = {
@@ -1735,7 +2070,8 @@ export type WbsNodeCreateWithoutActivitiesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -1765,6 +2101,12 @@ export type WbsNodeCreateWithoutActivitiesInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutActivitiesInput = {
@@ -1777,7 +2119,9 @@ export type WbsNodeUncheckedCreateWithoutActivitiesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -1805,6 +2149,11 @@ export type WbsNodeUncheckedCreateWithoutActivitiesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutActivitiesInput = {
@@ -1831,7 +2180,8 @@ export type WbsNodeUpdateWithoutActivitiesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -1861,6 +2211,12 @@ export type WbsNodeUpdateWithoutActivitiesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutActivitiesInput = {
@@ -1873,7 +2229,9 @@ export type WbsNodeUncheckedUpdateWithoutActivitiesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -1901,6 +2259,11 @@ export type WbsNodeUncheckedUpdateWithoutActivitiesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutStoppagesInput = {
@@ -1911,7 +2274,8 @@ export type WbsNodeCreateWithoutStoppagesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -1941,6 +2305,12 @@ export type WbsNodeCreateWithoutStoppagesInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutStoppagesInput = {
@@ -1953,7 +2323,9 @@ export type WbsNodeUncheckedCreateWithoutStoppagesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -1981,6 +2353,11 @@ export type WbsNodeUncheckedCreateWithoutStoppagesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutStoppagesInput = {
@@ -2007,7 +2384,8 @@ export type WbsNodeUpdateWithoutStoppagesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2037,6 +2415,12 @@ export type WbsNodeUpdateWithoutStoppagesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutStoppagesInput = {
@@ -2049,7 +2433,9 @@ export type WbsNodeUncheckedUpdateWithoutStoppagesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2077,6 +2463,11 @@ export type WbsNodeUncheckedUpdateWithoutStoppagesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutEarthworkDailyEntriesInput = {
@@ -2087,7 +2478,8 @@ export type WbsNodeCreateWithoutEarthworkDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2117,6 +2509,12 @@ export type WbsNodeCreateWithoutEarthworkDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutEarthworkDailyEntriesInput = {
@@ -2129,7 +2527,9 @@ export type WbsNodeUncheckedCreateWithoutEarthworkDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -2157,6 +2557,11 @@ export type WbsNodeUncheckedCreateWithoutEarthworkDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutEarthworkDailyEntriesInput = {
@@ -2183,7 +2588,8 @@ export type WbsNodeUpdateWithoutEarthworkDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2213,6 +2619,12 @@ export type WbsNodeUpdateWithoutEarthworkDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutEarthworkDailyEntriesInput = {
@@ -2225,7 +2637,9 @@ export type WbsNodeUncheckedUpdateWithoutEarthworkDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2253,6 +2667,11 @@ export type WbsNodeUncheckedUpdateWithoutEarthworkDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutStructureDailyEntriesInput = {
@@ -2263,7 +2682,8 @@ export type WbsNodeCreateWithoutStructureDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2293,6 +2713,12 @@ export type WbsNodeCreateWithoutStructureDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutStructureDailyEntriesInput = {
@@ -2305,7 +2731,9 @@ export type WbsNodeUncheckedCreateWithoutStructureDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -2333,6 +2761,11 @@ export type WbsNodeUncheckedCreateWithoutStructureDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutStructureDailyEntriesInput = {
@@ -2359,7 +2792,8 @@ export type WbsNodeUpdateWithoutStructureDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2389,6 +2823,12 @@ export type WbsNodeUpdateWithoutStructureDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutStructureDailyEntriesInput = {
@@ -2401,7 +2841,9 @@ export type WbsNodeUncheckedUpdateWithoutStructureDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2429,6 +2871,11 @@ export type WbsNodeUncheckedUpdateWithoutStructureDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutRebarDailyEntriesInput = {
@@ -2439,7 +2886,8 @@ export type WbsNodeCreateWithoutRebarDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2469,6 +2917,12 @@ export type WbsNodeCreateWithoutRebarDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutRebarDailyEntriesInput = {
@@ -2481,7 +2935,9 @@ export type WbsNodeUncheckedCreateWithoutRebarDailyEntriesInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -2509,6 +2965,11 @@ export type WbsNodeUncheckedCreateWithoutRebarDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutRebarDailyEntriesInput = {
@@ -2535,7 +2996,8 @@ export type WbsNodeUpdateWithoutRebarDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2565,6 +3027,12 @@ export type WbsNodeUpdateWithoutRebarDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutRebarDailyEntriesInput = {
@@ -2577,7 +3045,9 @@ export type WbsNodeUncheckedUpdateWithoutRebarDailyEntriesInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2605,6 +3075,11 @@ export type WbsNodeUncheckedUpdateWithoutRebarDailyEntriesInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutBoqItemsInput = {
@@ -2615,7 +3090,8 @@ export type WbsNodeCreateWithoutBoqItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2645,6 +3121,12 @@ export type WbsNodeCreateWithoutBoqItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutBoqItemsInput = {
@@ -2657,7 +3139,9 @@ export type WbsNodeUncheckedCreateWithoutBoqItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -2685,6 +3169,11 @@ export type WbsNodeUncheckedCreateWithoutBoqItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutBoqItemsInput = {
@@ -2711,7 +3200,8 @@ export type WbsNodeUpdateWithoutBoqItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2741,6 +3231,12 @@ export type WbsNodeUpdateWithoutBoqItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutBoqItemsInput = {
@@ -2753,7 +3249,9 @@ export type WbsNodeUncheckedUpdateWithoutBoqItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2781,6 +3279,11 @@ export type WbsNodeUncheckedUpdateWithoutBoqItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutMeasurementsInput = {
@@ -2791,7 +3294,8 @@ export type WbsNodeCreateWithoutMeasurementsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2821,6 +3325,12 @@ export type WbsNodeCreateWithoutMeasurementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutMeasurementsInput = {
@@ -2833,7 +3343,9 @@ export type WbsNodeUncheckedCreateWithoutMeasurementsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -2861,6 +3373,11 @@ export type WbsNodeUncheckedCreateWithoutMeasurementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutMeasurementsInput = {
@@ -2887,7 +3404,8 @@ export type WbsNodeUpdateWithoutMeasurementsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -2917,6 +3435,12 @@ export type WbsNodeUpdateWithoutMeasurementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutMeasurementsInput = {
@@ -2929,7 +3453,9 @@ export type WbsNodeUncheckedUpdateWithoutMeasurementsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -2957,6 +3483,11 @@ export type WbsNodeUncheckedUpdateWithoutMeasurementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutVariationsInput = {
@@ -2967,7 +3498,8 @@ export type WbsNodeCreateWithoutVariationsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -2997,6 +3529,12 @@ export type WbsNodeCreateWithoutVariationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutVariationsInput = {
@@ -3009,7 +3547,9 @@ export type WbsNodeUncheckedCreateWithoutVariationsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3037,6 +3577,11 @@ export type WbsNodeUncheckedCreateWithoutVariationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutVariationsInput = {
@@ -3063,7 +3608,8 @@ export type WbsNodeUpdateWithoutVariationsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3093,6 +3639,12 @@ export type WbsNodeUpdateWithoutVariationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutVariationsInput = {
@@ -3105,7 +3657,9 @@ export type WbsNodeUncheckedUpdateWithoutVariationsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -3133,6 +3687,11 @@ export type WbsNodeUncheckedUpdateWithoutVariationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutRisksInput = {
@@ -3143,7 +3702,8 @@ export type WbsNodeCreateWithoutRisksInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -3173,6 +3733,12 @@ export type WbsNodeCreateWithoutRisksInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutRisksInput = {
@@ -3185,7 +3751,9 @@ export type WbsNodeUncheckedCreateWithoutRisksInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3213,6 +3781,11 @@ export type WbsNodeUncheckedCreateWithoutRisksInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutRisksInput = {
@@ -3239,7 +3812,8 @@ export type WbsNodeUpdateWithoutRisksInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3269,6 +3843,12 @@ export type WbsNodeUpdateWithoutRisksInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutRisksInput = {
@@ -3281,7 +3861,9 @@ export type WbsNodeUncheckedUpdateWithoutRisksInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -3309,6 +3891,11 @@ export type WbsNodeUncheckedUpdateWithoutRisksInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutSafetyObservationsInput = {
@@ -3319,7 +3906,8 @@ export type WbsNodeCreateWithoutSafetyObservationsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -3349,6 +3937,12 @@ export type WbsNodeCreateWithoutSafetyObservationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutSafetyObservationsInput = {
@@ -3361,7 +3955,9 @@ export type WbsNodeUncheckedCreateWithoutSafetyObservationsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3389,6 +3985,11 @@ export type WbsNodeUncheckedCreateWithoutSafetyObservationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutSafetyObservationsInput = {
@@ -3415,7 +4016,8 @@ export type WbsNodeUpdateWithoutSafetyObservationsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3445,6 +4047,12 @@ export type WbsNodeUpdateWithoutSafetyObservationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutSafetyObservationsInput = {
@@ -3457,7 +4065,9 @@ export type WbsNodeUncheckedUpdateWithoutSafetyObservationsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -3485,6 +4095,11 @@ export type WbsNodeUncheckedUpdateWithoutSafetyObservationsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutSafetyIncidentsInput = {
@@ -3495,7 +4110,8 @@ export type WbsNodeCreateWithoutSafetyIncidentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -3525,6 +4141,12 @@ export type WbsNodeCreateWithoutSafetyIncidentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutSafetyIncidentsInput = {
@@ -3537,7 +4159,9 @@ export type WbsNodeUncheckedCreateWithoutSafetyIncidentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3565,6 +4189,11 @@ export type WbsNodeUncheckedCreateWithoutSafetyIncidentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutSafetyIncidentsInput = {
@@ -3591,7 +4220,8 @@ export type WbsNodeUpdateWithoutSafetyIncidentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3621,6 +4251,12 @@ export type WbsNodeUpdateWithoutSafetyIncidentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutSafetyIncidentsInput = {
@@ -3633,7 +4269,9 @@ export type WbsNodeUncheckedUpdateWithoutSafetyIncidentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -3661,6 +4299,11 @@ export type WbsNodeUncheckedUpdateWithoutSafetyIncidentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutInspectionsInput = {
@@ -3671,7 +4314,8 @@ export type WbsNodeCreateWithoutInspectionsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -3701,6 +4345,12 @@ export type WbsNodeCreateWithoutInspectionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutInspectionsInput = {
@@ -3713,7 +4363,9 @@ export type WbsNodeUncheckedCreateWithoutInspectionsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3741,6 +4393,11 @@ export type WbsNodeUncheckedCreateWithoutInspectionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutInspectionsInput = {
@@ -3767,7 +4424,8 @@ export type WbsNodeUpdateWithoutInspectionsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3797,6 +4455,12 @@ export type WbsNodeUpdateWithoutInspectionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutInspectionsInput = {
@@ -3809,7 +4473,9 @@ export type WbsNodeUncheckedUpdateWithoutInspectionsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -3837,6 +4503,11 @@ export type WbsNodeUncheckedUpdateWithoutInspectionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutDefectsInput = {
@@ -3847,7 +4518,8 @@ export type WbsNodeCreateWithoutDefectsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -3877,6 +4549,12 @@ export type WbsNodeCreateWithoutDefectsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutDefectsInput = {
@@ -3889,7 +4567,9 @@ export type WbsNodeUncheckedCreateWithoutDefectsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -3917,6 +4597,11 @@ export type WbsNodeUncheckedCreateWithoutDefectsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutDefectsInput = {
@@ -3943,7 +4628,8 @@ export type WbsNodeUpdateWithoutDefectsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -3973,6 +4659,12 @@ export type WbsNodeUpdateWithoutDefectsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutDefectsInput = {
@@ -3985,7 +4677,9 @@ export type WbsNodeUncheckedUpdateWithoutDefectsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4013,6 +4707,11 @@ export type WbsNodeUncheckedUpdateWithoutDefectsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutDisputeRecordsInput = {
@@ -4023,7 +4722,8 @@ export type WbsNodeCreateWithoutDisputeRecordsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4053,6 +4753,12 @@ export type WbsNodeCreateWithoutDisputeRecordsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutDisputeRecordsInput = {
@@ -4065,7 +4771,9 @@ export type WbsNodeUncheckedCreateWithoutDisputeRecordsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4093,6 +4801,11 @@ export type WbsNodeUncheckedCreateWithoutDisputeRecordsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutDisputeRecordsInput = {
@@ -4119,7 +4832,8 @@ export type WbsNodeUpdateWithoutDisputeRecordsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -4149,6 +4863,12 @@ export type WbsNodeUpdateWithoutDisputeRecordsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutDisputeRecordsInput = {
@@ -4161,7 +4881,9 @@ export type WbsNodeUncheckedUpdateWithoutDisputeRecordsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4189,6 +4911,11 @@ export type WbsNodeUncheckedUpdateWithoutDisputeRecordsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutPunchListItemsInput = {
@@ -4199,7 +4926,8 @@ export type WbsNodeCreateWithoutPunchListItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4229,6 +4957,12 @@ export type WbsNodeCreateWithoutPunchListItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutPunchListItemsInput = {
@@ -4241,7 +4975,9 @@ export type WbsNodeUncheckedCreateWithoutPunchListItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4269,6 +5005,11 @@ export type WbsNodeUncheckedCreateWithoutPunchListItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutPunchListItemsInput = {
@@ -4295,7 +5036,8 @@ export type WbsNodeUpdateWithoutPunchListItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -4325,6 +5067,12 @@ export type WbsNodeUpdateWithoutPunchListItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutPunchListItemsInput = {
@@ -4337,7 +5085,9 @@ export type WbsNodeUncheckedUpdateWithoutPunchListItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4365,6 +5115,11 @@ export type WbsNodeUncheckedUpdateWithoutPunchListItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutLaborAssignmentsInput = {
@@ -4375,7 +5130,8 @@ export type WbsNodeCreateWithoutLaborAssignmentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4405,6 +5161,12 @@ export type WbsNodeCreateWithoutLaborAssignmentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutLaborAssignmentsInput = {
@@ -4417,7 +5179,9 @@ export type WbsNodeUncheckedCreateWithoutLaborAssignmentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4445,6 +5209,11 @@ export type WbsNodeUncheckedCreateWithoutLaborAssignmentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutLaborAssignmentsInput = {
@@ -4471,7 +5240,8 @@ export type WbsNodeUpdateWithoutLaborAssignmentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -4501,6 +5271,12 @@ export type WbsNodeUpdateWithoutLaborAssignmentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutLaborAssignmentsInput = {
@@ -4513,7 +5289,9 @@ export type WbsNodeUncheckedUpdateWithoutLaborAssignmentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4541,6 +5319,11 @@ export type WbsNodeUncheckedUpdateWithoutLaborAssignmentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutEquipmentUsageInput = {
@@ -4551,7 +5334,8 @@ export type WbsNodeCreateWithoutEquipmentUsageInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4581,6 +5365,12 @@ export type WbsNodeCreateWithoutEquipmentUsageInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutEquipmentUsageInput = {
@@ -4593,7 +5383,9 @@ export type WbsNodeUncheckedCreateWithoutEquipmentUsageInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4621,6 +5413,11 @@ export type WbsNodeUncheckedCreateWithoutEquipmentUsageInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutEquipmentUsageInput = {
@@ -4647,7 +5444,8 @@ export type WbsNodeUpdateWithoutEquipmentUsageInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -4677,6 +5475,12 @@ export type WbsNodeUpdateWithoutEquipmentUsageInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutEquipmentUsageInput = {
@@ -4689,7 +5493,9 @@ export type WbsNodeUncheckedUpdateWithoutEquipmentUsageInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4717,6 +5523,11 @@ export type WbsNodeUncheckedUpdateWithoutEquipmentUsageInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutMaterialDemandsInput = {
@@ -4727,7 +5538,8 @@ export type WbsNodeCreateWithoutMaterialDemandsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4757,6 +5569,12 @@ export type WbsNodeCreateWithoutMaterialDemandsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutMaterialDemandsInput = {
@@ -4769,7 +5587,9 @@ export type WbsNodeUncheckedCreateWithoutMaterialDemandsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4797,6 +5617,11 @@ export type WbsNodeUncheckedCreateWithoutMaterialDemandsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutMaterialDemandsInput = {
@@ -4823,7 +5648,8 @@ export type WbsNodeUpdateWithoutMaterialDemandsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -4853,6 +5679,12 @@ export type WbsNodeUpdateWithoutMaterialDemandsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutMaterialDemandsInput = {
@@ -4865,7 +5697,9 @@ export type WbsNodeUncheckedUpdateWithoutMaterialDemandsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -4893,6 +5727,11 @@ export type WbsNodeUncheckedUpdateWithoutMaterialDemandsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutStructuralElementsInput = {
@@ -4903,7 +5742,8 @@ export type WbsNodeCreateWithoutStructuralElementsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -4933,6 +5773,12 @@ export type WbsNodeCreateWithoutStructuralElementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutStructuralElementsInput = {
@@ -4945,7 +5791,9 @@ export type WbsNodeUncheckedCreateWithoutStructuralElementsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -4973,6 +5821,11 @@ export type WbsNodeUncheckedCreateWithoutStructuralElementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutStructuralElementsInput = {
@@ -4999,7 +5852,8 @@ export type WbsNodeUpdateWithoutStructuralElementsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5029,6 +5883,12 @@ export type WbsNodeUpdateWithoutStructuralElementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutStructuralElementsInput = {
@@ -5041,7 +5901,9 @@ export type WbsNodeUncheckedUpdateWithoutStructuralElementsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5069,6 +5931,11 @@ export type WbsNodeUncheckedUpdateWithoutStructuralElementsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutDocumentsInput = {
@@ -5079,7 +5946,8 @@ export type WbsNodeCreateWithoutDocumentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -5109,6 +5977,12 @@ export type WbsNodeCreateWithoutDocumentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutDocumentsInput = {
@@ -5121,7 +5995,9 @@ export type WbsNodeUncheckedCreateWithoutDocumentsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -5149,6 +6025,11 @@ export type WbsNodeUncheckedCreateWithoutDocumentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutDocumentsInput = {
@@ -5175,7 +6056,8 @@ export type WbsNodeUpdateWithoutDocumentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5205,6 +6087,12 @@ export type WbsNodeUpdateWithoutDocumentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutDocumentsInput = {
@@ -5217,7 +6105,9 @@ export type WbsNodeUncheckedUpdateWithoutDocumentsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5245,6 +6135,11 @@ export type WbsNodeUncheckedUpdateWithoutDocumentsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutDecisionsInput = {
@@ -5255,7 +6150,8 @@ export type WbsNodeCreateWithoutDecisionsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -5285,6 +6181,12 @@ export type WbsNodeCreateWithoutDecisionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutDecisionsInput = {
@@ -5297,7 +6199,9 @@ export type WbsNodeUncheckedCreateWithoutDecisionsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -5325,6 +6229,11 @@ export type WbsNodeUncheckedCreateWithoutDecisionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutDecisionsInput = {
@@ -5351,7 +6260,8 @@ export type WbsNodeUpdateWithoutDecisionsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5381,6 +6291,12 @@ export type WbsNodeUpdateWithoutDecisionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutDecisionsInput = {
@@ -5393,7 +6309,9 @@ export type WbsNodeUncheckedUpdateWithoutDecisionsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5421,6 +6339,11 @@ export type WbsNodeUncheckedUpdateWithoutDecisionsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutLessonsLearnedInput = {
@@ -5431,7 +6354,8 @@ export type WbsNodeCreateWithoutLessonsLearnedInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -5461,6 +6385,12 @@ export type WbsNodeCreateWithoutLessonsLearnedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutLessonsLearnedInput = {
@@ -5473,7 +6403,9 @@ export type WbsNodeUncheckedCreateWithoutLessonsLearnedInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -5501,6 +6433,11 @@ export type WbsNodeUncheckedCreateWithoutLessonsLearnedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutLessonsLearnedInput = {
@@ -5527,7 +6464,8 @@ export type WbsNodeUpdateWithoutLessonsLearnedInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5557,6 +6495,12 @@ export type WbsNodeUpdateWithoutLessonsLearnedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutLessonsLearnedInput = {
@@ -5569,7 +6513,9 @@ export type WbsNodeUncheckedUpdateWithoutLessonsLearnedInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5597,6 +6543,11 @@ export type WbsNodeUncheckedUpdateWithoutLessonsLearnedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutPurchaseOrderItemsInput = {
@@ -5607,7 +6558,8 @@ export type WbsNodeCreateWithoutPurchaseOrderItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -5637,6 +6589,12 @@ export type WbsNodeCreateWithoutPurchaseOrderItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutPurchaseOrderItemsInput = {
@@ -5649,7 +6607,9 @@ export type WbsNodeUncheckedCreateWithoutPurchaseOrderItemsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -5677,6 +6637,11 @@ export type WbsNodeUncheckedCreateWithoutPurchaseOrderItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutPurchaseOrderItemsInput = {
@@ -5703,7 +6668,8 @@ export type WbsNodeUpdateWithoutPurchaseOrderItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5733,6 +6699,12 @@ export type WbsNodeUpdateWithoutPurchaseOrderItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutPurchaseOrderItemsInput = {
@@ -5745,7 +6717,9 @@ export type WbsNodeUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5773,6 +6747,11 @@ export type WbsNodeUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateWithoutMaterialReceiptsInput = {
@@ -5783,7 +6762,8 @@ export type WbsNodeCreateWithoutMaterialReceiptsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
@@ -5813,6 +6793,12 @@ export type WbsNodeCreateWithoutMaterialReceiptsInput = {
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeUncheckedCreateWithoutMaterialReceiptsInput = {
@@ -5825,7 +6811,9 @@ export type WbsNodeUncheckedCreateWithoutMaterialReceiptsInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
@@ -5853,6 +6841,11 @@ export type WbsNodeUncheckedCreateWithoutMaterialReceiptsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
   contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
   disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
 }
 
 export type WbsNodeCreateOrConnectWithoutMaterialReceiptsInput = {
@@ -5879,7 +6872,8 @@ export type WbsNodeUpdateWithoutMaterialReceiptsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -5909,6 +6903,12 @@ export type WbsNodeUpdateWithoutMaterialReceiptsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutMaterialReceiptsInput = {
@@ -5921,7 +6921,9 @@ export type WbsNodeUncheckedUpdateWithoutMaterialReceiptsInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -5949,6 +6951,1151 @@ export type WbsNodeUncheckedUpdateWithoutMaterialReceiptsInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeCreateWithoutSectionAssignmentsInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutSectionAssignmentsInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutSectionAssignmentsInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutSectionAssignmentsInput>
+}
+
+export type WbsNodeUpsertWithoutSectionAssignmentsInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedUpdateWithoutSectionAssignmentsInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutSectionAssignmentsInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutSectionAssignmentsInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutSectionAssignmentsInput, Prisma.WbsNodeUncheckedUpdateWithoutSectionAssignmentsInput>
+}
+
+export type WbsNodeUpdateWithoutSectionAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutSectionAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeCreateWithoutPlanSubmissionsAsRootInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutPlanSubmissionsAsRootInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput>
+}
+
+export type WbsNodeCreateWithoutPlanSubmissionInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutPlanSubmissionInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutPlanSubmissionInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput>
+}
+
+export type WbsNodeCreateManyPlanSubmissionInputEnvelope = {
+  data: Prisma.WbsNodeCreateManyPlanSubmissionInput | Prisma.WbsNodeCreateManyPlanSubmissionInput[]
+  skipDuplicates?: boolean
+}
+
+export type WbsNodeUpsertWithoutPlanSubmissionsAsRootInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedUpdateWithoutPlanSubmissionsAsRootInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutPlanSubmissionsAsRootInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutPlanSubmissionsAsRootInput, Prisma.WbsNodeUncheckedUpdateWithoutPlanSubmissionsAsRootInput>
+}
+
+export type WbsNodeUpdateWithoutPlanSubmissionsAsRootInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutPlanSubmissionsAsRootInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUpsertWithWhereUniqueWithoutPlanSubmissionInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedUpdateWithoutPlanSubmissionInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedCreateWithoutPlanSubmissionInput>
+}
+
+export type WbsNodeUpdateWithWhereUniqueWithoutPlanSubmissionInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutPlanSubmissionInput, Prisma.WbsNodeUncheckedUpdateWithoutPlanSubmissionInput>
+}
+
+export type WbsNodeUpdateManyWithWhereWithoutPlanSubmissionInput = {
+  where: Prisma.WbsNodeScalarWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateManyMutationInput, Prisma.WbsNodeUncheckedUpdateManyWithoutPlanSubmissionInput>
+}
+
+export type WbsNodeCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutOversightAssignmentsInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutOversightAssignmentsInput>
+}
+
+export type WbsNodeUpsertWithoutOversightAssignmentsInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedUpdateWithoutOversightAssignmentsInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedCreateWithoutOversightAssignmentsInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutOversightAssignmentsInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutOversightAssignmentsInput, Prisma.WbsNodeUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type WbsNodeUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeCreateWithoutOversightDailyEntriesInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutOversightDailyEntriesInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput>
+}
+
+export type WbsNodeUpsertWithoutOversightDailyEntriesInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedUpdateWithoutOversightDailyEntriesInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutOversightDailyEntriesInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutOversightDailyEntriesInput, Prisma.WbsNodeUncheckedUpdateWithoutOversightDailyEntriesInput>
+}
+
+export type WbsNodeUpdateWithoutOversightDailyEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutOversightDailyEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeCreateWithoutResourceRequestsInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutResourceRequestsInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutResourceRequestsInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedCreateWithoutResourceRequestsInput>
+}
+
+export type WbsNodeUpsertWithoutResourceRequestsInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedUpdateWithoutResourceRequestsInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedCreateWithoutResourceRequestsInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutResourceRequestsInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutResourceRequestsInput, Prisma.WbsNodeUncheckedUpdateWithoutResourceRequestsInput>
+}
+
+export type WbsNodeUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeCreateManyProjectInput = {
@@ -5960,7 +8107,9 @@ export type WbsNodeCreateManyProjectInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5973,7 +8122,8 @@ export type WbsNodeUpdateWithoutProjectInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
@@ -6003,6 +8153,12 @@ export type WbsNodeUpdateWithoutProjectInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutProjectInput = {
@@ -6014,7 +8170,9 @@ export type WbsNodeUncheckedUpdateWithoutProjectInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -6043,6 +8201,11 @@ export type WbsNodeUncheckedUpdateWithoutProjectInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateManyWithoutProjectInput = {
@@ -6054,7 +8217,9 @@ export type WbsNodeUncheckedUpdateManyWithoutProjectInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -6068,7 +8233,9 @@ export type WbsNodeCreateManyParentInput = {
   designReady?: boolean
   plannedStartDate?: Date | string | null
   plannedEndDate?: Date | string | null
-  status?: string
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -6081,7 +8248,8 @@ export type WbsNodeUpdateWithoutParentInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
@@ -6111,6 +8279,12 @@ export type WbsNodeUpdateWithoutParentInput = {
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateWithoutParentInput = {
@@ -6122,7 +8296,9 @@ export type WbsNodeUncheckedUpdateWithoutParentInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
@@ -6151,6 +8327,11 @@ export type WbsNodeUncheckedUpdateWithoutParentInput = {
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
   contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
   disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
 }
 
 export type WbsNodeUncheckedUpdateManyWithoutParentInput = {
@@ -6162,7 +8343,135 @@ export type WbsNodeUncheckedUpdateManyWithoutParentInput = {
   designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WbsNodeCreateManyPlanSubmissionInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WbsNodeUpdateWithoutPlanSubmissionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutPlanSubmissionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateManyWithoutPlanSubmissionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -6199,6 +8508,11 @@ export type WbsNodeCountOutputType = {
   lessonsLearned: number
   contractsAsScope: number
   disputeRecords: number
+  sectionAssignments: number
+  planSubmissionsAsRoot: number
+  oversightAssignments: number
+  oversightDailyEntries: number
+  resourceRequests: number
 }
 
 export type WbsNodeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6228,6 +8542,11 @@ export type WbsNodeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   lessonsLearned?: boolean | WbsNodeCountOutputTypeCountLessonsLearnedArgs
   contractsAsScope?: boolean | WbsNodeCountOutputTypeCountContractsAsScopeArgs
   disputeRecords?: boolean | WbsNodeCountOutputTypeCountDisputeRecordsArgs
+  sectionAssignments?: boolean | WbsNodeCountOutputTypeCountSectionAssignmentsArgs
+  planSubmissionsAsRoot?: boolean | WbsNodeCountOutputTypeCountPlanSubmissionsAsRootArgs
+  oversightAssignments?: boolean | WbsNodeCountOutputTypeCountOversightAssignmentsArgs
+  oversightDailyEntries?: boolean | WbsNodeCountOutputTypeCountOversightDailyEntriesArgs
+  resourceRequests?: boolean | WbsNodeCountOutputTypeCountResourceRequestsArgs
 }
 
 /**
@@ -6422,6 +8741,41 @@ export type WbsNodeCountOutputTypeCountDisputeRecordsArgs<ExtArgs extends runtim
   where?: Prisma.DisputeRecordWhereInput
 }
 
+/**
+ * WbsNodeCountOutputType without action
+ */
+export type WbsNodeCountOutputTypeCountSectionAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SectionAssignmentWhereInput
+}
+
+/**
+ * WbsNodeCountOutputType without action
+ */
+export type WbsNodeCountOutputTypeCountPlanSubmissionsAsRootArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * WbsNodeCountOutputType without action
+ */
+export type WbsNodeCountOutputTypeCountOversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightAssignmentWhereInput
+}
+
+/**
+ * WbsNodeCountOutputType without action
+ */
+export type WbsNodeCountOutputTypeCountOversightDailyEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightDailyEntryWhereInput
+}
+
+/**
+ * WbsNodeCountOutputType without action
+ */
+export type WbsNodeCountOutputTypeCountResourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
 
 export type WbsNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -6434,6 +8788,8 @@ export type WbsNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   plannedStartDate?: boolean
   plannedEndDate?: boolean
   status?: boolean
+  weightPercent?: boolean
+  planSubmissionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -6464,6 +8820,12 @@ export type WbsNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   lessonsLearned?: boolean | Prisma.WbsNode$lessonsLearnedArgs<ExtArgs>
   contractsAsScope?: boolean | Prisma.WbsNode$contractsAsScopeArgs<ExtArgs>
   disputeRecords?: boolean | Prisma.WbsNode$disputeRecordsArgs<ExtArgs>
+  sectionAssignments?: boolean | Prisma.WbsNode$sectionAssignmentsArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
+  planSubmissionsAsRoot?: boolean | Prisma.WbsNode$planSubmissionsAsRootArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.WbsNode$oversightAssignmentsArgs<ExtArgs>
+  oversightDailyEntries?: boolean | Prisma.WbsNode$oversightDailyEntriesArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.WbsNode$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.WbsNodeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["wbsNode"]>
 
@@ -6478,10 +8840,13 @@ export type WbsNodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   plannedStartDate?: boolean
   plannedEndDate?: boolean
   status?: boolean
+  weightPercent?: boolean
+  planSubmissionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.WbsNode$parentArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
 }, ExtArgs["result"]["wbsNode"]>
 
 export type WbsNodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -6495,10 +8860,13 @@ export type WbsNodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   plannedStartDate?: boolean
   plannedEndDate?: boolean
   status?: boolean
+  weightPercent?: boolean
+  planSubmissionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.WbsNode$parentArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
 }, ExtArgs["result"]["wbsNode"]>
 
 export type WbsNodeSelectScalar = {
@@ -6512,11 +8880,13 @@ export type WbsNodeSelectScalar = {
   plannedStartDate?: boolean
   plannedEndDate?: boolean
   status?: boolean
+  weightPercent?: boolean
+  planSubmissionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type WbsNodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "parentId" | "code" | "name" | "nodeType" | "designReady" | "plannedStartDate" | "plannedEndDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["wbsNode"]>
+export type WbsNodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "parentId" | "code" | "name" | "nodeType" | "designReady" | "plannedStartDate" | "plannedEndDate" | "status" | "weightPercent" | "planSubmissionId" | "createdAt" | "updatedAt", ExtArgs["result"]["wbsNode"]>
 export type WbsNodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.WbsNode$parentArgs<ExtArgs>
@@ -6546,15 +8916,23 @@ export type WbsNodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   lessonsLearned?: boolean | Prisma.WbsNode$lessonsLearnedArgs<ExtArgs>
   contractsAsScope?: boolean | Prisma.WbsNode$contractsAsScopeArgs<ExtArgs>
   disputeRecords?: boolean | Prisma.WbsNode$disputeRecordsArgs<ExtArgs>
+  sectionAssignments?: boolean | Prisma.WbsNode$sectionAssignmentsArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
+  planSubmissionsAsRoot?: boolean | Prisma.WbsNode$planSubmissionsAsRootArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.WbsNode$oversightAssignmentsArgs<ExtArgs>
+  oversightDailyEntries?: boolean | Prisma.WbsNode$oversightDailyEntriesArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.WbsNode$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.WbsNodeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WbsNodeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.WbsNode$parentArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
 }
 export type WbsNodeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.WbsNode$parentArgs<ExtArgs>
+  planSubmission?: boolean | Prisma.WbsNode$planSubmissionArgs<ExtArgs>
 }
 
 export type $WbsNodePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6588,6 +8966,12 @@ export type $WbsNodePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     lessonsLearned: Prisma.$LessonsLearnedPayload<ExtArgs>[]
     contractsAsScope: Prisma.$ContractPayload<ExtArgs>[]
     disputeRecords: Prisma.$DisputeRecordPayload<ExtArgs>[]
+    sectionAssignments: Prisma.$SectionAssignmentPayload<ExtArgs>[]
+    planSubmission: Prisma.$WbsPlanSubmissionPayload<ExtArgs> | null
+    planSubmissionsAsRoot: Prisma.$WbsPlanSubmissionPayload<ExtArgs>[]
+    oversightAssignments: Prisma.$OversightAssignmentPayload<ExtArgs>[]
+    oversightDailyEntries: Prisma.$OversightDailyEntryPayload<ExtArgs>[]
+    resourceRequests: Prisma.$ResourceRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6599,7 +8983,20 @@ export type $WbsNodePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     designReady: boolean
     plannedStartDate: Date | null
     plannedEndDate: Date | null
-    status: string
+    status: $Enums.WbsNodeStatus
+    /**
+     * This node's share of its PARENT's completion, 0-100 (file 20 §2.2).
+     * Siblings must sum to 100 (the enforced "100% Rule"). Null on root nodes,
+     * which are 100% of their own subtree by definition, and null on legacy
+     * nodes created before weighting existed — the rollup falls back to equal
+     * weighting among unweighted siblings rather than silently scoring them 0.
+     */
+    weightPercent: runtime.Decimal | null
+    /**
+     * Set when this node was created as part of a subcontractor's plan
+     * submission; nodes stay DRAFT until that submission is approved.
+     */
+    planSubmissionId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["wbsNode"]>
@@ -7024,6 +9421,12 @@ export interface Prisma__WbsNodeClient<T, Null = never, ExtArgs extends runtime.
   lessonsLearned<T extends Prisma.WbsNode$lessonsLearnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$lessonsLearnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonsLearnedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contractsAsScope<T extends Prisma.WbsNode$contractsAsScopeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$contractsAsScopeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputeRecords<T extends Prisma.WbsNode$disputeRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$disputeRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputeRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sectionAssignments<T extends Prisma.WbsNode$sectionAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$sectionAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSubmission<T extends Prisma.WbsNode$planSubmissionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$planSubmissionArgs<ExtArgs>>): Prisma.Prisma__WbsPlanSubmissionClient<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  planSubmissionsAsRoot<T extends Prisma.WbsNode$planSubmissionsAsRootArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$planSubmissionsAsRootArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightAssignments<T extends Prisma.WbsNode$oversightAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$oversightAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightDailyEntries<T extends Prisma.WbsNode$oversightDailyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$oversightDailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequests<T extends Prisma.WbsNode$resourceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$resourceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7062,7 +9465,9 @@ export interface WbsNodeFieldRefs {
   readonly designReady: Prisma.FieldRef<"WbsNode", 'Boolean'>
   readonly plannedStartDate: Prisma.FieldRef<"WbsNode", 'DateTime'>
   readonly plannedEndDate: Prisma.FieldRef<"WbsNode", 'DateTime'>
-  readonly status: Prisma.FieldRef<"WbsNode", 'String'>
+  readonly status: Prisma.FieldRef<"WbsNode", 'WbsNodeStatus'>
+  readonly weightPercent: Prisma.FieldRef<"WbsNode", 'Decimal'>
+  readonly planSubmissionId: Prisma.FieldRef<"WbsNode", 'String'>
   readonly createdAt: Prisma.FieldRef<"WbsNode", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"WbsNode", 'DateTime'>
 }
@@ -8101,6 +10506,145 @@ export type WbsNode$disputeRecordsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.DisputeRecordScalarFieldEnum | Prisma.DisputeRecordScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.sectionAssignments
+ */
+export type WbsNode$sectionAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SectionAssignment
+   */
+  select?: Prisma.SectionAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SectionAssignment
+   */
+  omit?: Prisma.SectionAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SectionAssignmentInclude<ExtArgs> | null
+  where?: Prisma.SectionAssignmentWhereInput
+  orderBy?: Prisma.SectionAssignmentOrderByWithRelationInput | Prisma.SectionAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.SectionAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SectionAssignmentScalarFieldEnum | Prisma.SectionAssignmentScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.planSubmission
+ */
+export type WbsNode$planSubmissionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * WbsNode.planSubmissionsAsRoot
+ */
+export type WbsNode$planSubmissionsAsRootArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+  orderBy?: Prisma.WbsPlanSubmissionOrderByWithRelationInput | Prisma.WbsPlanSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.WbsPlanSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WbsPlanSubmissionScalarFieldEnum | Prisma.WbsPlanSubmissionScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.oversightAssignments
+ */
+export type WbsNode$oversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightAssignment
+   */
+  select?: Prisma.OversightAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightAssignment
+   */
+  omit?: Prisma.OversightAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightAssignmentInclude<ExtArgs> | null
+  where?: Prisma.OversightAssignmentWhereInput
+  orderBy?: Prisma.OversightAssignmentOrderByWithRelationInput | Prisma.OversightAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.OversightAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightAssignmentScalarFieldEnum | Prisma.OversightAssignmentScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.oversightDailyEntries
+ */
+export type WbsNode$oversightDailyEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightDailyEntry
+   */
+  select?: Prisma.OversightDailyEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightDailyEntry
+   */
+  omit?: Prisma.OversightDailyEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightDailyEntryInclude<ExtArgs> | null
+  where?: Prisma.OversightDailyEntryWhereInput
+  orderBy?: Prisma.OversightDailyEntryOrderByWithRelationInput | Prisma.OversightDailyEntryOrderByWithRelationInput[]
+  cursor?: Prisma.OversightDailyEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightDailyEntryScalarFieldEnum | Prisma.OversightDailyEntryScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.resourceRequests
+ */
+export type WbsNode$resourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
 }
 
 /**

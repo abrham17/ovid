@@ -440,9 +440,14 @@ export const ModelName = {
   PurchaseOrderItem: 'PurchaseOrderItem',
   MaterialReceipt: 'MaterialReceipt',
   BidTender: 'BidTender',
+  SectionAssignment: 'SectionAssignment',
   Notification: 'Notification',
   ReviewComment: 'ReviewComment',
-  ScheduleChangeRequest: 'ScheduleChangeRequest'
+  ScheduleChangeRequest: 'ScheduleChangeRequest',
+  WbsPlanSubmission: 'WbsPlanSubmission',
+  OversightAssignment: 'OversightAssignment',
+  OversightDailyEntry: 'OversightDailyEntry',
+  ResourceRequest: 'ResourceRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -458,7 +463,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "user" | "projectMembership" | "documentTemplate" | "signOff" | "project" | "invitation" | "contract" | "wbsNode" | "scheduleActivity" | "activityAssignment" | "scheduleDependency" | "pendingDependencyRequest" | "stoppageEntry" | "earthworkDailyEntry" | "structureDailyEntry" | "rebarDailyEntry" | "boqItem" | "costActual" | "measurementEntry" | "variationOrder" | "riskEntry" | "safetyObservation" | "safetyIncident" | "inspectionTestRecord" | "defectLog" | "disputeRecord" | "punchListItem" | "employee" | "laborAttendance" | "laborAssignment" | "equipment" | "equipmentUsageLog" | "materialItem" | "materialDemand" | "custodyLog" | "structuralElement" | "weightFactor" | "rebarLine" | "formworkLine" | "elementProgress" | "regulatoryReport" | "auditLog" | "projectDocument" | "decisionLog" | "lessonsLearned" | "purchaseOrder" | "purchaseOrderItem" | "materialReceipt" | "bidTender" | "notification" | "reviewComment" | "scheduleChangeRequest"
+    modelProps: "organization" | "user" | "projectMembership" | "documentTemplate" | "signOff" | "project" | "invitation" | "contract" | "wbsNode" | "scheduleActivity" | "activityAssignment" | "scheduleDependency" | "pendingDependencyRequest" | "stoppageEntry" | "earthworkDailyEntry" | "structureDailyEntry" | "rebarDailyEntry" | "boqItem" | "costActual" | "measurementEntry" | "variationOrder" | "riskEntry" | "safetyObservation" | "safetyIncident" | "inspectionTestRecord" | "defectLog" | "disputeRecord" | "punchListItem" | "employee" | "laborAttendance" | "laborAssignment" | "equipment" | "equipmentUsageLog" | "materialItem" | "materialDemand" | "custodyLog" | "structuralElement" | "weightFactor" | "rebarLine" | "formworkLine" | "elementProgress" | "regulatoryReport" | "auditLog" | "projectDocument" | "decisionLog" | "lessonsLearned" | "purchaseOrder" | "purchaseOrderItem" | "materialReceipt" | "bidTender" | "sectionAssignment" | "notification" | "reviewComment" | "scheduleChangeRequest" | "wbsPlanSubmission" | "oversightAssignment" | "oversightDailyEntry" | "resourceRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4162,6 +4167,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SectionAssignment: {
+      payload: Prisma.$SectionAssignmentPayload<ExtArgs>
+      fields: Prisma.SectionAssignmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SectionAssignmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SectionAssignmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        findFirst: {
+          args: Prisma.SectionAssignmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SectionAssignmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        findMany: {
+          args: Prisma.SectionAssignmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>[]
+        }
+        create: {
+          args: Prisma.SectionAssignmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        createMany: {
+          args: Prisma.SectionAssignmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SectionAssignmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>[]
+        }
+        delete: {
+          args: Prisma.SectionAssignmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        update: {
+          args: Prisma.SectionAssignmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.SectionAssignmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SectionAssignmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SectionAssignmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.SectionAssignmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SectionAssignmentPayload>
+        }
+        aggregate: {
+          args: Prisma.SectionAssignmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSectionAssignment>
+        }
+        groupBy: {
+          args: Prisma.SectionAssignmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SectionAssignmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SectionAssignmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SectionAssignmentCountAggregateOutputType> | number
+        }
+      }
+    }
     Notification: {
       payload: Prisma.$NotificationPayload<ExtArgs>
       fields: Prisma.NotificationFieldRefs
@@ -4384,6 +4463,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WbsPlanSubmission: {
+      payload: Prisma.$WbsPlanSubmissionPayload<ExtArgs>
+      fields: Prisma.WbsPlanSubmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WbsPlanSubmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WbsPlanSubmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.WbsPlanSubmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WbsPlanSubmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        findMany: {
+          args: Prisma.WbsPlanSubmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>[]
+        }
+        create: {
+          args: Prisma.WbsPlanSubmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        createMany: {
+          args: Prisma.WbsPlanSubmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WbsPlanSubmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.WbsPlanSubmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        update: {
+          args: Prisma.WbsPlanSubmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.WbsPlanSubmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WbsPlanSubmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WbsPlanSubmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.WbsPlanSubmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WbsPlanSubmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.WbsPlanSubmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWbsPlanSubmission>
+        }
+        groupBy: {
+          args: Prisma.WbsPlanSubmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WbsPlanSubmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WbsPlanSubmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WbsPlanSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
+    OversightAssignment: {
+      payload: Prisma.$OversightAssignmentPayload<ExtArgs>
+      fields: Prisma.OversightAssignmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OversightAssignmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OversightAssignmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        findFirst: {
+          args: Prisma.OversightAssignmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OversightAssignmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        findMany: {
+          args: Prisma.OversightAssignmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>[]
+        }
+        create: {
+          args: Prisma.OversightAssignmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        createMany: {
+          args: Prisma.OversightAssignmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OversightAssignmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>[]
+        }
+        delete: {
+          args: Prisma.OversightAssignmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        update: {
+          args: Prisma.OversightAssignmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.OversightAssignmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OversightAssignmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OversightAssignmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.OversightAssignmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightAssignmentPayload>
+        }
+        aggregate: {
+          args: Prisma.OversightAssignmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOversightAssignment>
+        }
+        groupBy: {
+          args: Prisma.OversightAssignmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OversightAssignmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OversightAssignmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OversightAssignmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    OversightDailyEntry: {
+      payload: Prisma.$OversightDailyEntryPayload<ExtArgs>
+      fields: Prisma.OversightDailyEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OversightDailyEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OversightDailyEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.OversightDailyEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OversightDailyEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        findMany: {
+          args: Prisma.OversightDailyEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>[]
+        }
+        create: {
+          args: Prisma.OversightDailyEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        createMany: {
+          args: Prisma.OversightDailyEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OversightDailyEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.OversightDailyEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        update: {
+          args: Prisma.OversightDailyEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.OversightDailyEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OversightDailyEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OversightDailyEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.OversightDailyEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OversightDailyEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.OversightDailyEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOversightDailyEntry>
+        }
+        groupBy: {
+          args: Prisma.OversightDailyEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OversightDailyEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OversightDailyEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OversightDailyEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    ResourceRequest: {
+      payload: Prisma.$ResourceRequestPayload<ExtArgs>
+      fields: Prisma.ResourceRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ResourceRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ResourceRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.ResourceRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ResourceRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        findMany: {
+          args: Prisma.ResourceRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>[]
+        }
+        create: {
+          args: Prisma.ResourceRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        createMany: {
+          args: Prisma.ResourceRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ResourceRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.ResourceRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        update: {
+          args: Prisma.ResourceRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.ResourceRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ResourceRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ResourceRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.ResourceRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourceRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.ResourceRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateResourceRequest>
+        }
+        groupBy: {
+          args: Prisma.ResourceRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResourceRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ResourceRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResourceRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4571,6 +4946,8 @@ export const WbsNodeScalarFieldEnum = {
   plannedStartDate: 'plannedStartDate',
   plannedEndDate: 'plannedEndDate',
   status: 'status',
+  weightPercent: 'weightPercent',
+  planSubmissionId: 'planSubmissionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -4590,6 +4967,7 @@ export const ScheduleActivityScalarFieldEnum = {
   actualFinish: 'actualFinish',
   progressPercent: 'progressPercent',
   status: 'status',
+  weightPercent: 'weightPercent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -5005,7 +5383,8 @@ export const MaterialDemandScalarFieldEnum = {
   materialItemId: 'materialItemId',
   neededByDate: 'neededByDate',
   quantityNeeded: 'quantityNeeded',
-  quantityDelivered: 'quantityDelivered'
+  quantityDelivered: 'quantityDelivered',
+  requestedForContractId: 'requestedForContractId'
 } as const
 
 export type MaterialDemandScalarFieldEnum = (typeof MaterialDemandScalarFieldEnum)[keyof typeof MaterialDemandScalarFieldEnum]
@@ -5228,6 +5607,21 @@ export const BidTenderScalarFieldEnum = {
 export type BidTenderScalarFieldEnum = (typeof BidTenderScalarFieldEnum)[keyof typeof BidTenderScalarFieldEnum]
 
 
+export const SectionAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  wbsNodeId: 'wbsNodeId',
+  role: 'role',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt',
+  supersededById: 'supersededById'
+} as const
+
+export type SectionAssignmentScalarFieldEnum = (typeof SectionAssignmentScalarFieldEnum)[keyof typeof SectionAssignmentScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -5277,6 +5671,92 @@ export const ScheduleChangeRequestScalarFieldEnum = {
 } as const
 
 export type ScheduleChangeRequestScalarFieldEnum = (typeof ScheduleChangeRequestScalarFieldEnum)[keyof typeof ScheduleChangeRequestScalarFieldEnum]
+
+
+export const WbsPlanSubmissionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  rootWbsNodeId: 'rootWbsNodeId',
+  title: 'title',
+  status: 'status',
+  createdById: 'createdById',
+  submittedById: 'submittedById',
+  submittedAt: 'submittedAt',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  reviewComments: 'reviewComments',
+  validationSummary: 'validationSummary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WbsPlanSubmissionScalarFieldEnum = (typeof WbsPlanSubmissionScalarFieldEnum)[keyof typeof WbsPlanSubmissionScalarFieldEnum]
+
+
+export const OversightAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  contractId: 'contractId',
+  scopeWbsNodeId: 'scopeWbsNodeId',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt',
+  supersededById: 'supersededById'
+} as const
+
+export type OversightAssignmentScalarFieldEnum = (typeof OversightAssignmentScalarFieldEnum)[keyof typeof OversightAssignmentScalarFieldEnum]
+
+
+export const OversightDailyEntryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  wbsNodeId: 'wbsNodeId',
+  oversightAssignmentId: 'oversightAssignmentId',
+  date: 'date',
+  activityDescription: 'activityDescription',
+  observedQuantity: 'observedQuantity',
+  observedUnit: 'observedUnit',
+  reportedQuantity: 'reportedQuantity',
+  quantityAssessment: 'quantityAssessment',
+  qualityAssessment: 'qualityAssessment',
+  concernsRaised: 'concernsRaised',
+  manpowerObserved: 'manpowerObserved',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OversightDailyEntryScalarFieldEnum = (typeof OversightDailyEntryScalarFieldEnum)[keyof typeof OversightDailyEntryScalarFieldEnum]
+
+
+export const ResourceRequestScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  wbsNodeId: 'wbsNodeId',
+  kind: 'kind',
+  materialItemId: 'materialItemId',
+  equipmentId: 'equipmentId',
+  description: 'description',
+  quantity: 'quantity',
+  unit: 'unit',
+  neededByDate: 'neededByDate',
+  justification: 'justification',
+  status: 'status',
+  requestedById: 'requestedById',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  decisionReason: 'decisionReason',
+  materialDemandId: 'materialDemandId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResourceRequestScalarFieldEnum = (typeof ResourceRequestScalarFieldEnum)[keyof typeof ResourceRequestScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -5561,6 +6041,20 @@ export type EnumWBSNodeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'WBSNodeType[]'
  */
 export type ListEnumWBSNodeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WBSNodeType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WbsNodeStatus'
+ */
+export type EnumWbsNodeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WbsNodeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WbsNodeStatus[]'
+ */
+export type ListEnumWbsNodeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WbsNodeStatus[]'>
     
 
 
@@ -6013,6 +6507,20 @@ export type ListEnumBidStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'SectionAssignmentRole'
+ */
+export type EnumSectionAssignmentRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SectionAssignmentRole'>
+    
+
+
+/**
+ * Reference to a field of type 'SectionAssignmentRole[]'
+ */
+export type ListEnumSectionAssignmentRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SectionAssignmentRole[]'>
+    
+
+
+/**
  * Reference to a field of type 'NotificationType'
  */
 export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
@@ -6037,6 +6545,62 @@ export type EnumScheduleChangeStatusFieldRefInput<$PrismaModel> = FieldRefInputT
  * Reference to a field of type 'ScheduleChangeStatus[]'
  */
 export type ListEnumScheduleChangeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScheduleChangeStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WbsPlanSubmissionStatus'
+ */
+export type EnumWbsPlanSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WbsPlanSubmissionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WbsPlanSubmissionStatus[]'
+ */
+export type ListEnumWbsPlanSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WbsPlanSubmissionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'OversightAssessment'
+ */
+export type EnumOversightAssessmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OversightAssessment'>
+    
+
+
+/**
+ * Reference to a field of type 'OversightAssessment[]'
+ */
+export type ListEnumOversightAssessmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OversightAssessment[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ResourceRequestKind'
+ */
+export type EnumResourceRequestKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceRequestKind'>
+    
+
+
+/**
+ * Reference to a field of type 'ResourceRequestKind[]'
+ */
+export type ListEnumResourceRequestKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceRequestKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ResourceRequestStatus'
+ */
+export type EnumResourceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ResourceRequestStatus[]'
+ */
+export type ListEnumResourceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceRequestStatus[]'>
     
 
 
@@ -6190,9 +6754,14 @@ export type GlobalOmitConfig = {
   purchaseOrderItem?: Prisma.PurchaseOrderItemOmit
   materialReceipt?: Prisma.MaterialReceiptOmit
   bidTender?: Prisma.BidTenderOmit
+  sectionAssignment?: Prisma.SectionAssignmentOmit
   notification?: Prisma.NotificationOmit
   reviewComment?: Prisma.ReviewCommentOmit
   scheduleChangeRequest?: Prisma.ScheduleChangeRequestOmit
+  wbsPlanSubmission?: Prisma.WbsPlanSubmissionOmit
+  oversightAssignment?: Prisma.OversightAssignmentOmit
+  oversightDailyEntry?: Prisma.OversightDailyEntryOmit
+  resourceRequest?: Prisma.ResourceRequestOmit
 }
 
 /* Types for Logging */

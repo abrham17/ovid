@@ -209,6 +209,7 @@ export type EquipmentWhereInput = {
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   usageLogs?: Prisma.EquipmentUsageLogListRelationFilter
   custodyLogs?: Prisma.CustodyLogListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }
 
 export type EquipmentOrderByWithRelationInput = {
@@ -223,6 +224,7 @@ export type EquipmentOrderByWithRelationInput = {
   organization?: Prisma.OrganizationOrderByWithRelationInput
   usageLogs?: Prisma.EquipmentUsageLogOrderByRelationAggregateInput
   custodyLogs?: Prisma.CustodyLogOrderByRelationAggregateInput
+  resourceRequests?: Prisma.ResourceRequestOrderByRelationAggregateInput
 }
 
 export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +242,7 @@ export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   usageLogs?: Prisma.EquipmentUsageLogListRelationFilter
   custodyLogs?: Prisma.CustodyLogListRelationFilter
+  resourceRequests?: Prisma.ResourceRequestListRelationFilter
 }, "id">
 
 export type EquipmentOrderByWithAggregationInput = {
@@ -281,6 +284,7 @@ export type EquipmentCreateInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateInput = {
@@ -294,6 +298,7 @@ export type EquipmentUncheckedCreateInput = {
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUpdateInput = {
@@ -307,6 +312,7 @@ export type EquipmentUpdateInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateInput = {
@@ -320,6 +326,7 @@ export type EquipmentUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyInput = {
@@ -479,6 +486,22 @@ export type EquipmentUpdateOneWithoutCustodyLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EquipmentUpdateToOneWithWhereWithoutCustodyLogsInput, Prisma.EquipmentUpdateWithoutCustodyLogsInput>, Prisma.EquipmentUncheckedUpdateWithoutCustodyLogsInput>
 }
 
+export type EquipmentCreateNestedOneWithoutResourceRequestsInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutResourceRequestsInput
+  connect?: Prisma.EquipmentWhereUniqueInput
+}
+
+export type EquipmentUpdateOneWithoutResourceRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedCreateWithoutResourceRequestsInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutResourceRequestsInput
+  upsert?: Prisma.EquipmentUpsertWithoutResourceRequestsInput
+  disconnect?: Prisma.EquipmentWhereInput | boolean
+  delete?: Prisma.EquipmentWhereInput | boolean
+  connect?: Prisma.EquipmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EquipmentUpdateToOneWithWhereWithoutResourceRequestsInput, Prisma.EquipmentUpdateWithoutResourceRequestsInput>, Prisma.EquipmentUncheckedUpdateWithoutResourceRequestsInput>
+}
+
 export type EquipmentCreateWithoutOrganizationInput = {
   id?: string
   equipmentType: string
@@ -489,6 +512,7 @@ export type EquipmentCreateWithoutOrganizationInput = {
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutOrganizationInput = {
@@ -501,6 +525,7 @@ export type EquipmentUncheckedCreateWithoutOrganizationInput = {
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutOrganizationInput = {
@@ -553,6 +578,7 @@ export type EquipmentCreateWithoutUsageLogsInput = {
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutUsageLogsInput = {
@@ -565,6 +591,7 @@ export type EquipmentUncheckedCreateWithoutUsageLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutUsageLogsInput = {
@@ -593,6 +620,7 @@ export type EquipmentUpdateWithoutUsageLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutUsageLogsInput = {
@@ -605,6 +633,7 @@ export type EquipmentUncheckedUpdateWithoutUsageLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateWithoutCustodyLogsInput = {
@@ -617,6 +646,7 @@ export type EquipmentCreateWithoutCustodyLogsInput = {
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutCustodyLogsInput = {
@@ -629,6 +659,7 @@ export type EquipmentUncheckedCreateWithoutCustodyLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutCustodyLogsInput = {
@@ -657,6 +688,7 @@ export type EquipmentUpdateWithoutCustodyLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutCustodyLogsInput = {
@@ -669,6 +701,75 @@ export type EquipmentUncheckedUpdateWithoutCustodyLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
+}
+
+export type EquipmentCreateWithoutResourceRequestsInput = {
+  id?: string
+  equipmentType: string
+  plateNo?: string | null
+  serialNo?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
+  usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
+  custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentUncheckedCreateWithoutResourceRequestsInput = {
+  id?: string
+  organizationId: string
+  equipmentType: string
+  plateNo?: string | null
+  serialNo?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
+  custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentCreateOrConnectWithoutResourceRequestsInput = {
+  where: Prisma.EquipmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedCreateWithoutResourceRequestsInput>
+}
+
+export type EquipmentUpsertWithoutResourceRequestsInput = {
+  update: Prisma.XOR<Prisma.EquipmentUpdateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedUpdateWithoutResourceRequestsInput>
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedCreateWithoutResourceRequestsInput>
+  where?: Prisma.EquipmentWhereInput
+}
+
+export type EquipmentUpdateToOneWithWhereWithoutResourceRequestsInput = {
+  where?: Prisma.EquipmentWhereInput
+  data: Prisma.XOR<Prisma.EquipmentUpdateWithoutResourceRequestsInput, Prisma.EquipmentUncheckedUpdateWithoutResourceRequestsInput>
+}
+
+export type EquipmentUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  equipmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  plateNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
+  usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
+  custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+}
+
+export type EquipmentUncheckedUpdateWithoutResourceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  equipmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  plateNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyOrganizationInput = {
@@ -691,6 +792,7 @@ export type EquipmentUpdateWithoutOrganizationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutOrganizationInput = {
@@ -703,6 +805,7 @@ export type EquipmentUncheckedUpdateWithoutOrganizationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateManyWithoutOrganizationInput = {
@@ -723,11 +826,13 @@ export type EquipmentUncheckedUpdateManyWithoutOrganizationInput = {
 export type EquipmentCountOutputType = {
   usageLogs: number
   custodyLogs: number
+  resourceRequests: number
 }
 
 export type EquipmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usageLogs?: boolean | EquipmentCountOutputTypeCountUsageLogsArgs
   custodyLogs?: boolean | EquipmentCountOutputTypeCountCustodyLogsArgs
+  resourceRequests?: boolean | EquipmentCountOutputTypeCountResourceRequestsArgs
 }
 
 /**
@@ -754,6 +859,13 @@ export type EquipmentCountOutputTypeCountCustodyLogsArgs<ExtArgs extends runtime
   where?: Prisma.CustodyLogWhereInput
 }
 
+/**
+ * EquipmentCountOutputType without action
+ */
+export type EquipmentCountOutputTypeCountResourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
 
 export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -767,6 +879,7 @@ export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   usageLogs?: boolean | Prisma.Equipment$usageLogsArgs<ExtArgs>
   custodyLogs?: boolean | Prisma.Equipment$custodyLogsArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.Equipment$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["equipment"]>
 
@@ -810,6 +923,7 @@ export type EquipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   usageLogs?: boolean | Prisma.Equipment$usageLogsArgs<ExtArgs>
   custodyLogs?: boolean | Prisma.Equipment$custodyLogsArgs<ExtArgs>
+  resourceRequests?: boolean | Prisma.Equipment$resourceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EquipmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -825,6 +939,7 @@ export type $EquipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     organization: Prisma.$OrganizationPayload<ExtArgs>
     usageLogs: Prisma.$EquipmentUsageLogPayload<ExtArgs>[]
     custodyLogs: Prisma.$CustodyLogPayload<ExtArgs>[]
+    resourceRequests: Prisma.$ResourceRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1232,6 +1347,7 @@ export interface Prisma__EquipmentClient<T, Null = never, ExtArgs extends runtim
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usageLogs<T extends Prisma.Equipment$usageLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$usageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   custodyLogs<T extends Prisma.Equipment$custodyLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$custodyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustodyLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequests<T extends Prisma.Equipment$resourceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$resourceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1710,6 +1826,30 @@ export type Equipment$custodyLogsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.CustodyLogScalarFieldEnum | Prisma.CustodyLogScalarFieldEnum[]
+}
+
+/**
+ * Equipment.resourceRequests
+ */
+export type Equipment$resourceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
 }
 
 /**

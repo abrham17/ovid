@@ -262,6 +262,8 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   activityAssignments?: Prisma.ActivityAssignmentListRelationFilter
   assignedAssignments?: Prisma.ActivityAssignmentListRelationFilter
+  sectionAssignments?: Prisma.SectionAssignmentListRelationFilter
+  assignedSections?: Prisma.SectionAssignmentListRelationFilter
   dependencyRequestsMade?: Prisma.PendingDependencyRequestListRelationFilter
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestListRelationFilter
   disputesOpened?: Prisma.DisputeRecordListRelationFilter
@@ -269,6 +271,14 @@ export type UserWhereInput = {
   reviewComments?: Prisma.ReviewCommentListRelationFilter
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestListRelationFilter
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestListRelationFilter
+  plansCreated?: Prisma.WbsPlanSubmissionListRelationFilter
+  plansSubmitted?: Prisma.WbsPlanSubmissionListRelationFilter
+  plansReviewed?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  assignedOversights?: Prisma.OversightAssignmentListRelationFilter
+  oversightEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequestsMade?: Prisma.ResourceRequestListRelationFilter
+  resourceRequestsReviewed?: Prisma.ResourceRequestListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -308,6 +318,8 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   activityAssignments?: Prisma.ActivityAssignmentOrderByRelationAggregateInput
   assignedAssignments?: Prisma.ActivityAssignmentOrderByRelationAggregateInput
+  sectionAssignments?: Prisma.SectionAssignmentOrderByRelationAggregateInput
+  assignedSections?: Prisma.SectionAssignmentOrderByRelationAggregateInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestOrderByRelationAggregateInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestOrderByRelationAggregateInput
   disputesOpened?: Prisma.DisputeRecordOrderByRelationAggregateInput
@@ -315,6 +327,14 @@ export type UserOrderByWithRelationInput = {
   reviewComments?: Prisma.ReviewCommentOrderByRelationAggregateInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestOrderByRelationAggregateInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestOrderByRelationAggregateInput
+  plansCreated?: Prisma.WbsPlanSubmissionOrderByRelationAggregateInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionOrderByRelationAggregateInput
+  plansReviewed?: Prisma.WbsPlanSubmissionOrderByRelationAggregateInput
+  oversightAssignments?: Prisma.OversightAssignmentOrderByRelationAggregateInput
+  assignedOversights?: Prisma.OversightAssignmentOrderByRelationAggregateInput
+  oversightEntries?: Prisma.OversightDailyEntryOrderByRelationAggregateInput
+  resourceRequestsMade?: Prisma.ResourceRequestOrderByRelationAggregateInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -357,6 +377,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   activityAssignments?: Prisma.ActivityAssignmentListRelationFilter
   assignedAssignments?: Prisma.ActivityAssignmentListRelationFilter
+  sectionAssignments?: Prisma.SectionAssignmentListRelationFilter
+  assignedSections?: Prisma.SectionAssignmentListRelationFilter
   dependencyRequestsMade?: Prisma.PendingDependencyRequestListRelationFilter
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestListRelationFilter
   disputesOpened?: Prisma.DisputeRecordListRelationFilter
@@ -364,6 +386,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewComments?: Prisma.ReviewCommentListRelationFilter
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestListRelationFilter
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestListRelationFilter
+  plansCreated?: Prisma.WbsPlanSubmissionListRelationFilter
+  plansSubmitted?: Prisma.WbsPlanSubmissionListRelationFilter
+  plansReviewed?: Prisma.WbsPlanSubmissionListRelationFilter
+  oversightAssignments?: Prisma.OversightAssignmentListRelationFilter
+  assignedOversights?: Prisma.OversightAssignmentListRelationFilter
+  oversightEntries?: Prisma.OversightDailyEntryListRelationFilter
+  resourceRequestsMade?: Prisma.ResourceRequestListRelationFilter
+  resourceRequestsReviewed?: Prisma.ResourceRequestListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -438,6 +468,8 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -445,6 +477,14 @@ export type UserCreateInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -483,6 +523,8 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -490,6 +532,14 @@ export type UserUncheckedCreateInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUpdateInput = {
@@ -528,6 +578,8 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -535,6 +587,14 @@ export type UserUpdateInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -573,6 +633,8 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -580,6 +642,14 @@ export type UserUncheckedUpdateInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1119,6 +1189,34 @@ export type UserUpdateOneWithoutBidsSubmittedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidsSubmittedInput, Prisma.UserUpdateWithoutBidsSubmittedInput>, Prisma.UserUncheckedUpdateWithoutBidsSubmittedInput>
 }
 
+export type UserCreateNestedOneWithoutSectionAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSectionAssignmentsInput, Prisma.UserUncheckedCreateWithoutSectionAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSectionAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedSectionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedSectionsInput, Prisma.UserUncheckedCreateWithoutAssignedSectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedSectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSectionAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSectionAssignmentsInput, Prisma.UserUncheckedCreateWithoutSectionAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSectionAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutSectionAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSectionAssignmentsInput, Prisma.UserUpdateWithoutSectionAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutSectionAssignmentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutAssignedSectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedSectionsInput, Prisma.UserUncheckedCreateWithoutAssignedSectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedSectionsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedSectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedSectionsInput, Prisma.UserUpdateWithoutAssignedSectionsInput>, Prisma.UserUncheckedUpdateWithoutAssignedSectionsInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -1177,6 +1275,124 @@ export type UserUpdateOneWithoutScheduleChangesReviewedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutScheduleChangesReviewedInput, Prisma.UserUpdateWithoutScheduleChangesReviewedInput>, Prisma.UserUncheckedUpdateWithoutScheduleChangesReviewedInput>
 }
 
+export type UserCreateNestedOneWithoutPlansCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansCreatedInput, Prisma.UserUncheckedCreateWithoutPlansCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutPlansSubmittedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansSubmittedInput, Prisma.UserUncheckedCreateWithoutPlansSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansSubmittedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutPlansReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansReviewedInput, Prisma.UserUncheckedCreateWithoutPlansReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPlansCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansCreatedInput, Prisma.UserUncheckedCreateWithoutPlansCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansCreatedInput
+  upsert?: Prisma.UserUpsertWithoutPlansCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlansCreatedInput, Prisma.UserUpdateWithoutPlansCreatedInput>, Prisma.UserUncheckedUpdateWithoutPlansCreatedInput>
+}
+
+export type UserUpdateOneWithoutPlansSubmittedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansSubmittedInput, Prisma.UserUncheckedCreateWithoutPlansSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansSubmittedInput
+  upsert?: Prisma.UserUpsertWithoutPlansSubmittedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlansSubmittedInput, Prisma.UserUpdateWithoutPlansSubmittedInput>, Prisma.UserUncheckedUpdateWithoutPlansSubmittedInput>
+}
+
+export type UserUpdateOneWithoutPlansReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlansReviewedInput, Prisma.UserUncheckedCreateWithoutPlansReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlansReviewedInput
+  upsert?: Prisma.UserUpsertWithoutPlansReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlansReviewedInput, Prisma.UserUpdateWithoutPlansReviewedInput>, Prisma.UserUncheckedUpdateWithoutPlansReviewedInput>
+}
+
+export type UserCreateNestedOneWithoutOversightAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOversightAssignmentsInput, Prisma.UserUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOversightAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedOversightsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedOversightsInput, Prisma.UserUncheckedCreateWithoutAssignedOversightsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedOversightsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOversightAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOversightAssignmentsInput, Prisma.UserUncheckedCreateWithoutOversightAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOversightAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutOversightAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOversightAssignmentsInput, Prisma.UserUpdateWithoutOversightAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutAssignedOversightsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedOversightsInput, Prisma.UserUncheckedCreateWithoutAssignedOversightsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedOversightsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedOversightsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedOversightsInput, Prisma.UserUpdateWithoutAssignedOversightsInput>, Prisma.UserUncheckedUpdateWithoutAssignedOversightsInput>
+}
+
+export type UserCreateNestedOneWithoutOversightEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOversightEntriesInput, Prisma.UserUncheckedCreateWithoutOversightEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOversightEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOversightEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOversightEntriesInput, Prisma.UserUncheckedCreateWithoutOversightEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOversightEntriesInput
+  upsert?: Prisma.UserUpsertWithoutOversightEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOversightEntriesInput, Prisma.UserUpdateWithoutOversightEntriesInput>, Prisma.UserUncheckedUpdateWithoutOversightEntriesInput>
+}
+
+export type UserCreateNestedOneWithoutResourceRequestsMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedCreateWithoutResourceRequestsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResourceRequestsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutResourceRequestsReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedCreateWithoutResourceRequestsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResourceRequestsReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutResourceRequestsMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedCreateWithoutResourceRequestsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResourceRequestsMadeInput
+  upsert?: Prisma.UserUpsertWithoutResourceRequestsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResourceRequestsMadeInput, Prisma.UserUpdateWithoutResourceRequestsMadeInput>, Prisma.UserUncheckedUpdateWithoutResourceRequestsMadeInput>
+}
+
+export type UserUpdateOneWithoutResourceRequestsReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedCreateWithoutResourceRequestsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResourceRequestsReviewedInput
+  upsert?: Prisma.UserUpsertWithoutResourceRequestsReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResourceRequestsReviewedInput, Prisma.UserUpdateWithoutResourceRequestsReviewedInput>, Prisma.UserUncheckedUpdateWithoutResourceRequestsReviewedInput>
+}
+
 export type UserCreateWithoutOrganizationInput = {
   id?: string
   fullName: string
@@ -1212,6 +1428,8 @@ export type UserCreateWithoutOrganizationInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -1219,6 +1437,14 @@ export type UserCreateWithoutOrganizationInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -1256,6 +1482,8 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -1263,6 +1491,14 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -1344,6 +1580,8 @@ export type UserCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -1351,6 +1589,14 @@ export type UserCreateWithoutMembershipsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1388,6 +1634,8 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -1395,6 +1643,14 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1448,6 +1704,8 @@ export type UserUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -1455,6 +1713,14 @@ export type UserUpdateWithoutMembershipsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1492,6 +1758,8 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -1499,6 +1767,14 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutSignOffsInput = {
@@ -1536,6 +1812,8 @@ export type UserCreateWithoutSignOffsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -1543,6 +1821,14 @@ export type UserCreateWithoutSignOffsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSignOffsInput = {
@@ -1580,6 +1866,8 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -1587,6 +1875,14 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSignOffsInput = {
@@ -1640,6 +1936,8 @@ export type UserUpdateWithoutSignOffsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -1647,6 +1945,14 @@ export type UserUpdateWithoutSignOffsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSignOffsInput = {
@@ -1684,6 +1990,8 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -1691,6 +1999,14 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutInvitationsSentInput = {
@@ -1728,6 +2044,8 @@ export type UserCreateWithoutInvitationsSentInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -1735,6 +2053,14 @@ export type UserCreateWithoutInvitationsSentInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -1772,6 +2098,8 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -1779,6 +2107,14 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -1821,6 +2157,8 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -1828,6 +2166,14 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
@@ -1865,6 +2211,8 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -1872,6 +2220,14 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutInvitationAcceptedInput = {
@@ -1925,6 +2281,8 @@ export type UserUpdateWithoutInvitationsSentInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -1932,6 +2290,14 @@ export type UserUpdateWithoutInvitationsSentInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -1969,6 +2335,8 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -1976,6 +2344,14 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutInvitationAcceptedInput = {
@@ -2024,6 +2400,8 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -2031,6 +2409,14 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
@@ -2068,6 +2454,8 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -2075,6 +2463,14 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutActivityAssignmentsInput = {
@@ -2112,6 +2508,8 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -2119,6 +2517,14 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
@@ -2156,6 +2562,8 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -2163,6 +2571,14 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutActivityAssignmentsInput = {
@@ -2205,6 +2621,8 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -2212,6 +2630,14 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
@@ -2249,6 +2675,8 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -2256,6 +2684,14 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedAssignmentsInput = {
@@ -2309,6 +2745,8 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -2316,6 +2754,14 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
@@ -2353,6 +2799,8 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -2360,6 +2808,14 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedAssignmentsInput = {
@@ -2408,6 +2864,8 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -2415,6 +2873,14 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
@@ -2452,6 +2918,8 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -2459,6 +2927,14 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutDependencyRequestsMadeInput = {
@@ -2497,12 +2973,22 @@ export type UserCreateWithoutDependencyRequestsMadeInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
@@ -2541,12 +3027,22 @@ export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDependencyRequestsMadeInput = {
@@ -2590,12 +3086,22 @@ export type UserCreateWithoutDependencyRequestsReviewedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
@@ -2634,12 +3140,22 @@ export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDependencyRequestsReviewedInput = {
@@ -2694,12 +3210,22 @@ export type UserUpdateWithoutDependencyRequestsMadeInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
@@ -2738,12 +3264,22 @@ export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutDependencyRequestsReviewedInput = {
@@ -2793,12 +3329,22 @@ export type UserUpdateWithoutDependencyRequestsReviewedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
@@ -2837,12 +3383,22 @@ export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutEarthworkEntriesInput = {
@@ -2880,6 +3436,8 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -2887,6 +3445,14 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
@@ -2924,6 +3490,8 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -2931,6 +3499,14 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutEarthworkEntriesInput = {
@@ -2984,6 +3560,8 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -2991,6 +3569,14 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
@@ -3028,6 +3614,8 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3035,6 +3623,14 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutStructureEntriesInput = {
@@ -3072,6 +3668,8 @@ export type UserCreateWithoutStructureEntriesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -3079,6 +3677,14 @@ export type UserCreateWithoutStructureEntriesInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutStructureEntriesInput = {
@@ -3116,6 +3722,8 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -3123,6 +3731,14 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutStructureEntriesInput = {
@@ -3176,6 +3792,8 @@ export type UserUpdateWithoutStructureEntriesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -3183,6 +3801,14 @@ export type UserUpdateWithoutStructureEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStructureEntriesInput = {
@@ -3220,6 +3846,8 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3227,6 +3855,14 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutRebarEntriesInput = {
@@ -3264,6 +3900,8 @@ export type UserCreateWithoutRebarEntriesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -3271,6 +3909,14 @@ export type UserCreateWithoutRebarEntriesInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutRebarEntriesInput = {
@@ -3308,6 +3954,8 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -3315,6 +3963,14 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutRebarEntriesInput = {
@@ -3368,6 +4024,8 @@ export type UserUpdateWithoutRebarEntriesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -3375,6 +4033,14 @@ export type UserUpdateWithoutRebarEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRebarEntriesInput = {
@@ -3412,6 +4078,8 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3419,6 +4087,14 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutRiskOwnerInput = {
@@ -3456,6 +4132,8 @@ export type UserCreateWithoutRiskOwnerInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -3463,6 +4141,14 @@ export type UserCreateWithoutRiskOwnerInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutRiskOwnerInput = {
@@ -3500,6 +4186,8 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -3507,6 +4195,14 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutRiskOwnerInput = {
@@ -3560,6 +4256,8 @@ export type UserUpdateWithoutRiskOwnerInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -3567,6 +4265,14 @@ export type UserUpdateWithoutRiskOwnerInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRiskOwnerInput = {
@@ -3604,6 +4310,8 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3611,6 +4319,14 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutObservationsInput = {
@@ -3648,6 +4364,8 @@ export type UserCreateWithoutObservationsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -3655,6 +4373,14 @@ export type UserCreateWithoutObservationsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutObservationsInput = {
@@ -3692,6 +4418,8 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -3699,6 +4427,14 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutObservationsInput = {
@@ -3752,6 +4488,8 @@ export type UserUpdateWithoutObservationsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -3759,6 +4497,14 @@ export type UserUpdateWithoutObservationsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutObservationsInput = {
@@ -3796,6 +4542,8 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3803,6 +4551,14 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutIncidentsVerifiedInput = {
@@ -3840,6 +4596,8 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -3847,6 +4605,14 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
@@ -3884,6 +4650,8 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -3891,6 +4659,14 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutIncidentsVerifiedInput = {
@@ -3944,6 +4720,8 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -3951,6 +4729,14 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
@@ -3988,6 +4774,8 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -3995,6 +4783,14 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutInspectionsInput = {
@@ -4032,6 +4828,8 @@ export type UserCreateWithoutInspectionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -4039,6 +4837,14 @@ export type UserCreateWithoutInspectionsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutInspectionsInput = {
@@ -4076,6 +4882,8 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -4083,6 +4891,14 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutInspectionsInput = {
@@ -4136,6 +4952,8 @@ export type UserUpdateWithoutInspectionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -4143,6 +4961,14 @@ export type UserUpdateWithoutInspectionsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInspectionsInput = {
@@ -4180,6 +5006,8 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -4187,6 +5015,14 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutDisputesOpenedInput = {
@@ -4225,12 +5061,22 @@ export type UserCreateWithoutDisputesOpenedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesOpenedInput = {
@@ -4269,12 +5115,22 @@ export type UserUncheckedCreateWithoutDisputesOpenedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesOpenedInput = {
@@ -4318,12 +5174,22 @@ export type UserCreateWithoutDisputesResolvedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
@@ -4362,12 +5228,22 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -4422,12 +5298,22 @@ export type UserUpdateWithoutDisputesOpenedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
@@ -4466,12 +5352,22 @@ export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -4521,12 +5417,22 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
@@ -4565,12 +5471,22 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutCustodyTransfersInput = {
@@ -4608,6 +5524,8 @@ export type UserCreateWithoutCustodyTransfersInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -4615,6 +5533,14 @@ export type UserCreateWithoutCustodyTransfersInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutCustodyTransfersInput = {
@@ -4652,6 +5578,8 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -4659,6 +5587,14 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutCustodyTransfersInput = {
@@ -4701,6 +5637,8 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -4708,6 +5646,14 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
@@ -4745,6 +5691,8 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -4752,6 +5700,14 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutCustodyReceiptsInput = {
@@ -4805,6 +5761,8 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -4812,6 +5770,14 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
@@ -4849,6 +5815,8 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -4856,6 +5824,14 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutCustodyReceiptsInput = {
@@ -4904,6 +5880,8 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -4911,6 +5889,14 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
@@ -4948,6 +5934,8 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -4955,6 +5943,14 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutAuditEntriesInput = {
@@ -4992,6 +5988,8 @@ export type UserCreateWithoutAuditEntriesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -4999,6 +5997,14 @@ export type UserCreateWithoutAuditEntriesInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditEntriesInput = {
@@ -5036,6 +6042,8 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -5043,6 +6051,14 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditEntriesInput = {
@@ -5096,6 +6112,8 @@ export type UserUpdateWithoutAuditEntriesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -5103,6 +6121,14 @@ export type UserUpdateWithoutAuditEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditEntriesInput = {
@@ -5140,6 +6166,8 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -5147,6 +6175,14 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutDocumentsIssuedInput = {
@@ -5184,6 +6220,8 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -5191,6 +6229,14 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
@@ -5228,6 +6274,8 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -5235,6 +6283,14 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsIssuedInput = {
@@ -5277,6 +6333,8 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -5284,6 +6342,14 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
@@ -5321,6 +6387,8 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -5328,6 +6396,14 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsApprovedInput = {
@@ -5381,6 +6457,8 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -5388,6 +6466,14 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
@@ -5425,6 +6511,8 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -5432,6 +6520,14 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutDocumentsApprovedInput = {
@@ -5480,6 +6576,8 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -5487,6 +6585,14 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
@@ -5524,6 +6630,8 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -5531,6 +6639,14 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutDecisionsInput = {
@@ -5568,6 +6684,8 @@ export type UserCreateWithoutDecisionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -5575,6 +6693,14 @@ export type UserCreateWithoutDecisionsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutDecisionsInput = {
@@ -5612,6 +6738,8 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -5619,6 +6747,14 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutDecisionsInput = {
@@ -5672,6 +6808,8 @@ export type UserUpdateWithoutDecisionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -5679,6 +6817,14 @@ export type UserUpdateWithoutDecisionsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDecisionsInput = {
@@ -5716,6 +6862,8 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -5723,6 +6871,14 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutLessonsLearnedInput = {
@@ -5760,6 +6916,8 @@ export type UserCreateWithoutLessonsLearnedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -5767,6 +6925,14 @@ export type UserCreateWithoutLessonsLearnedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutLessonsLearnedInput = {
@@ -5804,6 +6970,8 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -5811,6 +6979,14 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutLessonsLearnedInput = {
@@ -5864,6 +7040,8 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -5871,6 +7049,14 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
@@ -5908,6 +7094,8 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -5915,6 +7103,14 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutMaterialReceiptsInput = {
@@ -5952,6 +7148,8 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -5959,6 +7157,14 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
@@ -5996,6 +7202,8 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -6003,6 +7211,14 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutMaterialReceiptsInput = {
@@ -6056,6 +7272,8 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -6063,6 +7281,14 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
@@ -6100,6 +7326,8 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -6107,6 +7335,14 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutBidsSubmittedInput = {
@@ -6144,6 +7380,8 @@ export type UserCreateWithoutBidsSubmittedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -6151,6 +7389,14 @@ export type UserCreateWithoutBidsSubmittedInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutBidsSubmittedInput = {
@@ -6188,6 +7434,8 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -6195,6 +7443,14 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutBidsSubmittedInput = {
@@ -6248,6 +7504,8 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -6255,6 +7513,14 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
@@ -6292,6 +7558,8 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -6299,6 +7567,478 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutSectionAssignmentsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutSectionAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSectionAssignmentsInput, Prisma.UserUncheckedCreateWithoutSectionAssignmentsInput>
+}
+
+export type UserCreateWithoutAssignedSectionsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedSectionsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedSectionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedSectionsInput, Prisma.UserUncheckedCreateWithoutAssignedSectionsInput>
+}
+
+export type UserUpsertWithoutSectionAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSectionAssignmentsInput, Prisma.UserUncheckedUpdateWithoutSectionAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSectionAssignmentsInput, Prisma.UserUncheckedCreateWithoutSectionAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSectionAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSectionAssignmentsInput, Prisma.UserUncheckedUpdateWithoutSectionAssignmentsInput>
+}
+
+export type UserUpdateWithoutSectionAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedSectionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedSectionsInput, Prisma.UserUncheckedUpdateWithoutAssignedSectionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedSectionsInput, Prisma.UserUncheckedCreateWithoutAssignedSectionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedSectionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedSectionsInput, Prisma.UserUncheckedUpdateWithoutAssignedSectionsInput>
+}
+
+export type UserUpdateWithoutAssignedSectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -6336,6 +8076,8 @@ export type UserCreateWithoutNotificationsInput = {
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
@@ -6343,6 +8085,14 @@ export type UserCreateWithoutNotificationsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -6380,6 +8130,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
@@ -6387,6 +8139,14 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -6440,6 +8200,8 @@ export type UserUpdateWithoutNotificationsInput = {
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -6447,6 +8209,14 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -6484,6 +8254,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -6491,6 +8263,14 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutReviewCommentsInput = {
@@ -6529,12 +8309,22 @@ export type UserCreateWithoutReviewCommentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -6573,12 +8363,22 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -6633,12 +8433,22 @@ export type UserUpdateWithoutReviewCommentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -6677,12 +8487,22 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutScheduleChangesRequestedInput = {
@@ -6721,12 +8541,22 @@ export type UserCreateWithoutScheduleChangesRequestedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
@@ -6765,12 +8595,22 @@ export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutScheduleChangesRequestedInput = {
@@ -6814,12 +8654,22 @@ export type UserCreateWithoutScheduleChangesReviewedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
@@ -6858,12 +8708,22 @@ export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
   disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
   disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutScheduleChangesReviewedInput = {
@@ -6918,12 +8778,22 @@ export type UserUpdateWithoutScheduleChangesRequestedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
@@ -6962,12 +8832,22 @@ export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutScheduleChangesReviewedInput = {
@@ -7017,12 +8897,22 @@ export type UserUpdateWithoutScheduleChangesReviewedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
@@ -7061,12 +8951,1878 @@ export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
   disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutPlansCreatedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutPlansCreatedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutPlansCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansCreatedInput, Prisma.UserUncheckedCreateWithoutPlansCreatedInput>
+}
+
+export type UserCreateWithoutPlansSubmittedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutPlansSubmittedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutPlansSubmittedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansSubmittedInput, Prisma.UserUncheckedCreateWithoutPlansSubmittedInput>
+}
+
+export type UserCreateWithoutPlansReviewedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutPlansReviewedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutPlansReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansReviewedInput, Prisma.UserUncheckedCreateWithoutPlansReviewedInput>
+}
+
+export type UserUpsertWithoutPlansCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPlansCreatedInput, Prisma.UserUncheckedUpdateWithoutPlansCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansCreatedInput, Prisma.UserUncheckedCreateWithoutPlansCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPlansCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPlansCreatedInput, Prisma.UserUncheckedUpdateWithoutPlansCreatedInput>
+}
+
+export type UserUpdateWithoutPlansCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPlansCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutPlansSubmittedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPlansSubmittedInput, Prisma.UserUncheckedUpdateWithoutPlansSubmittedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansSubmittedInput, Prisma.UserUncheckedCreateWithoutPlansSubmittedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPlansSubmittedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPlansSubmittedInput, Prisma.UserUncheckedUpdateWithoutPlansSubmittedInput>
+}
+
+export type UserUpdateWithoutPlansSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutPlansReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPlansReviewedInput, Prisma.UserUncheckedUpdateWithoutPlansReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlansReviewedInput, Prisma.UserUncheckedCreateWithoutPlansReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPlansReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPlansReviewedInput, Prisma.UserUncheckedUpdateWithoutPlansReviewedInput>
+}
+
+export type UserUpdateWithoutPlansReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPlansReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutOversightAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOversightAssignmentsInput, Prisma.UserUncheckedCreateWithoutOversightAssignmentsInput>
+}
+
+export type UserCreateWithoutAssignedOversightsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedOversightsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedOversightsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedOversightsInput, Prisma.UserUncheckedCreateWithoutAssignedOversightsInput>
+}
+
+export type UserUpsertWithoutOversightAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOversightAssignmentsInput, Prisma.UserUncheckedUpdateWithoutOversightAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOversightAssignmentsInput, Prisma.UserUncheckedCreateWithoutOversightAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOversightAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOversightAssignmentsInput, Prisma.UserUncheckedUpdateWithoutOversightAssignmentsInput>
+}
+
+export type UserUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedOversightsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedOversightsInput, Prisma.UserUncheckedUpdateWithoutAssignedOversightsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedOversightsInput, Prisma.UserUncheckedCreateWithoutAssignedOversightsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedOversightsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedOversightsInput, Prisma.UserUncheckedUpdateWithoutAssignedOversightsInput>
+}
+
+export type UserUpdateWithoutAssignedOversightsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutOversightEntriesInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutOversightEntriesInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutOversightEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOversightEntriesInput, Prisma.UserUncheckedCreateWithoutOversightEntriesInput>
+}
+
+export type UserUpsertWithoutOversightEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOversightEntriesInput, Prisma.UserUncheckedUpdateWithoutOversightEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOversightEntriesInput, Prisma.UserUncheckedCreateWithoutOversightEntriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOversightEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOversightEntriesInput, Prisma.UserUncheckedUpdateWithoutOversightEntriesInput>
+}
+
+export type UserUpdateWithoutOversightEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOversightEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutResourceRequestsMadeInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutResourceRequestsMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedCreateWithoutResourceRequestsMadeInput>
+}
+
+export type UserCreateWithoutResourceRequestsReviewedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutResourceRequestsReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedCreateWithoutResourceRequestsReviewedInput>
+}
+
+export type UserUpsertWithoutResourceRequestsMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedUpdateWithoutResourceRequestsMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedCreateWithoutResourceRequestsMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutResourceRequestsMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedUpdateWithoutResourceRequestsMadeInput>
+}
+
+export type UserUpdateWithoutResourceRequestsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutResourceRequestsReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedUpdateWithoutResourceRequestsReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedCreateWithoutResourceRequestsReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutResourceRequestsReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutResourceRequestsReviewedInput, Prisma.UserUncheckedUpdateWithoutResourceRequestsReviewedInput>
+}
+
+export type UserUpdateWithoutResourceRequestsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateManyOrganizationInput = {
@@ -7118,6 +10874,8 @@ export type UserUpdateWithoutOrganizationInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
@@ -7125,6 +10883,14 @@ export type UserUpdateWithoutOrganizationInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -7162,6 +10928,8 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
@@ -7169,6 +10937,14 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -7213,6 +10989,8 @@ export type UserCountOutputType = {
   notifications: number
   activityAssignments: number
   assignedAssignments: number
+  sectionAssignments: number
+  assignedSections: number
   dependencyRequestsMade: number
   dependencyRequestsReviewed: number
   disputesOpened: number
@@ -7220,6 +10998,14 @@ export type UserCountOutputType = {
   reviewComments: number
   scheduleChangesRequested: number
   scheduleChangesReviewed: number
+  plansCreated: number
+  plansSubmitted: number
+  plansReviewed: number
+  oversightAssignments: number
+  assignedOversights: number
+  oversightEntries: number
+  resourceRequestsMade: number
+  resourceRequestsReviewed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7245,6 +11031,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   activityAssignments?: boolean | UserCountOutputTypeCountActivityAssignmentsArgs
   assignedAssignments?: boolean | UserCountOutputTypeCountAssignedAssignmentsArgs
+  sectionAssignments?: boolean | UserCountOutputTypeCountSectionAssignmentsArgs
+  assignedSections?: boolean | UserCountOutputTypeCountAssignedSectionsArgs
   dependencyRequestsMade?: boolean | UserCountOutputTypeCountDependencyRequestsMadeArgs
   dependencyRequestsReviewed?: boolean | UserCountOutputTypeCountDependencyRequestsReviewedArgs
   disputesOpened?: boolean | UserCountOutputTypeCountDisputesOpenedArgs
@@ -7252,6 +11040,14 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewComments?: boolean | UserCountOutputTypeCountReviewCommentsArgs
   scheduleChangesRequested?: boolean | UserCountOutputTypeCountScheduleChangesRequestedArgs
   scheduleChangesReviewed?: boolean | UserCountOutputTypeCountScheduleChangesReviewedArgs
+  plansCreated?: boolean | UserCountOutputTypeCountPlansCreatedArgs
+  plansSubmitted?: boolean | UserCountOutputTypeCountPlansSubmittedArgs
+  plansReviewed?: boolean | UserCountOutputTypeCountPlansReviewedArgs
+  oversightAssignments?: boolean | UserCountOutputTypeCountOversightAssignmentsArgs
+  assignedOversights?: boolean | UserCountOutputTypeCountAssignedOversightsArgs
+  oversightEntries?: boolean | UserCountOutputTypeCountOversightEntriesArgs
+  resourceRequestsMade?: boolean | UserCountOutputTypeCountResourceRequestsMadeArgs
+  resourceRequestsReviewed?: boolean | UserCountOutputTypeCountResourceRequestsReviewedArgs
 }
 
 /**
@@ -7421,6 +11217,20 @@ export type UserCountOutputTypeCountAssignedAssignmentsArgs<ExtArgs extends runt
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountSectionAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SectionAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SectionAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDependencyRequestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PendingDependencyRequestWhereInput
 }
@@ -7467,6 +11277,62 @@ export type UserCountOutputTypeCountScheduleChangesReviewedArgs<ExtArgs extends 
   where?: Prisma.ScheduleChangeRequestWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlansCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlansSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlansReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WbsPlanSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedOversightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOversightEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OversightDailyEntryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountResourceRequestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountResourceRequestsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResourceRequestWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7505,6 +11371,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityAssignments?: boolean | Prisma.User$activityAssignmentsArgs<ExtArgs>
   assignedAssignments?: boolean | Prisma.User$assignedAssignmentsArgs<ExtArgs>
+  sectionAssignments?: boolean | Prisma.User$sectionAssignmentsArgs<ExtArgs>
+  assignedSections?: boolean | Prisma.User$assignedSectionsArgs<ExtArgs>
   dependencyRequestsMade?: boolean | Prisma.User$dependencyRequestsMadeArgs<ExtArgs>
   dependencyRequestsReviewed?: boolean | Prisma.User$dependencyRequestsReviewedArgs<ExtArgs>
   disputesOpened?: boolean | Prisma.User$disputesOpenedArgs<ExtArgs>
@@ -7512,6 +11380,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewComments?: boolean | Prisma.User$reviewCommentsArgs<ExtArgs>
   scheduleChangesRequested?: boolean | Prisma.User$scheduleChangesRequestedArgs<ExtArgs>
   scheduleChangesReviewed?: boolean | Prisma.User$scheduleChangesReviewedArgs<ExtArgs>
+  plansCreated?: boolean | Prisma.User$plansCreatedArgs<ExtArgs>
+  plansSubmitted?: boolean | Prisma.User$plansSubmittedArgs<ExtArgs>
+  plansReviewed?: boolean | Prisma.User$plansReviewedArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.User$oversightAssignmentsArgs<ExtArgs>
+  assignedOversights?: boolean | Prisma.User$assignedOversightsArgs<ExtArgs>
+  oversightEntries?: boolean | Prisma.User$oversightEntriesArgs<ExtArgs>
+  resourceRequestsMade?: boolean | Prisma.User$resourceRequestsMadeArgs<ExtArgs>
+  resourceRequestsReviewed?: boolean | Prisma.User$resourceRequestsReviewedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7588,6 +11464,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityAssignments?: boolean | Prisma.User$activityAssignmentsArgs<ExtArgs>
   assignedAssignments?: boolean | Prisma.User$assignedAssignmentsArgs<ExtArgs>
+  sectionAssignments?: boolean | Prisma.User$sectionAssignmentsArgs<ExtArgs>
+  assignedSections?: boolean | Prisma.User$assignedSectionsArgs<ExtArgs>
   dependencyRequestsMade?: boolean | Prisma.User$dependencyRequestsMadeArgs<ExtArgs>
   dependencyRequestsReviewed?: boolean | Prisma.User$dependencyRequestsReviewedArgs<ExtArgs>
   disputesOpened?: boolean | Prisma.User$disputesOpenedArgs<ExtArgs>
@@ -7595,6 +11473,14 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewComments?: boolean | Prisma.User$reviewCommentsArgs<ExtArgs>
   scheduleChangesRequested?: boolean | Prisma.User$scheduleChangesRequestedArgs<ExtArgs>
   scheduleChangesReviewed?: boolean | Prisma.User$scheduleChangesReviewedArgs<ExtArgs>
+  plansCreated?: boolean | Prisma.User$plansCreatedArgs<ExtArgs>
+  plansSubmitted?: boolean | Prisma.User$plansSubmittedArgs<ExtArgs>
+  plansReviewed?: boolean | Prisma.User$plansReviewedArgs<ExtArgs>
+  oversightAssignments?: boolean | Prisma.User$oversightAssignmentsArgs<ExtArgs>
+  assignedOversights?: boolean | Prisma.User$assignedOversightsArgs<ExtArgs>
+  oversightEntries?: boolean | Prisma.User$oversightEntriesArgs<ExtArgs>
+  resourceRequestsMade?: boolean | Prisma.User$resourceRequestsMadeArgs<ExtArgs>
+  resourceRequestsReviewed?: boolean | Prisma.User$resourceRequestsReviewedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7631,6 +11517,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     activityAssignments: Prisma.$ActivityAssignmentPayload<ExtArgs>[]
     assignedAssignments: Prisma.$ActivityAssignmentPayload<ExtArgs>[]
+    sectionAssignments: Prisma.$SectionAssignmentPayload<ExtArgs>[]
+    assignedSections: Prisma.$SectionAssignmentPayload<ExtArgs>[]
     dependencyRequestsMade: Prisma.$PendingDependencyRequestPayload<ExtArgs>[]
     dependencyRequestsReviewed: Prisma.$PendingDependencyRequestPayload<ExtArgs>[]
     disputesOpened: Prisma.$DisputeRecordPayload<ExtArgs>[]
@@ -7638,6 +11526,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewComments: Prisma.$ReviewCommentPayload<ExtArgs>[]
     scheduleChangesRequested: Prisma.$ScheduleChangeRequestPayload<ExtArgs>[]
     scheduleChangesReviewed: Prisma.$ScheduleChangeRequestPayload<ExtArgs>[]
+    plansCreated: Prisma.$WbsPlanSubmissionPayload<ExtArgs>[]
+    plansSubmitted: Prisma.$WbsPlanSubmissionPayload<ExtArgs>[]
+    plansReviewed: Prisma.$WbsPlanSubmissionPayload<ExtArgs>[]
+    oversightAssignments: Prisma.$OversightAssignmentPayload<ExtArgs>[]
+    assignedOversights: Prisma.$OversightAssignmentPayload<ExtArgs>[]
+    oversightEntries: Prisma.$OversightDailyEntryPayload<ExtArgs>[]
+    resourceRequestsMade: Prisma.$ResourceRequestPayload<ExtArgs>[]
+    resourceRequestsReviewed: Prisma.$ResourceRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -8070,6 +11966,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityAssignments<T extends Prisma.User$activityAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedAssignments<T extends Prisma.User$assignedAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sectionAssignments<T extends Prisma.User$sectionAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sectionAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedSections<T extends Prisma.User$assignedSectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedSectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dependencyRequestsMade<T extends Prisma.User$dependencyRequestsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dependencyRequestsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PendingDependencyRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dependencyRequestsReviewed<T extends Prisma.User$dependencyRequestsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dependencyRequestsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PendingDependencyRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputesOpened<T extends Prisma.User$disputesOpenedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesOpenedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputeRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8077,6 +11975,14 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewComments<T extends Prisma.User$reviewCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scheduleChangesRequested<T extends Prisma.User$scheduleChangesRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$scheduleChangesRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleChangeRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scheduleChangesReviewed<T extends Prisma.User$scheduleChangesReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$scheduleChangesReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleChangeRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  plansCreated<T extends Prisma.User$plansCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$plansCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  plansSubmitted<T extends Prisma.User$plansSubmittedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$plansSubmittedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  plansReviewed<T extends Prisma.User$plansReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$plansReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WbsPlanSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightAssignments<T extends Prisma.User$oversightAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oversightAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedOversights<T extends Prisma.User$assignedOversightsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedOversightsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oversightEntries<T extends Prisma.User$oversightEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oversightEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequestsMade<T extends Prisma.User$resourceRequestsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resourceRequestsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequestsReviewed<T extends Prisma.User$resourceRequestsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resourceRequestsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9061,6 +12967,54 @@ export type User$assignedAssignmentsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * User.sectionAssignments
+ */
+export type User$sectionAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SectionAssignment
+   */
+  select?: Prisma.SectionAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SectionAssignment
+   */
+  omit?: Prisma.SectionAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SectionAssignmentInclude<ExtArgs> | null
+  where?: Prisma.SectionAssignmentWhereInput
+  orderBy?: Prisma.SectionAssignmentOrderByWithRelationInput | Prisma.SectionAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.SectionAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SectionAssignmentScalarFieldEnum | Prisma.SectionAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.assignedSections
+ */
+export type User$assignedSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SectionAssignment
+   */
+  select?: Prisma.SectionAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SectionAssignment
+   */
+  omit?: Prisma.SectionAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SectionAssignmentInclude<ExtArgs> | null
+  where?: Prisma.SectionAssignmentWhereInput
+  orderBy?: Prisma.SectionAssignmentOrderByWithRelationInput | Prisma.SectionAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.SectionAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SectionAssignmentScalarFieldEnum | Prisma.SectionAssignmentScalarFieldEnum[]
+}
+
+/**
  * User.dependencyRequestsMade
  */
 export type User$dependencyRequestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9226,6 +13180,198 @@ export type User$scheduleChangesReviewedArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.ScheduleChangeRequestScalarFieldEnum | Prisma.ScheduleChangeRequestScalarFieldEnum[]
+}
+
+/**
+ * User.plansCreated
+ */
+export type User$plansCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+  orderBy?: Prisma.WbsPlanSubmissionOrderByWithRelationInput | Prisma.WbsPlanSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.WbsPlanSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WbsPlanSubmissionScalarFieldEnum | Prisma.WbsPlanSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.plansSubmitted
+ */
+export type User$plansSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+  orderBy?: Prisma.WbsPlanSubmissionOrderByWithRelationInput | Prisma.WbsPlanSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.WbsPlanSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WbsPlanSubmissionScalarFieldEnum | Prisma.WbsPlanSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.plansReviewed
+ */
+export type User$plansReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WbsPlanSubmission
+   */
+  select?: Prisma.WbsPlanSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WbsPlanSubmission
+   */
+  omit?: Prisma.WbsPlanSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WbsPlanSubmissionInclude<ExtArgs> | null
+  where?: Prisma.WbsPlanSubmissionWhereInput
+  orderBy?: Prisma.WbsPlanSubmissionOrderByWithRelationInput | Prisma.WbsPlanSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.WbsPlanSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WbsPlanSubmissionScalarFieldEnum | Prisma.WbsPlanSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.oversightAssignments
+ */
+export type User$oversightAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightAssignment
+   */
+  select?: Prisma.OversightAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightAssignment
+   */
+  omit?: Prisma.OversightAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightAssignmentInclude<ExtArgs> | null
+  where?: Prisma.OversightAssignmentWhereInput
+  orderBy?: Prisma.OversightAssignmentOrderByWithRelationInput | Prisma.OversightAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.OversightAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightAssignmentScalarFieldEnum | Prisma.OversightAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.assignedOversights
+ */
+export type User$assignedOversightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightAssignment
+   */
+  select?: Prisma.OversightAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightAssignment
+   */
+  omit?: Prisma.OversightAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightAssignmentInclude<ExtArgs> | null
+  where?: Prisma.OversightAssignmentWhereInput
+  orderBy?: Prisma.OversightAssignmentOrderByWithRelationInput | Prisma.OversightAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.OversightAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightAssignmentScalarFieldEnum | Prisma.OversightAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.oversightEntries
+ */
+export type User$oversightEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OversightDailyEntry
+   */
+  select?: Prisma.OversightDailyEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OversightDailyEntry
+   */
+  omit?: Prisma.OversightDailyEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OversightDailyEntryInclude<ExtArgs> | null
+  where?: Prisma.OversightDailyEntryWhereInput
+  orderBy?: Prisma.OversightDailyEntryOrderByWithRelationInput | Prisma.OversightDailyEntryOrderByWithRelationInput[]
+  cursor?: Prisma.OversightDailyEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OversightDailyEntryScalarFieldEnum | Prisma.OversightDailyEntryScalarFieldEnum[]
+}
+
+/**
+ * User.resourceRequestsMade
+ */
+export type User$resourceRequestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
+}
+
+/**
+ * User.resourceRequestsReviewed
+ */
+export type User$resourceRequestsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
+  orderBy?: Prisma.ResourceRequestOrderByWithRelationInput | Prisma.ResourceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ResourceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
 }
 
 /**

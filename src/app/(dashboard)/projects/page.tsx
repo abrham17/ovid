@@ -10,8 +10,8 @@ import { formatCurrency, titleCase } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
 import { Plus, MapPin, Users } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
-import { DashboardShell } from "@/components/dashboards/dashboard-shell";
-export default async function ProjectsPage({ children }: { children: React.ReactNode }) {
+
+export default async function ProjectsPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 

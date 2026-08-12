@@ -1,7 +1,9 @@
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
 import type { IndividualScope, WbsIdSet } from "@/lib/scope/types";
+import { unionWbs } from "@/lib/scope/types";
 import { getDescendantIds, getOneLevelUpContext } from "@/lib/scope/wbs-tree";
+import { getOversightContext } from "@/lib/scope/oversight-scope";
 import type { UserRole } from "@/generated/prisma/enums";
 
 /** Roles that are not narrowed by individual assignment (full org ceiling). */
@@ -32,13 +34,29 @@ function allScope(scheduleReadMode: IndividualScope["scheduleReadMode"] = "scope
 /**
  * Layer 3 — individual assignment narrowing within an organization.
  * Returns "ALL" for roles that must see the whole org ceiling.
+ *
+ * Oversight assignments (file 20 §5.4) widen the *read* half of a narrowed
+ * role's scope to the branches they watch, and never the write half: the
+ * subcontractor executes that branch, this user only verifies it.
  */
 export async function getIndividualAssignmentScope(
   user: SessionUser,
   projectId: string
 ): Promise<IndividualScope> {
+  const oversight = await getOversightContext(user.id, projectId);
+  const oversightWbs: WbsIdSet = oversight.visibleWbsNodeIds;
+  const withOversight = (scope: IndividualScope): IndividualScope => {
+    if (oversight.visibleWbsNodeIds.size === 0) return scope;
+    return {
+      ...scope,
+      visibleWbsNodeIds: unionWbs(scope.visibleWbsNodeIds, oversightWbs),
+      oversightWbsNodeIds: oversightWbs,
+      oversightContractIds: oversight.contractIds,
+    };
+  };
+
   if (NO_NARROW_ROLES.has(user.role)) {
-    return allScope("scoped");
+    return withOversight(allScope("scoped"));
   }
 
   if (user.role === "SUBCONTRACTOR_PM") {
@@ -53,18 +71,18 @@ export async function getIndividualAssignmentScope(
     });
     const roots = assignments.map((a) => a.wbsNodeId);
     if (roots.length === 0) {
-      return {
+      return withOversight({
         visibleWbsNodeIds: new Set(),
         writableWbsNodeIds: new Set(),
         scheduleReadMode: "scoped",
-      };
+      });
     }
     const subtree = await getDescendantIds(roots);
-    return {
+    return withOversight({
       visibleWbsNodeIds: subtree,
       writableWbsNodeIds: new Set(subtree),
       scheduleReadMode: "scoped",
-    };
+    });
   }
 
   if (user.role === "SUPERINTENDENT" || user.role === "SITE_ENGINEER") {
@@ -78,18 +96,18 @@ export async function getIndividualAssignmentScope(
     });
     const roots = assignments.map((a) => a.wbsNodeId);
     if (roots.length === 0) {
-      return {
+      return withOversight({
         visibleWbsNodeIds: new Set(),
         writableWbsNodeIds: new Set(),
         scheduleReadMode: "org_ceiling",
-      };
+      });
     }
     const subtree = await getDescendantIds(roots);
-    return {
+    return withOversight({
       visibleWbsNodeIds: subtree,
       writableWbsNodeIds: new Set(subtree),
       scheduleReadMode: "org_ceiling",
-    };
+    });
   }
 
   if (user.role === "FOREMAN") {
@@ -108,24 +126,24 @@ export async function getIndividualAssignmentScope(
     const activityIds = new Set(assignments.map((a) => a.scheduleActivityId));
     const taskWbs = [...new Set(assignments.map((a) => a.scheduleActivity.wbsNodeId))];
     if (taskWbs.length === 0) {
-      return {
+      return withOversight({
         visibleWbsNodeIds: new Set(),
         writableWbsNodeIds: new Set(),
         scheduleReadMode: "assignment_plus_deps",
         assignedActivityIds: new Set(),
-      };
+      });
     }
     const readContext = await getOneLevelUpContext(taskWbs);
-    return {
+    return withOversight({
       visibleWbsNodeIds: readContext,
       writableWbsNodeIds: new Set(taskWbs),
       scheduleReadMode: "assignment_plus_deps",
       assignedActivityIds: activityIds,
-    };
+    });
   }
 
   // Unknown / other roles: no narrowing
-  return allScope("scoped");
+  return withOversight(allScope("scoped"));
 }
 
 /** Roles for which cost detail (rates/margin) is denied even on Contractor party. */

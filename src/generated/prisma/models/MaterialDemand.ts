@@ -43,6 +43,7 @@ export type MaterialDemandMinAggregateOutputType = {
   neededByDate: Date | null
   quantityNeeded: runtime.Decimal | null
   quantityDelivered: runtime.Decimal | null
+  requestedForContractId: string | null
 }
 
 export type MaterialDemandMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type MaterialDemandMaxAggregateOutputType = {
   neededByDate: Date | null
   quantityNeeded: runtime.Decimal | null
   quantityDelivered: runtime.Decimal | null
+  requestedForContractId: string | null
 }
 
 export type MaterialDemandCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type MaterialDemandCountAggregateOutputType = {
   neededByDate: number
   quantityNeeded: number
   quantityDelivered: number
+  requestedForContractId: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type MaterialDemandMinAggregateInputType = {
   neededByDate?: true
   quantityNeeded?: true
   quantityDelivered?: true
+  requestedForContractId?: true
 }
 
 export type MaterialDemandMaxAggregateInputType = {
@@ -91,6 +95,7 @@ export type MaterialDemandMaxAggregateInputType = {
   neededByDate?: true
   quantityNeeded?: true
   quantityDelivered?: true
+  requestedForContractId?: true
 }
 
 export type MaterialDemandCountAggregateInputType = {
@@ -100,6 +105,7 @@ export type MaterialDemandCountAggregateInputType = {
   neededByDate?: true
   quantityNeeded?: true
   quantityDelivered?: true
+  requestedForContractId?: true
   _all?: true
 }
 
@@ -196,6 +202,7 @@ export type MaterialDemandGroupByOutputType = {
   neededByDate: Date
   quantityNeeded: runtime.Decimal
   quantityDelivered: runtime.Decimal
+  requestedForContractId: string | null
   _count: MaterialDemandCountAggregateOutputType | null
   _avg: MaterialDemandAvgAggregateOutputType | null
   _sum: MaterialDemandSumAggregateOutputType | null
@@ -228,9 +235,12 @@ export type MaterialDemandWhereInput = {
   neededByDate?: Prisma.DateTimeFilter<"MaterialDemand"> | Date | string
   quantityNeeded?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.StringNullableFilter<"MaterialDemand"> | string | null
   wbsNode?: Prisma.XOR<Prisma.WbsNodeScalarRelationFilter, Prisma.WbsNodeWhereInput>
   materialItem?: Prisma.XOR<Prisma.MaterialItemScalarRelationFilter, Prisma.MaterialItemWhereInput>
+  requestedForContract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemListRelationFilter
+  resourceRequest?: Prisma.XOR<Prisma.ResourceRequestNullableScalarRelationFilter, Prisma.ResourceRequestWhereInput> | null
 }
 
 export type MaterialDemandOrderByWithRelationInput = {
@@ -240,9 +250,12 @@ export type MaterialDemandOrderByWithRelationInput = {
   neededByDate?: Prisma.SortOrder
   quantityNeeded?: Prisma.SortOrder
   quantityDelivered?: Prisma.SortOrder
+  requestedForContractId?: Prisma.SortOrderInput | Prisma.SortOrder
   wbsNode?: Prisma.WbsNodeOrderByWithRelationInput
   materialItem?: Prisma.MaterialItemOrderByWithRelationInput
+  requestedForContract?: Prisma.ContractOrderByWithRelationInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemOrderByRelationAggregateInput
+  resourceRequest?: Prisma.ResourceRequestOrderByWithRelationInput
 }
 
 export type MaterialDemandWhereUniqueInput = Prisma.AtLeast<{
@@ -255,9 +268,12 @@ export type MaterialDemandWhereUniqueInput = Prisma.AtLeast<{
   neededByDate?: Prisma.DateTimeFilter<"MaterialDemand"> | Date | string
   quantityNeeded?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.StringNullableFilter<"MaterialDemand"> | string | null
   wbsNode?: Prisma.XOR<Prisma.WbsNodeScalarRelationFilter, Prisma.WbsNodeWhereInput>
   materialItem?: Prisma.XOR<Prisma.MaterialItemScalarRelationFilter, Prisma.MaterialItemWhereInput>
+  requestedForContract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemListRelationFilter
+  resourceRequest?: Prisma.XOR<Prisma.ResourceRequestNullableScalarRelationFilter, Prisma.ResourceRequestWhereInput> | null
 }, "id">
 
 export type MaterialDemandOrderByWithAggregationInput = {
@@ -267,6 +283,7 @@ export type MaterialDemandOrderByWithAggregationInput = {
   neededByDate?: Prisma.SortOrder
   quantityNeeded?: Prisma.SortOrder
   quantityDelivered?: Prisma.SortOrder
+  requestedForContractId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MaterialDemandCountOrderByAggregateInput
   _avg?: Prisma.MaterialDemandAvgOrderByAggregateInput
   _max?: Prisma.MaterialDemandMaxOrderByAggregateInput
@@ -284,6 +301,7 @@ export type MaterialDemandScalarWhereWithAggregatesInput = {
   neededByDate?: Prisma.DateTimeWithAggregatesFilter<"MaterialDemand"> | Date | string
   quantityNeeded?: Prisma.DecimalWithAggregatesFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalWithAggregatesFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.StringNullableWithAggregatesFilter<"MaterialDemand"> | string | null
 }
 
 export type MaterialDemandCreateInput = {
@@ -293,7 +311,9 @@ export type MaterialDemandCreateInput = {
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutMaterialDemandsInput
   materialItem: Prisma.MaterialItemCreateNestedOneWithoutDemandsInput
+  requestedForContract?: Prisma.ContractCreateNestedOneWithoutMaterialDemandsInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandUncheckedCreateInput = {
@@ -303,7 +323,9 @@ export type MaterialDemandUncheckedCreateInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandUpdateInput = {
@@ -313,7 +335,9 @@ export type MaterialDemandUpdateInput = {
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutMaterialDemandsNestedInput
   materialItem?: Prisma.MaterialItemUpdateOneRequiredWithoutDemandsNestedInput
+  requestedForContract?: Prisma.ContractUpdateOneWithoutMaterialDemandsNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateInput = {
@@ -323,7 +347,9 @@ export type MaterialDemandUncheckedUpdateInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandCreateManyInput = {
@@ -333,6 +359,7 @@ export type MaterialDemandCreateManyInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
 }
 
 export type MaterialDemandUpdateManyMutationInput = {
@@ -349,6 +376,7 @@ export type MaterialDemandUncheckedUpdateManyInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type MaterialDemandListRelationFilter = {
@@ -368,6 +396,7 @@ export type MaterialDemandCountOrderByAggregateInput = {
   neededByDate?: Prisma.SortOrder
   quantityNeeded?: Prisma.SortOrder
   quantityDelivered?: Prisma.SortOrder
+  requestedForContractId?: Prisma.SortOrder
 }
 
 export type MaterialDemandAvgOrderByAggregateInput = {
@@ -382,6 +411,7 @@ export type MaterialDemandMaxOrderByAggregateInput = {
   neededByDate?: Prisma.SortOrder
   quantityNeeded?: Prisma.SortOrder
   quantityDelivered?: Prisma.SortOrder
+  requestedForContractId?: Prisma.SortOrder
 }
 
 export type MaterialDemandMinOrderByAggregateInput = {
@@ -391,6 +421,7 @@ export type MaterialDemandMinOrderByAggregateInput = {
   neededByDate?: Prisma.SortOrder
   quantityNeeded?: Prisma.SortOrder
   quantityDelivered?: Prisma.SortOrder
+  requestedForContractId?: Prisma.SortOrder
 }
 
 export type MaterialDemandSumOrderByAggregateInput = {
@@ -401,6 +432,48 @@ export type MaterialDemandSumOrderByAggregateInput = {
 export type MaterialDemandNullableScalarRelationFilter = {
   is?: Prisma.MaterialDemandWhereInput | null
   isNot?: Prisma.MaterialDemandWhereInput | null
+}
+
+export type MaterialDemandCreateNestedManyWithoutRequestedForContractInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput> | Prisma.MaterialDemandCreateWithoutRequestedForContractInput[] | Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput[]
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput | Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput[]
+  createMany?: Prisma.MaterialDemandCreateManyRequestedForContractInputEnvelope
+  connect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+}
+
+export type MaterialDemandUncheckedCreateNestedManyWithoutRequestedForContractInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput> | Prisma.MaterialDemandCreateWithoutRequestedForContractInput[] | Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput[]
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput | Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput[]
+  createMany?: Prisma.MaterialDemandCreateManyRequestedForContractInputEnvelope
+  connect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+}
+
+export type MaterialDemandUpdateManyWithoutRequestedForContractNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput> | Prisma.MaterialDemandCreateWithoutRequestedForContractInput[] | Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput[]
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput | Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput[]
+  upsert?: Prisma.MaterialDemandUpsertWithWhereUniqueWithoutRequestedForContractInput | Prisma.MaterialDemandUpsertWithWhereUniqueWithoutRequestedForContractInput[]
+  createMany?: Prisma.MaterialDemandCreateManyRequestedForContractInputEnvelope
+  set?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  disconnect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  delete?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  connect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  update?: Prisma.MaterialDemandUpdateWithWhereUniqueWithoutRequestedForContractInput | Prisma.MaterialDemandUpdateWithWhereUniqueWithoutRequestedForContractInput[]
+  updateMany?: Prisma.MaterialDemandUpdateManyWithWhereWithoutRequestedForContractInput | Prisma.MaterialDemandUpdateManyWithWhereWithoutRequestedForContractInput[]
+  deleteMany?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
+}
+
+export type MaterialDemandUncheckedUpdateManyWithoutRequestedForContractNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput> | Prisma.MaterialDemandCreateWithoutRequestedForContractInput[] | Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput[]
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput | Prisma.MaterialDemandCreateOrConnectWithoutRequestedForContractInput[]
+  upsert?: Prisma.MaterialDemandUpsertWithWhereUniqueWithoutRequestedForContractInput | Prisma.MaterialDemandUpsertWithWhereUniqueWithoutRequestedForContractInput[]
+  createMany?: Prisma.MaterialDemandCreateManyRequestedForContractInputEnvelope
+  set?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  disconnect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  delete?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  connect?: Prisma.MaterialDemandWhereUniqueInput | Prisma.MaterialDemandWhereUniqueInput[]
+  update?: Prisma.MaterialDemandUpdateWithWhereUniqueWithoutRequestedForContractInput | Prisma.MaterialDemandUpdateWithWhereUniqueWithoutRequestedForContractInput[]
+  updateMany?: Prisma.MaterialDemandUpdateManyWithWhereWithoutRequestedForContractInput | Prisma.MaterialDemandUpdateManyWithWhereWithoutRequestedForContractInput[]
+  deleteMany?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
 }
 
 export type MaterialDemandCreateNestedManyWithoutWbsNodeInput = {
@@ -503,13 +576,92 @@ export type MaterialDemandUpdateOneWithoutPurchaseOrderItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialDemandUpdateToOneWithWhereWithoutPurchaseOrderItemsInput, Prisma.MaterialDemandUpdateWithoutPurchaseOrderItemsInput>, Prisma.MaterialDemandUncheckedUpdateWithoutPurchaseOrderItemsInput>
 }
 
+export type MaterialDemandCreateNestedOneWithoutResourceRequestInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedCreateWithoutResourceRequestInput>
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutResourceRequestInput
+  connect?: Prisma.MaterialDemandWhereUniqueInput
+}
+
+export type MaterialDemandUpdateOneWithoutResourceRequestNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialDemandCreateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedCreateWithoutResourceRequestInput>
+  connectOrCreate?: Prisma.MaterialDemandCreateOrConnectWithoutResourceRequestInput
+  upsert?: Prisma.MaterialDemandUpsertWithoutResourceRequestInput
+  disconnect?: Prisma.MaterialDemandWhereInput | boolean
+  delete?: Prisma.MaterialDemandWhereInput | boolean
+  connect?: Prisma.MaterialDemandWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialDemandUpdateToOneWithWhereWithoutResourceRequestInput, Prisma.MaterialDemandUpdateWithoutResourceRequestInput>, Prisma.MaterialDemandUncheckedUpdateWithoutResourceRequestInput>
+}
+
+export type MaterialDemandCreateWithoutRequestedForContractInput = {
+  id?: string
+  neededByDate: Date | string
+  quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  wbsNode: Prisma.WbsNodeCreateNestedOneWithoutMaterialDemandsInput
+  materialItem: Prisma.MaterialItemCreateNestedOneWithoutDemandsInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestCreateNestedOneWithoutMaterialDemandInput
+}
+
+export type MaterialDemandUncheckedCreateWithoutRequestedForContractInput = {
+  id?: string
+  wbsNodeId: string
+  materialItemId: string
+  neededByDate: Date | string
+  quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedCreateNestedOneWithoutMaterialDemandInput
+}
+
+export type MaterialDemandCreateOrConnectWithoutRequestedForContractInput = {
+  where: Prisma.MaterialDemandWhereUniqueInput
+  create: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput>
+}
+
+export type MaterialDemandCreateManyRequestedForContractInputEnvelope = {
+  data: Prisma.MaterialDemandCreateManyRequestedForContractInput | Prisma.MaterialDemandCreateManyRequestedForContractInput[]
+  skipDuplicates?: boolean
+}
+
+export type MaterialDemandUpsertWithWhereUniqueWithoutRequestedForContractInput = {
+  where: Prisma.MaterialDemandWhereUniqueInput
+  update: Prisma.XOR<Prisma.MaterialDemandUpdateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedUpdateWithoutRequestedForContractInput>
+  create: Prisma.XOR<Prisma.MaterialDemandCreateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedCreateWithoutRequestedForContractInput>
+}
+
+export type MaterialDemandUpdateWithWhereUniqueWithoutRequestedForContractInput = {
+  where: Prisma.MaterialDemandWhereUniqueInput
+  data: Prisma.XOR<Prisma.MaterialDemandUpdateWithoutRequestedForContractInput, Prisma.MaterialDemandUncheckedUpdateWithoutRequestedForContractInput>
+}
+
+export type MaterialDemandUpdateManyWithWhereWithoutRequestedForContractInput = {
+  where: Prisma.MaterialDemandScalarWhereInput
+  data: Prisma.XOR<Prisma.MaterialDemandUpdateManyMutationInput, Prisma.MaterialDemandUncheckedUpdateManyWithoutRequestedForContractInput>
+}
+
+export type MaterialDemandScalarWhereInput = {
+  AND?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
+  OR?: Prisma.MaterialDemandScalarWhereInput[]
+  NOT?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
+  id?: Prisma.StringFilter<"MaterialDemand"> | string
+  wbsNodeId?: Prisma.StringFilter<"MaterialDemand"> | string
+  materialItemId?: Prisma.StringFilter<"MaterialDemand"> | string
+  neededByDate?: Prisma.DateTimeFilter<"MaterialDemand"> | Date | string
+  quantityNeeded?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.StringNullableFilter<"MaterialDemand"> | string | null
+}
+
 export type MaterialDemandCreateWithoutWbsNodeInput = {
   id?: string
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
   materialItem: Prisma.MaterialItemCreateNestedOneWithoutDemandsInput
+  requestedForContract?: Prisma.ContractCreateNestedOneWithoutMaterialDemandsInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandUncheckedCreateWithoutWbsNodeInput = {
@@ -518,7 +670,9 @@ export type MaterialDemandUncheckedCreateWithoutWbsNodeInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandCreateOrConnectWithoutWbsNodeInput = {
@@ -547,25 +701,15 @@ export type MaterialDemandUpdateManyWithWhereWithoutWbsNodeInput = {
   data: Prisma.XOR<Prisma.MaterialDemandUpdateManyMutationInput, Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeInput>
 }
 
-export type MaterialDemandScalarWhereInput = {
-  AND?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
-  OR?: Prisma.MaterialDemandScalarWhereInput[]
-  NOT?: Prisma.MaterialDemandScalarWhereInput | Prisma.MaterialDemandScalarWhereInput[]
-  id?: Prisma.StringFilter<"MaterialDemand"> | string
-  wbsNodeId?: Prisma.StringFilter<"MaterialDemand"> | string
-  materialItemId?: Prisma.StringFilter<"MaterialDemand"> | string
-  neededByDate?: Prisma.DateTimeFilter<"MaterialDemand"> | Date | string
-  quantityNeeded?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantityDelivered?: Prisma.DecimalFilter<"MaterialDemand"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
 export type MaterialDemandCreateWithoutMaterialItemInput = {
   id?: string
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutMaterialDemandsInput
+  requestedForContract?: Prisma.ContractCreateNestedOneWithoutMaterialDemandsInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandUncheckedCreateWithoutMaterialItemInput = {
@@ -574,7 +718,9 @@ export type MaterialDemandUncheckedCreateWithoutMaterialItemInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialDemandInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandCreateOrConnectWithoutMaterialItemInput = {
@@ -610,6 +756,8 @@ export type MaterialDemandCreateWithoutPurchaseOrderItemsInput = {
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutMaterialDemandsInput
   materialItem: Prisma.MaterialItemCreateNestedOneWithoutDemandsInput
+  requestedForContract?: Prisma.ContractCreateNestedOneWithoutMaterialDemandsInput
+  resourceRequest?: Prisma.ResourceRequestCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandUncheckedCreateWithoutPurchaseOrderItemsInput = {
@@ -619,6 +767,8 @@ export type MaterialDemandUncheckedCreateWithoutPurchaseOrderItemsInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
+  resourceRequest?: Prisma.ResourceRequestUncheckedCreateNestedOneWithoutMaterialDemandInput
 }
 
 export type MaterialDemandCreateOrConnectWithoutPurchaseOrderItemsInput = {
@@ -644,9 +794,113 @@ export type MaterialDemandUpdateWithoutPurchaseOrderItemsInput = {
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutMaterialDemandsNestedInput
   materialItem?: Prisma.MaterialItemUpdateOneRequiredWithoutDemandsNestedInput
+  requestedForContract?: Prisma.ContractUpdateOneWithoutMaterialDemandsNestedInput
+  resourceRequest?: Prisma.ResourceRequestUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateWithoutPurchaseOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  wbsNodeId?: Prisma.StringFieldUpdateOperationsInput | string
+  materialItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resourceRequest?: Prisma.ResourceRequestUncheckedUpdateOneWithoutMaterialDemandNestedInput
+}
+
+export type MaterialDemandCreateWithoutResourceRequestInput = {
+  id?: string
+  neededByDate: Date | string
+  quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  wbsNode: Prisma.WbsNodeCreateNestedOneWithoutMaterialDemandsInput
+  materialItem: Prisma.MaterialItemCreateNestedOneWithoutDemandsInput
+  requestedForContract?: Prisma.ContractCreateNestedOneWithoutMaterialDemandsInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutMaterialDemandInput
+}
+
+export type MaterialDemandUncheckedCreateWithoutResourceRequestInput = {
+  id?: string
+  wbsNodeId: string
+  materialItemId: string
+  neededByDate: Date | string
+  quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutMaterialDemandInput
+}
+
+export type MaterialDemandCreateOrConnectWithoutResourceRequestInput = {
+  where: Prisma.MaterialDemandWhereUniqueInput
+  create: Prisma.XOR<Prisma.MaterialDemandCreateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedCreateWithoutResourceRequestInput>
+}
+
+export type MaterialDemandUpsertWithoutResourceRequestInput = {
+  update: Prisma.XOR<Prisma.MaterialDemandUpdateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedUpdateWithoutResourceRequestInput>
+  create: Prisma.XOR<Prisma.MaterialDemandCreateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedCreateWithoutResourceRequestInput>
+  where?: Prisma.MaterialDemandWhereInput
+}
+
+export type MaterialDemandUpdateToOneWithWhereWithoutResourceRequestInput = {
+  where?: Prisma.MaterialDemandWhereInput
+  data: Prisma.XOR<Prisma.MaterialDemandUpdateWithoutResourceRequestInput, Prisma.MaterialDemandUncheckedUpdateWithoutResourceRequestInput>
+}
+
+export type MaterialDemandUpdateWithoutResourceRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutMaterialDemandsNestedInput
+  materialItem?: Prisma.MaterialItemUpdateOneRequiredWithoutDemandsNestedInput
+  requestedForContract?: Prisma.ContractUpdateOneWithoutMaterialDemandsNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialDemandNestedInput
+}
+
+export type MaterialDemandUncheckedUpdateWithoutResourceRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  wbsNodeId?: Prisma.StringFieldUpdateOperationsInput | string
+  materialItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialDemandNestedInput
+}
+
+export type MaterialDemandCreateManyRequestedForContractInput = {
+  id?: string
+  wbsNodeId: string
+  materialItemId: string
+  neededByDate: Date | string
+  quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type MaterialDemandUpdateWithoutRequestedForContractInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutMaterialDemandsNestedInput
+  materialItem?: Prisma.MaterialItemUpdateOneRequiredWithoutDemandsNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUpdateOneWithoutMaterialDemandNestedInput
+}
+
+export type MaterialDemandUncheckedUpdateWithoutRequestedForContractInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  wbsNodeId?: Prisma.StringFieldUpdateOperationsInput | string
+  materialItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedUpdateOneWithoutMaterialDemandNestedInput
+}
+
+export type MaterialDemandUncheckedUpdateManyWithoutRequestedForContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   wbsNodeId?: Prisma.StringFieldUpdateOperationsInput | string
   materialItemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -661,6 +915,7 @@ export type MaterialDemandCreateManyWbsNodeInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
 }
 
 export type MaterialDemandUpdateWithoutWbsNodeInput = {
@@ -669,7 +924,9 @@ export type MaterialDemandUpdateWithoutWbsNodeInput = {
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   materialItem?: Prisma.MaterialItemUpdateOneRequiredWithoutDemandsNestedInput
+  requestedForContract?: Prisma.ContractUpdateOneWithoutMaterialDemandsNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateWithoutWbsNodeInput = {
@@ -678,7 +935,9 @@ export type MaterialDemandUncheckedUpdateWithoutWbsNodeInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateManyWithoutWbsNodeInput = {
@@ -687,6 +946,7 @@ export type MaterialDemandUncheckedUpdateManyWithoutWbsNodeInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type MaterialDemandCreateManyMaterialItemInput = {
@@ -695,6 +955,7 @@ export type MaterialDemandCreateManyMaterialItemInput = {
   neededByDate: Date | string
   quantityNeeded: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: string | null
 }
 
 export type MaterialDemandUpdateWithoutMaterialItemInput = {
@@ -703,7 +964,9 @@ export type MaterialDemandUpdateWithoutMaterialItemInput = {
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutMaterialDemandsNestedInput
+  requestedForContract?: Prisma.ContractUpdateOneWithoutMaterialDemandsNestedInput
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateWithoutMaterialItemInput = {
@@ -712,7 +975,9 @@ export type MaterialDemandUncheckedUpdateWithoutMaterialItemInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutMaterialDemandNestedInput
+  resourceRequest?: Prisma.ResourceRequestUncheckedUpdateOneWithoutMaterialDemandNestedInput
 }
 
 export type MaterialDemandUncheckedUpdateManyWithoutMaterialItemInput = {
@@ -721,6 +986,7 @@ export type MaterialDemandUncheckedUpdateManyWithoutMaterialItemInput = {
   neededByDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantityNeeded?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantityDelivered?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedForContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -761,9 +1027,12 @@ export type MaterialDemandSelect<ExtArgs extends runtime.Types.Extensions.Intern
   neededByDate?: boolean
   quantityNeeded?: boolean
   quantityDelivered?: boolean
+  requestedForContractId?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
   purchaseOrderItems?: boolean | Prisma.MaterialDemand$purchaseOrderItemsArgs<ExtArgs>
+  resourceRequest?: boolean | Prisma.MaterialDemand$resourceRequestArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialDemandCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialDemand"]>
 
@@ -774,8 +1043,10 @@ export type MaterialDemandSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   neededByDate?: boolean
   quantityNeeded?: boolean
   quantityDelivered?: boolean
+  requestedForContractId?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
 }, ExtArgs["result"]["materialDemand"]>
 
 export type MaterialDemandSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -785,8 +1056,10 @@ export type MaterialDemandSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   neededByDate?: boolean
   quantityNeeded?: boolean
   quantityDelivered?: boolean
+  requestedForContractId?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
 }, ExtArgs["result"]["materialDemand"]>
 
 export type MaterialDemandSelectScalar = {
@@ -796,22 +1069,27 @@ export type MaterialDemandSelectScalar = {
   neededByDate?: boolean
   quantityNeeded?: boolean
   quantityDelivered?: boolean
+  requestedForContractId?: boolean
 }
 
-export type MaterialDemandOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wbsNodeId" | "materialItemId" | "neededByDate" | "quantityNeeded" | "quantityDelivered", ExtArgs["result"]["materialDemand"]>
+export type MaterialDemandOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wbsNodeId" | "materialItemId" | "neededByDate" | "quantityNeeded" | "quantityDelivered" | "requestedForContractId", ExtArgs["result"]["materialDemand"]>
 export type MaterialDemandInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
   purchaseOrderItems?: boolean | Prisma.MaterialDemand$purchaseOrderItemsArgs<ExtArgs>
+  resourceRequest?: boolean | Prisma.MaterialDemand$resourceRequestArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialDemandCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialDemandIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
 }
 export type MaterialDemandIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   materialItem?: boolean | Prisma.MaterialItemDefaultArgs<ExtArgs>
+  requestedForContract?: boolean | Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>
 }
 
 export type $MaterialDemandPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -819,7 +1097,9 @@ export type $MaterialDemandPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     wbsNode: Prisma.$WbsNodePayload<ExtArgs>
     materialItem: Prisma.$MaterialItemPayload<ExtArgs>
+    requestedForContract: Prisma.$ContractPayload<ExtArgs> | null
     purchaseOrderItems: Prisma.$PurchaseOrderItemPayload<ExtArgs>[]
+    resourceRequest: Prisma.$ResourceRequestPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -828,6 +1108,11 @@ export type $MaterialDemandPayload<ExtArgs extends runtime.Types.Extensions.Inte
     neededByDate: Date
     quantityNeeded: runtime.Decimal
     quantityDelivered: runtime.Decimal
+    /**
+     * Set when this demand originated from a subcontractor's resource request
+     * (file 20 §5.4) rather than the main contractor's own planning.
+     */
+    requestedForContractId: string | null
   }, ExtArgs["result"]["materialDemand"]>
   composites: {}
 }
@@ -1224,7 +1509,9 @@ export interface Prisma__MaterialDemandClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   wbsNode<T extends Prisma.WbsNodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNodeDefaultArgs<ExtArgs>>): Prisma.Prisma__WbsNodeClient<runtime.Types.Result.GetResult<Prisma.$WbsNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   materialItem<T extends Prisma.MaterialItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialItemDefaultArgs<ExtArgs>>): Prisma.Prisma__MaterialItemClient<runtime.Types.Result.GetResult<Prisma.$MaterialItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  requestedForContract<T extends Prisma.MaterialDemand$requestedForContractArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialDemand$requestedForContractArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   purchaseOrderItems<T extends Prisma.MaterialDemand$purchaseOrderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialDemand$purchaseOrderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resourceRequest<T extends Prisma.MaterialDemand$resourceRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialDemand$resourceRequestArgs<ExtArgs>>): Prisma.Prisma__ResourceRequestClient<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1260,6 +1547,7 @@ export interface MaterialDemandFieldRefs {
   readonly neededByDate: Prisma.FieldRef<"MaterialDemand", 'DateTime'>
   readonly quantityNeeded: Prisma.FieldRef<"MaterialDemand", 'Decimal'>
   readonly quantityDelivered: Prisma.FieldRef<"MaterialDemand", 'Decimal'>
+  readonly requestedForContractId: Prisma.FieldRef<"MaterialDemand", 'String'>
 }
     
 
@@ -1656,6 +1944,25 @@ export type MaterialDemandDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * MaterialDemand.requestedForContract
+ */
+export type MaterialDemand$requestedForContractArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Contract
+   */
+  select?: Prisma.ContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Contract
+   */
+  omit?: Prisma.ContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractInclude<ExtArgs> | null
+  where?: Prisma.ContractWhereInput
+}
+
+/**
  * MaterialDemand.purchaseOrderItems
  */
 export type MaterialDemand$purchaseOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1677,6 +1984,25 @@ export type MaterialDemand$purchaseOrderItemsArgs<ExtArgs extends runtime.Types.
   take?: number
   skip?: number
   distinct?: Prisma.PurchaseOrderItemScalarFieldEnum | Prisma.PurchaseOrderItemScalarFieldEnum[]
+}
+
+/**
+ * MaterialDemand.resourceRequest
+ */
+export type MaterialDemand$resourceRequestArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResourceRequest
+   */
+  select?: Prisma.ResourceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResourceRequest
+   */
+  omit?: Prisma.ResourceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResourceRequestInclude<ExtArgs> | null
+  where?: Prisma.ResourceRequestWhereInput
 }
 
 /**

@@ -8,6 +8,7 @@ import {
 import {
   assertWritableWbs,
   intersectWbs,
+  unionWbs,
   isAll,
   isWbsVisible,
   type EffectiveScope,
@@ -31,6 +32,8 @@ export async function getEffectiveScope(
   const org = await getOrganizationScope(user, projectId);
   const individual = await getIndividualAssignmentScope(user, projectId);
 
+  const oversightWbsNodeIds = individual.oversightWbsNodeIds ?? new Set<string>();
+
   const visibleWbsNodeIds = intersectWbs(
     org.visibleWbsNodeIds,
     individual.visibleWbsNodeIds
@@ -40,9 +43,16 @@ export async function getEffectiveScope(
     individual.writableWbsNodeIds
   );
 
+  // Oversight of a subcontract branch is granted by the Contractor PM on top of
+  // the party ceiling, so it survives the org intersect above. It only ever adds
+  // READ: writableWbsNodeIds is left untouched, because the subcontractor
+  // executes that branch and this user only verifies it (file 20 §5.4).
+  const visibleWithOversight = unionWbs(visibleWbsNodeIds, oversightWbsNodeIds);
+  const orgWithOversight = unionWbs(org.visibleWbsNodeIds, oversightWbsNodeIds);
+
   return {
     projectId,
-    visibleWbsNodeIds,
+    visibleWbsNodeIds: visibleWithOversight,
     writableWbsNodeIds,
     canViewCostDetail: roleAllowsCostDetail(user.role, org.canViewCostDetail),
     canViewOperationalData: org.canViewOperationalData,
@@ -50,8 +60,23 @@ export async function getEffectiveScope(
     scopeMode: org.scopeMode,
     scheduleReadMode: individual.scheduleReadMode,
     assignedActivityIds: individual.assignedActivityIds ?? new Set(),
-    orgVisibleWbsNodeIds: org.visibleWbsNodeIds,
+    orgVisibleWbsNodeIds: orgWithOversight,
+    oversightWbsNodeIds,
+    oversightContractIds: individual.oversightContractIds ?? new Set(),
   };
+}
+
+/** Whether this user holds oversight over any branch on the project. */
+export function hasOversight(scope: EffectiveScope): boolean {
+  return isAll(scope.oversightWbsNodeIds)
+    ? true
+    : scope.oversightWbsNodeIds.size > 0;
+}
+
+/** Whether a node sits inside a branch this user oversees rather than executes. */
+export function isOversightOnly(scope: EffectiveScope, wbsNodeId: string): boolean {
+  if (!isWbsVisible(scope.oversightWbsNodeIds, wbsNodeId)) return false;
+  return !isWbsVisible(scope.writableWbsNodeIds, wbsNodeId);
 }
 
 export function scopeWbsFilter(scope: EffectiveScope) {
@@ -86,7 +111,9 @@ export function scheduleReadWbsFilter(scope: EffectiveScope): {
 }
 
 /**
- * Expand Foreman schedule read to include immediate predecessors and successors.
+ * Expand Foreman schedule read to include immediate predecessors and successors,
+ * plus every activity inside a branch they hold oversight over — an oversight
+ * holder has to see the schedule they are verifying, not just their own tasks.
  */
 export async function expandForemanScheduleActivityIds(
   scope: EffectiveScope
@@ -95,23 +122,33 @@ export async function expandForemanScheduleActivityIds(
     return new Set();
   }
   const assigned = [...scope.assignedActivityIds];
-  if (assigned.length === 0) return new Set();
-
-  const deps = await db.scheduleDependency.findMany({
-    where: {
-      OR: [
-        { predecessorId: { in: assigned } },
-        { successorId: { in: assigned } },
-      ],
-    },
-    select: { predecessorId: true, successorId: true },
-  });
-
   const ids = new Set(assigned);
-  for (const d of deps) {
-    ids.add(d.predecessorId);
-    ids.add(d.successorId);
+
+  if (assigned.length > 0) {
+    const deps = await db.scheduleDependency.findMany({
+      where: {
+        OR: [
+          { predecessorId: { in: assigned } },
+          { successorId: { in: assigned } },
+        ],
+      },
+      select: { predecessorId: true, successorId: true },
+    });
+    for (const d of deps) {
+      ids.add(d.predecessorId);
+      ids.add(d.successorId);
+    }
   }
+
+  const oversight = scope.oversightWbsNodeIds;
+  if (!isAll(oversight) && oversight.size > 0) {
+    const overseen = await db.scheduleActivity.findMany({
+      where: { wbsNodeId: { in: [...oversight] } },
+      select: { id: true },
+    });
+    for (const a of overseen) ids.add(a.id);
+  }
+
   return ids;
 }
 

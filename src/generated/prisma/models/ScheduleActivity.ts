@@ -28,10 +28,12 @@ export type AggregateScheduleActivity = {
 
 export type ScheduleActivityAvgAggregateOutputType = {
   progressPercent: runtime.Decimal | null
+  weightPercent: runtime.Decimal | null
 }
 
 export type ScheduleActivitySumAggregateOutputType = {
   progressPercent: runtime.Decimal | null
+  weightPercent: runtime.Decimal | null
 }
 
 export type ScheduleActivityMinAggregateOutputType = {
@@ -46,6 +48,7 @@ export type ScheduleActivityMinAggregateOutputType = {
   actualFinish: Date | null
   progressPercent: runtime.Decimal | null
   status: $Enums.ActivityStatus | null
+  weightPercent: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +65,7 @@ export type ScheduleActivityMaxAggregateOutputType = {
   actualFinish: Date | null
   progressPercent: runtime.Decimal | null
   status: $Enums.ActivityStatus | null
+  weightPercent: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -78,6 +82,7 @@ export type ScheduleActivityCountAggregateOutputType = {
   actualFinish: number
   progressPercent: number
   status: number
+  weightPercent: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -86,10 +91,12 @@ export type ScheduleActivityCountAggregateOutputType = {
 
 export type ScheduleActivityAvgAggregateInputType = {
   progressPercent?: true
+  weightPercent?: true
 }
 
 export type ScheduleActivitySumAggregateInputType = {
   progressPercent?: true
+  weightPercent?: true
 }
 
 export type ScheduleActivityMinAggregateInputType = {
@@ -104,6 +111,7 @@ export type ScheduleActivityMinAggregateInputType = {
   actualFinish?: true
   progressPercent?: true
   status?: true
+  weightPercent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -120,6 +128,7 @@ export type ScheduleActivityMaxAggregateInputType = {
   actualFinish?: true
   progressPercent?: true
   status?: true
+  weightPercent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -136,6 +145,7 @@ export type ScheduleActivityCountAggregateInputType = {
   actualFinish?: true
   progressPercent?: true
   status?: true
+  weightPercent?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -239,6 +249,7 @@ export type ScheduleActivityGroupByOutputType = {
   actualFinish: Date | null
   progressPercent: runtime.Decimal
   status: $Enums.ActivityStatus
+  weightPercent: runtime.Decimal | null
   createdAt: Date
   updatedAt: Date
   _count: ScheduleActivityCountAggregateOutputType | null
@@ -278,6 +289,7 @@ export type ScheduleActivityWhereInput = {
   actualFinish?: Prisma.DateTimeNullableFilter<"ScheduleActivity"> | Date | string | null
   progressPercent?: Prisma.DecimalFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFilter<"ScheduleActivity"> | $Enums.ActivityStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
   wbsNode?: Prisma.XOR<Prisma.WbsNodeScalarRelationFilter, Prisma.WbsNodeWhereInput>
@@ -303,6 +315,7 @@ export type ScheduleActivityOrderByWithRelationInput = {
   actualFinish?: Prisma.SortOrderInput | Prisma.SortOrder
   progressPercent?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   wbsNode?: Prisma.WbsNodeOrderByWithRelationInput
@@ -331,6 +344,7 @@ export type ScheduleActivityWhereUniqueInput = Prisma.AtLeast<{
   actualFinish?: Prisma.DateTimeNullableFilter<"ScheduleActivity"> | Date | string | null
   progressPercent?: Prisma.DecimalFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFilter<"ScheduleActivity"> | $Enums.ActivityStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
   wbsNode?: Prisma.XOR<Prisma.WbsNodeScalarRelationFilter, Prisma.WbsNodeWhereInput>
@@ -356,6 +370,7 @@ export type ScheduleActivityOrderByWithAggregationInput = {
   actualFinish?: Prisma.SortOrderInput | Prisma.SortOrder
   progressPercent?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ScheduleActivityCountOrderByAggregateInput
@@ -380,6 +395,7 @@ export type ScheduleActivityScalarWhereWithAggregatesInput = {
   actualFinish?: Prisma.DateTimeNullableWithAggregatesFilter<"ScheduleActivity"> | Date | string | null
   progressPercent?: Prisma.DecimalWithAggregatesFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusWithAggregatesFilter<"ScheduleActivity"> | $Enums.ActivityStatus
+  weightPercent?: Prisma.DecimalNullableWithAggregatesFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ScheduleActivity"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ScheduleActivity"> | Date | string
 }
@@ -395,6 +411,7 @@ export type ScheduleActivityCreateInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -420,6 +437,7 @@ export type ScheduleActivityUncheckedCreateInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -443,6 +461,7 @@ export type ScheduleActivityUpdateInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -468,6 +487,7 @@ export type ScheduleActivityUncheckedUpdateInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -492,6 +512,7 @@ export type ScheduleActivityCreateManyInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -507,6 +528,7 @@ export type ScheduleActivityUpdateManyMutationInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -523,6 +545,7 @@ export type ScheduleActivityUncheckedUpdateManyInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -549,12 +572,14 @@ export type ScheduleActivityCountOrderByAggregateInput = {
   actualFinish?: Prisma.SortOrder
   progressPercent?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ScheduleActivityAvgOrderByAggregateInput = {
   progressPercent?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
 }
 
 export type ScheduleActivityMaxOrderByAggregateInput = {
@@ -569,6 +594,7 @@ export type ScheduleActivityMaxOrderByAggregateInput = {
   actualFinish?: Prisma.SortOrder
   progressPercent?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -585,12 +611,14 @@ export type ScheduleActivityMinOrderByAggregateInput = {
   actualFinish?: Prisma.SortOrder
   progressPercent?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ScheduleActivitySumOrderByAggregateInput = {
   progressPercent?: Prisma.SortOrder
+  weightPercent?: Prisma.SortOrder
 }
 
 export type ScheduleActivityScalarRelationFilter = {
@@ -776,6 +804,7 @@ export type ScheduleActivityCreateWithoutWbsNodeInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyCreateNestedManyWithoutPredecessorInput
@@ -799,6 +828,7 @@ export type ScheduleActivityUncheckedCreateWithoutWbsNodeInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -852,6 +882,7 @@ export type ScheduleActivityScalarWhereInput = {
   actualFinish?: Prisma.DateTimeNullableFilter<"ScheduleActivity"> | Date | string | null
   progressPercent?: Prisma.DecimalFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFilter<"ScheduleActivity"> | $Enums.ActivityStatus
+  weightPercent?: Prisma.DecimalNullableFilter<"ScheduleActivity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ScheduleActivity"> | Date | string
 }
@@ -867,6 +898,7 @@ export type ScheduleActivityCreateWithoutAssignmentsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -891,6 +923,7 @@ export type ScheduleActivityUncheckedCreateWithoutAssignmentsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -929,6 +962,7 @@ export type ScheduleActivityUpdateWithoutAssignmentsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -953,6 +987,7 @@ export type ScheduleActivityUncheckedUpdateWithoutAssignmentsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -975,6 +1010,7 @@ export type ScheduleActivityCreateWithoutPredecessorsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -999,6 +1035,7 @@ export type ScheduleActivityUncheckedCreateWithoutPredecessorsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   successors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutSuccessorInput
@@ -1026,6 +1063,7 @@ export type ScheduleActivityCreateWithoutSuccessorsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1050,6 +1088,7 @@ export type ScheduleActivityUncheckedCreateWithoutSuccessorsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1088,6 +1127,7 @@ export type ScheduleActivityUpdateWithoutPredecessorsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1112,6 +1152,7 @@ export type ScheduleActivityUncheckedUpdateWithoutPredecessorsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   successors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutSuccessorNestedInput
@@ -1145,6 +1186,7 @@ export type ScheduleActivityUpdateWithoutSuccessorsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1169,6 +1211,7 @@ export type ScheduleActivityUncheckedUpdateWithoutSuccessorsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1191,6 +1234,7 @@ export type ScheduleActivityCreateWithoutDependencyRequestsAsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1215,6 +1259,7 @@ export type ScheduleActivityUncheckedCreateWithoutDependencyRequestsAsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1242,6 +1287,7 @@ export type ScheduleActivityCreateWithoutDependencyRequestsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1266,6 +1312,7 @@ export type ScheduleActivityUncheckedCreateWithoutDependencyRequestsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1304,6 +1351,7 @@ export type ScheduleActivityUpdateWithoutDependencyRequestsAsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1328,6 +1376,7 @@ export type ScheduleActivityUncheckedUpdateWithoutDependencyRequestsAsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1361,6 +1410,7 @@ export type ScheduleActivityUpdateWithoutDependencyRequestsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1385,6 +1435,7 @@ export type ScheduleActivityUncheckedUpdateWithoutDependencyRequestsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1407,6 +1458,7 @@ export type ScheduleActivityCreateWithoutStoppagesInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1431,6 +1483,7 @@ export type ScheduleActivityUncheckedCreateWithoutStoppagesInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1469,6 +1522,7 @@ export type ScheduleActivityUpdateWithoutStoppagesInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1493,6 +1547,7 @@ export type ScheduleActivityUncheckedUpdateWithoutStoppagesInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1515,6 +1570,7 @@ export type ScheduleActivityCreateWithoutSafetyBlockedIncidentsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1539,6 +1595,7 @@ export type ScheduleActivityUncheckedCreateWithoutSafetyBlockedIncidentsInput = 
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1577,6 +1634,7 @@ export type ScheduleActivityUpdateWithoutSafetyBlockedIncidentsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1601,6 +1659,7 @@ export type ScheduleActivityUncheckedUpdateWithoutSafetyBlockedIncidentsInput = 
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1623,6 +1682,7 @@ export type ScheduleActivityCreateWithoutScheduleChangeRequestsInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wbsNode: Prisma.WbsNodeCreateNestedOneWithoutActivitiesInput
@@ -1647,6 +1707,7 @@ export type ScheduleActivityUncheckedCreateWithoutScheduleChangeRequestsInput = 
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedCreateNestedManyWithoutPredecessorInput
@@ -1685,6 +1746,7 @@ export type ScheduleActivityUpdateWithoutScheduleChangeRequestsInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wbsNode?: Prisma.WbsNodeUpdateOneRequiredWithoutActivitiesNestedInput
@@ -1709,6 +1771,7 @@ export type ScheduleActivityUncheckedUpdateWithoutScheduleChangeRequestsInput = 
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1731,6 +1794,7 @@ export type ScheduleActivityCreateManyWbsNodeInput = {
   actualFinish?: Date | string | null
   progressPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ActivityStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1746,6 +1810,7 @@ export type ScheduleActivityUpdateWithoutWbsNodeInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUpdateManyWithoutPredecessorNestedInput
@@ -1769,6 +1834,7 @@ export type ScheduleActivityUncheckedUpdateWithoutWbsNodeInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   predecessors?: Prisma.ScheduleDependencyUncheckedUpdateManyWithoutPredecessorNestedInput
@@ -1792,6 +1858,7 @@ export type ScheduleActivityUncheckedUpdateManyWithoutWbsNodeInput = {
   actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progressPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1902,6 +1969,7 @@ export type ScheduleActivitySelect<ExtArgs extends runtime.Types.Extensions.Inte
   actualFinish?: boolean
   progressPercent?: boolean
   status?: boolean
+  weightPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
@@ -1928,6 +1996,7 @@ export type ScheduleActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   actualFinish?: boolean
   progressPercent?: boolean
   status?: boolean
+  weightPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
@@ -1945,6 +2014,7 @@ export type ScheduleActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   actualFinish?: boolean
   progressPercent?: boolean
   status?: boolean
+  weightPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
@@ -1962,11 +2032,12 @@ export type ScheduleActivitySelectScalar = {
   actualFinish?: boolean
   progressPercent?: boolean
   status?: boolean
+  weightPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ScheduleActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wbsNodeId" | "name" | "baselineStart" | "baselineFinish" | "plannedStart" | "plannedFinish" | "actualStart" | "actualFinish" | "progressPercent" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["scheduleActivity"]>
+export type ScheduleActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wbsNodeId" | "name" | "baselineStart" | "baselineFinish" | "plannedStart" | "plannedFinish" | "actualStart" | "actualFinish" | "progressPercent" | "status" | "weightPercent" | "createdAt" | "updatedAt", ExtArgs["result"]["scheduleActivity"]>
 export type ScheduleActivityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wbsNode?: boolean | Prisma.WbsNodeDefaultArgs<ExtArgs>
   predecessors?: boolean | Prisma.ScheduleActivity$predecessorsArgs<ExtArgs>
@@ -2011,6 +2082,12 @@ export type $ScheduleActivityPayload<ExtArgs extends runtime.Types.Extensions.In
     actualFinish: Date | null
     progressPercent: runtime.Decimal
     status: $Enums.ActivityStatus
+    /**
+     * This activity's share of its WbsNode's completion, 0-100 (file 20 §2.2).
+     * Sibling activities under one node must sum to 100. Null falls back to
+     * equal weighting among unweighted siblings.
+     */
+    weightPercent: runtime.Decimal | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["scheduleActivity"]>
@@ -2456,6 +2533,7 @@ export interface ScheduleActivityFieldRefs {
   readonly actualFinish: Prisma.FieldRef<"ScheduleActivity", 'DateTime'>
   readonly progressPercent: Prisma.FieldRef<"ScheduleActivity", 'Decimal'>
   readonly status: Prisma.FieldRef<"ScheduleActivity", 'ActivityStatus'>
+  readonly weightPercent: Prisma.FieldRef<"ScheduleActivity", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"ScheduleActivity", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ScheduleActivity", 'DateTime'>
 }

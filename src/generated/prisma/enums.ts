@@ -472,6 +472,15 @@ export const AssignmentRole = {
 export type AssignmentRole = (typeof AssignmentRole)[keyof typeof AssignmentRole]
 
 
+export const SectionAssignmentRole = {
+  SITE_ENGINEER_OWNER: 'SITE_ENGINEER_OWNER',
+  SUPERINTENDENT_OWNER: 'SUPERINTENDENT_OWNER',
+  SUBCONTRACTOR_OWNER: 'SUBCONTRACTOR_OWNER'
+} as const
+
+export type SectionAssignmentRole = (typeof SectionAssignmentRole)[keyof typeof SectionAssignmentRole]
+
+
 export const DependencyRequestStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -505,6 +514,12 @@ export const NotificationType = {
   CONTRACT_STATUS_CHANGED: 'CONTRACT_STATUS_CHANGED',
   REVIEW_COMMENT_ADDED: 'REVIEW_COMMENT_ADDED',
   SCHEDULE_CHANGE_PENDING: 'SCHEDULE_CHANGE_PENDING',
+  WBS_PLAN_PENDING_REVIEW: 'WBS_PLAN_PENDING_REVIEW',
+  WBS_PLAN_REVIEWED: 'WBS_PLAN_REVIEWED',
+  OVERSIGHT_ASSIGNED: 'OVERSIGHT_ASSIGNED',
+  OVERSIGHT_VARIANCE_FLAGGED: 'OVERSIGHT_VARIANCE_FLAGGED',
+  RESOURCE_REQUEST_PENDING: 'RESOURCE_REQUEST_PENDING',
+  RESOURCE_REQUEST_REVIEWED: 'RESOURCE_REQUEST_REVIEWED',
   OTHER: 'OTHER'
 } as const
 
@@ -519,3 +534,53 @@ export const ScheduleChangeStatus = {
 } as const
 
 export type ScheduleChangeStatus = (typeof ScheduleChangeStatus)[keyof typeof ScheduleChangeStatus]
+
+
+export const WbsNodeStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type WbsNodeStatus = (typeof WbsNodeStatus)[keyof typeof WbsNodeStatus]
+
+
+export const WbsPlanSubmissionStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REVISION_REQUESTED: 'REVISION_REQUESTED'
+} as const
+
+export type WbsPlanSubmissionStatus = (typeof WbsPlanSubmissionStatus)[keyof typeof WbsPlanSubmissionStatus]
+
+
+export const OversightAssessment = {
+  NOT_ASSESSED: 'NOT_ASSESSED',
+  MATCHES_REPORTED: 'MATCHES_REPORTED',
+  BELOW_REPORTED: 'BELOW_REPORTED',
+  ABOVE_REPORTED: 'ABOVE_REPORTED'
+} as const
+
+export type OversightAssessment = (typeof OversightAssessment)[keyof typeof OversightAssessment]
+
+
+export const ResourceRequestKind = {
+  MATERIAL: 'MATERIAL',
+  EQUIPMENT: 'EQUIPMENT',
+  LABOR: 'LABOR'
+} as const
+
+export type ResourceRequestKind = (typeof ResourceRequestKind)[keyof typeof ResourceRequestKind]
+
+
+export const ResourceRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED',
+  FULFILLED: 'FULFILLED'
+} as const
+
+export type ResourceRequestStatus = (typeof ResourceRequestStatus)[keyof typeof ResourceRequestStatus]

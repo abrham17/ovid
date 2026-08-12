@@ -31,17 +31,21 @@ export async function listActivities(user: SessionUser, projectId: string) {
 
   const scope = await getEffectiveScope(user, projectId);
 
-  let where: Prisma.ScheduleActivityWhereInput = { wbsNode: { projectId } };
+  // DRAFT nodes belong to an unapproved plan submission — their activities are
+  // not yet part of the live schedule (file 20 §3.2).
+  const liveNode = { projectId, status: { not: "DRAFT" as const } };
+
+  let where: Prisma.ScheduleActivityWhereInput = { wbsNode: liveNode };
 
   if (scope.scheduleReadMode === "org_ceiling") {
     const orgFilter = activityWbsFilter(scope.orgVisibleWbsNodeIds);
-    where = { wbsNode: { projectId }, ...orgFilter };
+    where = { wbsNode: liveNode, ...orgFilter };
   } else if (scope.scheduleReadMode === "assignment_plus_deps") {
     const ids = await expandForemanScheduleActivityIds(scope);
-    where = { wbsNode: { projectId }, id: { in: [...ids] } };
+    where = { wbsNode: liveNode, id: { in: [...ids] } };
   } else {
     const vis = activityWbsFilter(scope.visibleWbsNodeIds);
-    where = { wbsNode: { projectId }, ...vis };
+    where = { wbsNode: liveNode, ...vis };
   }
 
   return db.scheduleActivity.findMany({

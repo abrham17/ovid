@@ -99,9 +99,14 @@ export const ModelName = {
   PurchaseOrderItem: 'PurchaseOrderItem',
   MaterialReceipt: 'MaterialReceipt',
   BidTender: 'BidTender',
+  SectionAssignment: 'SectionAssignment',
   Notification: 'Notification',
   ReviewComment: 'ReviewComment',
-  ScheduleChangeRequest: 'ScheduleChangeRequest'
+  ScheduleChangeRequest: 'ScheduleChangeRequest',
+  WbsPlanSubmission: 'WbsPlanSubmission',
+  OversightAssignment: 'OversightAssignment',
+  OversightDailyEntry: 'OversightDailyEntry',
+  ResourceRequest: 'ResourceRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -268,6 +273,8 @@ export const WbsNodeScalarFieldEnum = {
   plannedStartDate: 'plannedStartDate',
   plannedEndDate: 'plannedEndDate',
   status: 'status',
+  weightPercent: 'weightPercent',
+  planSubmissionId: 'planSubmissionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -287,6 +294,7 @@ export const ScheduleActivityScalarFieldEnum = {
   actualFinish: 'actualFinish',
   progressPercent: 'progressPercent',
   status: 'status',
+  weightPercent: 'weightPercent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -702,7 +710,8 @@ export const MaterialDemandScalarFieldEnum = {
   materialItemId: 'materialItemId',
   neededByDate: 'neededByDate',
   quantityNeeded: 'quantityNeeded',
-  quantityDelivered: 'quantityDelivered'
+  quantityDelivered: 'quantityDelivered',
+  requestedForContractId: 'requestedForContractId'
 } as const
 
 export type MaterialDemandScalarFieldEnum = (typeof MaterialDemandScalarFieldEnum)[keyof typeof MaterialDemandScalarFieldEnum]
@@ -925,6 +934,21 @@ export const BidTenderScalarFieldEnum = {
 export type BidTenderScalarFieldEnum = (typeof BidTenderScalarFieldEnum)[keyof typeof BidTenderScalarFieldEnum]
 
 
+export const SectionAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  wbsNodeId: 'wbsNodeId',
+  role: 'role',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt',
+  supersededById: 'supersededById'
+} as const
+
+export type SectionAssignmentScalarFieldEnum = (typeof SectionAssignmentScalarFieldEnum)[keyof typeof SectionAssignmentScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -974,6 +998,92 @@ export const ScheduleChangeRequestScalarFieldEnum = {
 } as const
 
 export type ScheduleChangeRequestScalarFieldEnum = (typeof ScheduleChangeRequestScalarFieldEnum)[keyof typeof ScheduleChangeRequestScalarFieldEnum]
+
+
+export const WbsPlanSubmissionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  rootWbsNodeId: 'rootWbsNodeId',
+  title: 'title',
+  status: 'status',
+  createdById: 'createdById',
+  submittedById: 'submittedById',
+  submittedAt: 'submittedAt',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  reviewComments: 'reviewComments',
+  validationSummary: 'validationSummary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WbsPlanSubmissionScalarFieldEnum = (typeof WbsPlanSubmissionScalarFieldEnum)[keyof typeof WbsPlanSubmissionScalarFieldEnum]
+
+
+export const OversightAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  contractId: 'contractId',
+  scopeWbsNodeId: 'scopeWbsNodeId',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt',
+  supersededById: 'supersededById'
+} as const
+
+export type OversightAssignmentScalarFieldEnum = (typeof OversightAssignmentScalarFieldEnum)[keyof typeof OversightAssignmentScalarFieldEnum]
+
+
+export const OversightDailyEntryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  wbsNodeId: 'wbsNodeId',
+  oversightAssignmentId: 'oversightAssignmentId',
+  date: 'date',
+  activityDescription: 'activityDescription',
+  observedQuantity: 'observedQuantity',
+  observedUnit: 'observedUnit',
+  reportedQuantity: 'reportedQuantity',
+  quantityAssessment: 'quantityAssessment',
+  qualityAssessment: 'qualityAssessment',
+  concernsRaised: 'concernsRaised',
+  manpowerObserved: 'manpowerObserved',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OversightDailyEntryScalarFieldEnum = (typeof OversightDailyEntryScalarFieldEnum)[keyof typeof OversightDailyEntryScalarFieldEnum]
+
+
+export const ResourceRequestScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractId: 'contractId',
+  wbsNodeId: 'wbsNodeId',
+  kind: 'kind',
+  materialItemId: 'materialItemId',
+  equipmentId: 'equipmentId',
+  description: 'description',
+  quantity: 'quantity',
+  unit: 'unit',
+  neededByDate: 'neededByDate',
+  justification: 'justification',
+  status: 'status',
+  requestedById: 'requestedById',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  decisionReason: 'decisionReason',
+  materialDemandId: 'materialDemandId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResourceRequestScalarFieldEnum = (typeof ResourceRequestScalarFieldEnum)[keyof typeof ResourceRequestScalarFieldEnum]
 
 
 export const SortOrder = {
