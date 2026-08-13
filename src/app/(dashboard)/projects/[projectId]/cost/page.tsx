@@ -28,6 +28,7 @@ export default async function CostPage({ params }: Props) {
   ]);
 
   const showRates = overview.canViewCostDetail;
+  const clientOverview = JSON.parse(JSON.stringify(overview));
   const wbsNodes = filterWritableWbsOptions(
     flattenWbs(tree as any[]),
     hints.writableWbsIds
@@ -36,14 +37,14 @@ export default async function CostPage({ params }: Props) {
   return (
     <CostView
       projectId={projectId}
-      boqItems={overview.boqItems as any}
-      measurements={overview.measurements as any}
-      variations={overview.variations as any}
-      contracts={overview.contracts as any}
+      boqItems={clientOverview.boqItems}
+      measurements={clientOverview.measurements}
+      variations={clientOverview.variations}
+      contracts={clientOverview.contracts}
       totals={{
-        budgeted: overview.totals.budgeted ?? 0,
-        committed: overview.totals.committed ?? 0,
-        actual: overview.totals.actual ?? 0,
+        budgeted: clientOverview.totals.budgeted ?? 0,
+        committed: clientOverview.totals.committed ?? 0,
+        actual: clientOverview.totals.actual ?? 0,
       }}
       wbsNodes={wbsNodes}
       canCreateCost={can(session.role, "cost", "create") && hints.hasWritableScope}

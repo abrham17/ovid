@@ -54,12 +54,13 @@ export default async function WbsPage({ params }: Props) {
   const roleCanCreate = can(session.role, "wbs", "create");
   const roleCanUpdate = can(session.role, "wbs", "update");
   const roleCanDelete = can(session.role, "wbs", "delete");
+  const clientTree = JSON.parse(JSON.stringify(tree));
 
   return (
     <div className="space-y-8">
       <WbsView
         projectId={projectId}
-        tree={tree as any}
+        tree={clientTree}
         canCreate={roleCanCreate && hints.hasWritableScope}
         canUpdate={roleCanUpdate && hints.hasWritableScope}
         canDelete={roleCanDelete && isAll(hints.scope.writableWbsNodeIds)}
@@ -73,7 +74,7 @@ export default async function WbsPage({ params }: Props) {
           projectId={projectId}
           assignments={sectionAssignments as any}
           members={memberships as any}
-          wbsOptions={flattenWbs(tree as any)}
+          wbsOptions={flattenWbs(clientTree)}
           canAssign={canManageSectionAssignments && can(session.role, "assignment", "create")}
         />
       )}
