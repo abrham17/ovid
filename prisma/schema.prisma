@@ -59,6 +59,91 @@ enum UserRole {
   CLIENT_REP
   ADMIN
   SUBCONTRACTOR_PM
+  OFFICE_ENGINEER
+  COMPANY_STAFF
+}
+
+enum CompanyStaffRole {
+  GENERAL_MANAGER
+  LEGAL_SERVICE_MANAGER
+  HEAD_TENDERING
+  TENDERING_OFFICER
+  HEAD_PLANNING_MONITORING
+  PLANNING_OFFICER
+  ENGINEERING_DEPT_MANAGER
+  HEAD_ENGINEERING_SERVICES
+  ENGINEERING_SERVICES_OFFICER
+  EQUIPMENT_ADMIN_MANAGER
+  FINANCE_DEPT_MANAGER
+  INTERNAL_AUDITOR
+}
+
+enum CompanyApprovalType {
+  PROJECT_CREATION
+  CONTRACTOR_ONBOARDING
+  CONTRACT_TEMPLATE
+  HIGH_VALUE_CONTRACT
+  HIGH_VALUE_VARIATION
+  DESIGN_STANDARD
+  EQUIPMENT_CAPITAL
+  IPC_PAYMENT
+  EXECUTIVE_CONTRACT
+  EXECUTIVE_VARIATION
+}
+
+enum CompanyApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DesignReviewStatus {
+  DRAFT
+  SUBMITTED
+  CHANGES_REQUIRED
+  APPROVED
+  CLOSED
+}
+
+enum AuditFindingStatus {
+  OPEN
+  REMEDIATION_IN_PROGRESS
+  READY_FOR_VERIFICATION
+  CLOSED
+}
+
+enum ExecutiveInterventionCategory {
+  SCHEDULE
+  COST
+  SAFETY
+  COMPLIANCE
+  AUDIT
+  CONTRACT
+  RESOURCE
+  OTHER
+}
+
+enum ExecutiveInterventionPriority {
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ExecutiveInterventionStatus {
+  OPEN
+  ACKNOWLEDGED
+  ACTION_IN_PROGRESS
+  READY_FOR_REVIEW
+  CLOSED
+  CANCELLED
+}
+
+enum ExecutiveInterventionEventType {
+  CREATED
+  MANAGEMENT_RESPONSE
+  CEO_DIRECTION
+  STATUS_CHANGE
+  DUE_DATE_CHANGE
 }
 
 enum DocDept {
@@ -366,78 +451,103 @@ model Organization {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
-  users                User[]
-  projectsAsContractor Project[]           @relation("ProjectContractor")
-  projectsAsClient     Project[]           @relation("ProjectClient")
-  projectsAsConsultant Project[]           @relation("ProjectConsultant")
-  memberships          ProjectMembership[]
-  invitations          Invitation[]
-  contractsExecuted    Contract[]          @relation("ContractOrg")
-  employees            Employee[]
-  equipment            Equipment[]
-  defectsResponsible   DefectLog[]
-  purchaseOrders       PurchaseOrder[]     @relation("POSupplier")
-  bids                 BidTender[]         @relation("BidOrg")
+  users                  User[]
+  projectsAsContractor   Project[]                @relation("ProjectContractor")
+  projectsAsClient       Project[]                @relation("ProjectClient")
+  projectsAsConsultant   Project[]                @relation("ProjectConsultant")
+  memberships            ProjectMembership[]
+  invitations            Invitation[]
+  contractsExecuted      Contract[]               @relation("ContractOrg")
+  employees              Employee[]
+  equipment              Equipment[]
+  defectsResponsible     DefectLog[]
+  purchaseOrders         PurchaseOrder[]          @relation("POSupplier")
+  bids                   BidTender[]              @relation("BidOrg")
+  bidsOwned              BidTender[]              @relation("BidOwnerOrg")
+  companyAssignments     CompanyStaffAssignment[]
+  companyInvitations     CompanyInvitation[]
+  approvals              CompanyApproval[]
+  designReviews          DesignReview[]
+  auditFindings          AuditFinding[]
+  executiveInterventions ExecutiveIntervention[]
 
   @@index([partyType])
   @@index([name])
 }
 
 model User {
-  id                String   @id @default(cuid())
-  organizationId    String
-  fullName          String
-  email             String   @unique
-  passwordHash      String
-  phone             String?
-  jobTitle          String
-  role              UserRole
-  signatureImageUrl String?
-  active            Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  organizationId     String
+  fullName           String
+  email              String   @unique
+  passwordHash       String
+  phone              String?
+  jobTitle           String
+  role               UserRole
+  signatureImageUrl  String?
+  active             Boolean  @default(true)
+  mustChangePassword Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  organization      Organization           @relation(fields: [organizationId], references: [id])
-  memberships       ProjectMembership[]
-  invitationsSent   Invitation[]           @relation("InvitationsSent")
-  invitationAccepted Invitation?           @relation("InvitationAccepted")
-  signOffs          SignOff[]
-  riskOwner         RiskEntry[]            @relation("RiskOwner")
-  observations      SafetyObservation[]
-  incidentsVerified SafetyIncident[]       @relation("IncidentVerifiedBy")
-  inspections       InspectionTestRecord[]
-  custodyTransfers  CustodyLog[]           @relation("CustodyTransferor")
-  custodyReceipts   CustodyLog[]           @relation("CustodyReceiver")
-  auditEntries      AuditLog[]
-  earthworkEntries  EarthworkDailyEntry[]  @relation("EarthworkEntriesCreated")
-  structureEntries  StructureDailyEntry[]  @relation("StructureEntriesCreated")
-  rebarEntries      RebarDailyEntry[]      @relation("RebarEntriesCreated")
-  documentsIssued   ProjectDocument[]      @relation("DocIssuedBy")
-  documentsApproved ProjectDocument[]      @relation("DocApprovedBy")
-  decisions         DecisionLog[]
-  lessonsLearned    LessonsLearned[]
-  bidsSubmitted     BidTender[]            @relation("BidSubmittedBy")
-  materialReceipts  MaterialReceipt[]
-  notifications     Notification[]
-  activityAssignments     ActivityAssignment[] @relation("ActivityAssignedTo")
-  assignedAssignments     ActivityAssignment[] @relation("ActivityAssignedBy")
-  sectionAssignments      SectionAssignment[]  @relation("SectionAssignedTo")
-  assignedSections        SectionAssignment[]  @relation("SectionAssignedBy")
-  dependencyRequestsMade  PendingDependencyRequest[] @relation("DepReqRequestedBy")
-  dependencyRequestsReviewed PendingDependencyRequest[] @relation("DepReqReviewedBy")
-  disputesOpened          DisputeRecord[] @relation("DisputeOpenedBy")
-  disputesResolved        DisputeRecord[] @relation("DisputeResolvedBy")
-  reviewComments          ReviewComment[]
-  scheduleChangesRequested ScheduleChangeRequest[] @relation("ScheduleChangeRequester")
-  scheduleChangesReviewed  ScheduleChangeRequest[] @relation("ScheduleChangeReviewer")
-  plansCreated             WbsPlanSubmission[]  @relation("PlanCreatedBy")
-  plansSubmitted           WbsPlanSubmission[]  @relation("PlanSubmittedBy")
-  plansReviewed            WbsPlanSubmission[]  @relation("PlanReviewedBy")
-  oversightAssignments     OversightAssignment[] @relation("OversightAssignedTo")
-  assignedOversights       OversightAssignment[] @relation("OversightAssignedBy")
-  oversightEntries         OversightDailyEntry[] @relation("OversightEntriesCreated")
-  resourceRequestsMade     ResourceRequest[]     @relation("ResourceRequestedBy")
-  resourceRequestsReviewed ResourceRequest[]     @relation("ResourceRequestReviewedBy")
+  organization                  Organization                 @relation(fields: [organizationId], references: [id])
+  memberships                   ProjectMembership[]
+  companyAssignments            CompanyStaffAssignment[]
+  assignedCompanyRoles          CompanyStaffAssignment[]     @relation("CompanyAssignmentAssigner")
+  companyInvitationsSent        CompanyInvitation[]          @relation("CompanyInvitationsSent")
+  companyApprovalsRequested     CompanyApproval[]            @relation("ApprovalRequester")
+  companyApprovalsReviewed      CompanyApproval[]            @relation("ApprovalReviewer")
+  invitationsSent               Invitation[]                 @relation("InvitationsSent")
+  invitationAccepted            Invitation?                  @relation("InvitationAccepted")
+  signOffs                      SignOff[]
+  riskOwner                     RiskEntry[]                  @relation("RiskOwner")
+  observations                  SafetyObservation[]
+  incidentsVerified             SafetyIncident[]             @relation("IncidentVerifiedBy")
+  inspections                   InspectionTestRecord[]
+  custodyTransfers              CustodyLog[]                 @relation("CustodyTransferor")
+  custodyReceipts               CustodyLog[]                 @relation("CustodyReceiver")
+  auditEntries                  AuditLog[]
+  earthworkEntries              EarthworkDailyEntry[]        @relation("EarthworkEntriesCreated")
+  structureEntries              StructureDailyEntry[]        @relation("StructureEntriesCreated")
+  rebarEntries                  RebarDailyEntry[]            @relation("RebarEntriesCreated")
+  documentsIssued               ProjectDocument[]            @relation("DocIssuedBy")
+  documentsApproved             ProjectDocument[]            @relation("DocApprovedBy")
+  decisions                     DecisionLog[]
+  lessonsLearned                LessonsLearned[]
+  bidsSubmitted                 BidTender[]                  @relation("BidSubmittedBy")
+  tendersOwned                  BidTender[]                  @relation("TenderOwner")
+  designReviewsSubmitted        DesignReview[]               @relation("DesignReviewSubmitter")
+  designReviewsReviewed         DesignReview[]               @relation("DesignReviewReviewer")
+  auditFindingsRaised           AuditFinding[]               @relation("AuditFindingRaisedBy")
+  auditFindingsOwned            AuditFinding[]               @relation("AuditFindingOwner")
+  auditFindingsVerified         AuditFinding[]               @relation("AuditFindingVerifier")
+  equipmentAllocationsMade      EquipmentAllocation[]
+  executiveInterventionsCreated ExecutiveIntervention[]      @relation("ExecutiveInterventionCreator")
+  executiveInterventionsOwned   ExecutiveIntervention[]      @relation("ExecutiveInterventionOwner")
+  executiveInterventionsClosed  ExecutiveIntervention[]      @relation("ExecutiveInterventionCloser")
+  executiveInterventionEvents   ExecutiveInterventionEvent[]
+  materialReceipts              MaterialReceipt[]
+  notifications                 Notification[]
+  activityAssignments           ActivityAssignment[]         @relation("ActivityAssignedTo")
+  assignedAssignments           ActivityAssignment[]         @relation("ActivityAssignedBy")
+  sectionAssignments            SectionAssignment[]          @relation("SectionAssignedTo")
+  assignedSections              SectionAssignment[]          @relation("SectionAssignedBy")
+  dependencyRequestsMade        PendingDependencyRequest[]   @relation("DepReqRequestedBy")
+  dependencyRequestsReviewed    PendingDependencyRequest[]   @relation("DepReqReviewedBy")
+  disputesOpened                DisputeRecord[]              @relation("DisputeOpenedBy")
+  disputesResolved              DisputeRecord[]              @relation("DisputeResolvedBy")
+  reviewComments                ReviewComment[]
+  scheduleChangesRequested      ScheduleChangeRequest[]      @relation("ScheduleChangeRequester")
+  scheduleChangesReviewed       ScheduleChangeRequest[]      @relation("ScheduleChangeReviewer")
+  plansCreated                  WbsPlanSubmission[]          @relation("PlanCreatedBy")
+  plansSubmitted                WbsPlanSubmission[]          @relation("PlanSubmittedBy")
+  plansReviewed                 WbsPlanSubmission[]          @relation("PlanReviewedBy")
+  oversightAssignments          OversightAssignment[]        @relation("OversightAssignedTo")
+  assignedOversights            OversightAssignment[]        @relation("OversightAssignedBy")
+  oversightEntries              OversightDailyEntry[]        @relation("OversightEntriesCreated")
+  resourceRequestsMade          ResourceRequest[]            @relation("ResourceRequestedBy")
+  resourceRequestsReviewed      ResourceRequest[]            @relation("ResourceRequestReviewedBy")
+
   @@index([organizationId])
   @@index([role])
 }
@@ -456,6 +566,180 @@ model ProjectMembership {
   @@unique([projectId, userId, organizationId])
   @@index([userId])
   @@index([organizationId])
+}
+
+model CompanyStaffAssignment {
+  id             String           @id @default(cuid())
+  userId         String
+  organizationId String
+  role           CompanyStaffRole
+  active         Boolean          @default(true)
+  assignedAt     DateTime         @default(now())
+  endedAt        DateTime?
+  assignedById   String?
+  reason         String?
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assignedBy   User?        @relation("CompanyAssignmentAssigner", fields: [assignedById], references: [id])
+
+  @@index([userId, organizationId, role, active])
+  @@index([organizationId, active])
+  @@index([userId, active])
+}
+
+model CompanyInvitation {
+  id             String           @id @default(cuid())
+  email          String
+  fullName       String
+  jobTitle       String
+  role           CompanyStaffRole
+  organizationId String
+  invitedById    String
+  tokenHash      String           @unique
+  status         InvitationStatus @default(PENDING)
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+  acceptedUserId String?
+  createdAt      DateTime         @default(now())
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invitedBy      User             @relation("CompanyInvitationsSent", fields: [invitedById], references: [id])
+
+  @@index([organizationId, status])
+  @@index([email])
+}
+
+model CompanyApproval {
+  id                String                @id @default(cuid())
+  organizationId    String
+  type              CompanyApprovalType
+  status            CompanyApprovalStatus @default(PENDING)
+  entityType        String
+  entityId          String
+  requestedById     String
+  reviewedById      String?
+  amount            Decimal?              @db.Decimal(18, 2)
+  thresholdSnapshot Json?
+  comment           String?
+  requestedAt       DateTime              @default(now())
+  reviewedAt        DateTime?
+  organization      Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  requestedBy       User                  @relation("ApprovalRequester", fields: [requestedById], references: [id])
+  reviewedBy        User?                 @relation("ApprovalReviewer", fields: [reviewedById], references: [id])
+
+  @@index([organizationId, status])
+  @@index([entityType, entityId])
+}
+
+model DesignReview {
+  id             String             @id @default(cuid())
+  organizationId String
+  projectId      String
+  wbsNodeId      String?
+  title          String
+  documentRef    String
+  reviewType     String
+  safetyCritical Boolean            @default(false)
+  status         DesignReviewStatus @default(DRAFT)
+  findings       Json?
+  resolution     String?
+  submittedById  String
+  reviewedById   String?
+  submittedAt    DateTime?
+  reviewedAt     DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode      WbsNode?     @relation(fields: [wbsNodeId], references: [id])
+  submittedBy  User         @relation("DesignReviewSubmitter", fields: [submittedById], references: [id])
+  reviewedBy   User?        @relation("DesignReviewReviewer", fields: [reviewedById], references: [id])
+
+  @@index([organizationId, status])
+  @@index([projectId, status])
+}
+
+model AuditFinding {
+  id              String             @id @default(cuid())
+  organizationId  String
+  projectId       String?
+  title           String
+  description     String
+  severity        String
+  status          AuditFindingStatus @default(OPEN)
+  evidenceRef     String?
+  remediationPlan String?
+  managementReply String?
+  dueAt           DateTime?
+  raisedById      String
+  ownerId         String?
+  verifiedById    String?
+  verifiedAt      DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project      Project?     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  raisedBy     User         @relation("AuditFindingRaisedBy", fields: [raisedById], references: [id])
+  owner        User?        @relation("AuditFindingOwner", fields: [ownerId], references: [id])
+  verifiedBy   User?        @relation("AuditFindingVerifier", fields: [verifiedById], references: [id])
+
+  @@index([organizationId, status])
+  @@index([projectId, status])
+  @@index([dueAt])
+}
+
+model ExecutiveIntervention {
+  id                String                        @id @default(cuid())
+  organizationId    String
+  projectId         String
+  category          ExecutiveInterventionCategory
+  priority          ExecutiveInterventionPriority @default(HIGH)
+  status            ExecutiveInterventionStatus   @default(OPEN)
+  title             String
+  description       String
+  requiredAction    String
+  sourceType        String?
+  sourceId          String?
+  accountableUserId String
+  createdById       String
+  dueAt             DateTime
+  closedById        String?
+  closedAt          DateTime?
+  createdAt         DateTime                      @default(now())
+  updatedAt         DateTime                      @updatedAt
+
+  organization    Organization                 @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project         Project                      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  accountableUser User                         @relation("ExecutiveInterventionOwner", fields: [accountableUserId], references: [id])
+  createdBy       User                         @relation("ExecutiveInterventionCreator", fields: [createdById], references: [id])
+  closedBy        User?                        @relation("ExecutiveInterventionCloser", fields: [closedById], references: [id])
+  events          ExecutiveInterventionEvent[]
+
+  @@index([organizationId, status])
+  @@index([projectId, status])
+  @@index([accountableUserId, status])
+  @@index([dueAt, status])
+}
+
+model ExecutiveInterventionEvent {
+  id             String                         @id @default(cuid())
+  interventionId String
+  type           ExecutiveInterventionEventType
+  authorId       String
+  comment        String
+  oldStatus      ExecutiveInterventionStatus?
+  newStatus      ExecutiveInterventionStatus?
+  oldDueAt       DateTime?
+  newDueAt       DateTime?
+  createdAt      DateTime                       @default(now())
+
+  intervention ExecutiveIntervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+  author       User                  @relation(fields: [authorId], references: [id])
+
+  @@index([interventionId, createdAt])
+  @@index([authorId, createdAt])
 }
 
 // ============================================================
@@ -516,37 +800,42 @@ model Project {
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 
-  contractorOrg         Organization          @relation("ProjectContractor", fields: [contractorOrgId], references: [id])
-  clientOrg             Organization          @relation("ProjectClient", fields: [clientOrgId], references: [id])
-  consultantOrg         Organization?         @relation("ProjectConsultant", fields: [consultantOrgId], references: [id])
-  memberships           ProjectMembership[]
-  invitations           Invitation[]
-  contracts             Contract[]
-  wbsNodes              WbsNode[]
-  stoppages             StoppageEntry[]
-  variations            VariationOrder[]
-  risks                 RiskEntry[]
-  equipmentUsage        EquipmentUsageLog[]
-  regulatoryReports     RegulatoryReport[]
-  earthworkDailyEntries EarthworkDailyEntry[]
-  structureDailyEntries StructureDailyEntry[]
-  rebarDailyEntries     RebarDailyEntry[]
-  documents             ProjectDocument[]
-  decisions             DecisionLog[]
-  lessonsLearned        LessonsLearned[]
-  purchaseOrders        PurchaseOrder[]
-  bids                  BidTender[]
-  materialReceipts      MaterialReceipt[]
-  notifications         Notification[]
+  contractorOrg             Organization               @relation("ProjectContractor", fields: [contractorOrgId], references: [id])
+  clientOrg                 Organization               @relation("ProjectClient", fields: [clientOrgId], references: [id])
+  consultantOrg             Organization?              @relation("ProjectConsultant", fields: [consultantOrgId], references: [id])
+  memberships               ProjectMembership[]
+  invitations               Invitation[]
+  contracts                 Contract[]
+  wbsNodes                  WbsNode[]
+  stoppages                 StoppageEntry[]
+  variations                VariationOrder[]
+  risks                     RiskEntry[]
+  equipmentUsage            EquipmentUsageLog[]
+  regulatoryReports         RegulatoryReport[]
+  earthworkDailyEntries     EarthworkDailyEntry[]
+  structureDailyEntries     StructureDailyEntry[]
+  rebarDailyEntries         RebarDailyEntry[]
+  documents                 ProjectDocument[]
+  decisions                 DecisionLog[]
+  lessonsLearned            LessonsLearned[]
+  purchaseOrders            PurchaseOrder[]
+  bids                      BidTender[]
+  materialReceipts          MaterialReceipt[]
+  notifications             Notification[]
   pendingDependencyRequests PendingDependencyRequest[]
-  disputeRecords          DisputeRecord[]
-  reviewComments          ReviewComment[]
-  scheduleChangeRequests   ScheduleChangeRequest[]
-  sectionAssignments       SectionAssignment[]
-  wbsPlanSubmissions       WbsPlanSubmission[]
-  oversightAssignments     OversightAssignment[]
-  oversightDailyEntries    OversightDailyEntry[]
-  resourceRequests         ResourceRequest[]
+  disputeRecords            DisputeRecord[]
+  reviewComments            ReviewComment[]
+  scheduleChangeRequests    ScheduleChangeRequest[]
+  sectionAssignments        SectionAssignment[]
+  wbsPlanSubmissions        WbsPlanSubmission[]
+  oversightAssignments      OversightAssignment[]
+  oversightDailyEntries     OversightDailyEntry[]
+  resourceRequests          ResourceRequest[]
+  designReviews             DesignReview[]
+  auditFindings             AuditFinding[]
+  equipmentAllocations      EquipmentAllocation[]
+  executiveInterventions    ExecutiveIntervention[]
+
   @@index([contractorOrgId])
   @@index([clientOrgId])
   @@index([status])
@@ -557,66 +846,66 @@ model Project {
 // ============================================================
 
 model Invitation {
-  id             String           @id @default(cuid())
-  email          String
-  fullName       String
-  jobTitle       String
-  role           UserRole
-  phone          String?
+  id       String   @id @default(cuid())
+  email    String
+  fullName String
+  jobTitle String
+  role     UserRole
+  phone    String?
 
   organizationId String
-  organization   Organization     @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  invitedById    String
-  invitedBy      User             @relation("InvitationsSent", fields: [invitedById], references: [id])
+  invitedById String
+  invitedBy   User   @relation("InvitationsSent", fields: [invitedById], references: [id])
 
-  projectId      String?
-  project        Project?         @relation(fields: [projectId], references: [id])
-  projectRole    String?
+  projectId   String?
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectRole String?
 
-  tokenHash      String           @unique
-  status         InvitationStatus @default(PENDING)
-  expiresAt      DateTime
-  acceptedAt     DateTime?
+  tokenHash  String           @unique
+  status     InvitationStatus @default(PENDING)
+  expiresAt  DateTime
+  acceptedAt DateTime?
 
-  acceptedUserId String?          @unique
-  acceptedUser   User?            @relation("InvitationAccepted", fields: [acceptedUserId], references: [id])
+  acceptedUserId String? @unique
+  acceptedUser   User?   @relation("InvitationAccepted", fields: [acceptedUserId], references: [id])
 
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([organizationId, status])
   @@index([email])
 }
 
 model Contract {
-  id               String         @id @default(cuid())
-  projectId        String
-  parentContractId String?
-  contractorOrgId  String
-  scopeWbsNodeId   String?
-  scopeDescription String
-  contractValue    Decimal        @db.Decimal(18, 2)
-  retentionPercent Decimal        @default(5) @db.Decimal(5, 2)
-  status           ContractStatus @default(ACTIVE)
-  terminatedAt     DateTime?
+  id                   String         @id @default(cuid())
+  projectId            String
+  parentContractId     String?
+  contractorOrgId      String
+  scopeWbsNodeId       String?
+  scopeDescription     String
+  contractValue        Decimal        @db.Decimal(18, 2)
+  retentionPercent     Decimal        @default(5) @db.Decimal(5, 2)
+  status               ContractStatus @default(ACTIVE)
+  terminatedAt         DateTime?
   supersedesContractId String?
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
 
-  project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  parentContract    Contract?          @relation("Subcontracts", fields: [parentContractId], references: [id])
-  subcontracts      Contract[]         @relation("Subcontracts")
-  contractorOrg     Organization       @relation("ContractOrg", fields: [contractorOrgId], references: [id])
-  scopeWbsNode      WbsNode?           @relation(fields: [scopeWbsNodeId], references: [id])
-  supersedes        Contract?          @relation("ContractSupersedeChain", fields: [supersedesContractId], references: [id])
-  supersededBy      Contract[]         @relation("ContractSupersedeChain")
-  measurements      MeasurementEntry[]
-  planSubmissions      WbsPlanSubmission[]
-  oversightAssignments OversightAssignment[]
+  project               Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parentContract        Contract?             @relation("Subcontracts", fields: [parentContractId], references: [id])
+  subcontracts          Contract[]            @relation("Subcontracts")
+  contractorOrg         Organization          @relation("ContractOrg", fields: [contractorOrgId], references: [id])
+  scopeWbsNode          WbsNode?              @relation(fields: [scopeWbsNodeId], references: [id])
+  supersedes            Contract?             @relation("ContractSupersedeChain", fields: [supersedesContractId], references: [id])
+  supersededBy          Contract[]            @relation("ContractSupersedeChain")
+  measurements          MeasurementEntry[]
+  planSubmissions       WbsPlanSubmission[]
+  oversightAssignments  OversightAssignment[]
   oversightDailyEntries OversightDailyEntry[]
-  resourceRequests     ResourceRequest[]
-  materialDemands      MaterialDemand[]
+  resourceRequests      ResourceRequest[]
+  materialDemands       MaterialDemand[]
 
   @@index([projectId])
   @@index([parentContractId])
@@ -630,27 +919,27 @@ model Contract {
 // ============================================================
 
 model WbsNode {
-  id          String      @id @default(cuid())
-  projectId   String
-  parentId    String?
-  code        String
-  name        String
-  nodeType    WBSNodeType
-  designReady Boolean     @default(false)
+  id               String        @id @default(cuid())
+  projectId        String
+  parentId         String?
+  code             String
+  name             String
+  nodeType         WBSNodeType
+  designReady      Boolean       @default(false)
   plannedStartDate DateTime?
   plannedEndDate   DateTime?
-  status      WbsNodeStatus   @default(ACTIVE)
+  status           WbsNodeStatus @default(ACTIVE)
   /// This node's share of its PARENT's completion, 0-100 (file 20 §2.2).
   /// Siblings must sum to 100 (the enforced "100% Rule"). Null on root nodes,
   /// which are 100% of their own subtree by definition, and null on legacy
   /// nodes created before weighting existed — the rollup falls back to equal
   /// weighting among unweighted siblings rather than silently scoring them 0.
-  weightPercent Decimal?      @db.Decimal(7, 4)
+  weightPercent    Decimal?      @db.Decimal(7, 4)
   /// Set when this node was created as part of a subcontractor's plan
   /// submission; nodes stay DRAFT until that submission is approved.
   planSubmissionId String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 
   project               Project                @relation(fields: [projectId], references: [id], onDelete: Cascade)
   parent                WbsNode?               @relation("WBSChildren", fields: [parentId], references: [id], onDelete: Cascade)
@@ -670,6 +959,7 @@ model WbsNode {
   equipmentUsage        EquipmentUsageLog[]
   materialDemands       MaterialDemand[]
   structuralElements    StructuralElement[]
+  designReviews         DesignReview[]
   earthworkDailyEntries EarthworkDailyEntry[]
   structureDailyEntries StructureDailyEntry[]
   rebarDailyEntries     RebarDailyEntry[]
@@ -678,14 +968,14 @@ model WbsNode {
   materialReceipts      MaterialReceipt[]
   decisions             DecisionLog[]
   lessonsLearned        LessonsLearned[]
-  contractsAsScope     Contract[]
-  disputeRecords       DisputeRecord[]
-  sectionAssignments   SectionAssignment[]
-  planSubmission       WbsPlanSubmission?    @relation("PlanSubmissionNodes", fields: [planSubmissionId], references: [id], onDelete: SetNull)
-  planSubmissionsAsRoot WbsPlanSubmission[]  @relation("PlanSubmissionRoot")
-  oversightAssignments OversightAssignment[]
+  contractsAsScope      Contract[]
+  disputeRecords        DisputeRecord[]
+  sectionAssignments    SectionAssignment[]
+  planSubmission        WbsPlanSubmission?     @relation("PlanSubmissionNodes", fields: [planSubmissionId], references: [id], onDelete: SetNull)
+  planSubmissionsAsRoot WbsPlanSubmission[]    @relation("PlanSubmissionRoot")
+  oversightAssignments  OversightAssignment[]
   oversightDailyEntries OversightDailyEntry[]
-  resourceRequests     ResourceRequest[]
+  resourceRequests      ResourceRequest[]
 
   @@unique([projectId, code])
   @@index([parentId])
@@ -718,35 +1008,35 @@ model ScheduleActivity {
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
-  wbsNode                WbsNode              @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
-  predecessors           ScheduleDependency[] @relation("DependencyPredecessor")
-  successors             ScheduleDependency[] @relation("DependencySuccessor")
+  wbsNode                WbsNode                    @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  predecessors           ScheduleDependency[]       @relation("DependencyPredecessor")
+  successors             ScheduleDependency[]       @relation("DependencySuccessor")
   stoppages              StoppageEntry[]
   safetyBlockedIncidents SafetyIncident[]
   assignments            ActivityAssignment[]
   dependencyRequests     PendingDependencyRequest[] @relation("DependencyRequestSuccessor")
   dependencyRequestsAs   PendingDependencyRequest[] @relation("DependencyRequestPredecessor")
-  scheduleChangeRequests   ScheduleChangeRequest[]
+  scheduleChangeRequests ScheduleChangeRequest[]
 
   @@index([wbsNodeId])
   @@index([status])
 }
 
 model ActivityAssignment {
-  id             String         @id @default(cuid())
+  id                 String         @id @default(cuid())
   scheduleActivityId String
-  userId         String
-  role           AssignmentRole
-  assignedById   String
-  assignedAt     DateTime       @default(now())
-  endedAt        DateTime?
-  supersededById String?
+  userId             String
+  role               AssignmentRole
+  assignedById       String
+  assignedAt         DateTime       @default(now())
+  endedAt            DateTime?
+  supersededById     String?
 
-  scheduleActivity ScheduleActivity      @relation(fields: [scheduleActivityId], references: [id], onDelete: Cascade)
-  user             User                  @relation("ActivityAssignedTo", fields: [userId], references: [id])
-  assignedBy       User                  @relation("ActivityAssignedBy", fields: [assignedById], references: [id])
-  supersededBy     ActivityAssignment?   @relation("ActivityAssignmentSupersede", fields: [supersededById], references: [id])
-  supersedes       ActivityAssignment[]  @relation("ActivityAssignmentSupersede")
+  scheduleActivity ScheduleActivity     @relation(fields: [scheduleActivityId], references: [id], onDelete: Cascade)
+  user             User                 @relation("ActivityAssignedTo", fields: [userId], references: [id])
+  assignedBy       User                 @relation("ActivityAssignedBy", fields: [assignedById], references: [id])
+  supersededBy     ActivityAssignment?  @relation("ActivityAssignmentSupersede", fields: [supersededById], references: [id])
+  supersedes       ActivityAssignment[] @relation("ActivityAssignmentSupersede")
 
   @@index([scheduleActivityId])
   @@index([userId])
@@ -769,21 +1059,21 @@ model ScheduleDependency {
 }
 
 model PendingDependencyRequest {
-  id             String               @id @default(cuid())
+  id             String                  @id @default(cuid())
   projectId      String
   predecessorId  String
   successorId    String
-  dependencyType DependencyType       @default(FS)
-  lagDays        Int                  @default(0)
+  dependencyType DependencyType          @default(FS)
+  lagDays        Int                     @default(0)
   justification  String
   requestedById  String
   reviewedById   String?
   status         DependencyRequestStatus @default(PENDING)
   declineReason  String?
-  createdAt      DateTime             @default(now())
+  createdAt      DateTime                @default(now())
   reviewedAt     DateTime?
 
-  project    Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
   predecessor ScheduleActivity @relation("DependencyRequestPredecessor", fields: [predecessorId], references: [id])
   successor   ScheduleActivity @relation("DependencyRequestSuccessor", fields: [successorId], references: [id])
   requestedBy User             @relation("DepReqRequestedBy", fields: [requestedById], references: [id])
@@ -899,23 +1189,23 @@ model StructureDailyEntry {
 // Bar Schedule (Rebar) Daily Report — IMS/OF/ENG/019 (file 06 §2.3).
 // Weight auto-computed from the WeightFactor lookup, replacing manual arithmetic.
 model RebarDailyEntry {
-  id             String            @id @default(cuid())
-  projectId      String
-  wbsNodeId      String
-  date           DateTime          @db.Date
-  barDesignation String
-  diameterMm     Int
-  numberOfBars   Int
-  lengthM        Decimal           @db.Decimal(12, 3)
-  numberOfFaces  Int
-  computedWeightKg Decimal?        @db.Decimal(18, 3)
-  shape          String?
-  labour         Json?
-  remark         String?
-  status         DailyReportStatus @default(DRAFT)
-  createdById    String
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
+  id               String            @id @default(cuid())
+  projectId        String
+  wbsNodeId        String
+  date             DateTime          @db.Date
+  barDesignation   String
+  diameterMm       Int
+  numberOfBars     Int
+  lengthM          Decimal           @db.Decimal(12, 3)
+  numberOfFaces    Int
+  computedWeightKg Decimal?          @db.Decimal(18, 3)
+  shape            String?
+  labour           Json?
+  remark           String?
+  status           DailyReportStatus @default(DRAFT)
+  createdById      String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 
   project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   wbsNode      WbsNode      @relation(fields: [wbsNodeId], references: [id])
@@ -959,7 +1249,7 @@ model CostActual {
   recordedAt DateTime
   createdAt  DateTime       @default(now())
 
-  boqItem BoqItem @relation(fields: [boqItemId], references: [id], onDelete: Cascade)
+  boqItem    BoqItem     @relation(fields: [boqItemId], references: [id], onDelete: Cascade)
   defectLogs DefectLog[]
 
   @@index([boqItemId])
@@ -1010,8 +1300,8 @@ model VariationOrder {
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
 
-  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  wbsNode       WbsNode?    @relation(fields: [wbsNodeId], references: [id])
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode       WbsNode?      @relation(fields: [wbsNodeId], references: [id])
   realizedRisks RiskEntry[]
   decisions     DecisionLog[]
 
@@ -1113,17 +1403,17 @@ model InspectionTestRecord {
   inspectedAt       DateTime
   createdAt         DateTime  @default(now())
 
-  wbsNode     WbsNode     @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
-  inspectedBy User        @relation(fields: [inspectedByUserId], references: [id])
-  defects     DefectLog[]
-  disputesFromInspection  DisputeRecord[]
+  wbsNode                WbsNode         @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  inspectedBy            User            @relation(fields: [inspectedByUserId], references: [id])
+  defects                DefectLog[]
+  disputesFromInspection DisputeRecord[]
 
   @@index([wbsNodeId])
   @@index([result])
 }
 
 model DefectLog {
-  id                 String       @id @default(cuid())
+  id                 String          @id @default(cuid())
   linkedItrId        String?
   wbsNodeId          String
   description        String
@@ -1131,41 +1421,41 @@ model DefectLog {
   responsibleOrgId   String?
   reworkCostActualId String?
   reworkDelayDays    Int?
-  status             DefectStatus @default(OPEN)
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  status             DefectStatus    @default(OPEN)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
 
-  linkedItr      InspectionTestRecord? @relation(fields: [linkedItrId], references: [id])
-  wbsNode        WbsNode               @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
-  responsibleOrg Organization?         @relation(fields: [responsibleOrgId], references: [id])
-  reworkCostActual CostActual?         @relation(fields: [reworkCostActualId], references: [id])
+  linkedItr        InspectionTestRecord? @relation(fields: [linkedItrId], references: [id])
+  wbsNode          WbsNode               @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  responsibleOrg   Organization?         @relation(fields: [responsibleOrgId], references: [id])
+  reworkCostActual CostActual?           @relation(fields: [reworkCostActualId], references: [id])
 
   @@index([wbsNodeId])
   @@index([status])
 }
 
 model DisputeRecord {
-  id             String        @id @default(cuid())
-  defectLogId    String?
-  itrId          String?
-  projectId      String
-  wbsNodeId      String?
-  disputedById   String
-  reason         String
-  resolution     String?
-  status         DisputeStatus @default(OPEN)
-  resolvedById   String?
-  resolvedAt     DateTime?
-  escalationTo   String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id           String        @id @default(cuid())
+  defectLogId  String?
+  itrId        String?
+  projectId    String
+  wbsNodeId    String?
+  disputedById String
+  reason       String
+  resolution   String?
+  status       DisputeStatus @default(OPEN)
+  resolvedById String?
+  resolvedAt   DateTime?
+  escalationTo String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
-  defectLog  DefectLog?  @relation(fields: [defectLogId], references: [id])
+  defectLog  DefectLog?            @relation(fields: [defectLogId], references: [id])
   itr        InspectionTestRecord? @relation(fields: [itrId], references: [id])
-  project    Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  wbsNode    WbsNode?    @relation(fields: [wbsNodeId], references: [id])
-  disputedBy User        @relation("DisputeOpenedBy", fields: [disputedById], references: [id])
-  resolvedBy User?       @relation("DisputeResolvedBy", fields: [resolvedById], references: [id])
+  project    Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode    WbsNode?              @relation(fields: [wbsNodeId], references: [id])
+  disputedBy User                  @relation("DisputeOpenedBy", fields: [disputedById], references: [id])
+  resolvedBy User?                 @relation("DisputeResolvedBy", fields: [resolvedById], references: [id])
 
   @@index([projectId])
   @@index([defectLogId])
@@ -1251,10 +1541,11 @@ model Equipment {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  organization Organization        @relation(fields: [organizationId], references: [id])
-  usageLogs    EquipmentUsageLog[]
-  custodyLogs  CustodyLog[]
+  organization     Organization          @relation(fields: [organizationId], references: [id])
+  usageLogs        EquipmentUsageLog[]
+  custodyLogs      CustodyLog[]
   resourceRequests ResourceRequest[]
+  allocations      EquipmentAllocation[]
 
   @@index([organizationId])
 }
@@ -1278,6 +1569,25 @@ model EquipmentUsageLog {
   @@index([wbsNodeId])
 }
 
+model EquipmentAllocation {
+  id            String    @id @default(cuid())
+  equipmentId   String
+  projectId     String
+  allocatedFrom DateTime  @db.Date
+  allocatedTo   DateTime  @db.Date
+  purpose       String
+  allocatedById String
+  releasedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  allocatedBy User      @relation(fields: [allocatedById], references: [id])
+
+  @@index([equipmentId, allocatedFrom, allocatedTo])
+  @@index([projectId, allocatedFrom, allocatedTo])
+}
+
 // ============================================================
 // 12. Resources — Materials & Chain of Custody
 // ============================================================
@@ -1290,8 +1600,8 @@ model MaterialItem {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  demands     MaterialDemand[]
-  custodyLogs CustodyLog[]
+  demands            MaterialDemand[]
+  custodyLogs        CustodyLog[]
   purchaseOrderItems PurchaseOrderItem[]
   receipts           MaterialReceipt[]
   resourceRequests   ResourceRequest[]
@@ -1300,19 +1610,19 @@ model MaterialItem {
 }
 
 model MaterialDemand {
-  id                String   @id @default(cuid())
-  wbsNodeId         String
-  materialItemId    String
-  neededByDate      DateTime @db.Date
-  quantityNeeded    Decimal  @db.Decimal(18, 3)
-  quantityDelivered Decimal  @default(0) @db.Decimal(18, 3)
+  id                     String   @id @default(cuid())
+  wbsNodeId              String
+  materialItemId         String
+  neededByDate           DateTime @db.Date
+  quantityNeeded         Decimal  @db.Decimal(18, 3)
+  quantityDelivered      Decimal  @default(0) @db.Decimal(18, 3)
   /// Set when this demand originated from a subcontractor's resource request
   /// (file 20 §5.4) rather than the main contractor's own planning.
   requestedForContractId String?
 
-  wbsNode      WbsNode      @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
-  materialItem MaterialItem @relation(fields: [materialItemId], references: [id])
-  requestedForContract Contract? @relation(fields: [requestedForContractId], references: [id])
+  wbsNode              WbsNode      @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  materialItem         MaterialItem @relation(fields: [materialItemId], references: [id])
+  requestedForContract Contract?    @relation(fields: [requestedForContractId], references: [id])
 
   purchaseOrderItems PurchaseOrderItem[]
   resourceRequest    ResourceRequest?
@@ -1399,11 +1709,11 @@ model RebarLine {
 }
 
 model FormworkLine {
-  id                  String  @id @default(cuid())
+  id                  String   @id @default(cuid())
   structuralElementId String
   segmentLabel        String?
-  lengthM             Decimal @db.Decimal(12, 3)
-  heightM             Decimal @db.Decimal(12, 3)
+  lengthM             Decimal  @db.Decimal(12, 3)
+  heightM             Decimal  @db.Decimal(12, 3)
   computedAreaM2      Decimal? @db.Decimal(18, 3)
 
   structuralElement StructuralElement @relation(fields: [structuralElementId], references: [id], onDelete: Cascade)
@@ -1478,13 +1788,13 @@ model ProjectDocument {
   approvedById   String?
   supersededById String?
 
-  project       Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  wbsNode       WbsNode?          @relation(fields: [wbsNodeId], references: [id])
-  issuedBy      User              @relation("DocIssuedBy", fields: [issuedByUserId], references: [id])
-  approvedBy    User?             @relation("DocApprovedBy", fields: [approvedById], references: [id])
-  supersededBy  ProjectDocument?  @relation("DocSupersedeChain", fields: [supersededById], references: [id])
-  revisions     ProjectDocument[] @relation("DocSupersedeChain")
-  decisions     DecisionLog[]
+  project      Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode      WbsNode?          @relation(fields: [wbsNodeId], references: [id])
+  issuedBy     User              @relation("DocIssuedBy", fields: [issuedByUserId], references: [id])
+  approvedBy   User?             @relation("DocApprovedBy", fields: [approvedById], references: [id])
+  supersededBy ProjectDocument?  @relation("DocSupersedeChain", fields: [supersededById], references: [id])
+  revisions    ProjectDocument[] @relation("DocSupersedeChain")
+  decisions    DecisionLog[]
 
   @@unique([projectId, docNo, revisionNo])
   @@index([projectId])
@@ -1544,19 +1854,19 @@ model LessonsLearned {
 // ============================================================
 
 model PurchaseOrder {
-  id               String     @id @default(cuid())
+  id               String    @id @default(cuid())
   projectId        String
   supplierOrgId    String
   poNo             String
-  status           POStatus   @default(DRAFT)
-  issueDate        DateTime   @default(now())
+  status           POStatus  @default(DRAFT)
+  issueDate        DateTime  @default(now())
   expectedDelivery DateTime?
-  amount           Decimal?   @db.Decimal(18, 2)
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  amount           Decimal?  @db.Decimal(18, 2)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  project  Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  supplier Organization         @relation("POSupplier", fields: [supplierOrgId], references: [id])
+  project  Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  supplier Organization        @relation("POSupplier", fields: [supplierOrgId], references: [id])
   items    PurchaseOrderItem[]
   receipts MaterialReceipt[]
 
@@ -1566,14 +1876,14 @@ model PurchaseOrder {
 }
 
 model PurchaseOrderItem {
-  id               String         @id @default(cuid())
+  id               String  @id @default(cuid())
   purchaseOrderId  String
   materialItemId   String
   materialDemandId String?
   wbsNodeId        String?
-  quantityOrdered  Decimal        @db.Decimal(18, 3)
-  unitPrice        Decimal        @db.Decimal(18, 2)
-  quantityReceived Decimal        @default(0) @db.Decimal(18, 3)
+  quantityOrdered  Decimal @db.Decimal(18, 3)
+  unitPrice        Decimal @db.Decimal(18, 2)
+  quantityReceived Decimal @default(0) @db.Decimal(18, 3)
 
   purchaseOrder  PurchaseOrder   @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
   materialItem   MaterialItem    @relation(fields: [materialItemId], references: [id])
@@ -1608,26 +1918,35 @@ model MaterialReceipt {
 }
 
 model BidTender {
-  id                String     @id @default(cuid())
-  projectId         String
-  supplierOrgId     String?
-  bidNo             String
-  title             String
-  description       String?
-  amount            Decimal?   @db.Decimal(18, 2)
-  submittedAt       DateTime?
-  result            BidStatus  @default(DRAFT)
-  submittedByUserId String?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  id                   String    @id @default(cuid())
+  projectId            String?
+  ownerOrgId           String?
+  supplierOrgId        String?
+  bidNo                String
+  title                String
+  description          String?
+  amount               Decimal?  @db.Decimal(18, 2)
+  submittedAt          DateTime?
+  result               BidStatus @default(DRAFT)
+  submittedByUserId    String?
+  tenderOwnerId        String?
+  awardedAt            DateTime?
+  conversionProposedAt DateTime?
+  convertedAt          DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 
-  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project?      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  ownerOrg    Organization? @relation("BidOwnerOrg", fields: [ownerOrgId], references: [id])
   supplier    Organization? @relation("BidOrg", fields: [supplierOrgId], references: [id])
   submittedBy User?         @relation("BidSubmittedBy", fields: [submittedByUserId], references: [id])
+  tenderOwner User?         @relation("TenderOwner", fields: [tenderOwnerId], references: [id])
 
   @@unique([projectId, bidNo])
+  @@unique([ownerOrgId, bidNo])
   @@index([result])
   @@index([supplierOrgId])
+  @@index([tenderOwnerId])
 }
 
 enum ContractStatus {
@@ -1648,21 +1967,21 @@ enum SectionAssignmentRole {
 }
 
 model SectionAssignment {
-  id             String                 @id @default(cuid())
+  id             String                @id @default(cuid())
   projectId      String
   userId         String
   wbsNodeId      String
   role           SectionAssignmentRole
   assignedById   String
-  assignedAt     DateTime               @default(now())
+  assignedAt     DateTime              @default(now())
   endedAt        DateTime?
   supersededById String?
 
-  project      Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user         User               @relation("SectionAssignedTo", fields: [userId], references: [id])
-  assignedBy   User               @relation("SectionAssignedBy", fields: [assignedById], references: [id])
-  wbsNode      WbsNode            @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
-  supersededBy SectionAssignment? @relation("SectionAssignmentSupersede", fields: [supersededById], references: [id])
+  project      Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User                @relation("SectionAssignedTo", fields: [userId], references: [id])
+  assignedBy   User                @relation("SectionAssignedBy", fields: [assignedById], references: [id])
+  wbsNode      WbsNode             @relation(fields: [wbsNodeId], references: [id], onDelete: Cascade)
+  supersededBy SectionAssignment?  @relation("SectionAssignmentSupersede", fields: [supersededById], references: [id])
   supersedes   SectionAssignment[] @relation("SectionAssignmentSupersede")
 
   @@index([userId, endedAt])
@@ -1733,17 +2052,17 @@ model Notification {
 /// "schedule_change", "contract", "document", "defect", "punch_item", "measurement", "variation"
 /// Comments are append-only — never edited or deleted.
 model ReviewComment {
-  id          String   @id @default(cuid())
-  projectId   String
-  entityType  String
-  entityId    String
-  userId      String
-  parentId    String?  // for threaded replies; null = top-level comment
-  body        String
-  isDecision  Boolean  @default(false) // marks a formal review decision
+  id            String   @id @default(cuid())
+  projectId     String
+  entityType    String
+  entityId      String
+  userId        String
+  parentId      String? // for threaded replies; null = top-level comment
+  body          String
+  isDecision    Boolean  @default(false) // marks a formal review decision
   decisionLabel String? // "APPROVED", "CHANGES_REQUESTED", "REJECTED", etc.
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   user    User            @relation(fields: [userId], references: [id])
   project Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -1873,12 +2192,12 @@ model OversightAssignment {
   endedAt        DateTime?
   supersededById String?
 
-  project      Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user         User                 @relation("OversightAssignedTo", fields: [userId], references: [id])
-  assignedBy   User                 @relation("OversightAssignedBy", fields: [assignedById], references: [id])
-  contract     Contract             @relation(fields: [contractId], references: [id], onDelete: Cascade)
-  scopeWbsNode WbsNode              @relation(fields: [scopeWbsNodeId], references: [id], onDelete: Cascade)
-  supersededBy OversightAssignment? @relation("OversightSupersede", fields: [supersededById], references: [id])
+  project      Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User                  @relation("OversightAssignedTo", fields: [userId], references: [id])
+  assignedBy   User                  @relation("OversightAssignedBy", fields: [assignedById], references: [id])
+  contract     Contract              @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  scopeWbsNode WbsNode               @relation(fields: [scopeWbsNodeId], references: [id], onDelete: Cascade)
+  supersededBy OversightAssignment?  @relation("OversightSupersede", fields: [supersededById], references: [id])
   supersedes   OversightAssignment[] @relation("OversightSupersede")
   dailyEntries OversightDailyEntry[]
 
