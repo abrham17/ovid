@@ -11,6 +11,16 @@ export const PARTY_LABELS: Record<PartyType, string> = {
 };
 
 export const ROLE_LABELS: Record<UserRole, string> = {
+  GENERAL_MANAGER: "General Manager",
+  MANAGING_DIRECTOR: "Managing Director",
+  CFO: "CFO",
+  CHIEF_ENGINEER: "Chief Engineer",
+  IT_ADMIN: "IT Administrator",
+  CONTRACTS_MANAGER: "Contracts Manager",
+  PROCUREMENT_MANAGER: "Procurement Manager",
+  EQUIPMENT_MANAGER: "Equipment Manager",
+  HR_MANAGER: "HR Manager",
+  SAFETY_DIRECTOR: "Safety Director",
   FOREMAN: "Foreman",
   SUPERINTENDENT: "Superintendent",
   SITE_ENGINEER: "Site Engineer",
@@ -22,10 +32,13 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   PROCUREMENT: "Procurement",
   FINANCE: "Finance",
   HR: "HR",
-  EQUIPMENT_MANAGER: "Equipment Manager",
   CONTRACTS_LEGAL: "Contracts & Legal",
   CONSULTANT_ENGINEER: "Consultant Engineer",
   CLIENT_REP: "Client Rep",
+  SUBCONTRACTOR_PM: "Subcontractor PM",
+  SUBCONTRACTOR_REP: "Subcontractor Representative",
+  SUPPLIER_REP: "Supplier Representative",
+  REGULATOR_INSPECTOR: "Regulator Inspector",
   ADMIN: "Admin",
 };
 
@@ -45,10 +58,6 @@ export const WORKSPACE_TAB_LABELS: Record<string, string> = {
   reports: "Reports / Compliance",
 };
 
-/**
- * Lucide icon *name* for each workspace tab.
- * Import icons lazily in the component — do NOT import here (server/client boundary).
- */
 export const WORKSPACE_TAB_ICONS: Record<string, string> = {
   overview: "LayoutDashboard",
   wbs: "Network",
@@ -65,7 +74,6 @@ export const WORKSPACE_TAB_ICONS: Record<string, string> = {
   reports: "FileBarChart2",
 };
 
-/** Groups for the project workspace sidebar. */
 export const WORKSPACE_TAB_GROUPS: { label: string; tabs: string[] }[] = [
   { label: "Management", tabs: ["overview", "wbs", "daily", "schedule"] },
   { label: "Commercial", tabs: ["cost", "procurement"] },
@@ -73,7 +81,6 @@ export const WORKSPACE_TAB_GROUPS: { label: string; tabs: string[] }[] = [
   { label: "Technical", tabs: ["engineering", "resources"] },
   { label: "Output", tabs: ["documents", "reports"] },
 ];
-
 
 function toDate(date: Date | string | null | undefined): Date | null {
   if (!date) return null;

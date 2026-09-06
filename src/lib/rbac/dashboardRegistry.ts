@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { UserRole } from "@/lib/rbac/roles";
+import type { UserRole } from "@/generated/prisma/enums";
 import { AdminDashboard } from "@/components/dashboards/admin/AdminDashboard";
 import { ClientRepDashboard } from "@/components/dashboards/client-rep/ClientRepDashboard";
 import { ConsultantEngineerDashboard } from "@/components/dashboards/consultant-engineer/ConsultantEngineerDashboard";
@@ -23,9 +23,17 @@ export type RoleLandingTarget =
   | { type: "project"; tab?: string }
   | { type: "dashboard" };
 
-/** Post-login landing behavior per role (see getPostLoginPath in landing.ts). */
 export const roleLandingConfig: Record<UserRole, RoleLandingTarget> = {
-  ADMIN: { type: "dashboard" },
+  GENERAL_MANAGER: { type: "dashboard" },
+  MANAGING_DIRECTOR: { type: "dashboard" },
+  CFO: { type: "dashboard" },
+  CHIEF_ENGINEER: { type: "dashboard" },
+  IT_ADMIN: { type: "dashboard" },
+  CONTRACTS_MANAGER: { type: "dashboard" },
+  PROCUREMENT_MANAGER: { type: "dashboard" },
+  EQUIPMENT_MANAGER: { type: "dashboard" },
+  HR_MANAGER: { type: "dashboard" },
+  SAFETY_DIRECTOR: { type: "dashboard" },
   FOREMAN: { type: "dashboard" },
   SUPERINTENDENT: { type: "dashboard" },
   SITE_ENGINEER: { type: "dashboard" },
@@ -37,13 +45,27 @@ export const roleLandingConfig: Record<UserRole, RoleLandingTarget> = {
   PROCUREMENT: { type: "dashboard" },
   FINANCE: { type: "dashboard" },
   HR: { type: "dashboard" },
-  EQUIPMENT_MANAGER: { type: "dashboard" },
   CONTRACTS_LEGAL: { type: "dashboard" },
   CONSULTANT_ENGINEER: { type: "dashboard" },
   CLIENT_REP: { type: "dashboard" },
+  SUBCONTRACTOR_PM: { type: "dashboard" },
+  SUBCONTRACTOR_REP: { type: "dashboard" },
+  SUPPLIER_REP: { type: "dashboard" },
+  REGULATOR_INSPECTOR: { type: "dashboard" },
+  ADMIN: { type: "dashboard" },
 };
 
 export const dashboardRegistry: Record<UserRole, ComponentType<DashboardProps>> = {
+  GENERAL_MANAGER: AdminDashboard,
+  MANAGING_DIRECTOR: AdminDashboard,
+  CFO: FinanceDashboard,
+  CHIEF_ENGINEER: AdminDashboard,
+  IT_ADMIN: AdminDashboard,
+  CONTRACTS_MANAGER: ContractsLegalDashboard,
+  PROCUREMENT_MANAGER: ProcurementDashboard,
+  EQUIPMENT_MANAGER: EquipmentManagerDashboard,
+  HR_MANAGER: HrDashboard,
+  SAFETY_DIRECTOR: HseOfficerDashboard,
   FOREMAN: ForemanDashboard,
   SUPERINTENDENT: SuperintendentDashboard,
   SITE_ENGINEER: SiteEngineerDashboard,
@@ -55,9 +77,12 @@ export const dashboardRegistry: Record<UserRole, ComponentType<DashboardProps>> 
   PROCUREMENT: ProcurementDashboard,
   FINANCE: FinanceDashboard,
   HR: HrDashboard,
-  EQUIPMENT_MANAGER: EquipmentManagerDashboard,
   CONTRACTS_LEGAL: ContractsLegalDashboard,
   CONSULTANT_ENGINEER: ConsultantEngineerDashboard,
   CLIENT_REP: ClientRepDashboard,
+  SUBCONTRACTOR_PM: SeniorPmDashboard,
+  SUBCONTRACTOR_REP: SiteEngineerDashboard,
+  SUPPLIER_REP: ProcurementDashboard,
+  REGULATOR_INSPECTOR: AdminDashboard,
   ADMIN: AdminDashboard,
 };

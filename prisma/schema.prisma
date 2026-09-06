@@ -39,8 +39,23 @@ enum ContractorGrade {
   GRADE_10
 }
 
-// Layer 2 — functional role (16 values, file 07 §1.2 / file 09).
+// Layer 2 — expanded functional role (24 values, per ISO 9001 / ISO 10006 architecture).
 enum UserRole {
+  // Executive & Portfolio Governance (Central HQ)
+  GENERAL_MANAGER
+  MANAGING_DIRECTOR
+  CFO
+  CHIEF_ENGINEER
+  IT_ADMIN
+
+  // Operational Department Heads
+  CONTRACTS_MANAGER
+  PROCUREMENT_MANAGER
+  EQUIPMENT_MANAGER
+  HR_MANAGER
+  SAFETY_DIRECTOR
+
+  // Site Management & Execution
   FOREMAN
   SUPERINTENDENT
   SITE_ENGINEER
@@ -52,10 +67,15 @@ enum UserRole {
   PROCUREMENT
   FINANCE
   HR
-  EQUIPMENT_MANAGER
   CONTRACTS_LEGAL
+
+  // External Stakeholders & Subcontractors
   CONSULTANT_ENGINEER
   CLIENT_REP
+  SUBCONTRACTOR_PM
+  SUBCONTRACTOR_REP
+  SUPPLIER_REP
+  REGULATOR_INSPECTOR
   ADMIN
 }
 
@@ -349,6 +369,21 @@ enum BidStatus {
   CANCELLED
 }
 
+enum ClaimStatus {
+  DRAFT
+  NOTIFIED
+  CONSULTANT_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum VoucherType {
+  STORE_REQUISITION
+  STORE_ISSUE
+  STORE_RETURN
+  INTER_STORE_TRANSFER
+}
+
 // ============================================================
 // 1. Identity & Organization
 // ============================================================
@@ -371,6 +406,7 @@ model Organization {
   memberships          ProjectMembership[]
   invitations          Invitation[]
   contractsExecuted    Contract[]          @relation("ContractOrg")
+  subcontractsExecuted SubcontractAgreement[] @relation("SubcontractorOrg")
   employees            Employee[]
   equipment            Equipment[]
   defectsResponsible   DefectLog[]
@@ -417,6 +453,9 @@ model User {
   bidsSubmitted     BidTender[]            @relation("BidSubmittedBy")
   materialReceipts  MaterialReceipt[]
   notifications     Notification[]
+  claimsInitiated   ContractClaim[]        @relation("ClaimsInitiated")
+  vouchersRequested StoreVoucher[]         @relation("VouchersRequested")
+  vouchersApproved  StoreVoucher[]         @relation("VouchersApproved")
   @@index([organizationId])
   @@index([role])
 }
@@ -501,6 +540,7 @@ model Project {
   memberships           ProjectMembership[]
   invitations           Invitation[]
   contracts             Contract[]
+  subcontractAgreements SubcontractAgreement[]
   wbsNodes              WbsNode[]
   stoppages             StoppageEntry[]
   variations            VariationOrder[]
@@ -517,6 +557,8 @@ model Project {
   bids                  BidTender[]
   materialReceipts      MaterialReceipt[]
   notifications         Notification[]
+  storeVouchers         StoreVoucher[]
+  auditLogs             AuditLog[]
   @@index([contractorOrgId])
   @@index([clientOrgId])
   @@index([status])
@@ -575,9 +617,51 @@ model Contract {
   subcontracts   Contract[]         @relation("Subcontracts")
   contractorOrg  Organization       @relation("ContractOrg", fields: [contractorOrgId], references: [id])
   measurements   MeasurementEntry[]
+  claims         ContractClaim[]
 
   @@index([projectId])
   @@index([parentContractId])
+}
+
+model ContractClaim {
+  id                   String      @id @default(cuid())
+  contractId           String
+  claimNo              String
+  causeOfClaim         String
+  noticeDate           DateTime    @db.Date
+  financialClaimAmount Decimal?    @db.Decimal(18, 2)
+  timeExtensionDays    Int?
+  status               ClaimStatus @default(DRAFT)
+  initiatedByUserId    String
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  contract    Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  initiatedBy User     @relation("ClaimsInitiated", fields: [initiatedByUserId], references: [id])
+
+  @@index([contractId])
+  @@index([status])
+}
+
+model SubcontractAgreement {
+  id                  String   @id @default(cuid())
+  projectId           String
+  subcontractorOrgId String
+  wbsNodeId           String?
+  scopeDescription    String
+  contractValue       Decimal  @db.Decimal(18, 2)
+  retentionPercent    Decimal  @default(5) @db.Decimal(5, 2)
+  startDate           DateTime @db.Date
+  endDate             DateTime @db.Date
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  project          Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  subcontractorOrg Organization @relation("SubcontractorOrg", fields: [subcontractorOrgId], references: [id])
+  wbsNode          WbsNode?     @relation(fields: [wbsNodeId], references: [id])
+
+  @@index([projectId])
+  @@index([subcontractorOrgId])
 }
 
 // ============================================================
@@ -621,6 +705,8 @@ model WbsNode {
   materialReceipts      MaterialReceipt[]
   decisions             DecisionLog[]
   lessonsLearned        LessonsLearned[]
+  subcontracts          SubcontractAgreement[]
+  storeVouchers         StoreVoucher[]
 
   @@unique([projectId, code])
   @@index([parentId])
@@ -1098,9 +1184,11 @@ model Equipment {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  organization Organization        @relation(fields: [organizationId], references: [id])
+  organization Organization           @relation(fields: [organizationId], references: [id])
   usageLogs    EquipmentUsageLog[]
   custodyLogs  CustodyLog[]
+  maintenances EquipmentMaintenance[]
+  fuelLogs     FuelLog[]
 
   @@index([organizationId])
 }
@@ -1124,6 +1212,36 @@ model EquipmentUsageLog {
   @@index([wbsNodeId])
 }
 
+model EquipmentMaintenance {
+  id              String   @id @default(cuid())
+  equipmentId     String
+  serviceType     String
+  odometerReading Decimal? @db.Decimal(12, 2)
+  cost            Decimal  @db.Decimal(18, 2)
+  description     String?
+  performedAt     DateTime @db.Date
+  createdAt       DateTime @default(now())
+
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@index([equipmentId])
+  @@index([performedAt])
+}
+
+model FuelLog {
+  id           String   @id @default(cuid())
+  equipmentId  String
+  litersIssued Decimal  @db.Decimal(10, 2)
+  fuelCost     Decimal  @db.Decimal(18, 2)
+  issuedAt     DateTime @db.Date
+  createdAt    DateTime @default(now())
+
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@index([equipmentId])
+  @@index([issuedAt])
+}
+
 // ============================================================
 // 12. Resources — Materials & Chain of Custody
 // ============================================================
@@ -1136,10 +1254,11 @@ model MaterialItem {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  demands     MaterialDemand[]
-  custodyLogs CustodyLog[]
+  demands            MaterialDemand[]
+  custodyLogs        CustodyLog[]
   purchaseOrderItems PurchaseOrderItem[]
   receipts           MaterialReceipt[]
+  storeVouchers      StoreVoucher[]
 
   @@index([name])
 }
@@ -1183,6 +1302,30 @@ model CustodyLog {
   @@index([equipmentId])
   @@index([receivedByUserId])
   @@index([transferredAt])
+}
+
+model StoreVoucher {
+  id                 String      @id @default(cuid())
+  voucherNo          String      @unique
+  voucherType        VoucherType
+  projectId          String
+  wbsNodeId          String?
+  materialItemId     String
+  quantity           Decimal     @db.Decimal(18, 3)
+  requestedByUserId  String
+  approvedByUserId   String?
+  status             String      @default("PENDING")
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  wbsNode     WbsNode?     @relation(fields: [wbsNodeId], references: [id])
+  materialItem MaterialItem @relation(fields: [materialItemId], references: [id])
+  requestedBy User         @relation("VouchersRequested", fields: [requestedByUserId], references: [id])
+  approvedBy  User?        @relation("VouchersApproved", fields: [approvedByUserId], references: [id])
+
+  @@index([projectId])
+  @@index([voucherType])
 }
 
 // ============================================================
@@ -1287,14 +1430,22 @@ model AuditLog {
   entityId   String
   action     AuditAction
   userId     String
+  userRole   UserRole?
+  projectId  String?
+  reason     String?
+  ipAddress  String?
+  userAgent  String?
   changedAt  DateTime    @default(now())
   diff       Json?
 
-  user User @relation(fields: [userId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
 
   @@index([entityType, entityId])
   @@index([userId])
+  @@index([projectId])
   @@index([changedAt])
+  @@index([action])
 }
 
 // ============================================================

@@ -1,18 +1,24 @@
 import { db } from "@/lib/db";
-import type { AuditAction } from "@/generated/prisma/enums";
+import type { AuditAction, UserRole } from "@/generated/prisma/enums";
 
-/**
- * Writes an AuditLog entry (file 07 §14.3). Non-blocking: failures to audit
- * must never abort the primary mutation, so callers should await it but the
- * helper swallows errors.
- */
-export async function audit(opts: {
+export interface AuditLogOptions {
   entityType: string;
   entityId: string;
   action: AuditAction;
   userId: string;
+  userRole?: UserRole;
+  projectId?: string;
+  reason?: string;
+  ipAddress?: string;
+  userAgent?: string;
   diff?: unknown;
-}) {
+}
+
+/**
+ * Writes a comprehensive AuditLog entry with user role, project scoping,
+ * typed justification reason, and JSON diffs.
+ */
+export async function audit(opts: AuditLogOptions) {
   try {
     await db.auditLog.create({
       data: {
@@ -20,10 +26,28 @@ export async function audit(opts: {
         entityId: opts.entityId,
         action: opts.action,
         userId: opts.userId,
+        userRole: opts.userRole,
+        projectId: opts.projectId,
+        reason: opts.reason,
+        ipAddress: opts.ipAddress,
+        userAgent: opts.userAgent,
         diff: opts.diff === undefined ? undefined : JSON.parse(JSON.stringify(opts.diff)),
       },
     });
-  } catch {
-    // ignore audit failures
+  } catch (error) {
+    console.error("Failed to write audit log:", error);
   }
+}
+
+/**
+ * Validates that sensitive financial, schedule, or structural operations
+ * include a mandatory typed justification reason.
+ */
+export function validateAuditReason(reason?: string | null): string {
+  if (!reason || reason.trim().length < 10) {
+    throw new Error(
+      "AUDIT_REASON_REQUIRED: A valid typed justification reason (minimum 10 characters) is required for this operation under ISO 9001 governance."
+    );
+  }
+  return reason.trim();
 }
