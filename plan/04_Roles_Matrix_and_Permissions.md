@@ -1,242 +1,197 @@
-# 24-Role RBAC Permissions & Tab-by-Tab Operations Matrix
+# 24-Role Tab-by-Tab RBAC & Capabilities Matrix (ISO Alignment)
 
-## Executive Overview
+## 1. Executive Summary
 
-This document provides a detailed breakdown of the 24 roles within the Project Management System (PMS). For each role, it specifies:
-- Operational scope and authority tier.
-- Tab-by-tab responsibilities across all system modules.
-- What they **CAN see** vs. **CANNOT see**.
-- What they **CAN enter/edit** vs. **CANNOT enter/edit**.
+This document presents the complete 24-role Role-Based Access Control (RBAC) matrix for the Ovid Project Management System (PMS). The taxonomy is evaluated against **ISO 9001:2015 §5.3** (Organizational roles & responsibilities), **ISO 10006:2017 §6.1** (Resource management & delegation), **ISO/IEC 27001:2022 A.5.15–A.5.18** (Access control & segregation of duties), and **FIDIC / Ethiopian MoUDC Grade-1** construction governance guidelines.
 
----
-
-## System Modules / Tabs Overview
-
-1. **Portfolio & Company Executive Dashboard** (`/portfolio`, `/company`): Corporate KPIs, cross-project financials, executive interventions.
-2. **Project Initiation & Settings** (`/projects`, `/projects/[id]/settings`): Charter, contract terms, party assignments.
-3. **WBS & Scope Breakdown** (`/projects/[id]/wbs`): WBS hierarchy, 100% rule weighting, plan submissions.
-4. **Schedule & Activities** (`/projects/[id]/schedule`): Primavera/Gantt schedules, dependencies, change requests.
-5. **Daily Site Reports** (`/projects/[id]/daily-reports`): Earthwork, Structure, Rebar digital twins.
-6. **Quantity & Measurement (IPC)** (`/projects/[id]/measurements`): BOQ items, physical quantity entries, IPC certificates.
-7. **Variations & Change Orders** (`/projects/[id]/variations`): Day Work / Variation order claims and approvals.
-8. **Risk & Stoppages** (`/projects/[id]/risks`, `/projects/[id]/stoppages`): Risk register, work stoppage logs.
-9. **Quality Control & Inspections** (`/projects/[id]/quality`): ITR, Defect Logs, Punch List.
-10. **HSE & Safety** (`/projects/[id]/safety`): Safety observations, incident reports.
-11. **Subcontractor Oversight & Requests** (`/projects/[id]/oversight`): Independent verification logs, resource requests.
-12. **Procurement & Custody** (`/projects/[id]/procurement`, `/projects/[id]/custody`): Purchase Orders, chain of custody logs.
-13. **Equipment Fleet Management** (`/projects/[id]/equipment`): Equipment allocation, usage, idle/down hours.
-14. **Document Control & Decision Log** (`/projects/[id]/documents`): ISO 9001 §7.5 document repository, decision logs.
-15. **System Administration & Audit Logs** (`/company/audit-logs`, `/admin`): Centralized audit log inspection, user management.
+The matrix distinguishes between:
+1. **16 Project-Level Functional Roles** (`FOREMAN` to `ADMIN`, plus `OFFICE_ENGINEER`, `SUBCONTRACTOR_PM`, `COMPANY_STAFF`).
+2. **12 Corporate Executive Governance Roles** (`GENERAL_MANAGER` to `INTERNAL_AUDITOR`).
 
 ---
 
-## Detailed Role Specifications
+## 2. Tab-by-Tab Workspace & Portfolio Access Matrix
+
+Legend:
+- **FULL**: Read, Create, Edit, Delete/Approve where applicable.
+- **READ**: View/Read-only access.
+- **RESTRICTED**: Scope-isolated read/write (e.g. assigned WBS section only).
+- **NONE**: No view or write capability.
+
+| Role | Workspace Overview | WBS Tab | Schedule & CPM Tab | Daily Reports | Quality & ITRs | Safety & HSE | Cost & BOQ | Resources (Labor/Equip) | Procurement Tab | Documents Tab | Risk & Stoppage | Portfolio Dashboard |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **GENERAL_MANAGER** | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | **FULL** |
+| **MANAGING_DIRECTOR** | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | **FULL** |
+| **CFO** | READ | READ | READ | READ | READ | READ | **FULL** | READ | READ | READ | READ | **FULL** |
+| **CHIEF_ENGINEER** | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | **FULL** |
+| **INTERNAL_AUDITOR** | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | READ | **FULL** |
+| **SENIOR_PM** | **FULL** | **FULL** | **FULL** | APPROVE | APPROVE | APPROVE | **FULL** | READ | APPROVE | **FULL** | **FULL** | READ |
+| **DEPUTY_PM** | **FULL** | **FULL** | **FULL** | APPROVE | APPROVE | APPROVE | EDIT | READ | APPROVE | **FULL** | **FULL** | READ |
+| **SITE_ENGINEER** | READ | RESTRICTED | RESTRICTED | EDIT | EDIT | EDIT | NONE | NONE | NONE | EDIT | EDIT | NONE |
+| **SUPERINTENDENT** | READ | RESTRICTED | RESTRICTED | APPROVE | EDIT | EDIT | NONE | EDIT | NONE | READ | EDIT | NONE |
+| **FOREMAN** | READ | RESTRICTED | RESTRICTED | EDIT | READ | EDIT | NONE | NONE | NONE | NONE | NONE | NONE |
+| **OFFICE_ENGINEER** | READ | READ | READ | EDIT | READ | READ | EDIT | NONE | READ | EDIT | EDIT | NONE |
+| **QC_INSPECTOR** | READ | READ | READ | READ | **FULL** | READ | NONE | NONE | NONE | EDIT | READ | NONE |
+| **HSE_OFFICER** | READ | READ | READ | READ | READ | **FULL** | NONE | READ | NONE | EDIT | READ | NONE |
+| **QUANTITY_SURVEYOR** | READ | READ | READ | NONE | NONE | NONE | **FULL** | NONE | READ | EDIT | NONE | NONE |
+| **PROCUREMENT** | READ | READ | READ | NONE | NONE | NONE | READ | NONE | **FULL** | EDIT | NONE | NONE |
+| **FINANCE** | READ | READ | READ | NONE | NONE | NONE | APPROVE | NONE | APPROVE | READ | NONE | NONE |
+| **HR** | READ | NONE | NONE | NONE | NONE | READ | NONE | **FULL** | NONE | READ | NONE | NONE |
+| **EQUIPMENT_MANAGER** | READ | NONE | READ | NONE | NONE | NONE | NONE | **FULL** | NONE | READ | NONE | NONE |
+| **CONTRACTS_LEGAL** | READ | READ | READ | NONE | NONE | NONE | READ | NONE | NONE | **FULL** | EDIT | NONE |
+| **CONSULTANT_ENGINEER** | READ | READ | READ | READ | APPROVE | READ | APPROVE | NONE | NONE | APPROVE | READ | NONE |
+| **CLIENT_REP** | READ | READ | READ | READ | READ | READ | APPROVE | NONE | NONE | READ | READ | NONE |
+| **SUBCONTRACTOR_PM** | READ | RESTRICTED | RESTRICTED | APPROVE | READ | EDIT | RESTRICTED | RESTRICTED | NONE | EDIT | EDIT | NONE |
+| **ADMIN** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** | **FULL** |
 
 ---
 
-### Tier 1: Corporate Top Executive Governance
+## 3. Deep Analysis of Every Role
 
-#### 1. GENERAL_MANAGER (General Manager / CEO)
-* **Scope**: Portfolio-wide cross-project authority.
-* **Can See**:
-  - All tabs across ALL projects nationwide without needing individual project membership.
-  - Cross-project financial summaries, high-value variations, executive interventions, and audit logs.
-* **Cannot See**: None (Full read access to all system data).
-* **Can Enter / Edit**:
-  - Approve high-value contracts and high-value variations (`CompanyApproval`).
-  - Create and close `ExecutiveIntervention` tickets.
-  - Approve project initiation and scope baselines.
-* **Cannot Enter / Edit**:
-  - Cannot directly create or edit raw site daily entries (Earthwork, Structure, Rebar).
-  - Cannot modify raw ITR test inspection records.
+### 1. General Manager (`GENERAL_MANAGER`)
+- **Identity**: Defined in `CompanyStaffRole`, assigned via `CompanyStaffAssignment`. Scope is organization-wide.
+- **Can See**: Full corporate portfolio dashboard (`/portfolio`), all projects, financial performance metrics, high-value variation requests, executive interventions.
+- **Cannot See**: Unassigned internal draft notes of other parties.
+- **Can Do**: Approve project creation from won tenders, approve high-value variations/IPC payments, initiate/close executive interventions.
+- **Cannot Do**: Directly overwrite site inspection test results or daily physical entries.
+- **ISO Alignment**: Fully satisfies ISO 21502 §5 (Governance) and ISO 9001 §5.1 (Leadership).
 
-#### 2. MANAGING_DIRECTOR (Managing Director)
-* **Scope**: Executive strategic governance.
-* **Can See**: All portfolio dashboards, project performance metrics, corporate risk registers, and company approvals.
-* **Cannot See**: None.
-* **Can Enter / Edit**:
-  - Approve project initiation charters and corporate strategy approvals.
-  - Issue CEO Directions on `ExecutiveInterventionEvent`.
-* **Cannot Enter / Edit**:
-  - Cannot enter daily operational data (measurement entries, daily reports, purchase orders).
+### 2. Managing Director (`MANAGING_DIRECTOR`)
+- **Identity**: Top corporate executive. Global organization scope.
+- **Can See**: Portfolio overview, corporate financial risk exposure, audit finding summaries.
+- **Can Do**: Grant final executive approval for project closure and contract termination.
+- **ISO Alignment**: Satisfies top management accountability requirements.
 
-#### 3. CFO (Chief Financial Officer)
-* **Scope**: Corporate financial oversight.
-* **Can See**:
-  - Portfolio financial tab, project IPC payments, cost actuals vs. budget, variations cost impact.
-  - Executive financial metrics and purchase order values.
-* **Cannot See**: Detailed site safety observations or technical rebar bending schedules (hidden or non-primary).
-* **Can Enter / Edit**:
-  - Final financial authorization on IPC payment releases.
-  - Approve high-value purchase orders and financial budget adjustments.
-* **Cannot Enter / Edit**:
-  - Cannot edit WBS structural hierarchy, design reviews, or quality ITR logs.
+### 3. Chief Financial Officer (`CFO`)
+- **Identity**: Corporate executive officer responsible for financial controls.
+- **Can See**: Portfolio-wide contract values, cash flow forecasts, certified IPC payment totals, financial risk heatmaps.
+- **Cannot See**: Frontline labor daily time cards unless aggregated.
+- **Can Do**: Approve high-value financial commitments and IPC disbursements.
 
-#### 4. CHIEF_ENGINEER (Chief Engineer)
-* **Scope**: Technical engineering governance.
-* **Can See**: All project WBS tabs, design reviews, technical specifications, ITR logs, and variation technical impacts.
-* **Cannot See**: Corporate HR payroll sheets or internal administrative financial vouchers.
-* **Can Enter / Edit**:
-  - Approve design standard reviews (`DesignReview`).
-  - Sign off on technical variations and engineering dispute resolutions.
-* **Cannot Enter / Edit**:
-  - Cannot release financial payments or approve procurement invoices.
+### 4. Chief Engineer (`CHIEF_ENGINEER`)
+- **Identity**: Corporate technical lead.
+- **Can See**: All engineering designs, design reviews, ITR quality trends, critical path schedule delays across the portfolio.
+- **Can Do**: Approve company design standards and resolve technical disputes.
 
-#### 5. IT_ADMIN (System & IT Administrator)
-* **Scope**: System security, user management, and compliance auditing.
-* **Can See**:
-  - User management tab, role assignment history, system settings.
-  - Centralized Audit Logs (`/company/audit-logs`) across all CRUD operations.
-* **Cannot See**: Confidential commercial pricing negotiations (unless required for audit).
-* **Can Enter / Edit**:
-  - Invite users, manage user status (`active`/`inactive`), assign company roles.
-  - View full `before` and `after` audit log diffs.
-* **Cannot Enter / Edit**:
-  - Cannot enter or falsify daily progress measurements, daily site reports, or financial certificates.
+### 5. Internal Auditor (`INTERNAL_AUDITOR`)
+- **Identity**: Independent corporate compliance auditor.
+- **Can See**: Full audit trails (`AuditLog`), before-and-after JSON state diffs, nonconformity logs, system user role assignment histories.
+- **Cannot Do**: Mutate project operational data (strict segregation of duties).
+- **ISO Alignment**: Fully satisfies ISO 27001 A.8.15 (Logging) and ISO 9001 §9.2 (Internal audit).
 
-#### 6. INTERNAL_AUDITOR (Internal Auditor)
-* **Scope**: Independent compliance & quality auditing.
-* **Can See**:
-  - Full read-only access to ALL project tabs, financial entries, measurement entries, and audit logs.
-* **Cannot See**: None.
-* **Can Enter / Edit**:
-  - Raise `AuditFinding` records and remediation plans.
-* **Cannot Enter / Edit**:
-  - Cannot edit or delete existing project records, measurements, or daily site entries (strict read-only except audit findings).
+### 6. Senior Project Manager (`SENIOR_PM`)
+- **Identity**: Project-level single point of accountability. Defined in `UserRole` and `ProjectRole`.
+- **Can See**: Complete project workspace (WBS, schedule, cost, quality, safety, team, documents, risks).
+- **Can Do**: Create/approve initial project baseline (`ProjectBaseline`), approve subcontractor WBS plan submissions, approve schedule changes, approve variation orders, manage project team memberships.
+- **Cannot Do**: Modify company-wide financial thresholds or approve tenders.
 
-#### 7. LEGAL_SERVICE_MANAGER (Legal Service Manager)
-* **Scope**: Contractual compliance, FIDIC claims, and dispute resolution.
-* **Can See**: Contract terms, variation order claims, dispute records (`DisputeRecord`), stoppage logs, and correspondence.
-* **Cannot See**: Detailed daily equipment maintenance hours or raw rebar daily entries.
-* **Can Enter / Edit**:
-  - Create and update dispute resolution records and legal claim assessments.
-* **Cannot Enter / Edit**:
-  - Cannot modify physical measurement entries or approve technical design reviews.
+### 7. Deputy Project Manager (`DEPUTY_PM`)
+- **Identity**: Second-in-command project lead.
+- **Can See**: Full project workspace except final contract termination controls.
+- **Can Do**: Review daily site reports, approve routine ITRs, manage WBS updates.
 
-#### 8. EQUIPMENT_ADMIN_MANAGER (Equipment Administration Manager)
-* **Scope**: Corporate fleet allocation & inter-project equipment transfers.
-* **Can See**:
-  - Corporate Equipment tab (`/company/equipment`), usage logs, operating vs. idle/down hours across all projects.
-* **Cannot See**: Financial payroll data, design reviews, or safety incident details.
-* **Can Enter / Edit**:
-  - Allocate equipment to projects (`EquipmentAllocation`), record custody transfers (`CustodyLog`).
-* **Cannot Enter / Edit**:
-  - Cannot edit WBS schedule activities or approve IPC measurement certificates.
+### 8. Site Engineer (`SITE_ENGINEER`)
+- **Identity**: Operational field engineer. Assigned to specific WBS sections via `SectionAssignment`.
+- **Can See**: Assigned WBS section nodes, activities, daily reports, quality submittals, and site drawings.
+- **Cannot See**: Financial contract values, IPC unit rates, cost actuals, full corporate employee salaries.
+- **Can Do**: Create daily site entries (Earthwork, Structure, Rebar), log safety observations, log quality defects, assign tasks to foremen within their section.
 
-#### 9. HEAD_PLANNING_MONITORING (Head of Planning & Monitoring)
-* **Scope**: Portfolio schedule & baseline change governance.
-* **Can See**: Schedules (`/projects/[id]/schedule`), WBS trees, schedule change requests, and stoppage logs.
-* **Cannot See**: Financial bank payment vouchers or internal HR personnel files.
-* **Can Enter / Edit**:
-  - Review and approve baseline schedule change requests (`ScheduleChangeRequest`).
-  - Enforce WBS 100% rule weighting standards.
-* **Cannot Enter / Edit**:
-  - Cannot edit site daily reports or approve purchase orders.
+### 9. Superintendent (`SUPERINTENDENT`)
+- **Identity**: Field construction manager overseeing site foremen and equipment execution.
+- **Can See**: Field activities, labor attendance, equipment usage logs, daily report approvals.
+- **Cannot See**: Commercial contract pricing, financial margins.
+- **Can Do**: Approve daily site report entries, assign foremen to activities, log equipment stoppages.
 
-#### 10. HEAD_TENDERING & TENDERING_OFFICER (Tendering Department)
-* **Scope**: Bidding, subcontracts, and procurement tender registry.
-* **Can See**:
-  - Tender & Bid tab (`/company/tenders`), subcontractor bids, BOQ unit rates.
-* **Cannot See**: Internal daily site logs or employee attendance records.
-* **Can Enter / Edit**:
-  - Register new tenders, update bid statuses (`BidTender`).
-* **Cannot Enter / Edit**:
-  - Cannot approve site measurement certificates or edit active project schedules.
+### 10. Foreman (`FOREMAN`)
+- **Identity**: Frontline crew lead. Restricted to assigned activities (`ActivityAssignment`).
+- **Can See**: "My Tasks" widget, assigned schedule activities, daily site entry forms.
+- **Cannot See**: Cost management tab, financial rates, overall project contract values, unassigned WBS branches.
+- **Can Do**: Submit daily progress entries, report safety hazards, record labor time on task.
 
----
+### 11. Office Engineer (`OFFICE_ENGINEER`)
+- **Identity**: Technical project engineer managing submittals, takeoff calculations, and variation documentation.
+- **Can See**: WBS, schedule, takeoff structural quantities, variation order drafts, document repository.
+- **Can Do**: Prepare variation orders, upload engineering drawings, draft schedule change requests.
 
-### Tier 2: Project Management & Technical Operations
+### 12. Quality Control Inspector (`QC_INSPECTOR`)
+- **Identity**: Independent site quality inspector.
+- **Can See**: Quality tab, WBS nodes, inspection test records (ITRs), defect logs, punch lists.
+- **Cannot See**: Financial contract pricing or cost tabs.
+- **Can Do**: Conduct inspections, pass/fail ITRs, raise defect logs, verify defect rework closure (`VERIFIED_CLOSED`).
+- **ISO Alignment**: Satisfies ISO 9001 §8.6 (Quality release gate independence).
 
-#### 11. SENIOR_PM / DEPUTY_PM (Project Manager / Deputy PM)
-* **Scope**: Full operational authority over assigned project.
-* **Can See**: All tabs within assigned project(s).
-* **Cannot See**: Projects where they do not have active project membership (unless granted cross-project permission).
-* **Can Enter / Edit**:
-  - Approve subcontractor plan submissions (`WbsPlanSubmission`).
-  - Submit variation orders, request schedule changes, manage project risks.
-* **Cannot Enter / Edit**:
-  - Cannot sign off on Consultant-side approvals (IPC certification or resident engineer sign-offs).
+### 13. Safety / HSE Officer (`HSE_OFFICER`)
+- **Identity**: On-site safety officer.
+- **Can See**: Safety tab, incident logs, safety observations, hazardous work stoppages.
+- **Can Do**: Log safety observations, issue safety stoppage orders, verify corrective actions on critical incidents.
 
-#### 12. SITE_ENGINEER / OFFICE_ENGINEER (Site & Office Engineers)
-* **Scope**: Site execution & daily report input.
-* **Can See**: WBS, Schedule, Daily Reports, Measurements, Quality, Safety, Documents.
-* **Cannot See**: Company executive approvals or corporate financial bank details.
-* **Can Enter / Edit**:
-  - Create daily site entries (Earthwork, Structure, Rebar).
-  - Record measurement entries ($m^3$, $kg$, $m^2$).
-* **Cannot Enter / Edit**:
-  - Cannot formally certify IPC payment certificates or approve schedule baseline changes.
+### 14. Quantity Surveyor (`QS`)
+- **Identity**: Commercial cost estimator and measurement surveyor.
+- **Can See**: BOQ items, unit rates, IPC measurement entries, variation order cost estimates.
+- **Can Do**: Draft IPC measurements, prepare BOQ quantity takeoffs, evaluate cost impacts.
 
-#### 13. SUPERINTENDENT / FOREMAN (Site Trade Supervisors)
-* **Scope**: Frontline trade supervision.
-* **Can See**: Assigned WBS sections, daily site report logs, safety observations.
-* **Cannot See**: Financial contract values, BOQ unit rates, purchase orders.
-* **Can Enter / Edit**:
-  - Input draft daily report entries, labor headcount, equipment operating hours.
-* **Cannot Enter / Edit**:
-  - Cannot submit formal variation orders or approve WBS node weights.
+### 15. Procurement Officer (`PROCUREMENT`)
+- **Identity**: Supply chain and purchasing manager.
+- **Can See**: Material demands, purchase orders, supplier profiles, material receipts.
+- **Can Do**: Issue purchase orders, record material receipts, track delivery lead times.
 
-#### 14. QC_INSPECTOR (Quality Control Inspector)
-* **Scope**: Quality assurance, inspections, and defects.
-* **Can See**: Quality tab (ITRs, Defects, Punch List), WBS structural elements, daily structure entries.
-* **Cannot See**: Project financial contracts, purchase order pricing.
-* **Can Enter / Edit**:
-  - Record ITR results (`PASS`/`FAIL`), open Defect Logs, update Punch List items.
-* **Cannot Enter / Edit**:
-  - Cannot modify site measurements or approve schedule changes.
+### 16. Finance Officer (`FINANCE`)
+- **Identity**: Project accountant.
+- **Can See**: Certified IPC payment vouchers, cost actuals, purchase order invoices.
+- **Can Do**: Certify payment receipts, process IPC disbursements.
 
-#### 15. HSE_OFFICER (Health, Safety & Environment Officer)
-* **Scope**: Site safety & compliance.
-* **Can See**: Safety tab (Observations, Incidents), Work Stoppage logs.
-* **Cannot See**: Financial pricing, BOQ unit rates, contract retention values.
-* **Can Enter / Edit**:
-  - Log safety hazards (`SafetyObservation`), open/close `SafetyIncident` tickets, log safety-related work stoppages.
-* **Cannot Enter / Edit**:
-  - Cannot modify WBS structure or certify physical measurement entries.
+### 17. HR Manager (`HR`)
+- **Identity**: Personnel and labor administrator.
+- **Can See**: Employee directory, labor attendance, employment contracts.
+- **Can Do**: Onboard employees, manage labor attendance records.
 
-#### 16. QS (Quantity Surveyor)
-* **Scope**: Physical measurement validation & BOQ control.
-* **Can See**: Measurements tab, BOQ items, Daily Reports, Variations, Purchase Orders.
-* **Cannot See**: HSE incident investigation details or HR employee handbooks.
-* **Can Enter / Edit**:
-  - Input and verify physical measurement entries ($Q_{certified}$ vs $Q_{target}$), prepare draft IPCs.
-* **Cannot Enter / Edit**:
-  - Cannot sign off as Resident Engineer / Consultant verifier.
+### 18. Equipment Manager (`EQUIPMENT_MANAGER`)
+- **Identity**: Fleet and machinery fleet manager.
+- **Can See**: Equipment register, equipment usage logs, custody logs, allocation schedules.
+- **Can Do**: Allocate machinery to projects, track breakdown/down hours.
 
-#### 17. CONSULTANT_ENGINEER / RESIDENT_ENGINEER (Consultant Representative)
-* **Scope**: Third-party supervision & certification.
-* **Can See**: All technical project tabs (WBS, Daily Reports, Measurements, Quality, Variations, Documents).
-* **Cannot See**: Contractor's internal cost margins or confidential payroll entries.
-* **Can Enter / Edit**:
-  - Certify Measurement Entries (`CERTIFIED` status), approve/reject ITRs, sign off daily reports.
-* **Cannot Enter / Edit**:
-  - Cannot edit Contractor's draft measurement quantities directly (must query or certify).
+### 19. Contracts / Legal Manager (`CONTRACTS_LEGAL`)
+- **Identity**: Contract administrator and legal advisor.
+- **Can See**: Contracts, subcontracts, variation orders, dispute records, formal correspondence.
+- **Can Do**: Draft contract templates, review variation order clauses, manage dispute escalations.
 
-#### 18. CLIENT_REP (Client Representative)
-* **Scope**: Owner oversight.
-* **Can See**: Executive project dashboard, high-level physical progress, milestone schedules, certified IPC summaries.
-* **Cannot See**: Contractor internal cost actuals, labor wages, or equipment maintenance breakdown details.
-* **Can Enter / Edit**:
-  - Issue Client Instructions and view project progress reports.
-* **Cannot Enter / Edit**:
-  - Cannot modify WBS structures or enter daily site reports.
+### 20. Resident / Consultant Engineer (`CONSULTANT_ENGINEER`)
+- **Identity**: Client-side supervising engineer.
+- **Can See**: Quality submittals, IPC measurements, variation orders, design reviews, schedule baselines.
+- **Can Do**: Certify IPC measurements (`CONSULTANT_APPROVED`), approve variation orders, review design submittals.
+
+### 21. Client Representative (`CLIENT_REP`)
+- **Identity**: Project owner's designated representative.
+- **Can See**: Executive progress summary, S-curves, certified IPC totals, variation order summaries.
+- **Can Do**: Approve major variation orders and formal contract modifications.
+
+### 22. Subcontractor PM (`SUBCONTRACTOR_PM`)
+- **Identity**: Subcontractor's project manager. Scope isolated strictly to their subcontracted WBS branch (`Contract.scopeWbsNodeId`).
+- **Can See**: Contracted WBS branch, subcontracted activities, subcontractor daily reports, resource requests.
+- **Cannot See**: Main contractor's master contract value, other subcontractors' WBS branches or IPC claims.
+- **Can Do**: Submit `WbsPlanSubmission` for subcontracted branch, assign subcontractor crew, submit resource requests.
+
+### 23. Company Staff (`COMPANY_STAFF`)
+- **Identity**: General organization staff without executive assignment.
+- **Can See**: Read-only overview of assigned company projects.
+
+### 24. Administrator (`ADMIN`)
+- **Identity**: System technical administrator.
+- **Can See**: Full system configuration, user accounts, system logs.
+- **Can Do**: User management, system configuration. Business approvals are deferred to General Manager / Top Executives per ISO segregation of duties.
 
 ---
 
-### Tier 3: Subcontractors & Operational Staff
+## 4. Security & Server Enforcement Architecture
 
-#### 19. SUBCONTRACTOR_PM (Subcontractor Project Manager)
-* **Scope**: Execution of assigned subcontract scope branch.
-* **Can See**: Assigned WBS branch (`scopeWbsNodeId`), assigned schedule activities, subcontractor resource requests.
-* **Cannot See**: Unassigned WBS branches, main contract BOQ rates, or other subcontractors' data.
-* **Can Enter / Edit**:
-  - Submit WBS plan proposals (`WbsPlanSubmission`), request resources (`ResourceRequest`), submit daily site entries for their branch.
-* **Cannot Enter / Edit**:
-  - Cannot approve their own plan submissions or certify their own measurements.
-
-#### 20. PROCUREMENT / FINANCE / HR / CONTRACTS_LEGAL (Operational Roles)
-* **Scope**: Departmental support.
-* **Can See**: Respective operational tabs (Procurement $\rightarrow$ POs/Receipts; Finance $\rightarrow$ Payments/Vouchers; HR $\rightarrow$ Attendance/Employees; Contracts $\rightarrow$ Agreements).
-* **Cannot See**: Unrelated operational domains.
-* **Can Enter / Edit**: Enter departmental vouchers, purchase orders, attendance sheets.
-* **Cannot Enter / Edit**: Cannot alter physical progress measurements or WBS trees.
+1. **Frontend Isolation**:
+   - Navigation tabs are filtered via `getVisibleTabs(role)`.
+   - UI controls are conditionally rendered using `src/lib/permissions-client.ts`.
+2. **API & Server Authorization**:
+   - Every REST endpoint validates session authentication via `getSessionUser(req)`.
+   - Route permissions are checked against `src/permissions/route-permissions.json` using `assertRoutePermission()`.
+   - Project memberships are validated via `assertProjectAccess()`.
+   - WBS scope boundaries are enforced via `assertScopeWritable(scope, wbsNodeId)`.
+3. **Database Layer**:
+   - Foreign key constraints, unique indexes, and Prisma transaction boundaries prevent corrupt mutations.
+   - Mutations trigger `logAuditEntry()` capturing `{ before, after }` state diffs.

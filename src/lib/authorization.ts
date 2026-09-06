@@ -13,8 +13,8 @@ export function assertRoutePermission(
   const permissionRule = routePermissions.routes[routeKey];
 
   if (!permissionRule) {
-    // Default fallback: allow if user session exists, or require basic read
-    return;
+    // Fail-closed security rule: deny unmapped route methods
+    throw new Error(`Unauthorized route method ${method} ${routePattern}`);
   }
 
   assertPermission(

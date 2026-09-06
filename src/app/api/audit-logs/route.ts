@@ -14,6 +14,13 @@ export async function GET(req: NextRequest) {
     if (entityType) where.entityType = entityType;
     if (entityId) where.entityId = entityId;
 
+    const isExecutive = user.companyRoles?.some((r) =>
+      ["INTERNAL_AUDITOR", "GENERAL_MANAGER", "MANAGING_DIRECTOR"].includes(r)
+    );
+    if (user.role !== "ADMIN" && !isExecutive) {
+      return apiError(new Error("Only Internal Auditors or Executives can view audit logs"), 403);
+    }
+
     const logs = await db.auditLog.findMany({
       where,
       orderBy: { changedAt: "desc" },
