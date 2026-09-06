@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
+import { can } from "@/lib/permissions";
 
 export type MetricKey =
   | "activeProjects"
@@ -38,7 +39,7 @@ export type PortfolioProject = {
   name: string;
   status: string;
   projectType: string;
-  contractValue: number;
+  contractValue?: number;
   plannedStartDate: Date;
   plannedEndDate: Date;
   openRisks: number;
@@ -105,6 +106,8 @@ export async function getPortfolioDashboard(
   const empty = projectIds.length === 0;
 
   const safeIds = empty ? ["__none__"] : projectIds;
+
+  const canSeeCost = can(user.role, "cost", "read") || can(user.role, "contract", "read");
 
   const [
     openIncidents,
@@ -258,7 +261,7 @@ export async function getPortfolioDashboard(
     teamSize: projects.reduce((s, p) => s + (p._count?.memberships ?? 0), 0),
     pendingDaily: typeof pendingDaily === "number" ? pendingDaily : 0,
     avgProgress: Math.round(avgProgress),
-    certifiedPayments: Math.round(certifiedPayments),
+    certifiedPayments: canSeeCost ? Math.round(certifiedPayments) : undefined,
     documentsReview,
     equipmentDownHours: Math.round(Number(equipmentDown)),
     laborAssignments,
@@ -272,7 +275,6 @@ export async function getPortfolioDashboard(
   // Derived "executive" metrics from the same project set (single source of truth)
   const [overdueCount, pendingReviews, activeSubcontractorCount, pendingInspectionCount] =
     await Promise.all([
-      // Overdue activities across visible projects
       db.scheduleActivity.count({
         where: {
           wbsNode: { projectId: { in: projectIds } },
@@ -280,20 +282,17 @@ export async function getPortfolioDashboard(
           plannedFinish: { lt: new Date() },
         },
       }),
-      // Pending review comments (decisions awaiting action)
       db.reviewComment.count({
         where: {
           projectId: { in: projectIds },
         },
       }),
-      // Active subcontracts
       db.contract.count({
         where: {
           projectId: { in: projectIds },
           status: "ACTIVE",
         },
       }),
-      // Pending inspections (OPEN ITRs needing verification)
       db.inspectionTestRecord.count({
         where: {
           wbsNode: { projectId: { in: projectIds } },
@@ -332,7 +331,7 @@ export async function getPortfolioDashboard(
         name: p.name,
         status: p.status,
         projectType: p.projectType,
-        contractValue: Number(p.contractValue),
+        contractValue: canSeeCost ? Number(p.contractValue) : undefined,
         plannedStartDate: p.plannedStartDate,
         plannedEndDate: p.plannedEndDate,
         openRisks: r,
@@ -352,7 +351,7 @@ export async function getPortfolioDashboard(
         name: p.name,
         status: p.status,
         projectType: p.projectType,
-        contractValue: Number(p.contractValue),
+        contractValue: canSeeCost ? Number(p.contractValue) : undefined,
         progress: portfolioItem ? Math.round((1 - (portfolioItem.pendingMeasurements / Math.max(1, portfolioItem.pendingMeasurements + 10))) * 100) : 0,
         openRisks: portfolioItem?.openRisks ?? 0,
         openIncidents: portfolioItem?.openIncidents ?? 0,
@@ -380,7 +379,6 @@ export async function getDashboardData(params: {
     partyType: params.partyType as SessionUser["partyType"],
   } satisfies SessionUser;
 
-  // Single-project scoped dashboard (Overview) — apply EffectiveScope WBS filters
   if (params.projectId) {
     const { getEffectiveScope, isAll, activityWbsFilter } = await import("@/lib/scope");
     const { getProjectHealth, computeProjectProgress } = await import(
@@ -481,6 +479,8 @@ export async function getDashboardData(params: {
       },
     });
 
+    const canSeeCost = scope.canViewCostDetail && (can(user.role, "cost", "read") || can(user.role, "contract", "read"));
+
     return {
       metrics: {
         openIncidents,
@@ -504,7 +504,7 @@ export async function getDashboardData(params: {
               name: project.name,
               status: project.status,
               projectType: project.projectType,
-              contractValue: scope.canViewCostDetail
+              contractValue: canSeeCost
                 ? Number(project.contractValue)
                 : undefined,
               progress: Math.round(progress),
