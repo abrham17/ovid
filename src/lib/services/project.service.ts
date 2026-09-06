@@ -1,12 +1,10 @@
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
-import { canCompany } from "@/lib/permissions";
 import type {
   CreateProjectInput,
   UpdateProjectInput,
   CreateWbsNodeInput,
-  UpdateWbsNodeInput,
 } from "@/lib/validations/project";
 import { Prisma } from "@/generated/prisma/client";
 import { DomainError } from "@/lib/domain-rules";
@@ -16,6 +14,7 @@ import {
   isAll,
   isWbsVisible,
 } from "@/lib/scope";
+import { recordAuditLog } from "@/lib/services/audit";
 
 export async function listProjects(
   user: SessionUser,
@@ -80,6 +79,13 @@ export async function getProject(user: SessionUser, projectId: string) {
           },
           organization: { select: { id: true, name: true, partyType: true } },
         },
+      },
+      objectives: true,
+      baselines: {
+        orderBy: { version: "desc" },
+      },
+      statusHistory: {
+        orderBy: { changedAt: "desc" },
       },
     },
   });
@@ -172,6 +178,129 @@ export async function createProject(user: SessionUser, input: CreateProjectInput
   throw new DomainError("Projects must be created from a won tender approved by the General Manager", 409);
 }
 
+export async function addProjectObjective(
+  user: SessionUser,
+  projectId: string,
+  input: { description: string; metric: string; targetValue: number; targetDate: string }
+) {
+  await assertProjectAccess(user, projectId);
+  assertPermission(user, "project", "update");
+
+  const objective = await db.projectObjective.create({
+    data: {
+      projectId,
+      description: input.description,
+      metric: input.metric,
+      targetValue: new Prisma.Decimal(input.targetValue),
+      targetDate: new Date(input.targetDate),
+      createdById: user.id,
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectObjective",
+    entityId: objective.id,
+    action: "CREATE",
+    after: objective,
+  });
+
+  return objective;
+}
+
+export async function createInitialBaseline(user: SessionUser, projectId: string) {
+  await assertProjectAccess(user, projectId);
+  assertPermission(user, "project", "update");
+
+  const project = await db.project.findUniqueOrThrow({
+    where: { id: projectId },
+    include: {
+      wbsNodes: {
+        include: { activities: true, boqItems: true },
+      },
+      contracts: true,
+    },
+  });
+
+  const latestBaseline = await db.projectBaseline.findFirst({
+    where: { projectId },
+    orderBy: { version: "desc" },
+  });
+
+  const version = (latestBaseline?.version ?? 0) + 1;
+
+  const baseline = await db.projectBaseline.create({
+    data: {
+      projectId,
+      version,
+      type: "INTEGRATED",
+      snapshot: JSON.parse(JSON.stringify(project)),
+      createdById: user.id,
+      approvedById: user.id,
+      approvedAt: new Date(),
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectBaseline",
+    entityId: baseline.id,
+    action: "CREATE",
+    after: baseline,
+  });
+
+  return baseline;
+}
+
+export async function transitionProjectStatus(
+  user: SessionUser,
+  projectId: string,
+  targetStatus: "PLANNING" | "ACTIVE" | "SUSPENDED" | "COMPLETE" | "CLOSED",
+  reason: string
+) {
+  await assertProjectAccess(user, projectId);
+  assertPermission(user, "project", "update");
+
+  const project = await db.project.findUniqueOrThrow({
+    where: { id: projectId },
+  });
+
+  if (targetStatus === "ACTIVE") {
+    const baselinesCount = await db.projectBaseline.count({
+      where: { projectId },
+    });
+    if (baselinesCount === 0) {
+      throw new DomainError("Project cannot transition to ACTIVE without an approved baseline snapshot", 422);
+    }
+  }
+
+  const updatedProject = await db.project.update({
+    where: { id: projectId },
+    data: { status: targetStatus },
+  });
+
+  await db.projectStatusHistory.create({
+    data: {
+      projectId,
+      fromStatus: project.status,
+      toStatus: targetStatus,
+      reason,
+      changedById: user.id,
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "Project",
+    entityId: projectId,
+    action: "UPDATE",
+    before: { status: project.status },
+    after: { status: targetStatus },
+  });
+
+  return updatedProject;
+}
+
 export async function updateProject(
   user: SessionUser,
   projectId: string,
@@ -213,7 +342,6 @@ export async function getWbsTree(user: SessionUser, projectId: string) {
 
   const scope = await getEffectiveScope(user, projectId);
 
-  // SE/Superintendent: full org-ceiling tree for context; Foreman: assignment context only
   const readSet =
     scope.scheduleReadMode === "org_ceiling"
       ? scope.orgVisibleWbsNodeIds
@@ -259,7 +387,6 @@ export async function createWbsNode(user: SessionUser, projectId: string, input:
     if (!parent) throw new Error("Parent WBS node not found on this project");
     assertScopeWritable(scope, input.parentId);
   } else {
-    // Creating a root requires full writable (PM-tier)
     if (!isAll(scope.writableWbsNodeIds)) {
       throw new Error("You cannot create a root WBS node outside your writable scope");
     }
@@ -270,9 +397,6 @@ export async function createWbsNode(user: SessionUser, projectId: string, input:
   });
   if (codeClash) throw new Error(`WBS code "${input.code}" already exists on this project`);
 
-  // A node created inside an open plan submission is DRAFT: excluded from the
-  // live rollup and from other parties until the Contractor PM approves the
-  // whole submission (file 20 §3.2).
   let status: "DRAFT" | "ACTIVE" = "ACTIVE";
   if (input.planSubmissionId) {
     const submission = await db.wbsPlanSubmission.findFirst({
@@ -336,7 +460,6 @@ export async function updateWbsNode(
     });
     if (!parent) throw new Error("Parent WBS node not found on this project");
 
-    // Walk ancestors of new parent — must not hit nodeId (cycle)
     let cursor: string | null = input.parentId;
     const guard = new Set<string>();
     while (cursor) {
@@ -374,7 +497,6 @@ export async function updateWbsNode(
   });
 }
 
-/** Design-readiness gate — incomplete design is a leading overrun cause. */
 export async function toggleDesignReady(
   user: SessionUser,
   projectId: string,

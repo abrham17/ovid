@@ -388,6 +388,31 @@ export type OversightAssignment = Prisma.OversightAssignmentModel
  */
 export type OversightDailyEntry = Prisma.OversightDailyEntryModel
 /**
+ * Model ProjectRoleAssignment
+ *
+ */
+export type ProjectRoleAssignment = Prisma.ProjectRoleAssignmentModel
+/**
+ * Model ProjectObjective
+ *
+ */
+export type ProjectObjective = Prisma.ProjectObjectiveModel
+/**
+ * Model ProjectBaseline
+ *
+ */
+export type ProjectBaseline = Prisma.ProjectBaselineModel
+/**
+ * Model ProjectStatusHistory
+ *
+ */
+export type ProjectStatusHistory = Prisma.ProjectStatusHistoryModel
+/**
+ * Model ProgressSnapshot
+ *
+ */
+export type ProgressSnapshot = Prisma.ProgressSnapshotModel
+/**
  * Model ResourceRequest
  * A subcontractor asking the main contractor to source materials/equipment for
  * their branch. Approval is gated to the holder of an active

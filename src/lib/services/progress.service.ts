@@ -362,6 +362,65 @@ export type ProjectHealthSummary = {
   qualityClearedProgress: number;
 };
 
+export async function recordProgressSnapshot(
+  projectId: string,
+  snapshotDate = new Date()
+) {
+  const tree = await loadProgressTree(projectId);
+  const physicalPercent = rollupRoots(tree, tree.rootIds, { mode: "physical" });
+
+  const project = await db.project.findUnique({
+    where: { id: projectId },
+    select: { contractValue: true },
+  });
+
+  const contractValue = Number(project?.contractValue ?? 0);
+  const earnedValue = (contractValue * physicalPercent) / 100;
+  const plannedValue = earnedValue; // Default PV = EV for simple EVM baselining
+
+  const actualCostAgg = await db.costActual.aggregate({
+    _sum: { amount: true },
+    where: { boqItem: { wbsNode: { projectId } } },
+  });
+  const actualCost = Number(actualCostAgg._sum.amount ?? 0);
+
+  const scheduleVariance = earnedValue - plannedValue;
+  const costVariance = earnedValue - actualCost;
+  const cpi = actualCost > 0 ? earnedValue / actualCost : 1;
+  const spi = plannedValue > 0 ? earnedValue / plannedValue : 1;
+
+  return db.progressSnapshot.upsert({
+    where: {
+      projectId_snapshotDate: {
+        projectId,
+        snapshotDate,
+      },
+    },
+    create: {
+      projectId,
+      snapshotDate,
+      plannedValue,
+      earnedValue,
+      actualCost,
+      physicalPercent,
+      scheduleVariance,
+      costVariance,
+      cpi,
+      spi,
+    },
+    update: {
+      plannedValue,
+      earnedValue,
+      actualCost,
+      physicalPercent,
+      scheduleVariance,
+      costVariance,
+      cpi,
+      spi,
+    },
+  });
+}
+
 export async function getProjectHealth(
   projectId: string,
   user?: SessionUser

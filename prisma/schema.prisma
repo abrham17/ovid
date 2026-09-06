@@ -194,6 +194,29 @@ enum ProjectStatus {
   CLOSED
 }
 
+enum ProjectRole {
+  PROJECT_MANAGER
+  DEPUTY_PM
+  SITE_ENGINEER
+  SUPERINTENDENT
+  FOREMAN
+  QC_INSPECTOR
+  HSE_OFFICER
+  QUANTITY_SURVEYOR
+  OFFICE_ENGINEER
+  RESIDENT_ENGINEER
+  CLIENT_REPRESENTATIVE
+  SUBCONTRACTOR_PM
+  OTHER
+}
+
+enum BaselineType {
+  SCOPE
+  SCHEDULE
+  COST
+  INTEGRATED
+}
+
 enum WBSNodeType {
   PHASE
   SECTION
@@ -547,6 +570,12 @@ model User {
   oversightEntries              OversightDailyEntry[]        @relation("OversightEntriesCreated")
   resourceRequestsMade          ResourceRequest[]            @relation("ResourceRequestedBy")
   resourceRequestsReviewed      ResourceRequest[]            @relation("ResourceRequestReviewedBy")
+  assignedProjectRoles          ProjectRoleAssignment[]      @relation("AssignedProjectUser")
+  assignedByProjectRoles        ProjectRoleAssignment[]      @relation("AssignedByProjectUser")
+  projectObjectivesCreated      ProjectObjective[]           @relation("ProjectObjectiveCreator")
+  baselinesCreated              ProjectBaseline[]            @relation("BaselineCreatedBy")
+  baselinesApproved             ProjectBaseline[]            @relation("BaselineApprovedBy")
+  projectStatusChanges          ProjectStatusHistory[]
 
   @@index([organizationId])
   @@index([role])
@@ -835,6 +864,11 @@ model Project {
   auditFindings             AuditFinding[]
   equipmentAllocations      EquipmentAllocation[]
   executiveInterventions    ExecutiveIntervention[]
+  roleAssignments           ProjectRoleAssignment[]
+  objectives                ProjectObjective[]
+  baselines                 ProjectBaseline[]
+  statusHistory             ProjectStatusHistory[]
+  progressSnapshots         ProgressSnapshot[]
 
   @@index([contractorOrgId])
   @@index([clientOrgId])
@@ -2270,6 +2304,93 @@ enum ResourceRequestStatus {
   REJECTED
   CANCELLED
   FULFILLED
+}
+
+model ProjectRoleAssignment {
+  id           String      @id @default(cuid())
+  projectId    String
+  userId       String
+  role         ProjectRole
+  assignedById String
+  assignedAt   DateTime    @default(now())
+  endedAt      DateTime?
+
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user       User    @relation("AssignedProjectUser", fields: [userId], references: [id], onDelete: Cascade)
+  assignedBy User    @relation("AssignedByProjectUser", fields: [assignedById], references: [id])
+
+  @@index([projectId, userId, role, endedAt])
+}
+
+model ProjectObjective {
+  id          String   @id @default(cuid())
+  projectId   String
+  description String
+  metric      String
+  targetValue Decimal  @db.Decimal(18, 2)
+  targetDate  DateTime
+  createdById String
+  createdAt   DateTime @default(now())
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User    @relation("ProjectObjectiveCreator", fields: [createdById], references: [id])
+
+  @@index([projectId])
+}
+
+model ProjectBaseline {
+  id           String       @id @default(cuid())
+  projectId    String
+  version      Int          @default(1)
+  type         BaselineType @default(INTEGRATED)
+  snapshot     Json
+  createdById  String
+  approvedById String?
+  approvedAt   DateTime?
+  createdAt    DateTime     @default(now())
+
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy  User    @relation("BaselineCreatedBy", fields: [createdById], references: [id])
+  approvedBy User?   @relation("BaselineApprovedBy", fields: [approvedById], references: [id])
+
+  @@unique([projectId, version])
+  @@index([projectId, type])
+}
+
+model ProjectStatusHistory {
+  id              String        @id @default(cuid())
+  projectId       String
+  fromStatus      ProjectStatus
+  toStatus        ProjectStatus
+  reason          String
+  gateEvidenceRef String?
+  changedById     String
+  changedAt       DateTime      @default(now())
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  changedBy User    @relation(fields: [changedById], references: [id])
+
+  @@index([projectId, changedAt])
+}
+
+model ProgressSnapshot {
+  id               String   @id @default(cuid())
+  projectId        String
+  snapshotDate     DateTime @db.Date
+  plannedValue     Decimal  @db.Decimal(18, 2)
+  earnedValue      Decimal  @db.Decimal(18, 2)
+  actualCost       Decimal  @db.Decimal(18, 2)
+  physicalPercent  Decimal  @db.Decimal(6, 2)
+  scheduleVariance Decimal  @db.Decimal(18, 2)
+  costVariance     Decimal  @db.Decimal(18, 2)
+  cpi              Decimal  @db.Decimal(6, 3)
+  spi              Decimal  @db.Decimal(6, 3)
+  createdAt        DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, snapshotDate])
+  @@index([projectId, snapshotDate])
 }
 
 /// A subcontractor asking the main contractor to source materials/equipment for

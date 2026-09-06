@@ -1361,6 +1361,40 @@ export type EnumOversightAssessmentWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumOversightAssessmentFilter<$PrismaModel>
 }
 
+export type EnumProjectRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
+}
+
+export type EnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+}
+
+export type EnumBaselineTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BaselineType | Prisma.EnumBaselineTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel> | $Enums.BaselineType
+}
+
+export type EnumBaselineTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BaselineType | Prisma.EnumBaselineTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBaselineTypeWithAggregatesFilter<$PrismaModel> | $Enums.BaselineType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel>
+}
+
 export type EnumResourceRequestKindFilter<$PrismaModel = never> = {
   equals?: $Enums.ResourceRequestKind | Prisma.EnumResourceRequestKindFieldRefInput<$PrismaModel>
   in?: $Enums.ResourceRequestKind[] | Prisma.ListEnumResourceRequestKindFieldRefInput<$PrismaModel>
@@ -2699,6 +2733,40 @@ export type NestedEnumOversightAssessmentWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumOversightAssessmentFilter<$PrismaModel>
   _max?: Prisma.NestedEnumOversightAssessmentFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
+}
+
+export type NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumBaselineTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BaselineType | Prisma.EnumBaselineTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel> | $Enums.BaselineType
+}
+
+export type NestedEnumBaselineTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BaselineType | Prisma.EnumBaselineTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BaselineType[] | Prisma.ListEnumBaselineTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBaselineTypeWithAggregatesFilter<$PrismaModel> | $Enums.BaselineType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBaselineTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumResourceRequestKindFilter<$PrismaModel = never> = {

@@ -171,3 +171,31 @@ export function weightedProgress(
   );
   return Math.round(sum * 100) / 100;
 }
+
+/**
+ * Validate a whole tree of WBS nodes or activities recursively for 100% Rule compliance.
+ */
+export function validateWbsTreeWeights(
+  nodes: Array<Weighted & { parentId?: string | null }>
+): { ok: boolean; invalidParentIds: string[] } {
+  const byParent = new Map<string, Weighted[]>();
+  for (const node of nodes) {
+    const pId = node.parentId ?? "root";
+    if (!byParent.has(pId)) byParent.set(pId, []);
+    byParent.get(pId)!.push(node);
+  }
+
+  const invalidParentIds: string[] = [];
+  for (const [pId, siblings] of byParent.entries()) {
+    if (pId === "root") continue;
+    const check = checkSiblingSum(siblings);
+    if (!check.ok) {
+      invalidParentIds.push(pId);
+    }
+  }
+
+  return {
+    ok: invalidParentIds.length === 0,
+    invalidParentIds,
+  };
+}

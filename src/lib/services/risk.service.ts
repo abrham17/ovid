@@ -147,7 +147,7 @@ export async function realizeRisk(
   user: SessionUser,
   projectId: string,
   riskId: string,
-  opts?: { stoppageId?: string; variationId?: string }
+  opts?: { stoppageId?: string; variationId?: string; autoCreateStoppage?: boolean }
 ) {
   await assertProjectAccess(user, projectId);
   assertPermission(user, "risk", "update");
@@ -157,11 +157,27 @@ export async function realizeRisk(
   });
   if (!risk) throw new Error("Risk not found");
 
+  let createdStoppageId = opts?.stoppageId;
+
+  if (opts?.autoCreateStoppage && !createdStoppageId) {
+    const stoppage = await db.stoppageEntry.create({
+      data: {
+        projectId,
+        wbsNodeId: risk.wbsNodeId,
+        stoppageType: "OTHER",
+        reason: `Realized Risk: ${risk.description}`,
+        startTime: new Date(),
+        endTime: new Date(),
+      },
+    });
+    createdStoppageId = stoppage.id;
+  }
+
   return db.riskEntry.update({
     where: { id: riskId },
     data: {
       status: "REALIZED",
-      realizedAsStoppageId: opts?.stoppageId ?? risk.realizedAsStoppageId,
+      realizedAsStoppageId: createdStoppageId ?? risk.realizedAsStoppageId,
       realizedAsVariationId: opts?.variationId ?? risk.realizedAsVariationId,
     },
   });

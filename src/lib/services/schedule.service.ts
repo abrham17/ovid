@@ -48,11 +48,12 @@ export async function listActivities(user: SessionUser, projectId: string) {
     where = { wbsNode: liveNode, ...vis };
   }
 
-  return db.scheduleActivity.findMany({
+  const activities = await db.scheduleActivity.findMany({
     where,
     orderBy: { updatedAt: "desc" },
     include: {
       wbsNode: { select: { id: true, code: true, name: true } },
+      predecessors: { select: { predecessorId: true } },
       stoppages: {
         select: {
           id: true,
@@ -65,6 +66,34 @@ export async function listActivities(user: SessionUser, projectId: string) {
       },
       _count: { select: { stoppages: true } },
     },
+  });
+
+  const cpmInput = activities.map((a) => {
+    const start = new Date(a.plannedStart).getTime();
+    const finish = new Date(a.plannedFinish).getTime();
+    const durationDays = Math.max(1, Math.ceil((finish - start) / (1000 * 60 * 60 * 24)));
+    return {
+      id: a.id,
+      durationDays,
+      predecessorIds: a.predecessors.map((p) => p.predecessorId),
+    };
+  });
+
+  const { solveCriticalPath } = await import("@/lib/cpm-solver");
+  const cpmResults = solveCriticalPath(cpmInput);
+
+  return activities.map((a) => {
+    const cpm = cpmResults.get(a.id);
+    return {
+      ...a,
+      earlyStartDays: cpm?.earlyStart ?? 0,
+      earlyFinishDays: cpm?.earlyFinish ?? 0,
+      lateStartDays: cpm?.lateStart ?? 0,
+      lateFinishDays: cpm?.lateFinish ?? 0,
+      totalFloatDays: cpm?.totalFloat ?? 0,
+      freeFloatDays: cpm?.freeFloat ?? 0,
+      isCritical: cpm?.isCritical ?? false,
+    };
   });
 }
 
@@ -139,6 +168,10 @@ export async function updateActivity(
 
   if (input.status && input.status !== activity.status) {
     assertStatusTransition(activity.status, input.status, ACTIVITY_STATUS_TRANSITIONS);
+    if (input.status === "COMPLETE") {
+      const { assertQualityGatePassed } = await import("@/lib/services/quality.service");
+      await assertQualityGatePassed(activity.wbsNodeId);
+    }
   }
 
   return db.scheduleActivity.update({

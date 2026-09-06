@@ -114,6 +114,11 @@ export const ModelName = {
   WbsPlanSubmission: 'WbsPlanSubmission',
   OversightAssignment: 'OversightAssignment',
   OversightDailyEntry: 'OversightDailyEntry',
+  ProjectRoleAssignment: 'ProjectRoleAssignment',
+  ProjectObjective: 'ProjectObjective',
+  ProjectBaseline: 'ProjectBaseline',
+  ProjectStatusHistory: 'ProjectStatusHistory',
+  ProgressSnapshot: 'ProgressSnapshot',
   ResourceRequest: 'ResourceRequest'
 } as const
 
@@ -1226,6 +1231,80 @@ export const OversightDailyEntryScalarFieldEnum = {
 } as const
 
 export type OversightDailyEntryScalarFieldEnum = (typeof OversightDailyEntryScalarFieldEnum)[keyof typeof OversightDailyEntryScalarFieldEnum]
+
+
+export const ProjectRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  role: 'role',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type ProjectRoleAssignmentScalarFieldEnum = (typeof ProjectRoleAssignmentScalarFieldEnum)[keyof typeof ProjectRoleAssignmentScalarFieldEnum]
+
+
+export const ProjectObjectiveScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  description: 'description',
+  metric: 'metric',
+  targetValue: 'targetValue',
+  targetDate: 'targetDate',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectObjectiveScalarFieldEnum = (typeof ProjectObjectiveScalarFieldEnum)[keyof typeof ProjectObjectiveScalarFieldEnum]
+
+
+export const ProjectBaselineScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  version: 'version',
+  type: 'type',
+  snapshot: 'snapshot',
+  createdById: 'createdById',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectBaselineScalarFieldEnum = (typeof ProjectBaselineScalarFieldEnum)[keyof typeof ProjectBaselineScalarFieldEnum]
+
+
+export const ProjectStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  reason: 'reason',
+  gateEvidenceRef: 'gateEvidenceRef',
+  changedById: 'changedById',
+  changedAt: 'changedAt'
+} as const
+
+export type ProjectStatusHistoryScalarFieldEnum = (typeof ProjectStatusHistoryScalarFieldEnum)[keyof typeof ProjectStatusHistoryScalarFieldEnum]
+
+
+export const ProgressSnapshotScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  snapshotDate: 'snapshotDate',
+  plannedValue: 'plannedValue',
+  earnedValue: 'earnedValue',
+  actualCost: 'actualCost',
+  physicalPercent: 'physicalPercent',
+  scheduleVariance: 'scheduleVariance',
+  costVariance: 'costVariance',
+  cpi: 'cpi',
+  spi: 'spi',
+  createdAt: 'createdAt'
+} as const
+
+export type ProgressSnapshotScalarFieldEnum = (typeof ProgressSnapshotScalarFieldEnum)[keyof typeof ProgressSnapshotScalarFieldEnum]
 
 
 export const ResourceRequestScalarFieldEnum = {
