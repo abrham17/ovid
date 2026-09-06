@@ -259,7 +259,7 @@ export async function assignToActivity(
     data: { endedAt: new Date() },
   });
 
-  return db.activityAssignment.create({
+  const created = await db.activityAssignment.create({
     data: {
       scheduleActivityId,
       userId: targetUserId,
@@ -271,6 +271,19 @@ export async function assignToActivity(
       assignedBy: { select: { id: true, fullName: true } },
     },
   });
+
+  await db.notification.create({
+    data: {
+      userId: targetUserId,
+      projectId,
+      entityType: "activity",
+      entityId: scheduleActivityId,
+      type: "ACTIVITY_ASSIGNED",
+      message: `You have been assigned as ${role} for activity "${activity.name}"`,
+    },
+  });
+
+  return created;
 }
 
 /** Unassign (end) an active assignment */

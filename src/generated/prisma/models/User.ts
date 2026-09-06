@@ -303,6 +303,12 @@ export type UserWhereInput = {
   oversightEntries?: Prisma.OversightDailyEntryListRelationFilter
   resourceRequestsMade?: Prisma.ResourceRequestListRelationFilter
   resourceRequestsReviewed?: Prisma.ResourceRequestListRelationFilter
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
+  projectObjectivesCreated?: Prisma.ProjectObjectiveListRelationFilter
+  baselinesCreated?: Prisma.ProjectBaselineListRelationFilter
+  baselinesApproved?: Prisma.ProjectBaselineListRelationFilter
+  projectStatusChanges?: Prisma.ProjectStatusHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -376,6 +382,12 @@ export type UserOrderByWithRelationInput = {
   oversightEntries?: Prisma.OversightDailyEntryOrderByRelationAggregateInput
   resourceRequestsMade?: Prisma.ResourceRequestOrderByRelationAggregateInput
   resourceRequestsReviewed?: Prisma.ResourceRequestOrderByRelationAggregateInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentOrderByRelationAggregateInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentOrderByRelationAggregateInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveOrderByRelationAggregateInput
+  baselinesCreated?: Prisma.ProjectBaselineOrderByRelationAggregateInput
+  baselinesApproved?: Prisma.ProjectBaselineOrderByRelationAggregateInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -452,6 +464,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   oversightEntries?: Prisma.OversightDailyEntryListRelationFilter
   resourceRequestsMade?: Prisma.ResourceRequestListRelationFilter
   resourceRequestsReviewed?: Prisma.ResourceRequestListRelationFilter
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
+  projectObjectivesCreated?: Prisma.ProjectObjectiveListRelationFilter
+  baselinesCreated?: Prisma.ProjectBaselineListRelationFilter
+  baselinesApproved?: Prisma.ProjectBaselineListRelationFilter
+  projectStatusChanges?: Prisma.ProjectStatusHistoryListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -562,6 +580,12 @@ export type UserCreateInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -634,6 +658,12 @@ export type UserUncheckedCreateInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUpdateInput = {
@@ -706,6 +736,12 @@ export type UserUpdateInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -778,6 +814,12 @@ export type UserUncheckedUpdateInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1735,6 +1777,92 @@ export type UserUpdateOneRequiredWithoutOversightEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOversightEntriesInput, Prisma.UserUpdateWithoutOversightEntriesInput>, Prisma.UserUncheckedUpdateWithoutOversightEntriesInput>
 }
 
+export type UserCreateNestedOneWithoutAssignedProjectRolesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedProjectRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedProjectRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedByProjectRolesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedByProjectRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedByProjectRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssignedProjectRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedProjectRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedProjectRolesInput
+  upsert?: Prisma.UserUpsertWithoutAssignedProjectRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedProjectRolesInput, Prisma.UserUpdateWithoutAssignedProjectRolesInput>, Prisma.UserUncheckedUpdateWithoutAssignedProjectRolesInput>
+}
+
+export type UserUpdateOneRequiredWithoutAssignedByProjectRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedByProjectRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedByProjectRolesInput
+  upsert?: Prisma.UserUpsertWithoutAssignedByProjectRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedByProjectRolesInput, Prisma.UserUpdateWithoutAssignedByProjectRolesInput>, Prisma.UserUncheckedUpdateWithoutAssignedByProjectRolesInput>
+}
+
+export type UserCreateNestedOneWithoutProjectObjectivesCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedCreateWithoutProjectObjectivesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectObjectivesCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectObjectivesCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedCreateWithoutProjectObjectivesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectObjectivesCreatedInput
+  upsert?: Prisma.UserUpsertWithoutProjectObjectivesCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectObjectivesCreatedInput, Prisma.UserUpdateWithoutProjectObjectivesCreatedInput>, Prisma.UserUncheckedUpdateWithoutProjectObjectivesCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutBaselinesCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesCreatedInput, Prisma.UserUncheckedCreateWithoutBaselinesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBaselinesApprovedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesApprovedInput, Prisma.UserUncheckedCreateWithoutBaselinesApprovedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesApprovedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesCreatedInput, Prisma.UserUncheckedCreateWithoutBaselinesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesCreatedInput
+  upsert?: Prisma.UserUpsertWithoutBaselinesCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBaselinesCreatedInput, Prisma.UserUpdateWithoutBaselinesCreatedInput>, Prisma.UserUncheckedUpdateWithoutBaselinesCreatedInput>
+}
+
+export type UserUpdateOneWithoutBaselinesApprovedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesApprovedInput, Prisma.UserUncheckedCreateWithoutBaselinesApprovedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesApprovedInput
+  upsert?: Prisma.UserUpsertWithoutBaselinesApprovedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBaselinesApprovedInput, Prisma.UserUpdateWithoutBaselinesApprovedInput>, Prisma.UserUncheckedUpdateWithoutBaselinesApprovedInput>
+}
+
+export type UserCreateNestedOneWithoutProjectStatusChangesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectStatusChangesInput, Prisma.UserUncheckedCreateWithoutProjectStatusChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectStatusChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectStatusChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectStatusChangesInput, Prisma.UserUncheckedCreateWithoutProjectStatusChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectStatusChangesInput
+  upsert?: Prisma.UserUpsertWithoutProjectStatusChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectStatusChangesInput, Prisma.UserUpdateWithoutProjectStatusChangesInput>, Prisma.UserUncheckedUpdateWithoutProjectStatusChangesInput>
+}
+
 export type UserCreateNestedOneWithoutResourceRequestsMadeInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutResourceRequestsMadeInput, Prisma.UserUncheckedCreateWithoutResourceRequestsMadeInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutResourceRequestsMadeInput
@@ -1834,6 +1962,12 @@ export type UserCreateWithoutOrganizationInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -1905,6 +2039,12 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -2021,6 +2161,12 @@ export type UserCreateWithoutMembershipsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -2092,6 +2238,12 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -2179,6 +2331,12 @@ export type UserUpdateWithoutMembershipsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -2250,6 +2408,12 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutCompanyAssignmentsInput = {
@@ -2321,6 +2485,12 @@ export type UserCreateWithoutCompanyAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyAssignmentsInput = {
@@ -2392,6 +2562,12 @@ export type UserUncheckedCreateWithoutCompanyAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyAssignmentsInput = {
@@ -2468,6 +2644,12 @@ export type UserCreateWithoutAssignedCompanyRolesInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedCompanyRolesInput = {
@@ -2539,6 +2721,12 @@ export type UserUncheckedCreateWithoutAssignedCompanyRolesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedCompanyRolesInput = {
@@ -2626,6 +2814,12 @@ export type UserUpdateWithoutCompanyAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyAssignmentsInput = {
@@ -2697,6 +2891,12 @@ export type UserUncheckedUpdateWithoutCompanyAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedCompanyRolesInput = {
@@ -2779,6 +2979,12 @@ export type UserUpdateWithoutAssignedCompanyRolesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedCompanyRolesInput = {
@@ -2850,6 +3056,12 @@ export type UserUncheckedUpdateWithoutAssignedCompanyRolesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutCompanyInvitationsSentInput = {
@@ -2921,6 +3133,12 @@ export type UserCreateWithoutCompanyInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyInvitationsSentInput = {
@@ -2992,6 +3210,12 @@ export type UserUncheckedCreateWithoutCompanyInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyInvitationsSentInput = {
@@ -3079,6 +3303,12 @@ export type UserUpdateWithoutCompanyInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyInvitationsSentInput = {
@@ -3150,6 +3380,12 @@ export type UserUncheckedUpdateWithoutCompanyInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutCompanyApprovalsRequestedInput = {
@@ -3221,6 +3457,12 @@ export type UserCreateWithoutCompanyApprovalsRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyApprovalsRequestedInput = {
@@ -3292,6 +3534,12 @@ export type UserUncheckedCreateWithoutCompanyApprovalsRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyApprovalsRequestedInput = {
@@ -3368,6 +3616,12 @@ export type UserCreateWithoutCompanyApprovalsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyApprovalsReviewedInput = {
@@ -3439,6 +3693,12 @@ export type UserUncheckedCreateWithoutCompanyApprovalsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyApprovalsReviewedInput = {
@@ -3526,6 +3786,12 @@ export type UserUpdateWithoutCompanyApprovalsRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput = {
@@ -3597,6 +3863,12 @@ export type UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutCompanyApprovalsReviewedInput = {
@@ -3679,6 +3951,12 @@ export type UserUpdateWithoutCompanyApprovalsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput = {
@@ -3750,6 +4028,12 @@ export type UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutDesignReviewsSubmittedInput = {
@@ -3821,6 +4105,12 @@ export type UserCreateWithoutDesignReviewsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDesignReviewsSubmittedInput = {
@@ -3892,6 +4182,12 @@ export type UserUncheckedCreateWithoutDesignReviewsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDesignReviewsSubmittedInput = {
@@ -3968,6 +4264,12 @@ export type UserCreateWithoutDesignReviewsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDesignReviewsReviewedInput = {
@@ -4039,6 +4341,12 @@ export type UserUncheckedCreateWithoutDesignReviewsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDesignReviewsReviewedInput = {
@@ -4126,6 +4434,12 @@ export type UserUpdateWithoutDesignReviewsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDesignReviewsSubmittedInput = {
@@ -4197,6 +4511,12 @@ export type UserUncheckedUpdateWithoutDesignReviewsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutDesignReviewsReviewedInput = {
@@ -4279,6 +4599,12 @@ export type UserUpdateWithoutDesignReviewsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDesignReviewsReviewedInput = {
@@ -4350,6 +4676,12 @@ export type UserUncheckedUpdateWithoutDesignReviewsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutAuditFindingsRaisedInput = {
@@ -4421,6 +4753,12 @@ export type UserCreateWithoutAuditFindingsRaisedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditFindingsRaisedInput = {
@@ -4492,6 +4830,12 @@ export type UserUncheckedCreateWithoutAuditFindingsRaisedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditFindingsRaisedInput = {
@@ -4568,6 +4912,12 @@ export type UserCreateWithoutAuditFindingsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditFindingsOwnedInput = {
@@ -4639,6 +4989,12 @@ export type UserUncheckedCreateWithoutAuditFindingsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditFindingsOwnedInput = {
@@ -4715,6 +5071,12 @@ export type UserCreateWithoutAuditFindingsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditFindingsVerifiedInput = {
@@ -4786,6 +5148,12 @@ export type UserUncheckedCreateWithoutAuditFindingsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditFindingsVerifiedInput = {
@@ -4873,6 +5241,12 @@ export type UserUpdateWithoutAuditFindingsRaisedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditFindingsRaisedInput = {
@@ -4944,6 +5318,12 @@ export type UserUncheckedUpdateWithoutAuditFindingsRaisedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAuditFindingsOwnedInput = {
@@ -5026,6 +5406,12 @@ export type UserUpdateWithoutAuditFindingsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditFindingsOwnedInput = {
@@ -5097,6 +5483,12 @@ export type UserUncheckedUpdateWithoutAuditFindingsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAuditFindingsVerifiedInput = {
@@ -5179,6 +5571,12 @@ export type UserUpdateWithoutAuditFindingsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditFindingsVerifiedInput = {
@@ -5250,6 +5648,12 @@ export type UserUncheckedUpdateWithoutAuditFindingsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutExecutiveInterventionsOwnedInput = {
@@ -5321,6 +5725,12 @@ export type UserCreateWithoutExecutiveInterventionsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput = {
@@ -5392,6 +5802,12 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutExecutiveInterventionsOwnedInput = {
@@ -5468,6 +5884,12 @@ export type UserCreateWithoutExecutiveInterventionsCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput = {
@@ -5539,6 +5961,12 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutExecutiveInterventionsCreatedInput = {
@@ -5615,6 +6043,12 @@ export type UserCreateWithoutExecutiveInterventionsClosedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutExecutiveInterventionsClosedInput = {
@@ -5686,6 +6120,12 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsClosedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutExecutiveInterventionsClosedInput = {
@@ -5773,6 +6213,12 @@ export type UserUpdateWithoutExecutiveInterventionsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput = {
@@ -5844,6 +6290,12 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutExecutiveInterventionsCreatedInput = {
@@ -5926,6 +6378,12 @@ export type UserUpdateWithoutExecutiveInterventionsCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput = {
@@ -5997,6 +6455,12 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutExecutiveInterventionsClosedInput = {
@@ -6079,6 +6543,12 @@ export type UserUpdateWithoutExecutiveInterventionsClosedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput = {
@@ -6150,6 +6620,12 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutExecutiveInterventionEventsInput = {
@@ -6221,6 +6697,12 @@ export type UserCreateWithoutExecutiveInterventionEventsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutExecutiveInterventionEventsInput = {
@@ -6292,6 +6774,12 @@ export type UserUncheckedCreateWithoutExecutiveInterventionEventsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutExecutiveInterventionEventsInput = {
@@ -6379,6 +6867,12 @@ export type UserUpdateWithoutExecutiveInterventionEventsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExecutiveInterventionEventsInput = {
@@ -6450,6 +6944,12 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionEventsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutSignOffsInput = {
@@ -6521,6 +7021,12 @@ export type UserCreateWithoutSignOffsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSignOffsInput = {
@@ -6592,6 +7098,12 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSignOffsInput = {
@@ -6679,6 +7191,12 @@ export type UserUpdateWithoutSignOffsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSignOffsInput = {
@@ -6750,6 +7268,12 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutInvitationsSentInput = {
@@ -6821,6 +7345,12 @@ export type UserCreateWithoutInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -6892,6 +7422,12 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -6968,6 +7504,12 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
@@ -7039,6 +7581,12 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutInvitationAcceptedInput = {
@@ -7126,6 +7674,12 @@ export type UserUpdateWithoutInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -7197,6 +7751,12 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutInvitationAcceptedInput = {
@@ -7279,6 +7839,12 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
@@ -7350,6 +7916,12 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutActivityAssignmentsInput = {
@@ -7421,6 +7993,12 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
@@ -7492,6 +8070,12 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutActivityAssignmentsInput = {
@@ -7568,6 +8152,12 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
@@ -7639,6 +8229,12 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedAssignmentsInput = {
@@ -7726,6 +8322,12 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
@@ -7797,6 +8399,12 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedAssignmentsInput = {
@@ -7879,6 +8487,12 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
@@ -7950,6 +8564,12 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutDependencyRequestsMadeInput = {
@@ -8021,6 +8641,12 @@ export type UserCreateWithoutDependencyRequestsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
@@ -8092,6 +8718,12 @@ export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDependencyRequestsMadeInput = {
@@ -8168,6 +8800,12 @@ export type UserCreateWithoutDependencyRequestsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
@@ -8239,6 +8877,12 @@ export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDependencyRequestsReviewedInput = {
@@ -8326,6 +8970,12 @@ export type UserUpdateWithoutDependencyRequestsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
@@ -8397,6 +9047,12 @@ export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutDependencyRequestsReviewedInput = {
@@ -8479,6 +9135,12 @@ export type UserUpdateWithoutDependencyRequestsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
@@ -8550,6 +9212,12 @@ export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutEarthworkEntriesInput = {
@@ -8621,6 +9289,12 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
@@ -8692,6 +9366,12 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutEarthworkEntriesInput = {
@@ -8779,6 +9459,12 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
@@ -8850,6 +9536,12 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutStructureEntriesInput = {
@@ -8921,6 +9613,12 @@ export type UserCreateWithoutStructureEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutStructureEntriesInput = {
@@ -8992,6 +9690,12 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutStructureEntriesInput = {
@@ -9079,6 +9783,12 @@ export type UserUpdateWithoutStructureEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStructureEntriesInput = {
@@ -9150,6 +9860,12 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutRebarEntriesInput = {
@@ -9221,6 +9937,12 @@ export type UserCreateWithoutRebarEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutRebarEntriesInput = {
@@ -9292,6 +10014,12 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutRebarEntriesInput = {
@@ -9379,6 +10107,12 @@ export type UserUpdateWithoutRebarEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRebarEntriesInput = {
@@ -9450,6 +10184,12 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutRiskOwnerInput = {
@@ -9521,6 +10261,12 @@ export type UserCreateWithoutRiskOwnerInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutRiskOwnerInput = {
@@ -9592,6 +10338,12 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutRiskOwnerInput = {
@@ -9679,6 +10431,12 @@ export type UserUpdateWithoutRiskOwnerInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRiskOwnerInput = {
@@ -9750,6 +10508,12 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutObservationsInput = {
@@ -9821,6 +10585,12 @@ export type UserCreateWithoutObservationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutObservationsInput = {
@@ -9892,6 +10662,12 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutObservationsInput = {
@@ -9979,6 +10755,12 @@ export type UserUpdateWithoutObservationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutObservationsInput = {
@@ -10050,6 +10832,12 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutIncidentsVerifiedInput = {
@@ -10121,6 +10909,12 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
@@ -10192,6 +10986,12 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutIncidentsVerifiedInput = {
@@ -10279,6 +11079,12 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
@@ -10350,6 +11156,12 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutInspectionsInput = {
@@ -10421,6 +11233,12 @@ export type UserCreateWithoutInspectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutInspectionsInput = {
@@ -10492,6 +11310,12 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutInspectionsInput = {
@@ -10579,6 +11403,12 @@ export type UserUpdateWithoutInspectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInspectionsInput = {
@@ -10650,6 +11480,12 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutDisputesOpenedInput = {
@@ -10721,6 +11557,12 @@ export type UserCreateWithoutDisputesOpenedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesOpenedInput = {
@@ -10792,6 +11634,12 @@ export type UserUncheckedCreateWithoutDisputesOpenedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesOpenedInput = {
@@ -10868,6 +11716,12 @@ export type UserCreateWithoutDisputesResolvedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
@@ -10939,6 +11793,12 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -11026,6 +11886,12 @@ export type UserUpdateWithoutDisputesOpenedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
@@ -11097,6 +11963,12 @@ export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -11179,6 +12051,12 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
@@ -11250,6 +12128,12 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutEquipmentAllocationsMadeInput = {
@@ -11321,6 +12205,12 @@ export type UserCreateWithoutEquipmentAllocationsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutEquipmentAllocationsMadeInput = {
@@ -11392,6 +12282,12 @@ export type UserUncheckedCreateWithoutEquipmentAllocationsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutEquipmentAllocationsMadeInput = {
@@ -11479,6 +12375,12 @@ export type UserUpdateWithoutEquipmentAllocationsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput = {
@@ -11550,6 +12452,12 @@ export type UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutCustodyTransfersInput = {
@@ -11621,6 +12529,12 @@ export type UserCreateWithoutCustodyTransfersInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCustodyTransfersInput = {
@@ -11692,6 +12606,12 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCustodyTransfersInput = {
@@ -11768,6 +12688,12 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
@@ -11839,6 +12765,12 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCustodyReceiptsInput = {
@@ -11926,6 +12858,12 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
@@ -11997,6 +12935,12 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutCustodyReceiptsInput = {
@@ -12079,6 +13023,12 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
@@ -12150,6 +13100,12 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutAuditEntriesInput = {
@@ -12221,6 +13177,12 @@ export type UserCreateWithoutAuditEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditEntriesInput = {
@@ -12292,6 +13254,12 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditEntriesInput = {
@@ -12379,6 +13347,12 @@ export type UserUpdateWithoutAuditEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditEntriesInput = {
@@ -12450,6 +13424,12 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutDocumentsIssuedInput = {
@@ -12521,6 +13501,12 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
@@ -12592,6 +13578,12 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsIssuedInput = {
@@ -12668,6 +13660,12 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
@@ -12739,6 +13737,12 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsApprovedInput = {
@@ -12826,6 +13830,12 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
@@ -12897,6 +13907,12 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutDocumentsApprovedInput = {
@@ -12979,6 +13995,12 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
@@ -13050,6 +14072,12 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutDecisionsInput = {
@@ -13121,6 +14149,12 @@ export type UserCreateWithoutDecisionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDecisionsInput = {
@@ -13192,6 +14226,12 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDecisionsInput = {
@@ -13279,6 +14319,12 @@ export type UserUpdateWithoutDecisionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDecisionsInput = {
@@ -13350,6 +14396,12 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutLessonsLearnedInput = {
@@ -13421,6 +14473,12 @@ export type UserCreateWithoutLessonsLearnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutLessonsLearnedInput = {
@@ -13492,6 +14550,12 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutLessonsLearnedInput = {
@@ -13579,6 +14643,12 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
@@ -13650,6 +14720,12 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutMaterialReceiptsInput = {
@@ -13721,6 +14797,12 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
@@ -13792,6 +14874,12 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutMaterialReceiptsInput = {
@@ -13879,6 +14967,12 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
@@ -13950,6 +15044,12 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutBidsSubmittedInput = {
@@ -14021,6 +15121,12 @@ export type UserCreateWithoutBidsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutBidsSubmittedInput = {
@@ -14092,6 +15198,12 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutBidsSubmittedInput = {
@@ -14168,6 +15280,12 @@ export type UserCreateWithoutTendersOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutTendersOwnedInput = {
@@ -14239,6 +15357,12 @@ export type UserUncheckedCreateWithoutTendersOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutTendersOwnedInput = {
@@ -14326,6 +15450,12 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
@@ -14397,6 +15527,12 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutTendersOwnedInput = {
@@ -14479,6 +15615,12 @@ export type UserUpdateWithoutTendersOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTendersOwnedInput = {
@@ -14550,6 +15692,12 @@ export type UserUncheckedUpdateWithoutTendersOwnedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutSectionAssignmentsInput = {
@@ -14621,6 +15769,12 @@ export type UserCreateWithoutSectionAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
@@ -14692,6 +15846,12 @@ export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSectionAssignmentsInput = {
@@ -14768,6 +15928,12 @@ export type UserCreateWithoutAssignedSectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedSectionsInput = {
@@ -14839,6 +16005,12 @@ export type UserUncheckedCreateWithoutAssignedSectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedSectionsInput = {
@@ -14926,6 +16098,12 @@ export type UserUpdateWithoutSectionAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
@@ -14997,6 +16175,12 @@ export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedSectionsInput = {
@@ -15079,6 +16263,12 @@ export type UserUpdateWithoutAssignedSectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
@@ -15150,6 +16340,12 @@ export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -15221,6 +16417,12 @@ export type UserCreateWithoutNotificationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -15292,6 +16494,12 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -15379,6 +16587,12 @@ export type UserUpdateWithoutNotificationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -15450,6 +16664,12 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutReviewCommentsInput = {
@@ -15521,6 +16741,12 @@ export type UserCreateWithoutReviewCommentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -15592,6 +16818,12 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -15679,6 +16911,12 @@ export type UserUpdateWithoutReviewCommentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -15750,6 +16988,12 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutScheduleChangesRequestedInput = {
@@ -15821,6 +17065,12 @@ export type UserCreateWithoutScheduleChangesRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
@@ -15892,6 +17142,12 @@ export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutScheduleChangesRequestedInput = {
@@ -15968,6 +17224,12 @@ export type UserCreateWithoutScheduleChangesReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
@@ -16039,6 +17301,12 @@ export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutScheduleChangesReviewedInput = {
@@ -16126,6 +17394,12 @@ export type UserUpdateWithoutScheduleChangesRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
@@ -16197,6 +17471,12 @@ export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutScheduleChangesReviewedInput = {
@@ -16279,6 +17559,12 @@ export type UserUpdateWithoutScheduleChangesReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
@@ -16350,6 +17636,12 @@ export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutPlansCreatedInput = {
@@ -16421,6 +17713,12 @@ export type UserCreateWithoutPlansCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutPlansCreatedInput = {
@@ -16492,6 +17790,12 @@ export type UserUncheckedCreateWithoutPlansCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutPlansCreatedInput = {
@@ -16568,6 +17872,12 @@ export type UserCreateWithoutPlansSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutPlansSubmittedInput = {
@@ -16639,6 +17949,12 @@ export type UserUncheckedCreateWithoutPlansSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutPlansSubmittedInput = {
@@ -16715,6 +18031,12 @@ export type UserCreateWithoutPlansReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutPlansReviewedInput = {
@@ -16786,6 +18108,12 @@ export type UserUncheckedCreateWithoutPlansReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutPlansReviewedInput = {
@@ -16873,6 +18201,12 @@ export type UserUpdateWithoutPlansCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlansCreatedInput = {
@@ -16944,6 +18278,12 @@ export type UserUncheckedUpdateWithoutPlansCreatedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutPlansSubmittedInput = {
@@ -17026,6 +18366,12 @@ export type UserUpdateWithoutPlansSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
@@ -17097,6 +18443,12 @@ export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutPlansReviewedInput = {
@@ -17179,6 +18531,12 @@ export type UserUpdateWithoutPlansReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlansReviewedInput = {
@@ -17250,6 +18608,12 @@ export type UserUncheckedUpdateWithoutPlansReviewedInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutOversightAssignmentsInput = {
@@ -17321,6 +18685,12 @@ export type UserCreateWithoutOversightAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
@@ -17392,6 +18762,12 @@ export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutOversightAssignmentsInput = {
@@ -17468,6 +18844,12 @@ export type UserCreateWithoutAssignedOversightsInput = {
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedOversightsInput = {
@@ -17539,6 +18921,12 @@ export type UserUncheckedCreateWithoutAssignedOversightsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedOversightsInput = {
@@ -17626,6 +19014,12 @@ export type UserUpdateWithoutOversightAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
@@ -17697,6 +19091,12 @@ export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedOversightsInput = {
@@ -17779,6 +19179,12 @@ export type UserUpdateWithoutAssignedOversightsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
@@ -17850,6 +19256,12 @@ export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutOversightEntriesInput = {
@@ -17921,6 +19333,12 @@ export type UserCreateWithoutOversightEntriesInput = {
   assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutOversightEntriesInput = {
@@ -17992,6 +19410,12 @@ export type UserUncheckedCreateWithoutOversightEntriesInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutOversightEntriesInput = {
@@ -18079,6 +19503,12 @@ export type UserUpdateWithoutOversightEntriesInput = {
   assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOversightEntriesInput = {
@@ -18150,6 +19580,1956 @@ export type UserUncheckedUpdateWithoutOversightEntriesInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutAssignedProjectRolesInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedProjectRolesInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedProjectRolesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedProjectRolesInput>
+}
+
+export type UserCreateWithoutAssignedByProjectRolesInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedByProjectRolesInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedByProjectRolesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedByProjectRolesInput>
+}
+
+export type UserUpsertWithoutAssignedProjectRolesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedProjectRolesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedProjectRolesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedProjectRolesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedProjectRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedProjectRolesInput>
+}
+
+export type UserUpdateWithoutAssignedProjectRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedProjectRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedByProjectRolesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedByProjectRolesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedCreateWithoutAssignedByProjectRolesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedByProjectRolesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedByProjectRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedByProjectRolesInput>
+}
+
+export type UserUpdateWithoutAssignedByProjectRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedByProjectRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutProjectObjectivesCreatedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectObjectivesCreatedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectObjectivesCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedCreateWithoutProjectObjectivesCreatedInput>
+}
+
+export type UserUpsertWithoutProjectObjectivesCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedUpdateWithoutProjectObjectivesCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedCreateWithoutProjectObjectivesCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectObjectivesCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectObjectivesCreatedInput, Prisma.UserUncheckedUpdateWithoutProjectObjectivesCreatedInput>
+}
+
+export type UserUpdateWithoutProjectObjectivesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectObjectivesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutBaselinesCreatedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutBaselinesCreatedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutBaselinesCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesCreatedInput, Prisma.UserUncheckedCreateWithoutBaselinesCreatedInput>
+}
+
+export type UserCreateWithoutBaselinesApprovedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutBaselinesApprovedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutBaselinesApprovedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesApprovedInput, Prisma.UserUncheckedCreateWithoutBaselinesApprovedInput>
+}
+
+export type UserUpsertWithoutBaselinesCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesCreatedInput, Prisma.UserUncheckedUpdateWithoutBaselinesCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesCreatedInput, Prisma.UserUncheckedCreateWithoutBaselinesCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBaselinesCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesCreatedInput, Prisma.UserUncheckedUpdateWithoutBaselinesCreatedInput>
+}
+
+export type UserUpdateWithoutBaselinesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBaselinesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUpsertWithoutBaselinesApprovedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesApprovedInput, Prisma.UserUncheckedUpdateWithoutBaselinesApprovedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesApprovedInput, Prisma.UserUncheckedCreateWithoutBaselinesApprovedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBaselinesApprovedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesApprovedInput, Prisma.UserUncheckedUpdateWithoutBaselinesApprovedInput>
+}
+
+export type UserUpdateWithoutBaselinesApprovedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBaselinesApprovedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutProjectStatusChangesInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectStatusChangesInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectStatusChangesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectStatusChangesInput, Prisma.UserUncheckedCreateWithoutProjectStatusChangesInput>
+}
+
+export type UserUpsertWithoutProjectStatusChangesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectStatusChangesInput, Prisma.UserUncheckedUpdateWithoutProjectStatusChangesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectStatusChangesInput, Prisma.UserUncheckedCreateWithoutProjectStatusChangesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectStatusChangesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectStatusChangesInput, Prisma.UserUncheckedUpdateWithoutProjectStatusChangesInput>
+}
+
+export type UserUpdateWithoutProjectStatusChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectStatusChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
 }
 
 export type UserCreateWithoutResourceRequestsMadeInput = {
@@ -18221,6 +21601,12 @@ export type UserCreateWithoutResourceRequestsMadeInput = {
   assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
@@ -18292,6 +21678,12 @@ export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutResourceRequestsMadeInput = {
@@ -18368,6 +21760,12 @@ export type UserCreateWithoutResourceRequestsReviewedInput = {
   assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
   oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
@@ -18439,6 +21837,12 @@ export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutResourceRequestsReviewedInput = {
@@ -18526,6 +21930,12 @@ export type UserUpdateWithoutResourceRequestsMadeInput = {
   assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
@@ -18597,6 +22007,12 @@ export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutResourceRequestsReviewedInput = {
@@ -18679,6 +22095,12 @@ export type UserUpdateWithoutResourceRequestsReviewedInput = {
   assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
@@ -18750,6 +22172,12 @@ export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
   assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateManyOrganizationInput = {
@@ -18836,6 +22264,12 @@ export type UserUpdateWithoutOrganizationInput = {
   oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -18907,6 +22341,12 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -18985,6 +22425,12 @@ export type UserCountOutputType = {
   oversightEntries: number
   resourceRequestsMade: number
   resourceRequestsReviewed: number
+  assignedProjectRoles: number
+  assignedByProjectRoles: number
+  projectObjectivesCreated: number
+  baselinesCreated: number
+  baselinesApproved: number
+  projectStatusChanges: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -19043,6 +22489,12 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   oversightEntries?: boolean | UserCountOutputTypeCountOversightEntriesArgs
   resourceRequestsMade?: boolean | UserCountOutputTypeCountResourceRequestsMadeArgs
   resourceRequestsReviewed?: boolean | UserCountOutputTypeCountResourceRequestsReviewedArgs
+  assignedProjectRoles?: boolean | UserCountOutputTypeCountAssignedProjectRolesArgs
+  assignedByProjectRoles?: boolean | UserCountOutputTypeCountAssignedByProjectRolesArgs
+  projectObjectivesCreated?: boolean | UserCountOutputTypeCountProjectObjectivesCreatedArgs
+  baselinesCreated?: boolean | UserCountOutputTypeCountBaselinesCreatedArgs
+  baselinesApproved?: boolean | UserCountOutputTypeCountBaselinesApprovedArgs
+  projectStatusChanges?: boolean | UserCountOutputTypeCountProjectStatusChangesArgs
 }
 
 /**
@@ -19440,6 +22892,48 @@ export type UserCountOutputTypeCountResourceRequestsReviewedArgs<ExtArgs extends
   where?: Prisma.ResourceRequestWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedProjectRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectRoleAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedByProjectRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectRoleAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectObjectivesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectObjectiveWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBaselinesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectBaselineWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBaselinesApprovedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectBaselineWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectStatusChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectStatusHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -19512,6 +23006,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   oversightEntries?: boolean | Prisma.User$oversightEntriesArgs<ExtArgs>
   resourceRequestsMade?: boolean | Prisma.User$resourceRequestsMadeArgs<ExtArgs>
   resourceRequestsReviewed?: boolean | Prisma.User$resourceRequestsReviewedArgs<ExtArgs>
+  assignedProjectRoles?: boolean | Prisma.User$assignedProjectRolesArgs<ExtArgs>
+  assignedByProjectRoles?: boolean | Prisma.User$assignedByProjectRolesArgs<ExtArgs>
+  projectObjectivesCreated?: boolean | Prisma.User$projectObjectivesCreatedArgs<ExtArgs>
+  baselinesCreated?: boolean | Prisma.User$baselinesCreatedArgs<ExtArgs>
+  baselinesApproved?: boolean | Prisma.User$baselinesApprovedArgs<ExtArgs>
+  projectStatusChanges?: boolean | Prisma.User$projectStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -19624,6 +23124,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   oversightEntries?: boolean | Prisma.User$oversightEntriesArgs<ExtArgs>
   resourceRequestsMade?: boolean | Prisma.User$resourceRequestsMadeArgs<ExtArgs>
   resourceRequestsReviewed?: boolean | Prisma.User$resourceRequestsReviewedArgs<ExtArgs>
+  assignedProjectRoles?: boolean | Prisma.User$assignedProjectRolesArgs<ExtArgs>
+  assignedByProjectRoles?: boolean | Prisma.User$assignedByProjectRolesArgs<ExtArgs>
+  projectObjectivesCreated?: boolean | Prisma.User$projectObjectivesCreatedArgs<ExtArgs>
+  baselinesCreated?: boolean | Prisma.User$baselinesCreatedArgs<ExtArgs>
+  baselinesApproved?: boolean | Prisma.User$baselinesApprovedArgs<ExtArgs>
+  projectStatusChanges?: boolean | Prisma.User$projectStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -19693,6 +23199,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     oversightEntries: Prisma.$OversightDailyEntryPayload<ExtArgs>[]
     resourceRequestsMade: Prisma.$ResourceRequestPayload<ExtArgs>[]
     resourceRequestsReviewed: Prisma.$ResourceRequestPayload<ExtArgs>[]
+    assignedProjectRoles: Prisma.$ProjectRoleAssignmentPayload<ExtArgs>[]
+    assignedByProjectRoles: Prisma.$ProjectRoleAssignmentPayload<ExtArgs>[]
+    projectObjectivesCreated: Prisma.$ProjectObjectivePayload<ExtArgs>[]
+    baselinesCreated: Prisma.$ProjectBaselinePayload<ExtArgs>[]
+    baselinesApproved: Prisma.$ProjectBaselinePayload<ExtArgs>[]
+    projectStatusChanges: Prisma.$ProjectStatusHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -20159,6 +23671,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   oversightEntries<T extends Prisma.User$oversightEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oversightEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OversightDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resourceRequestsMade<T extends Prisma.User$resourceRequestsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resourceRequestsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resourceRequestsReviewed<T extends Prisma.User$resourceRequestsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resourceRequestsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedProjectRoles<T extends Prisma.User$assignedProjectRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedProjectRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedByProjectRoles<T extends Prisma.User$assignedByProjectRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedByProjectRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectObjectivesCreated<T extends Prisma.User$projectObjectivesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectObjectivesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectObjectivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  baselinesCreated<T extends Prisma.User$baselinesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$baselinesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBaselinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  baselinesApproved<T extends Prisma.User$baselinesApprovedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$baselinesApprovedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBaselinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectStatusChanges<T extends Prisma.User$projectStatusChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectStatusChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21933,6 +25451,150 @@ export type User$resourceRequestsReviewedArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
+}
+
+/**
+ * User.assignedProjectRoles
+ */
+export type User$assignedProjectRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectRoleAssignment
+   */
+  select?: Prisma.ProjectRoleAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectRoleAssignment
+   */
+  omit?: Prisma.ProjectRoleAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectRoleAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ProjectRoleAssignmentWhereInput
+  orderBy?: Prisma.ProjectRoleAssignmentOrderByWithRelationInput | Prisma.ProjectRoleAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectRoleAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectRoleAssignmentScalarFieldEnum | Prisma.ProjectRoleAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.assignedByProjectRoles
+ */
+export type User$assignedByProjectRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectRoleAssignment
+   */
+  select?: Prisma.ProjectRoleAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectRoleAssignment
+   */
+  omit?: Prisma.ProjectRoleAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectRoleAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ProjectRoleAssignmentWhereInput
+  orderBy?: Prisma.ProjectRoleAssignmentOrderByWithRelationInput | Prisma.ProjectRoleAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectRoleAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectRoleAssignmentScalarFieldEnum | Prisma.ProjectRoleAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.projectObjectivesCreated
+ */
+export type User$projectObjectivesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectObjective
+   */
+  select?: Prisma.ProjectObjectiveSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectObjective
+   */
+  omit?: Prisma.ProjectObjectiveOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectObjectiveInclude<ExtArgs> | null
+  where?: Prisma.ProjectObjectiveWhereInput
+  orderBy?: Prisma.ProjectObjectiveOrderByWithRelationInput | Prisma.ProjectObjectiveOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectObjectiveWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectObjectiveScalarFieldEnum | Prisma.ProjectObjectiveScalarFieldEnum[]
+}
+
+/**
+ * User.baselinesCreated
+ */
+export type User$baselinesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectBaseline
+   */
+  select?: Prisma.ProjectBaselineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectBaseline
+   */
+  omit?: Prisma.ProjectBaselineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectBaselineInclude<ExtArgs> | null
+  where?: Prisma.ProjectBaselineWhereInput
+  orderBy?: Prisma.ProjectBaselineOrderByWithRelationInput | Prisma.ProjectBaselineOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectBaselineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectBaselineScalarFieldEnum | Prisma.ProjectBaselineScalarFieldEnum[]
+}
+
+/**
+ * User.baselinesApproved
+ */
+export type User$baselinesApprovedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectBaseline
+   */
+  select?: Prisma.ProjectBaselineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectBaseline
+   */
+  omit?: Prisma.ProjectBaselineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectBaselineInclude<ExtArgs> | null
+  where?: Prisma.ProjectBaselineWhereInput
+  orderBy?: Prisma.ProjectBaselineOrderByWithRelationInput | Prisma.ProjectBaselineOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectBaselineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectBaselineScalarFieldEnum | Prisma.ProjectBaselineScalarFieldEnum[]
+}
+
+/**
+ * User.projectStatusChanges
+ */
+export type User$projectStatusChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectStatusHistory
+   */
+  select?: Prisma.ProjectStatusHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectStatusHistory
+   */
+  omit?: Prisma.ProjectStatusHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectStatusHistoryInclude<ExtArgs> | null
+  where?: Prisma.ProjectStatusHistoryWhereInput
+  orderBy?: Prisma.ProjectStatusHistoryOrderByWithRelationInput | Prisma.ProjectStatusHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectStatusHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectStatusHistoryScalarFieldEnum | Prisma.ProjectStatusHistoryScalarFieldEnum[]
 }
 
 /**

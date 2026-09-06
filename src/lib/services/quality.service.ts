@@ -181,3 +181,18 @@ export async function updatePunchStatus(
 
   return db.punchListItem.update({ where: { id: punchId }, data: { status } });
 }
+
+export async function assertQualityGatePassed(wbsNodeId: string) {
+  const openDefects = await db.defectLog.count({
+    where: {
+      wbsNodeId,
+      status: { in: ["OPEN", "REWORK_IN_PROGRESS"] },
+    },
+  });
+
+  if (openDefects > 0) {
+    throw new Error(
+      `Quality gate blocked: WBS node has ${openDefects} unresolved defect(s). Resolve all defects before marking activities COMPLETE.`
+    );
+  }
+}

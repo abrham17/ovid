@@ -235,6 +235,35 @@ export const ProjectStatus = {
 export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
 
 
+export const ProjectRole = {
+  PROJECT_MANAGER: 'PROJECT_MANAGER',
+  DEPUTY_PM: 'DEPUTY_PM',
+  SITE_ENGINEER: 'SITE_ENGINEER',
+  SUPERINTENDENT: 'SUPERINTENDENT',
+  FOREMAN: 'FOREMAN',
+  QC_INSPECTOR: 'QC_INSPECTOR',
+  HSE_OFFICER: 'HSE_OFFICER',
+  QUANTITY_SURVEYOR: 'QUANTITY_SURVEYOR',
+  OFFICE_ENGINEER: 'OFFICE_ENGINEER',
+  RESIDENT_ENGINEER: 'RESIDENT_ENGINEER',
+  CLIENT_REPRESENTATIVE: 'CLIENT_REPRESENTATIVE',
+  SUBCONTRACTOR_PM: 'SUBCONTRACTOR_PM',
+  OTHER: 'OTHER'
+} as const
+
+export type ProjectRole = (typeof ProjectRole)[keyof typeof ProjectRole]
+
+
+export const BaselineType = {
+  SCOPE: 'SCOPE',
+  SCHEDULE: 'SCHEDULE',
+  COST: 'COST',
+  INTEGRATED: 'INTEGRATED'
+} as const
+
+export type BaselineType = (typeof BaselineType)[keyof typeof BaselineType]
+
+
 export const WBSNodeType = {
   PHASE: 'PHASE',
   SECTION: 'SECTION',

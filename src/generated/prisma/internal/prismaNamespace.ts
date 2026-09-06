@@ -455,6 +455,11 @@ export const ModelName = {
   WbsPlanSubmission: 'WbsPlanSubmission',
   OversightAssignment: 'OversightAssignment',
   OversightDailyEntry: 'OversightDailyEntry',
+  ProjectRoleAssignment: 'ProjectRoleAssignment',
+  ProjectObjective: 'ProjectObjective',
+  ProjectBaseline: 'ProjectBaseline',
+  ProjectStatusHistory: 'ProjectStatusHistory',
+  ProgressSnapshot: 'ProgressSnapshot',
   ResourceRequest: 'ResourceRequest'
 } as const
 
@@ -471,7 +476,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "user" | "projectMembership" | "companyStaffAssignment" | "companyInvitation" | "companyApproval" | "designReview" | "auditFinding" | "executiveIntervention" | "executiveInterventionEvent" | "documentTemplate" | "signOff" | "project" | "invitation" | "contract" | "wbsNode" | "scheduleActivity" | "activityAssignment" | "scheduleDependency" | "pendingDependencyRequest" | "stoppageEntry" | "earthworkDailyEntry" | "structureDailyEntry" | "rebarDailyEntry" | "boqItem" | "costActual" | "measurementEntry" | "variationOrder" | "riskEntry" | "safetyObservation" | "safetyIncident" | "inspectionTestRecord" | "defectLog" | "disputeRecord" | "punchListItem" | "employee" | "laborAttendance" | "laborAssignment" | "equipment" | "equipmentUsageLog" | "equipmentAllocation" | "materialItem" | "materialDemand" | "custodyLog" | "structuralElement" | "weightFactor" | "rebarLine" | "formworkLine" | "elementProgress" | "regulatoryReport" | "auditLog" | "projectDocument" | "decisionLog" | "lessonsLearned" | "purchaseOrder" | "purchaseOrderItem" | "materialReceipt" | "bidTender" | "sectionAssignment" | "notification" | "reviewComment" | "scheduleChangeRequest" | "wbsPlanSubmission" | "oversightAssignment" | "oversightDailyEntry" | "resourceRequest"
+    modelProps: "organization" | "user" | "projectMembership" | "companyStaffAssignment" | "companyInvitation" | "companyApproval" | "designReview" | "auditFinding" | "executiveIntervention" | "executiveInterventionEvent" | "documentTemplate" | "signOff" | "project" | "invitation" | "contract" | "wbsNode" | "scheduleActivity" | "activityAssignment" | "scheduleDependency" | "pendingDependencyRequest" | "stoppageEntry" | "earthworkDailyEntry" | "structureDailyEntry" | "rebarDailyEntry" | "boqItem" | "costActual" | "measurementEntry" | "variationOrder" | "riskEntry" | "safetyObservation" | "safetyIncident" | "inspectionTestRecord" | "defectLog" | "disputeRecord" | "punchListItem" | "employee" | "laborAttendance" | "laborAssignment" | "equipment" | "equipmentUsageLog" | "equipmentAllocation" | "materialItem" | "materialDemand" | "custodyLog" | "structuralElement" | "weightFactor" | "rebarLine" | "formworkLine" | "elementProgress" | "regulatoryReport" | "auditLog" | "projectDocument" | "decisionLog" | "lessonsLearned" | "purchaseOrder" | "purchaseOrderItem" | "materialReceipt" | "bidTender" | "sectionAssignment" | "notification" | "reviewComment" | "scheduleChangeRequest" | "wbsPlanSubmission" | "oversightAssignment" | "oversightDailyEntry" | "projectRoleAssignment" | "projectObjective" | "projectBaseline" | "projectStatusHistory" | "progressSnapshot" | "resourceRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5285,6 +5290,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProjectRoleAssignment: {
+      payload: Prisma.$ProjectRoleAssignmentPayload<ExtArgs>
+      fields: Prisma.ProjectRoleAssignmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectRoleAssignmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectRoleAssignmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectRoleAssignmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectRoleAssignmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectRoleAssignmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectRoleAssignmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectRoleAssignmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectRoleAssignmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectRoleAssignmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        update: {
+          args: Prisma.ProjectRoleAssignmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectRoleAssignmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectRoleAssignmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectRoleAssignmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectRoleAssignmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectRoleAssignmentPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectRoleAssignmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectRoleAssignment>
+        }
+        groupBy: {
+          args: Prisma.ProjectRoleAssignmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectRoleAssignmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectRoleAssignmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectRoleAssignmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProjectObjective: {
+      payload: Prisma.$ProjectObjectivePayload<ExtArgs>
+      fields: Prisma.ProjectObjectiveFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectObjectiveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectObjectiveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectObjectiveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectObjectiveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        findMany: {
+          args: Prisma.ProjectObjectiveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>[]
+        }
+        create: {
+          args: Prisma.ProjectObjectiveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        createMany: {
+          args: Prisma.ProjectObjectiveCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectObjectiveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectObjectiveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        update: {
+          args: Prisma.ProjectObjectiveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectObjectiveDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectObjectiveUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectObjectiveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectObjectiveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectObjectivePayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectObjectiveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectObjective>
+        }
+        groupBy: {
+          args: Prisma.ProjectObjectiveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectObjectiveGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectObjectiveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectObjectiveCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProjectBaseline: {
+      payload: Prisma.$ProjectBaselinePayload<ExtArgs>
+      fields: Prisma.ProjectBaselineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectBaselineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectBaselineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectBaselineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectBaselineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        findMany: {
+          args: Prisma.ProjectBaselineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>[]
+        }
+        create: {
+          args: Prisma.ProjectBaselineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        createMany: {
+          args: Prisma.ProjectBaselineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectBaselineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectBaselineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        update: {
+          args: Prisma.ProjectBaselineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectBaselineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectBaselineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectBaselineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectBaselineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBaselinePayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectBaselineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectBaseline>
+        }
+        groupBy: {
+          args: Prisma.ProjectBaselineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectBaselineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectBaselineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectBaselineCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProjectStatusHistory: {
+      payload: Prisma.$ProjectStatusHistoryPayload<ExtArgs>
+      fields: Prisma.ProjectStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.ProjectStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.ProjectStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectStatusHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProgressSnapshot: {
+      payload: Prisma.$ProgressSnapshotPayload<ExtArgs>
+      fields: Prisma.ProgressSnapshotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProgressSnapshotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProgressSnapshotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        findFirst: {
+          args: Prisma.ProgressSnapshotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProgressSnapshotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        findMany: {
+          args: Prisma.ProgressSnapshotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>[]
+        }
+        create: {
+          args: Prisma.ProgressSnapshotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        createMany: {
+          args: Prisma.ProgressSnapshotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProgressSnapshotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>[]
+        }
+        delete: {
+          args: Prisma.ProgressSnapshotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        update: {
+          args: Prisma.ProgressSnapshotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProgressSnapshotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProgressSnapshotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProgressSnapshotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProgressSnapshotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProgressSnapshotPayload>
+        }
+        aggregate: {
+          args: Prisma.ProgressSnapshotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProgressSnapshot>
+        }
+        groupBy: {
+          args: Prisma.ProgressSnapshotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProgressSnapshotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProgressSnapshotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProgressSnapshotCountAggregateOutputType> | number
+        }
+      }
+    }
     ResourceRequest: {
       payload: Prisma.$ResourceRequestPayload<ExtArgs>
       fields: Prisma.ResourceRequestFieldRefs
@@ -6493,6 +6868,80 @@ export const OversightDailyEntryScalarFieldEnum = {
 export type OversightDailyEntryScalarFieldEnum = (typeof OversightDailyEntryScalarFieldEnum)[keyof typeof OversightDailyEntryScalarFieldEnum]
 
 
+export const ProjectRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  role: 'role',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type ProjectRoleAssignmentScalarFieldEnum = (typeof ProjectRoleAssignmentScalarFieldEnum)[keyof typeof ProjectRoleAssignmentScalarFieldEnum]
+
+
+export const ProjectObjectiveScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  description: 'description',
+  metric: 'metric',
+  targetValue: 'targetValue',
+  targetDate: 'targetDate',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectObjectiveScalarFieldEnum = (typeof ProjectObjectiveScalarFieldEnum)[keyof typeof ProjectObjectiveScalarFieldEnum]
+
+
+export const ProjectBaselineScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  version: 'version',
+  type: 'type',
+  snapshot: 'snapshot',
+  createdById: 'createdById',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectBaselineScalarFieldEnum = (typeof ProjectBaselineScalarFieldEnum)[keyof typeof ProjectBaselineScalarFieldEnum]
+
+
+export const ProjectStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  reason: 'reason',
+  gateEvidenceRef: 'gateEvidenceRef',
+  changedById: 'changedById',
+  changedAt: 'changedAt'
+} as const
+
+export type ProjectStatusHistoryScalarFieldEnum = (typeof ProjectStatusHistoryScalarFieldEnum)[keyof typeof ProjectStatusHistoryScalarFieldEnum]
+
+
+export const ProgressSnapshotScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  snapshotDate: 'snapshotDate',
+  plannedValue: 'plannedValue',
+  earnedValue: 'earnedValue',
+  actualCost: 'actualCost',
+  physicalPercent: 'physicalPercent',
+  scheduleVariance: 'scheduleVariance',
+  costVariance: 'costVariance',
+  cpi: 'cpi',
+  spi: 'spi',
+  createdAt: 'createdAt'
+} as const
+
+export type ProgressSnapshotScalarFieldEnum = (typeof ProgressSnapshotScalarFieldEnum)[keyof typeof ProgressSnapshotScalarFieldEnum]
+
+
 export const ResourceRequestScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -7463,6 +7912,34 @@ export type ListEnumOversightAssessmentFieldRefInput<$PrismaModel> = FieldRefInp
 
 
 /**
+ * Reference to a field of type 'ProjectRole'
+ */
+export type EnumProjectRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectRole'>
+
+
+
+/**
+ * Reference to a field of type 'ProjectRole[]'
+ */
+export type ListEnumProjectRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectRole[]'>
+
+
+
+/**
+ * Reference to a field of type 'BaselineType'
+ */
+export type EnumBaselineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BaselineType'>
+
+
+
+/**
+ * Reference to a field of type 'BaselineType[]'
+ */
+export type ListEnumBaselineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BaselineType[]'>
+
+
+
+/**
  * Reference to a field of type 'ResourceRequestKind'
  */
 export type EnumResourceRequestKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceRequestKind'>
@@ -7655,6 +8132,11 @@ export type GlobalOmitConfig = {
   wbsPlanSubmission?: Prisma.WbsPlanSubmissionOmit
   oversightAssignment?: Prisma.OversightAssignmentOmit
   oversightDailyEntry?: Prisma.OversightDailyEntryOmit
+  projectRoleAssignment?: Prisma.ProjectRoleAssignmentOmit
+  projectObjective?: Prisma.ProjectObjectiveOmit
+  projectBaseline?: Prisma.ProjectBaselineOmit
+  projectStatusHistory?: Prisma.ProjectStatusHistoryOmit
+  progressSnapshot?: Prisma.ProgressSnapshotOmit
   resourceRequest?: Prisma.ResourceRequestOmit
 }
 
