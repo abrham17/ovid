@@ -1,31 +1,64 @@
-# Audit and traceability — analysis and plan
+# Auditability and Traceability — ISO Alignment Analysis & Plan
 
-Goal
-Ensure system can answer: who did what, when, why, under whose authority, what changed, and resulting state.
+## 1. ISO Requirement / Principle
+- **Standards**: ISO/IEC 27001:2022 A.8.15 (Logging & monitoring), ISO 9001:2015 §8.5.2 (Identification & traceability), ISO/IEC 27034 (Application security controls).
+- **Principle**: The system must provide complete, tamper-evident auditability for every data mutation across all domains. Every update, deletion, approval, or status change must record: Who executed it, When, Which entity, Under whose authority, and What changed (capturing exact `before` and `after` JSON state snapshots).
 
-Current indicators
-- SignOff model exists; AuditFinding exists; no explicit AuditLog model found in schema excerpt (though AuditAction enum exists)
+## 2. Where it Applies to Project Management
+Applies to all 14 schema domains, REST endpoints, backend service mutations, status transitions, financial calculations, user role modifications, and administrative settings.
 
-Major gaps
-1. No central AuditLog table capturing CREATE/UPDATE/DELETE actions with before/after payloads, user, ip, requestId.
-2. Missing entity version history tables (e.g., ProjectHistory, WbsNodeHistory) to reconstruct prior states beyond SignOff snapshots.
-3. No immutable tamper-evident mechanism (append-only with write permissions) for audit events.
+## 3. What the Current Code Does
+- `prisma/schema.prisma` implements `model AuditLog { id, entityType, entityId, action, userId, changedAt, diff Json? }`.
+- `src/lib/services/audit.ts` provides centralized `logAuditEntry()` helper function.
 
-Required changes
-- Add `AuditLog` model capturing {id, actorId, action, entityType, entityId, diff Json, timestamp, ip, userAgent, requestId}
-- Implement Prisma middleware to generate AuditLog entries for configured models (projects, wbsNodes, scheduleActivities, users, projectMemberships, changeRequests, variationOrders)
-- Add entity history (optional but recommended) either via event sourcing design (append-only events) or via `EntityHistory` tables storing snapshot and timestamp
-- Add admin endpoints for audit exports and secure retention (read-only for auditors)
+## 4. Relevant Files / Modules / Database Entities
+- `prisma/schema.prisma` (`model AuditLog`, `enum AuditAction`)
+- `src/lib/services/audit.ts`
+- `src/app/api/audit-logs/route.ts` (or query endpoints)
 
-Files & implementation
-- prisma/schema.prisma: add AuditLog model
-- src/lib/db.ts: register Prisma middleware to write audit logs before/after write operations
-- src/lib/services/audit.ts: helper functions for structured diffs
-- UI: Admin Audit Viewer (read-only) behind Internal Auditor role
+## 5. Compliance Status
+**Fully Aligned (Audit Data Model)** / **Partially Compliant (Universal Mutation Snapshot Capture)**
 
-Verification
-- Actions creating/updating entities produce AuditLog entries with diffs; test ensures logs cannot be modified via API
+## 6. Exact Gap
+1. While `logAuditEntry()` exists, not all CRUD service functions in `src/lib/services/*` consistently pre-fetch the existing record (`before`) prior to executing mutations to record explicit `{ before, after }` state diffs.
+2. Lacks a dedicated, RBAC-protected API route (`GET /api/audit-logs`) and frontend UI component for compliance officers to inspect entity audit trails.
 
-Priority
-- AuditLog model + middleware: critical
+## 7. Why the Gap Matters
+Without pre/post mutation snapshots across every service function, compliance officers cannot reconstruct historical contract parameters, site entries, or financial measurements prior to an unauthorized modification.
 
+## 8. Required Architectural / Design Change
+- Standardize `AuditLog.diff` payload structure across all service operations:
+```json
+{
+  "before": { "contractValue": 500000.00, "status": "DRAFT" },
+  "after": { "contractValue": 650000.00, "status": "ACTIVE" }
+}
+```
+- Wrap every Prisma update/delete operation with pre-fetch and post-commit audit logging.
+
+## 9. Required Database Change
+- Existing `AuditLog` model in `prisma/schema.prisma` is fully aligned and indexed by `(entityType, entityId)`, `userId`, and `changedAt`.
+
+## 10. Required Backend / API Change
+- Update `src/lib/services/audit.ts` to export `getAuditTrail(entityType, entityId, opts)` with pagination and filtering.
+- Expose endpoint `GET /api/audit-logs` restricted to `INTERNAL_AUDITOR`, `GENERAL_MANAGER`, and `ADMIN`.
+
+## 11. Required Frontend / UI Change
+- Build an **Audit Log Inspector Component** (`src/components/audit/audit-log-modal.tsx`) rendering side-by-side JSON diffs (`before` vs `after` highlight).
+
+## 12. Required Workflow Change
+1. API route receives mutation request.
+2. Service pre-fetches existing row (`before`).
+3. Database mutation executes.
+4. Service invokes `logAuditEntry({ entityType, entityId, action, userId, before, after })`.
+
+## 13. Dependencies
+- Prisma ORM transactions.
+- Session user context (`src/lib/auth.ts`).
+
+## 14. Implementation Priority
+**High (Phase 1)**
+
+## 15. Acceptance / Verification Criteria
+- Modifying any project, WBS node, daily report, IPC measurement, or contract generates an `AuditLog` entry containing valid `before` and `after` JSON snapshots.
+- `GET /api/audit-logs?entityType=Project&entityId=clx...` returns complete chronological audit history.

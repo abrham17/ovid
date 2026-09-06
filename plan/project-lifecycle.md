@@ -1,67 +1,83 @@
-# Project lifecycle — overview and findings
+# Project Lifecycle — ISO Alignment Analysis & Plan
 
-Purpose
-Trace how the current code implements project lifecycle capabilities (create → plan → execute → monitor → close) and identify ISO-based gaps and required changes.
+## 1. ISO Requirement / Principle
+- **Standards**: ISO 21502:2020 §6 (Project lifecycle management), ISO 10006:2017 §5.2 (Initiation to closure processes), ISO 9001:2015 §8.5 (Control of production and service provision).
+- **Principle**: A project lifecycle must progress through distinct, governed phases (`PLANNING` $\rightarrow$ `ACTIVE` $\rightarrow$ `SUSPENDED` $\rightarrow$ `COMPLETE` $\rightarrow$ `CLOSED`). Each phase transition requires formal gate reviews, entry/exit criteria verification, and documented authority sign-offs.
 
-Current implementation (evidence & files)
-- Project model: prisma/schema.prisma `model Project` (fields: id, code, name, contractorOrgId, clientOrgId, consultantOrgId, plannedStartDate, plannedEndDate, actualStartDate, actualEndDate, status).
-- Project creation endpoints: `src/app/api/projects/*` (routes present as per README). Representative auth code: `src/lib/auth.ts`. RBAC in `src/lib/permissions.ts`.
-- WBS anchored via `WbsNode` model and relation to Project. Schedule activities in `ScheduleActivity` model.
+## 2. Where it Applies to Project Management
+Applies across the complete lifecycle of a construction project from initial chartering through design, execution, defects notification period (DNP), and final contractual handover.
 
-ISO requirements (applicable)
-- ISO 9001 / 10006 (project quality & document control): documented project objectives, roles/responsibilities, documented baselines, approvals.
-- ISO/IEC 12207 (lifecycle processes): defined initiation, planning, execution, monitoring, and closure with records and approvals.
+## 3. What the Current Code Does
+- `prisma/schema.prisma` defines `enum ProjectStatus { PLANNING, ACTIVE, SUSPENDED, COMPLETE, CLOSED }`.
+- `src/lib/services/project.service.ts` allows updating project status via generic `updateProject()`, without enforcing phase gate checks or entry/exit criteria.
 
-Findings & gaps
-1. Project metadata & objectives
-   - Code stores name, code, type and dates, but no dedicated 'objectives' field or structured acceptance criteria.
-   - Gap: Missing structured project objectives and acceptance criteria fields and sign-off lifecycle.
-   - Impact: Cannot prove that project deliverables meet objectives; limited traceability for acceptance.
-2. Project scope & scope baseline
-   - Contracts and scopeDescription exist in Contract model. WbsNode contains scope relation, but no immutable scope baseline or versioned scope snapshots.
-   - Gap: No baseline snapshots of WBS/contract scope at approval time.
-3. Organizational structure & stakeholders
-   - Organization and ProjectMembership models exist. CompanyApproval and CompanyStaffAssignment exist for organization-level approvals.
-   - Gap: No explicit project RACI/roles matrix stored; projectRole in ProjectMembership is free text.
-4. Project approvals & authorization
-   - CompanyApproval exists for organization-wide approvals, but no explicit project creation approval workflow (API-level enforcement missing).
-5. Project lifecycle transitions
-   - Project.status exists but transitions appear uncontrolled: no enforced state machine with required approvals and preconditions.
-6. Access control for creation/modification
-   - RBAC functions exist, but no systematic per-route manifest proving enforcement. Some routes may rely on developer discipline.
+## 4. Relevant Files / Modules / Database Entities
+- `prisma/schema.prisma` (`enum ProjectStatus`, `model Project`, `model ProjectBaseline`, `model CompanyApproval`)
+- `src/lib/services/project.service.ts`
+- `src/lib/services/audit.ts`
+- `src/app/api/projects/[id]/route.ts`
 
-Required architectural changes (summary)
-- Add structured ProjectObjectives and AcceptanceCriteria fields and SignOff model usage tied to project-binding approvals.
-- Implement immutable Baseline entities: ProjectBaseline, WbsBaseline, ScheduleBaseline capturing snapshot JSON with effectiveDate, createdBy, approvedAt.
-- Enforce state machine transitions for Project.status with backend checks and required CompanyApproval records for certain transitions (e.g., PLANNING -> ACTIVE requires approval).
-- Convert projectRole in ProjectMembership to enum or constrained type and add ProjectRoleAssignment history table for auditability.
-- Add route-level permission manifest and enforce via wrapper to ensure only authorized roles can create/approve projects.
+## 5. Compliance Status
+**Partially Compliant**
 
-Files / DB changes (concrete)
-- prisma/schema.prisma
-  - Add `model ProjectObjective`, linked to Project, with fields {id, projectId, description, metric, targetDate, createdBy, createdAt}
-  - Add `model ProjectBaseline { id, projectId, type, snapshot Json, createdBy, createdAt, approvedBy, approvedAt }`
-  - Modify ProjectMembership.projectRole to be enum ProjectRole and attach history table ProjectRoleAssignment.
-- src/lib/permissions.ts: add explicit permissions for project:create, project:approve, project:transition
-- src/app/api/projects/*: wrap handlers with requirePermission('project:create') and requireApprovalFlow on transitions.
+## 6. Exact Gap
+1. Status transitions are unconstrained: a project can move from `PLANNING` to `ACTIVE` without an approved `ProjectBaseline` or signed contract.
+2. A project can be moved to `COMPLETE` or `CLOSED` even if there are unresolved `DefectLog` items, uncertified IPC measurements, or open `SafetyIncident` cases.
+3. No historical audit model recording phase transition justifications, gate review evidence, or approver signatures.
 
-Backend/API changes
-- Add API endpoints: POST /api/projects/:id/approve, POST /api/projects/:id/baselines, GET /api/projects/:id/baselines
-- Enforce creation & status transitions server-side, ensure approvals create CompanyApproval records where required.
+## 7. Why the Gap Matters
+Uncontrolled phase transitions undermine governance. Moving to `ACTIVE` without a baseline prevents schedule and cost variance tracking ($SV, CV, EVM$). Closing a project without resolving defect/safety logs exposes the contractor to unmitigated legal and financial liabilities.
 
-Frontend/UI changes
-- Project creation form adds objectives and acceptance criteria; project detail UI offers Baselines tab showing approved snapshots; admin UI to approve projects.
+## 8. Required Architectural / Design Change
+Implement a **Phase Gate Transition Engine** in `src/lib/services/project.service.ts`:
+- Define explicit preconditions for each status transition.
+- Require formal `CompanyApproval` or explicit executive authorization for critical transitions (`PLANNING` $\rightarrow$ `ACTIVE`, `COMPLETE` $\rightarrow$ `CLOSED`).
 
-Workflow changes
-- Define approval workflow: project created (draft) → submit for approval → designated approver reviews → approve/ reject → approved baseline created and project transitions to PLANNING.
+## 9. Required Database Change
+Add `model ProjectStatusHistory` in `prisma/schema.prisma`:
+```prisma
+model ProjectStatusHistory {
+  id              String        @id @default(cuid())
+  projectId       String
+  fromStatus      ProjectStatus
+  toStatus        ProjectStatus
+  reason          String
+  gateEvidenceRef String?
+  changedById     String
+  changedAt       DateTime      @default(now())
 
-Priority & order
-1. Add Baseline models and snapshotting (critical)
-2. Enforce transitions and approval checks (critical)
-3. Add objectives model and UI (medium)
-4. Convert membership roles and history (medium)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  changedBy User    @relation(fields: [changedById], references: [id])
 
-Verification
-- Project cannot move to ACTIVE without an approved Baseline record; attempts return 403.
-- Baselines contain exact WBS snapshot JSON and schedule snapshot; restored snapshot can reproduce state.
+  @@index([projectId, changedAt])
+}
+```
 
+## 10. Required Backend / API Change
+- Add `transitionProjectStatus(user, projectId, targetStatus, reason)` to `src/lib/services/project.service.ts`.
+- Enforce the following gate checks:
+  - `PLANNING` $\rightarrow$ `ACTIVE`: Must have an approved `ProjectBaseline` (v1) and an active `Contract`.
+  - `ACTIVE` $\rightarrow$ `COMPLETE`: All WBS leaf activities must be `COMPLETE`, zero `OPEN` `DefectLog` items, zero `OPEN` `SafetyIncident` cases, and 100% passed critical ITRs.
+  - `COMPLETE` $\rightarrow$ `CLOSED`: Final IPC paid, contract retention released, and executive sign-off (`GENERAL_MANAGER` or `MANAGING_DIRECTOR`).
+- Expose endpoint `POST /api/projects/:id/transition`.
+
+## 11. Required Frontend / UI Change
+- Replace generic status dropdown in project settings with a **Lifecycle Phase Gate Stepper**.
+- Display gate check results (green checkmarks / red blockers) prior to enabling phase transition buttons.
+
+## 12. Required Workflow Change
+1. PM clicks "Request Activation".
+2. System runs automated gate check (Baseline exists? Active Contract exists?).
+3. If criteria pass, transition to `ACTIVE` is recorded in `ProjectStatusHistory` and logged via `src/lib/services/audit.ts`.
+
+## 13. Dependencies
+- Audit service (`src/lib/services/audit.ts`).
+- Baseline engine (`ProjectBaseline`).
+- Quality and HSE services (`quality.service.ts`, `safety.service.ts`).
+
+## 14. Implementation Priority
+**High (Phase 2)**
+
+## 15. Acceptance / Verification Criteria
+- Attempting to transition a project to `ACTIVE` without a baseline returns a HTTP 422 error with specific gate failure details.
+- Every status transition creates an immutable `ProjectStatusHistory` record and `AuditLog` entry.
