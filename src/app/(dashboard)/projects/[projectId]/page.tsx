@@ -9,6 +9,7 @@ import { formatCurrency, titleCase } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
 import { getScopeUiHints } from "@/lib/scope-ui";
 import { ScopeBanner, ScopeEmptyState } from "@/components/projects/scope-notice";
+import { can } from "@/lib/permissions";
 import {
   Users,
   Network,
@@ -34,14 +35,21 @@ export default async function ProjectOverviewPage({ params }: Props) {
     getScopeUiHints(session, projectId),
   ]);
 
+  const canSeeContractValue = can(session.role, "cost", "read") || can(session.role, "contract", "read");
+  const canSeeTeamMembers = can(session.role, "team", "read");
+
   const stats = [
-    {
-      label: "Team members",
-      value: project._count.memberships,
-      icon: <Users className="h-5 w-5" />,
-      href: "team",
-      color: "indigo" as const,
-    },
+    ...(canSeeTeamMembers
+      ? [
+          {
+            label: "Team members",
+            value: project._count.memberships,
+            icon: <Users className="h-5 w-5" />,
+            href: "team",
+            color: "indigo" as const,
+          },
+        ]
+      : []),
     {
       label: "WBS nodes",
       value: project._count.wbsNodes,
@@ -96,7 +104,7 @@ export default async function ProjectOverviewPage({ params }: Props) {
       ) : null}
       {/* Project header card */}
       <Card className="overflow-hidden">
-        <div className="h-1.5  from-terracotta-500 via-accent to-sand-300" />
+        <div className="h-1.5 from-terracotta-500 via-accent to-sand-300" />
         <CardHeader className="pb-2">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="space-y-1">
@@ -130,13 +138,13 @@ export default async function ProjectOverviewPage({ params }: Props) {
                   Contract value
                 </p>
                 <p className="text-sm font-medium text-fg-default">
-                  {project.contractValue != null
+                  {canSeeContractValue && project.contractValue != null
                     ? formatCurrency(Number(project.contractValue), "ETB")
                     : "—"}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-lg  p-3">
+            <div className="flex items-center gap-3 rounded-lg p-3">
               <Calendar className="h-5 w-5 text-fg-subtle shrink-0" />
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-fg-muted">
@@ -147,7 +155,7 @@ export default async function ProjectOverviewPage({ params }: Props) {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-lg  p-3">
+            <div className="flex items-center gap-3 rounded-lg p-3">
               <Building2 className="h-5 w-5 text-fg-subtle shrink-0" />
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-fg-muted">
