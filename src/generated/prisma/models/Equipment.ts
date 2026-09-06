@@ -210,6 +210,7 @@ export type EquipmentWhereInput = {
   usageLogs?: Prisma.EquipmentUsageLogListRelationFilter
   custodyLogs?: Prisma.CustodyLogListRelationFilter
   resourceRequests?: Prisma.ResourceRequestListRelationFilter
+  allocations?: Prisma.EquipmentAllocationListRelationFilter
 }
 
 export type EquipmentOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type EquipmentOrderByWithRelationInput = {
   usageLogs?: Prisma.EquipmentUsageLogOrderByRelationAggregateInput
   custodyLogs?: Prisma.CustodyLogOrderByRelationAggregateInput
   resourceRequests?: Prisma.ResourceRequestOrderByRelationAggregateInput
+  allocations?: Prisma.EquipmentAllocationOrderByRelationAggregateInput
 }
 
 export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -243,6 +245,7 @@ export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
   usageLogs?: Prisma.EquipmentUsageLogListRelationFilter
   custodyLogs?: Prisma.CustodyLogListRelationFilter
   resourceRequests?: Prisma.ResourceRequestListRelationFilter
+  allocations?: Prisma.EquipmentAllocationListRelationFilter
 }, "id">
 
 export type EquipmentOrderByWithAggregationInput = {
@@ -285,6 +288,7 @@ export type EquipmentCreateInput = {
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateInput = {
@@ -299,6 +303,7 @@ export type EquipmentUncheckedCreateInput = {
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUpdateInput = {
@@ -313,6 +318,7 @@ export type EquipmentUpdateInput = {
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateInput = {
@@ -327,6 +333,7 @@ export type EquipmentUncheckedUpdateInput = {
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyInput = {
@@ -470,6 +477,20 @@ export type EquipmentUpdateOneRequiredWithoutUsageLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EquipmentUpdateToOneWithWhereWithoutUsageLogsInput, Prisma.EquipmentUpdateWithoutUsageLogsInput>, Prisma.EquipmentUncheckedUpdateWithoutUsageLogsInput>
 }
 
+export type EquipmentCreateNestedOneWithoutAllocationsInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutAllocationsInput, Prisma.EquipmentUncheckedCreateWithoutAllocationsInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutAllocationsInput
+  connect?: Prisma.EquipmentWhereUniqueInput
+}
+
+export type EquipmentUpdateOneRequiredWithoutAllocationsNestedInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutAllocationsInput, Prisma.EquipmentUncheckedCreateWithoutAllocationsInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutAllocationsInput
+  upsert?: Prisma.EquipmentUpsertWithoutAllocationsInput
+  connect?: Prisma.EquipmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EquipmentUpdateToOneWithWhereWithoutAllocationsInput, Prisma.EquipmentUpdateWithoutAllocationsInput>, Prisma.EquipmentUncheckedUpdateWithoutAllocationsInput>
+}
+
 export type EquipmentCreateNestedOneWithoutCustodyLogsInput = {
   create?: Prisma.XOR<Prisma.EquipmentCreateWithoutCustodyLogsInput, Prisma.EquipmentUncheckedCreateWithoutCustodyLogsInput>
   connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutCustodyLogsInput
@@ -513,6 +534,7 @@ export type EquipmentCreateWithoutOrganizationInput = {
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutOrganizationInput = {
@@ -526,6 +548,7 @@ export type EquipmentUncheckedCreateWithoutOrganizationInput = {
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutOrganizationInput = {
@@ -579,6 +602,7 @@ export type EquipmentCreateWithoutUsageLogsInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutUsageLogsInput = {
@@ -592,6 +616,7 @@ export type EquipmentUncheckedCreateWithoutUsageLogsInput = {
   updatedAt?: Date | string
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutUsageLogsInput = {
@@ -621,6 +646,7 @@ export type EquipmentUpdateWithoutUsageLogsInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutUsageLogsInput = {
@@ -632,6 +658,79 @@ export type EquipmentUncheckedUpdateWithoutUsageLogsInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutEquipmentNestedInput
+}
+
+export type EquipmentCreateWithoutAllocationsInput = {
+  id?: string
+  equipmentType: string
+  plateNo?: string | null
+  serialNo?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
+  usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
+  custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentUncheckedCreateWithoutAllocationsInput = {
+  id?: string
+  organizationId: string
+  equipmentType: string
+  plateNo?: string | null
+  serialNo?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
+  custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentCreateOrConnectWithoutAllocationsInput = {
+  where: Prisma.EquipmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutAllocationsInput, Prisma.EquipmentUncheckedCreateWithoutAllocationsInput>
+}
+
+export type EquipmentUpsertWithoutAllocationsInput = {
+  update: Prisma.XOR<Prisma.EquipmentUpdateWithoutAllocationsInput, Prisma.EquipmentUncheckedUpdateWithoutAllocationsInput>
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutAllocationsInput, Prisma.EquipmentUncheckedCreateWithoutAllocationsInput>
+  where?: Prisma.EquipmentWhereInput
+}
+
+export type EquipmentUpdateToOneWithWhereWithoutAllocationsInput = {
+  where?: Prisma.EquipmentWhereInput
+  data: Prisma.XOR<Prisma.EquipmentUpdateWithoutAllocationsInput, Prisma.EquipmentUncheckedUpdateWithoutAllocationsInput>
+}
+
+export type EquipmentUpdateWithoutAllocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  equipmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  plateNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
+  usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
+  custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
+}
+
+export type EquipmentUncheckedUpdateWithoutAllocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  equipmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  plateNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
 }
@@ -647,6 +746,7 @@ export type EquipmentCreateWithoutCustodyLogsInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutCustodyLogsInput = {
@@ -660,6 +760,7 @@ export type EquipmentUncheckedCreateWithoutCustodyLogsInput = {
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutCustodyLogsInput = {
@@ -689,6 +790,7 @@ export type EquipmentUpdateWithoutCustodyLogsInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutCustodyLogsInput = {
@@ -702,6 +804,7 @@ export type EquipmentUncheckedUpdateWithoutCustodyLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateWithoutResourceRequestsInput = {
@@ -715,6 +818,7 @@ export type EquipmentCreateWithoutResourceRequestsInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutEquipmentInput
   usageLogs?: Prisma.EquipmentUsageLogCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutResourceRequestsInput = {
@@ -728,6 +832,7 @@ export type EquipmentUncheckedCreateWithoutResourceRequestsInput = {
   updatedAt?: Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutEquipmentInput
   custodyLogs?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutEquipmentInput
+  allocations?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutResourceRequestsInput = {
@@ -757,6 +862,7 @@ export type EquipmentUpdateWithoutResourceRequestsInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutEquipmentNestedInput
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutResourceRequestsInput = {
@@ -770,6 +876,7 @@ export type EquipmentUncheckedUpdateWithoutResourceRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyOrganizationInput = {
@@ -793,6 +900,7 @@ export type EquipmentUpdateWithoutOrganizationInput = {
   usageLogs?: Prisma.EquipmentUsageLogUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutOrganizationInput = {
@@ -806,6 +914,7 @@ export type EquipmentUncheckedUpdateWithoutOrganizationInput = {
   usageLogs?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutEquipmentNestedInput
   custodyLogs?: Prisma.CustodyLogUncheckedUpdateManyWithoutEquipmentNestedInput
   resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutEquipmentNestedInput
+  allocations?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateManyWithoutOrganizationInput = {
@@ -827,12 +936,14 @@ export type EquipmentCountOutputType = {
   usageLogs: number
   custodyLogs: number
   resourceRequests: number
+  allocations: number
 }
 
 export type EquipmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usageLogs?: boolean | EquipmentCountOutputTypeCountUsageLogsArgs
   custodyLogs?: boolean | EquipmentCountOutputTypeCountCustodyLogsArgs
   resourceRequests?: boolean | EquipmentCountOutputTypeCountResourceRequestsArgs
+  allocations?: boolean | EquipmentCountOutputTypeCountAllocationsArgs
 }
 
 /**
@@ -866,6 +977,13 @@ export type EquipmentCountOutputTypeCountResourceRequestsArgs<ExtArgs extends ru
   where?: Prisma.ResourceRequestWhereInput
 }
 
+/**
+ * EquipmentCountOutputType without action
+ */
+export type EquipmentCountOutputTypeCountAllocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EquipmentAllocationWhereInput
+}
+
 
 export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -880,6 +998,7 @@ export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   usageLogs?: boolean | Prisma.Equipment$usageLogsArgs<ExtArgs>
   custodyLogs?: boolean | Prisma.Equipment$custodyLogsArgs<ExtArgs>
   resourceRequests?: boolean | Prisma.Equipment$resourceRequestsArgs<ExtArgs>
+  allocations?: boolean | Prisma.Equipment$allocationsArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["equipment"]>
 
@@ -924,6 +1043,7 @@ export type EquipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   usageLogs?: boolean | Prisma.Equipment$usageLogsArgs<ExtArgs>
   custodyLogs?: boolean | Prisma.Equipment$custodyLogsArgs<ExtArgs>
   resourceRequests?: boolean | Prisma.Equipment$resourceRequestsArgs<ExtArgs>
+  allocations?: boolean | Prisma.Equipment$allocationsArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EquipmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -940,6 +1060,7 @@ export type $EquipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     usageLogs: Prisma.$EquipmentUsageLogPayload<ExtArgs>[]
     custodyLogs: Prisma.$CustodyLogPayload<ExtArgs>[]
     resourceRequests: Prisma.$ResourceRequestPayload<ExtArgs>[]
+    allocations: Prisma.$EquipmentAllocationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1348,6 +1469,7 @@ export interface Prisma__EquipmentClient<T, Null = never, ExtArgs extends runtim
   usageLogs<T extends Prisma.Equipment$usageLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$usageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   custodyLogs<T extends Prisma.Equipment$custodyLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$custodyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustodyLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resourceRequests<T extends Prisma.Equipment$resourceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$resourceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  allocations<T extends Prisma.Equipment$allocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentAllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1850,6 +1972,30 @@ export type Equipment$resourceRequestsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.ResourceRequestScalarFieldEnum | Prisma.ResourceRequestScalarFieldEnum[]
+}
+
+/**
+ * Equipment.allocations
+ */
+export type Equipment$allocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EquipmentAllocation
+   */
+  select?: Prisma.EquipmentAllocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EquipmentAllocation
+   */
+  omit?: Prisma.EquipmentAllocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EquipmentAllocationInclude<ExtArgs> | null
+  where?: Prisma.EquipmentAllocationWhereInput
+  orderBy?: Prisma.EquipmentAllocationOrderByWithRelationInput | Prisma.EquipmentAllocationOrderByWithRelationInput[]
+  cursor?: Prisma.EquipmentAllocationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EquipmentAllocationScalarFieldEnum | Prisma.EquipmentAllocationScalarFieldEnum[]
 }
 
 /**

@@ -6,6 +6,7 @@ import type {
   PartyType,
   UserRole,
   WBSNodeType,
+  CompanyStaffRole,
 } from "../src/generated/prisma/enums";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
@@ -22,6 +23,14 @@ function hash(password: string) {
 // ---------------------------------------------------------------
 async function wipe() {
   const tables = [
+    "ExecutiveInterventionEvent",
+    "ExecutiveIntervention",
+    "EquipmentAllocation",
+    "DesignReview",
+    "AuditFinding",
+    "CompanyApproval",
+    "CompanyInvitation",
+    "CompanyStaffAssignment",
     "RegulatoryReport",
     "ElementProgress",
     "FormworkLine",
@@ -181,6 +190,7 @@ async function main() {
     { role: "HR", fullName: "Liya Girma", jobTitle: "HR Officer", emailSuffix: "hr" },
     { role: "EQUIPMENT_MANAGER", fullName: "Nati Debebe", jobTitle: "Plant & Equipment Manager", emailSuffix: "equipment" },
     { role: "CONTRACTS_LEGAL", fullName: "Ruth Ayalew", jobTitle: "Contracts Manager", emailSuffix: "contracts" },
+    { role: "OFFICE_ENGINEER", fullName: "Nahom Getachew", jobTitle: "Office Engineer", emailSuffix: "officeengineer" },
   ];
 
   const users = new Map<string, string>();
@@ -197,6 +207,65 @@ async function main() {
       },
     });
     users.set(`${u.role}_${u.emailSuffix}`, created.id);
+  }
+
+  // Company roles are explicit organization assignments. These demo identities
+  // deliberately have no ProjectMembership so company-wide access is exercised.
+  const companyStaff: { emailSuffix: string; fullName: string; jobTitle: string; role: CompanyStaffRole }[] = [
+    { emailSuffix: "gm", fullName: "Mulugeta Kebede", jobTitle: "General Manager", role: "GENERAL_MANAGER" },
+    { emailSuffix: "legal.manager", fullName: "Hiwot Assefa", jobTitle: "Manager, Legal Service", role: "LEGAL_SERVICE_MANAGER" },
+    { emailSuffix: "head.tendering", fullName: "Samuel Desta", jobTitle: "Head, Central Contract Administration & Tendering Division", role: "HEAD_TENDERING" },
+    { emailSuffix: "tendering.officer", fullName: "Bethelhem Girma", jobTitle: "Senior Tendering Officer", role: "TENDERING_OFFICER" },
+    { emailSuffix: "head.planning", fullName: "Ephrem Alemu", jobTitle: "Head, Planning, Monitoring & Performance Evaluation Division", role: "HEAD_PLANNING_MONITORING" },
+    { emailSuffix: "planning.officer", fullName: "Saron Tesfaye", jobTitle: "Senior Planning and M&E Officer", role: "PLANNING_OFFICER" },
+    { emailSuffix: "engineering.manager", fullName: "Eng. Dawit Wolde", jobTitle: "Manager, Engineering Department", role: "ENGINEERING_DEPT_MANAGER" },
+    { emailSuffix: "head.engineering.services", fullName: "Eng. Rahel Bekele", jobTitle: "Head, Engineering Service Division", role: "HEAD_ENGINEERING_SERVICES" },
+    { emailSuffix: "engineering.services.officer", fullName: "Eng. Yared Solomon", jobTitle: "Senior Office Engineering and QC Officer", role: "ENGINEERING_SERVICES_OFFICER" },
+    { emailSuffix: "equipment.admin", fullName: "Tadesse Mamo", jobTitle: "Manager, Equipment Administration Department", role: "EQUIPMENT_ADMIN_MANAGER" },
+    { emailSuffix: "finance.manager", fullName: "Mahlet Gebru", jobTitle: "Manager, Finance Department", role: "FINANCE_DEPT_MANAGER" },
+    { emailSuffix: "internal.auditor", fullName: "Kassahun Taye", jobTitle: "Head, Internal Auditor Service", role: "INTERNAL_AUDITOR" },
+  ];
+  const assigningAdminId = users.get("ADMIN_admin")!;
+  for (const staff of companyStaff) {
+    const companyUser = await db.user.create({
+      data: {
+        organizationId: ovid.id,
+        fullName: staff.fullName,
+        email: `${staff.emailSuffix}@ovid.com`,
+        passwordHash: hash(PASSWORD),
+        jobTitle: staff.jobTitle,
+        role: "COMPANY_STAFF",
+      },
+    });
+    users.set(`company_${staff.role}`, companyUser.id);
+    const assignment = await db.companyStaffAssignment.create({
+      data: {
+        userId: companyUser.id,
+        organizationId: ovid.id,
+        role: staff.role,
+        assignedById: assigningAdminId,
+        reason: "Explicit demo company-role assignment",
+      },
+    });
+    await db.auditLog.create({
+      data: {
+        entityType: "CompanyStaffAssignment",
+        entityId: assignment.id,
+        action: "CREATE",
+        userId: assigningAdminId,
+        diff: { targetUserId: companyUser.id, oldRoles: [], newRoles: [staff.role], reason: assignment.reason },
+      },
+    });
+  }
+  const activeCompanyRoles = await db.companyStaffAssignment.findMany({
+    where: { organizationId: ovid.id, active: true },
+    select: { role: true },
+  });
+  const missingCompanyRoles = companyStaff
+    .map((staff) => staff.role)
+    .filter((role) => !activeCompanyRoles.some((assignment) => assignment.role === role));
+  if (activeCompanyRoles.length !== companyStaff.length || missingCompanyRoles.length) {
+    throw new Error(`Company-role seed verification failed. Missing: ${missingCompanyRoles.join(", ") || "unknown duplicate"}`);
   }
 
   // External party users - Consultant (multiple engineers)
@@ -394,7 +463,7 @@ async function main() {
         key.startsWith("DEPUTY_PM_") || key.startsWith("SENIOR_PM_") || key.startsWith("QC_INSPECTOR_") ||
         key.startsWith("HSE_OFFICER_") || key.startsWith("QS_") || key.startsWith("PROCUREMENT_") ||
         key.startsWith("FINANCE_") || key.startsWith("HR_") || key.startsWith("EQUIPMENT_MANAGER_") ||
-        key.startsWith("CONTRACTS_LEGAL_") || key.startsWith("ADMIN_")) {
+        key.startsWith("CONTRACTS_LEGAL_") || key.startsWith("OFFICE_ENGINEER_") || key.startsWith("ADMIN_")) {
       await db.projectMembership.create({
         data: {
           projectId: project.id,
@@ -510,6 +579,14 @@ async function main() {
         revisionNo: 2,
         effectiveDate: today,
         formSchema: { entity: "LaborAttendance" },
+      },
+      {
+        docNo: "IMS/OF/CON/001",
+        title: "Standard Subcontract Agreement Template",
+        issuingDepartment: "CONTRACTS",
+        revisionNo: 1,
+        effectiveDate: today,
+        formSchema: { entity: "Contract", controlled: true },
       },
     ],
   });
@@ -1771,6 +1848,266 @@ async function main() {
     data: { status: "ACTIVE" },
   });
 
+  // ============================================================
+  // Company-tier demo queues — explicit role-owned work
+  // ============================================================
+  const tenderOfficerId = users.get("company_TENDERING_OFFICER")!;
+  const headTenderingId = users.get("company_HEAD_TENDERING")!;
+  const engineeringOfficerId = users.get("company_ENGINEERING_SERVICES_OFFICER")!;
+  const equipmentAdminId = users.get("company_EQUIPMENT_ADMIN_MANAGER")!;
+  const internalAuditorId = users.get("company_INTERNAL_AUDITOR")!;
+  const generalManagerId = users.get("company_GENERAL_MANAGER")!;
+  const legalManagerId = users.get("company_LEGAL_SERVICE_MANAGER")!;
+
+  await db.bidTender.create({
+    data: {
+      ownerOrgId: ovid.id,
+      bidNo: "OVID-BID-2026-001",
+      title: "Regional hospital construction tender",
+      description: "Bid under preparation by the Central Tendering Division",
+      amount: 760000000,
+      result: "DRAFT",
+      tenderOwnerId: tenderOfficerId,
+    },
+  });
+  await db.bidTender.create({
+    data: {
+      ownerOrgId: ovid.id,
+      supplierOrgId: aacra.id,
+      bidNo: "OVID-BID-2026-002",
+      title: "Addis Ababa drainage improvement package",
+      description: "Submitted tender awaiting client decision",
+      amount: 315000000,
+      result: "SUBMITTED",
+      tenderOwnerId: tenderOfficerId,
+      submittedByUserId: headTenderingId,
+      submittedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 12),
+    },
+  });
+  const wonTender = await db.bidTender.create({
+    data: {
+      ownerOrgId: ovid.id,
+      supplierOrgId: aacra.id,
+      bidNo: "OVID-BID-2026-003",
+      title: "Municipal mixed-use complex",
+      description: "Won tender awaiting General Manager project-conversion approval",
+      amount: 425000000,
+      result: "WON",
+      tenderOwnerId: headTenderingId,
+      submittedByUserId: headTenderingId,
+      submittedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30),
+      awardedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3),
+      conversionProposedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1),
+    },
+  });
+
+  const contractTemplate = await db.documentTemplate.findUniqueOrThrow({ where: { docNo: "IMS/OF/CON/001" } });
+  const highValueVariation = await db.variationOrder.findFirstOrThrow({ where: { projectId: project.id }, orderBy: { createdAt: "asc" } });
+  const certifiedIpc = await db.measurementEntry.findFirstOrThrow({ where: { status: "CERTIFIED", wbsNode: { projectId: project.id } } });
+
+  await db.companyApproval.createMany({
+    data: [
+      {
+        organizationId: ovid.id,
+        type: "PROJECT_CREATION",
+        entityType: "BidTender",
+        entityId: wonTender.id,
+        requestedById: headTenderingId,
+        amount: 425000000,
+        comment: "Convert the won municipal complex tender into an active PMS project",
+        thresholdSnapshot: {
+          code: "MMC-01",
+          name: "Municipal Mixed-Use Complex",
+          projectType: "BUILDING",
+          contractType: "FIDIC_RED",
+          contractValue: 425000000,
+          plannedStartDate: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString(),
+          plannedEndDate: new Date(today.getFullYear() + 2, today.getMonth(), 30).toISOString(),
+          clientOrgId: aacra.id,
+          consultantOrgId: united.id,
+        },
+      },
+      {
+        organizationId: ovid.id,
+        type: "CONTRACTOR_ONBOARDING",
+        entityType: "ProjectInvitation",
+        entityId: roadProject.id,
+        requestedById: headTenderingId,
+        comment: "Authorize the electrical subcontractor PM for the road project",
+        thresholdSnapshot: {
+          projectId: roadProject.id,
+          contractorOrgId: electricalSub.id,
+          email: "road.electrical.pm@example.com",
+          fullName: "Bereket Fikru",
+          jobTitle: "Electrical Subcontractor Project Manager",
+          role: "SUBCONTRACTOR_PM",
+        },
+      },
+      {
+        organizationId: ovid.id,
+        type: "CONTRACT_TEMPLATE",
+        entityType: "DocumentTemplate",
+        entityId: contractTemplate.id,
+        requestedById: headTenderingId,
+        comment: "Legal approval of the controlled standard subcontract template",
+      },
+      {
+        organizationId: ovid.id,
+        type: "HIGH_VALUE_VARIATION",
+        entityType: "VariationOrder",
+        entityId: highValueVariation.id,
+        requestedById: users.get("CONTRACTS_LEGAL_contracts")!,
+        amount: 12000000,
+        comment: "Company legal review of cumulative variation exposure",
+        thresholdSnapshot: { threshold: 10000000, projectId: project.id, itemNo: highValueVariation.itemNo },
+      },
+      {
+        organizationId: ovid.id,
+        type: "EQUIPMENT_CAPITAL",
+        entityType: "Equipment",
+        entityId: "NEW:MobileCrane:DEMO",
+        requestedById: equipmentAdminId,
+        amount: 48000000,
+        comment: "Acquire a 70-ton mobile crane for the central fleet",
+        thresholdSnapshot: { action: "ACQUIRE", equipmentType: "70-ton Mobile Crane", plateNo: "PENDING", amount: 48000000 },
+      },
+      {
+        organizationId: ovid.id,
+        type: "IPC_PAYMENT",
+        entityType: "MeasurementEntry",
+        entityId: certifiedIpc.id,
+        requestedById: users.get("FINANCE_finance")!,
+        amount: Number(certifiedIpc.quantity) * Number(certifiedIpc.unitRate),
+        comment: "Treasury authorization for certified subcontractor IPC",
+        thresholdSnapshot: { threshold: 5000000, projectId: project.id, certificateNo: certifiedIpc.certificateNo },
+      },
+    ],
+  });
+
+  const executiveContractEntityId = `${roadProject.id}:${concreteSub.id}:${roadBridge.id}`;
+  await db.companyApproval.createMany({
+    data: [
+      {
+        organizationId: ovid.id,
+        type: "HIGH_VALUE_CONTRACT",
+        status: "APPROVED",
+        entityType: "ContractProposal",
+        entityId: executiveContractEntityId,
+        requestedById: users.get("CONTRACTS_LEGAL_contracts")!,
+        reviewedById: legalManagerId,
+        reviewedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1),
+        amount: 145000000,
+        comment: "Legal terms approved; executive value countersignature remains outstanding",
+        thresholdSnapshot: { projectId: roadProject.id, contractorOrgId: concreteSub.id, scopeWbsNodeId: roadBridge.id, threshold: 50000000 },
+      },
+      {
+        organizationId: ovid.id,
+        type: "EXECUTIVE_CONTRACT",
+        entityType: "ContractProposal",
+        entityId: executiveContractEntityId,
+        requestedById: legalManagerId,
+        amount: 145000000,
+        comment: "General Manager countersignature required after company legal approval",
+        thresholdSnapshot: { projectId: roadProject.id, contractorOrgId: concreteSub.id, scopeWbsNodeId: roadBridge.id, threshold: 100000000 },
+      },
+    ],
+  });
+
+  await db.executiveIntervention.create({
+    data: {
+      organizationId: ovid.id,
+      projectId: roadProject.id,
+      category: "SCHEDULE",
+      priority: "CRITICAL",
+      title: "Recover critical-path bridge works",
+      description: "Bridge works are driving the portfolio schedule exception and require a coordinated recovery plan.",
+      requiredAction: "Submit an approved recovery sequence, resource plan, and weekly variance checkpoints.",
+      accountableUserId: users.get("company_HEAD_PLANNING_MONITORING")!,
+      createdById: generalManagerId,
+      dueAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7),
+      sourceType: "PortfolioScheduleException",
+      sourceId: roadProject.id,
+      events: {
+        create: {
+          type: "CREATED",
+          authorId: generalManagerId,
+          comment: "Prepare and govern the cross-project schedule recovery response.",
+          newStatus: "OPEN",
+          newDueAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7),
+        },
+      },
+    },
+  });
+
+  await db.executiveIntervention.create({
+    data: {
+      organizationId: ovid.id,
+      projectId: project.id,
+      category: "SAFETY",
+      priority: "HIGH",
+      title: "Close portfolio safety evidence gap",
+      description: "Open safety actions and incomplete compliance evidence require management attention without altering the source inspection records.",
+      requiredAction: "Coordinate corrective evidence, confirm project-level ownership, and submit the complete package for CEO review.",
+      accountableUserId: users.get("company_HEAD_ENGINEERING_SERVICES")!,
+      createdById: generalManagerId,
+      dueAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10),
+      sourceType: "SafetyComplianceRollup",
+      sourceId: project.id,
+      events: {
+        create: {
+          type: "CREATED",
+          authorId: generalManagerId,
+          comment: "Resolve the cross-project safety compliance exception through accountable project teams.",
+          newStatus: "OPEN",
+          newDueAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10),
+        },
+      },
+    },
+  });
+
+  await db.designReview.create({
+    data: {
+      organizationId: ovid.id,
+      projectId: roadProject.id,
+      wbsNodeId: roadBridge.id,
+      title: "Bridge pile-cap reinforcement design review",
+      documentRef: "RM-L2-DWG-002 Rev 1",
+      reviewType: "DESIGN_QUALITY_AND_SAFETY",
+      safetyCritical: true,
+      status: "SUBMITTED",
+      findings: { openItems: 2, summary: "Confirm punching shear and temporary stability checks" },
+      submittedById: engineeringOfficerId,
+      submittedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2),
+    },
+  });
+
+  await db.auditFinding.create({
+    data: {
+      organizationId: ovid.id,
+      projectId: project.id,
+      title: "IPC supporting sign-off incomplete",
+      description: "One certified subcontractor IPC lacks the complete approval-chain evidence package.",
+      severity: "HIGH",
+      status: "OPEN",
+      evidenceRef: certifiedIpc.certificateNo ?? certifiedIpc.id,
+      remediationPlan: "Finance and Contracts must attach the missing sign-off evidence before payment.",
+      dueAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 14),
+      raisedById: internalAuditorId,
+      ownerId: users.get("company_FINANCE_DEPT_MANAGER")!,
+    },
+  });
+
+  await db.equipmentAllocation.create({
+    data: {
+      equipmentId: excavator.id,
+      projectId: roadProject.id,
+      allocatedFrom: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+      allocatedTo: new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()),
+      purpose: "Road earthworks and drainage excavation",
+      allocatedById: equipmentAdminId,
+    },
+  });
+
   console.log("E2E seed data added: 2 projects, all phases covered.");
   console.log("Demo credentials (password = password123):");
   console.log("  Contractor: foreman1@ovid.com, foreman2@ovid.com, foreman3@ovid.com, foreman4@ovid.com");
@@ -1780,6 +2117,9 @@ async function main() {
   console.log("              qc1@ovid.com, qc2@ovid.com, hse1@ovid.com, hse2@ovid.com");
   console.log("              qs1@ovid.com, qs2@ovid.com, procurement@ovid.com, finance@ovid.com");
   console.log("              hr@ovid.com, equipment@ovid.com, contracts@ovid.com, admin@ovid.com");
+  console.log("              officeengineer@ovid.com");
+  console.log("  Company roles (no project membership):");
+  for (const staff of companyStaff) console.log(`              ${staff.role}: ${staff.emailSuffix}@ovid.com`);
   console.log("  Consultant: consultant1@ovid.com, consultant2@ovid.com, consultant3@ovid.com, qc_consultant@ovid.com");
   console.log("  Client: client1@ovid.com, client2@ovid.com, client3@ovid.com");
   console.log("  Subcontractor (Steel): steel_foreman1@ovid.com, steel_foreman2@ovid.com, steel_se1@ovid.com, steel_se2@ovid.com, steel_qc@ovid.com, steel_pm@ovid.com");

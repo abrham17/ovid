@@ -306,6 +306,7 @@ export type WbsNodeWhereInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogListRelationFilter
   materialDemands?: Prisma.MaterialDemandListRelationFilter
   structuralElements?: Prisma.StructuralElementListRelationFilter
+  designReviews?: Prisma.DesignReviewListRelationFilter
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryListRelationFilter
   structureDailyEntries?: Prisma.StructureDailyEntryListRelationFilter
   rebarDailyEntries?: Prisma.RebarDailyEntryListRelationFilter
@@ -357,6 +358,7 @@ export type WbsNodeOrderByWithRelationInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogOrderByRelationAggregateInput
   materialDemands?: Prisma.MaterialDemandOrderByRelationAggregateInput
   structuralElements?: Prisma.StructuralElementOrderByRelationAggregateInput
+  designReviews?: Prisma.DesignReviewOrderByRelationAggregateInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryOrderByRelationAggregateInput
   structureDailyEntries?: Prisma.StructureDailyEntryOrderByRelationAggregateInput
   rebarDailyEntries?: Prisma.RebarDailyEntryOrderByRelationAggregateInput
@@ -412,6 +414,7 @@ export type WbsNodeWhereUniqueInput = Prisma.AtLeast<{
   equipmentUsage?: Prisma.EquipmentUsageLogListRelationFilter
   materialDemands?: Prisma.MaterialDemandListRelationFilter
   structuralElements?: Prisma.StructuralElementListRelationFilter
+  designReviews?: Prisma.DesignReviewListRelationFilter
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryListRelationFilter
   structureDailyEntries?: Prisma.StructureDailyEntryListRelationFilter
   rebarDailyEntries?: Prisma.RebarDailyEntryListRelationFilter
@@ -502,6 +505,7 @@ export type WbsNodeCreateInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -551,6 +555,7 @@ export type WbsNodeUncheckedCreateInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -598,6 +603,7 @@ export type WbsNodeUpdateInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -647,6 +653,7 @@ export type WbsNodeUncheckedUpdateInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -712,6 +719,11 @@ export type WbsNodeUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type WbsNodeNullableScalarRelationFilter = {
+  is?: Prisma.WbsNodeWhereInput | null
+  isNot?: Prisma.WbsNodeWhereInput | null
+}
+
 export type WbsNodeListRelationFilter = {
   every?: Prisma.WbsNodeWhereInput
   some?: Prisma.WbsNodeWhereInput
@@ -720,11 +732,6 @@ export type WbsNodeListRelationFilter = {
 
 export type WbsNodeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type WbsNodeNullableScalarRelationFilter = {
-  is?: Prisma.WbsNodeWhereInput | null
-  isNot?: Prisma.WbsNodeWhereInput | null
 }
 
 export type WbsNodeProjectIdCodeCompoundUniqueInput = {
@@ -794,6 +801,22 @@ export type WbsNodeSumOrderByAggregateInput = {
 export type WbsNodeScalarRelationFilter = {
   is?: Prisma.WbsNodeWhereInput
   isNot?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeCreateNestedOneWithoutDesignReviewsInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedCreateWithoutDesignReviewsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutDesignReviewsInput
+  connect?: Prisma.WbsNodeWhereUniqueInput
+}
+
+export type WbsNodeUpdateOneWithoutDesignReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.WbsNodeCreateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedCreateWithoutDesignReviewsInput>
+  connectOrCreate?: Prisma.WbsNodeCreateOrConnectWithoutDesignReviewsInput
+  upsert?: Prisma.WbsNodeUpsertWithoutDesignReviewsInput
+  disconnect?: Prisma.WbsNodeWhereInput | boolean
+  delete?: Prisma.WbsNodeWhereInput | boolean
+  connect?: Prisma.WbsNodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutDesignReviewsInput, Prisma.WbsNodeUpdateWithoutDesignReviewsInput>, Prisma.WbsNodeUncheckedUpdateWithoutDesignReviewsInput>
 }
 
 export type WbsNodeCreateNestedManyWithoutProjectInput = {
@@ -880,14 +903,6 @@ export type EnumWBSNodeTypeFieldUpdateOperationsInput = {
 
 export type EnumWbsNodeStatusFieldUpdateOperationsInput = {
   set?: $Enums.WbsNodeStatus
-}
-
-export type NullableDecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type WbsNodeUpdateOneWithoutChildrenNestedInput = {
@@ -1394,6 +1409,214 @@ export type WbsNodeUpdateOneRequiredWithoutResourceRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WbsNodeUpdateToOneWithWhereWithoutResourceRequestsInput, Prisma.WbsNodeUpdateWithoutResourceRequestsInput>, Prisma.WbsNodeUncheckedUpdateWithoutResourceRequestsInput>
 }
 
+export type WbsNodeCreateWithoutDesignReviewsInput = {
+  id?: string
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutWbsNodesInput
+  parent?: Prisma.WbsNodeCreateNestedOneWithoutChildrenInput
+  children?: Prisma.WbsNodeCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutWbsNodeInput
+  planSubmission?: Prisma.WbsPlanSubmissionCreateNestedOneWithoutNodesInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeUncheckedCreateWithoutDesignReviewsInput = {
+  id?: string
+  projectId: string
+  parentId?: string | null
+  code: string
+  name: string
+  nodeType: $Enums.WBSNodeType
+  designReady?: boolean
+  plannedStartDate?: Date | string | null
+  plannedEndDate?: Date | string | null
+  status?: $Enums.WbsNodeStatus
+  weightPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.WbsNodeUncheckedCreateNestedManyWithoutParentInput
+  activities?: Prisma.ScheduleActivityUncheckedCreateNestedManyWithoutWbsNodeInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  stoppages?: Prisma.StoppageEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  measurements?: Prisma.MeasurementEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  variations?: Prisma.VariationOrderUncheckedCreateNestedManyWithoutWbsNodeInput
+  risks?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutWbsNodeInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutWbsNodeInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  defects?: Prisma.DefectLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  punchListItems?: Prisma.PunchListItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutWbsNodeInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutWbsNodeInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutWbsNodeInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutWbsNodeInput
+  contractsAsScope?: Prisma.ContractUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutWbsNodeInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutRootWbsNodeInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutScopeWbsNodeInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutWbsNodeInput
+}
+
+export type WbsNodeCreateOrConnectWithoutDesignReviewsInput = {
+  where: Prisma.WbsNodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedCreateWithoutDesignReviewsInput>
+}
+
+export type WbsNodeUpsertWithoutDesignReviewsInput = {
+  update: Prisma.XOR<Prisma.WbsNodeUpdateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedUpdateWithoutDesignReviewsInput>
+  create: Prisma.XOR<Prisma.WbsNodeCreateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedCreateWithoutDesignReviewsInput>
+  where?: Prisma.WbsNodeWhereInput
+}
+
+export type WbsNodeUpdateToOneWithWhereWithoutDesignReviewsInput = {
+  where?: Prisma.WbsNodeWhereInput
+  data: Prisma.XOR<Prisma.WbsNodeUpdateWithoutDesignReviewsInput, Prisma.WbsNodeUncheckedUpdateWithoutDesignReviewsInput>
+}
+
+export type WbsNodeUpdateWithoutDesignReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutWbsNodesNestedInput
+  parent?: Prisma.WbsNodeUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.WbsNodeUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutWbsNodeNestedInput
+  planSubmission?: Prisma.WbsPlanSubmissionUpdateOneWithoutNodesNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUpdateManyWithoutWbsNodeNestedInput
+}
+
+export type WbsNodeUncheckedUpdateWithoutDesignReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nodeType?: Prisma.EnumWBSNodeTypeFieldUpdateOperationsInput | $Enums.WBSNodeType
+  designReady?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plannedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumWbsNodeStatusFieldUpdateOperationsInput | $Enums.WbsNodeStatus
+  weightPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  planSubmissionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.WbsNodeUncheckedUpdateManyWithoutParentNestedInput
+  activities?: Prisma.ScheduleActivityUncheckedUpdateManyWithoutWbsNodeNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  stoppages?: Prisma.StoppageEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  measurements?: Prisma.MeasurementEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  variations?: Prisma.VariationOrderUncheckedUpdateManyWithoutWbsNodeNestedInput
+  risks?: Prisma.RiskEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyObservations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutWbsNodeNestedInput
+  safetyIncidents?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  defects?: Prisma.DefectLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  punchListItems?: Prisma.PunchListItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutWbsNodeNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutWbsNodeNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutWbsNodeNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutWbsNodeNestedInput
+  contractsAsScope?: Prisma.ContractUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  disputeRecords?: Prisma.DisputeRecordUncheckedUpdateManyWithoutWbsNodeNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
+  planSubmissionsAsRoot?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutRootWbsNodeNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutScopeWbsNodeNestedInput
+  oversightDailyEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
+  resourceRequests?: Prisma.ResourceRequestUncheckedUpdateManyWithoutWbsNodeNestedInput
+}
+
 export type WbsNodeCreateWithoutProjectInput = {
   id?: string
   code: string
@@ -1423,6 +1646,7 @@ export type WbsNodeCreateWithoutProjectInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -1471,6 +1695,7 @@ export type WbsNodeUncheckedCreateWithoutProjectInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -1564,6 +1789,7 @@ export type WbsNodeCreateWithoutContractsAsScopeInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -1612,6 +1838,7 @@ export type WbsNodeUncheckedCreateWithoutContractsAsScopeInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -1674,6 +1901,7 @@ export type WbsNodeUpdateWithoutContractsAsScopeInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -1722,6 +1950,7 @@ export type WbsNodeUncheckedUpdateWithoutContractsAsScopeInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -1767,6 +1996,7 @@ export type WbsNodeCreateWithoutChildrenInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -1815,6 +2045,7 @@ export type WbsNodeUncheckedCreateWithoutChildrenInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -1866,6 +2097,7 @@ export type WbsNodeCreateWithoutParentInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -1914,6 +2146,7 @@ export type WbsNodeUncheckedCreateWithoutParentInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -1981,6 +2214,7 @@ export type WbsNodeUpdateWithoutChildrenInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -2029,6 +2263,7 @@ export type WbsNodeUncheckedUpdateWithoutChildrenInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -2091,6 +2326,7 @@ export type WbsNodeCreateWithoutActivitiesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -2139,6 +2375,7 @@ export type WbsNodeUncheckedCreateWithoutActivitiesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -2201,6 +2438,7 @@ export type WbsNodeUpdateWithoutActivitiesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -2249,6 +2487,7 @@ export type WbsNodeUncheckedUpdateWithoutActivitiesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -2295,6 +2534,7 @@ export type WbsNodeCreateWithoutStoppagesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -2343,6 +2583,7 @@ export type WbsNodeUncheckedCreateWithoutStoppagesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -2405,6 +2646,7 @@ export type WbsNodeUpdateWithoutStoppagesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -2453,6 +2695,7 @@ export type WbsNodeUncheckedUpdateWithoutStoppagesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -2500,6 +2743,7 @@ export type WbsNodeCreateWithoutEarthworkDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
@@ -2548,6 +2792,7 @@ export type WbsNodeUncheckedCreateWithoutEarthworkDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -2610,6 +2855,7 @@ export type WbsNodeUpdateWithoutEarthworkDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
@@ -2658,6 +2904,7 @@ export type WbsNodeUncheckedUpdateWithoutEarthworkDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -2704,6 +2951,7 @@ export type WbsNodeCreateWithoutStructureDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
@@ -2752,6 +3000,7 @@ export type WbsNodeUncheckedCreateWithoutStructureDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -2814,6 +3063,7 @@ export type WbsNodeUpdateWithoutStructureDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
@@ -2862,6 +3112,7 @@ export type WbsNodeUncheckedUpdateWithoutStructureDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -2908,6 +3159,7 @@ export type WbsNodeCreateWithoutRebarDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentCreateNestedManyWithoutWbsNodeInput
@@ -2956,6 +3208,7 @@ export type WbsNodeUncheckedCreateWithoutRebarDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   documents?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -3018,6 +3271,7 @@ export type WbsNodeUpdateWithoutRebarDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUpdateManyWithoutWbsNodeNestedInput
@@ -3066,6 +3320,7 @@ export type WbsNodeUncheckedUpdateWithoutRebarDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   documents?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -3111,6 +3366,7 @@ export type WbsNodeCreateWithoutBoqItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -3159,6 +3415,7 @@ export type WbsNodeUncheckedCreateWithoutBoqItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -3221,6 +3478,7 @@ export type WbsNodeUpdateWithoutBoqItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -3269,6 +3527,7 @@ export type WbsNodeUncheckedUpdateWithoutBoqItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -3315,6 +3574,7 @@ export type WbsNodeCreateWithoutMeasurementsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -3363,6 +3623,7 @@ export type WbsNodeUncheckedCreateWithoutMeasurementsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -3425,6 +3686,7 @@ export type WbsNodeUpdateWithoutMeasurementsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -3473,6 +3735,7 @@ export type WbsNodeUncheckedUpdateWithoutMeasurementsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -3519,6 +3782,7 @@ export type WbsNodeCreateWithoutVariationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -3567,6 +3831,7 @@ export type WbsNodeUncheckedCreateWithoutVariationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -3629,6 +3894,7 @@ export type WbsNodeUpdateWithoutVariationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -3677,6 +3943,7 @@ export type WbsNodeUncheckedUpdateWithoutVariationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -3723,6 +3990,7 @@ export type WbsNodeCreateWithoutRisksInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -3771,6 +4039,7 @@ export type WbsNodeUncheckedCreateWithoutRisksInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -3833,6 +4102,7 @@ export type WbsNodeUpdateWithoutRisksInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -3881,6 +4151,7 @@ export type WbsNodeUncheckedUpdateWithoutRisksInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -3927,6 +4198,7 @@ export type WbsNodeCreateWithoutSafetyObservationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -3975,6 +4247,7 @@ export type WbsNodeUncheckedCreateWithoutSafetyObservationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -4037,6 +4310,7 @@ export type WbsNodeUpdateWithoutSafetyObservationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -4085,6 +4359,7 @@ export type WbsNodeUncheckedUpdateWithoutSafetyObservationsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -4131,6 +4406,7 @@ export type WbsNodeCreateWithoutSafetyIncidentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -4179,6 +4455,7 @@ export type WbsNodeUncheckedCreateWithoutSafetyIncidentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -4241,6 +4518,7 @@ export type WbsNodeUpdateWithoutSafetyIncidentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -4289,6 +4567,7 @@ export type WbsNodeUncheckedUpdateWithoutSafetyIncidentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -4335,6 +4614,7 @@ export type WbsNodeCreateWithoutInspectionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -4383,6 +4663,7 @@ export type WbsNodeUncheckedCreateWithoutInspectionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -4445,6 +4726,7 @@ export type WbsNodeUpdateWithoutInspectionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -4493,6 +4775,7 @@ export type WbsNodeUncheckedUpdateWithoutInspectionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -4539,6 +4822,7 @@ export type WbsNodeCreateWithoutDefectsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -4587,6 +4871,7 @@ export type WbsNodeUncheckedCreateWithoutDefectsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -4649,6 +4934,7 @@ export type WbsNodeUpdateWithoutDefectsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -4697,6 +4983,7 @@ export type WbsNodeUncheckedUpdateWithoutDefectsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -4744,6 +5031,7 @@ export type WbsNodeCreateWithoutDisputeRecordsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -4792,6 +5080,7 @@ export type WbsNodeUncheckedCreateWithoutDisputeRecordsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -4854,6 +5143,7 @@ export type WbsNodeUpdateWithoutDisputeRecordsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -4902,6 +5192,7 @@ export type WbsNodeUncheckedUpdateWithoutDisputeRecordsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -4947,6 +5238,7 @@ export type WbsNodeCreateWithoutPunchListItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -4995,6 +5287,7 @@ export type WbsNodeUncheckedCreateWithoutPunchListItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -5057,6 +5350,7 @@ export type WbsNodeUpdateWithoutPunchListItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -5105,6 +5399,7 @@ export type WbsNodeUncheckedUpdateWithoutPunchListItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -5151,6 +5446,7 @@ export type WbsNodeCreateWithoutLaborAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -5199,6 +5495,7 @@ export type WbsNodeUncheckedCreateWithoutLaborAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -5261,6 +5558,7 @@ export type WbsNodeUpdateWithoutLaborAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -5309,6 +5607,7 @@ export type WbsNodeUncheckedUpdateWithoutLaborAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -5355,6 +5654,7 @@ export type WbsNodeCreateWithoutEquipmentUsageInput = {
   laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -5403,6 +5703,7 @@ export type WbsNodeUncheckedCreateWithoutEquipmentUsageInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -5465,6 +5766,7 @@ export type WbsNodeUpdateWithoutEquipmentUsageInput = {
   laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -5513,6 +5815,7 @@ export type WbsNodeUncheckedUpdateWithoutEquipmentUsageInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -5559,6 +5862,7 @@ export type WbsNodeCreateWithoutMaterialDemandsInput = {
   laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -5607,6 +5911,7 @@ export type WbsNodeUncheckedCreateWithoutMaterialDemandsInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -5669,6 +5974,7 @@ export type WbsNodeUpdateWithoutMaterialDemandsInput = {
   laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -5717,6 +6023,7 @@ export type WbsNodeUncheckedUpdateWithoutMaterialDemandsInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -5763,6 +6070,7 @@ export type WbsNodeCreateWithoutStructuralElementsInput = {
   laborAssignments?: Prisma.LaborAssignmentCreateNestedManyWithoutWbsNodeInput
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -5811,6 +6119,7 @@ export type WbsNodeUncheckedCreateWithoutStructuralElementsInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedCreateNestedManyWithoutWbsNodeInput
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -5873,6 +6182,7 @@ export type WbsNodeUpdateWithoutStructuralElementsInput = {
   laborAssignments?: Prisma.LaborAssignmentUpdateManyWithoutWbsNodeNestedInput
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -5921,6 +6231,7 @@ export type WbsNodeUncheckedUpdateWithoutStructuralElementsInput = {
   laborAssignments?: Prisma.LaborAssignmentUncheckedUpdateManyWithoutWbsNodeNestedInput
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -5968,6 +6279,7 @@ export type WbsNodeCreateWithoutDocumentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -6016,6 +6328,7 @@ export type WbsNodeUncheckedCreateWithoutDocumentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -6078,6 +6391,7 @@ export type WbsNodeUpdateWithoutDocumentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -6126,6 +6440,7 @@ export type WbsNodeUncheckedUpdateWithoutDocumentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -6172,6 +6487,7 @@ export type WbsNodeCreateWithoutDecisionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -6220,6 +6536,7 @@ export type WbsNodeUncheckedCreateWithoutDecisionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -6282,6 +6599,7 @@ export type WbsNodeUpdateWithoutDecisionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -6330,6 +6648,7 @@ export type WbsNodeUncheckedUpdateWithoutDecisionsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -6376,6 +6695,7 @@ export type WbsNodeCreateWithoutLessonsLearnedInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -6424,6 +6744,7 @@ export type WbsNodeUncheckedCreateWithoutLessonsLearnedInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -6486,6 +6807,7 @@ export type WbsNodeUpdateWithoutLessonsLearnedInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -6534,6 +6856,7 @@ export type WbsNodeUncheckedUpdateWithoutLessonsLearnedInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -6580,6 +6903,7 @@ export type WbsNodeCreateWithoutPurchaseOrderItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -6628,6 +6952,7 @@ export type WbsNodeUncheckedCreateWithoutPurchaseOrderItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -6690,6 +7015,7 @@ export type WbsNodeUpdateWithoutPurchaseOrderItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -6738,6 +7064,7 @@ export type WbsNodeUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -6784,6 +7111,7 @@ export type WbsNodeCreateWithoutMaterialReceiptsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -6832,6 +7160,7 @@ export type WbsNodeUncheckedCreateWithoutMaterialReceiptsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -6894,6 +7223,7 @@ export type WbsNodeUpdateWithoutMaterialReceiptsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -6942,6 +7272,7 @@ export type WbsNodeUncheckedUpdateWithoutMaterialReceiptsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -6988,6 +7319,7 @@ export type WbsNodeCreateWithoutSectionAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7036,6 +7368,7 @@ export type WbsNodeUncheckedCreateWithoutSectionAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -7098,6 +7431,7 @@ export type WbsNodeUpdateWithoutSectionAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -7146,6 +7480,7 @@ export type WbsNodeUncheckedUpdateWithoutSectionAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -7192,6 +7527,7 @@ export type WbsNodeCreateWithoutPlanSubmissionsAsRootInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7240,6 +7576,7 @@ export type WbsNodeUncheckedCreateWithoutPlanSubmissionsAsRootInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -7291,6 +7628,7 @@ export type WbsNodeCreateWithoutPlanSubmissionInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7338,6 +7676,7 @@ export type WbsNodeUncheckedCreateWithoutPlanSubmissionInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -7406,6 +7745,7 @@ export type WbsNodeUpdateWithoutPlanSubmissionsAsRootInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -7454,6 +7794,7 @@ export type WbsNodeUncheckedUpdateWithoutPlanSubmissionsAsRootInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -7516,6 +7857,7 @@ export type WbsNodeCreateWithoutOversightAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7564,6 +7906,7 @@ export type WbsNodeUncheckedCreateWithoutOversightAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -7626,6 +7969,7 @@ export type WbsNodeUpdateWithoutOversightAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -7674,6 +8018,7 @@ export type WbsNodeUncheckedUpdateWithoutOversightAssignmentsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -7720,6 +8065,7 @@ export type WbsNodeCreateWithoutOversightDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7768,6 +8114,7 @@ export type WbsNodeUncheckedCreateWithoutOversightDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -7830,6 +8177,7 @@ export type WbsNodeUpdateWithoutOversightDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -7878,6 +8226,7 @@ export type WbsNodeUncheckedUpdateWithoutOversightDailyEntriesInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -7924,6 +8273,7 @@ export type WbsNodeCreateWithoutResourceRequestsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutWbsNodeInput
@@ -7972,6 +8322,7 @@ export type WbsNodeUncheckedCreateWithoutResourceRequestsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedCreateNestedManyWithoutWbsNodeInput
   materialDemands?: Prisma.MaterialDemandUncheckedCreateNestedManyWithoutWbsNodeInput
   structuralElements?: Prisma.StructuralElementUncheckedCreateNestedManyWithoutWbsNodeInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutWbsNodeInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutWbsNodeInput
@@ -8034,6 +8385,7 @@ export type WbsNodeUpdateWithoutResourceRequestsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -8082,6 +8434,7 @@ export type WbsNodeUncheckedUpdateWithoutResourceRequestsInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -8143,6 +8496,7 @@ export type WbsNodeUpdateWithoutProjectInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -8191,6 +8545,7 @@ export type WbsNodeUncheckedUpdateWithoutProjectInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -8269,6 +8624,7 @@ export type WbsNodeUpdateWithoutParentInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -8317,6 +8673,7 @@ export type WbsNodeUncheckedUpdateWithoutParentInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -8396,6 +8753,7 @@ export type WbsNodeUpdateWithoutPlanSubmissionInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUpdateManyWithoutWbsNodeNestedInput
@@ -8443,6 +8801,7 @@ export type WbsNodeUncheckedUpdateWithoutPlanSubmissionInput = {
   equipmentUsage?: Prisma.EquipmentUsageLogUncheckedUpdateManyWithoutWbsNodeNestedInput
   materialDemands?: Prisma.MaterialDemandUncheckedUpdateManyWithoutWbsNodeNestedInput
   structuralElements?: Prisma.StructuralElementUncheckedUpdateManyWithoutWbsNodeNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutWbsNodeNestedInput
   earthworkDailyEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   structureDailyEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
   rebarDailyEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutWbsNodeNestedInput
@@ -8498,6 +8857,7 @@ export type WbsNodeCountOutputType = {
   equipmentUsage: number
   materialDemands: number
   structuralElements: number
+  designReviews: number
   earthworkDailyEntries: number
   structureDailyEntries: number
   rebarDailyEntries: number
@@ -8532,6 +8892,7 @@ export type WbsNodeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   equipmentUsage?: boolean | WbsNodeCountOutputTypeCountEquipmentUsageArgs
   materialDemands?: boolean | WbsNodeCountOutputTypeCountMaterialDemandsArgs
   structuralElements?: boolean | WbsNodeCountOutputTypeCountStructuralElementsArgs
+  designReviews?: boolean | WbsNodeCountOutputTypeCountDesignReviewsArgs
   earthworkDailyEntries?: boolean | WbsNodeCountOutputTypeCountEarthworkDailyEntriesArgs
   structureDailyEntries?: boolean | WbsNodeCountOutputTypeCountStructureDailyEntriesArgs
   rebarDailyEntries?: boolean | WbsNodeCountOutputTypeCountRebarDailyEntriesArgs
@@ -8674,6 +9035,13 @@ export type WbsNodeCountOutputTypeCountStructuralElementsArgs<ExtArgs extends ru
 /**
  * WbsNodeCountOutputType without action
  */
+export type WbsNodeCountOutputTypeCountDesignReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DesignReviewWhereInput
+}
+
+/**
+ * WbsNodeCountOutputType without action
+ */
 export type WbsNodeCountOutputTypeCountEarthworkDailyEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EarthworkDailyEntryWhereInput
 }
@@ -8810,6 +9178,7 @@ export type WbsNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   equipmentUsage?: boolean | Prisma.WbsNode$equipmentUsageArgs<ExtArgs>
   materialDemands?: boolean | Prisma.WbsNode$materialDemandsArgs<ExtArgs>
   structuralElements?: boolean | Prisma.WbsNode$structuralElementsArgs<ExtArgs>
+  designReviews?: boolean | Prisma.WbsNode$designReviewsArgs<ExtArgs>
   earthworkDailyEntries?: boolean | Prisma.WbsNode$earthworkDailyEntriesArgs<ExtArgs>
   structureDailyEntries?: boolean | Prisma.WbsNode$structureDailyEntriesArgs<ExtArgs>
   rebarDailyEntries?: boolean | Prisma.WbsNode$rebarDailyEntriesArgs<ExtArgs>
@@ -8906,6 +9275,7 @@ export type WbsNodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   equipmentUsage?: boolean | Prisma.WbsNode$equipmentUsageArgs<ExtArgs>
   materialDemands?: boolean | Prisma.WbsNode$materialDemandsArgs<ExtArgs>
   structuralElements?: boolean | Prisma.WbsNode$structuralElementsArgs<ExtArgs>
+  designReviews?: boolean | Prisma.WbsNode$designReviewsArgs<ExtArgs>
   earthworkDailyEntries?: boolean | Prisma.WbsNode$earthworkDailyEntriesArgs<ExtArgs>
   structureDailyEntries?: boolean | Prisma.WbsNode$structureDailyEntriesArgs<ExtArgs>
   rebarDailyEntries?: boolean | Prisma.WbsNode$rebarDailyEntriesArgs<ExtArgs>
@@ -8956,6 +9326,7 @@ export type $WbsNodePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     equipmentUsage: Prisma.$EquipmentUsageLogPayload<ExtArgs>[]
     materialDemands: Prisma.$MaterialDemandPayload<ExtArgs>[]
     structuralElements: Prisma.$StructuralElementPayload<ExtArgs>[]
+    designReviews: Prisma.$DesignReviewPayload<ExtArgs>[]
     earthworkDailyEntries: Prisma.$EarthworkDailyEntryPayload<ExtArgs>[]
     structureDailyEntries: Prisma.$StructureDailyEntryPayload<ExtArgs>[]
     rebarDailyEntries: Prisma.$RebarDailyEntryPayload<ExtArgs>[]
@@ -9411,6 +9782,7 @@ export interface Prisma__WbsNodeClient<T, Null = never, ExtArgs extends runtime.
   equipmentUsage<T extends Prisma.WbsNode$equipmentUsageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$equipmentUsageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialDemands<T extends Prisma.WbsNode$materialDemandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$materialDemandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialDemandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   structuralElements<T extends Prisma.WbsNode$structuralElementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$structuralElementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StructuralElementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  designReviews<T extends Prisma.WbsNode$designReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$designReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DesignReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   earthworkDailyEntries<T extends Prisma.WbsNode$earthworkDailyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$earthworkDailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EarthworkDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   structureDailyEntries<T extends Prisma.WbsNode$structureDailyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$structureDailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StructureDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rebarDailyEntries<T extends Prisma.WbsNode$rebarDailyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WbsNode$rebarDailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RebarDailyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10266,6 +10638,30 @@ export type WbsNode$structuralElementsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.StructuralElementScalarFieldEnum | Prisma.StructuralElementScalarFieldEnum[]
+}
+
+/**
+ * WbsNode.designReviews
+ */
+export type WbsNode$designReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DesignReview
+   */
+  select?: Prisma.DesignReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DesignReview
+   */
+  omit?: Prisma.DesignReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DesignReviewInclude<ExtArgs> | null
+  where?: Prisma.DesignReviewWhereInput
+  orderBy?: Prisma.DesignReviewOrderByWithRelationInput | Prisma.DesignReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DesignReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DesignReviewScalarFieldEnum | Prisma.DesignReviewScalarFieldEnum[]
 }
 
 /**

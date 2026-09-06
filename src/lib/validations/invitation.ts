@@ -17,6 +17,8 @@ const roles = [
   "CONSULTANT_ENGINEER",
   "CLIENT_REP",
   "ADMIN",
+  "SUBCONTRACTOR_PM",
+  "OFFICE_ENGINEER",
 ] as const;
 
 export const singleInviteSchema = z.object({

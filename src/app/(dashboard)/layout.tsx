@@ -11,6 +11,7 @@ export default async function DashboardLayout({
   if (!session) {
     redirect("/login");
   }
+  if (session.mustChangePassword) redirect("/change-password");
 
   return (
     <DashboardShell
@@ -19,6 +20,7 @@ export default async function DashboardLayout({
         role: session.role,
         organizationName: session.organizationName,
         partyType: session.partyType,
+        companyRoles: session.companyRoles,
       }}
     >
       {children}

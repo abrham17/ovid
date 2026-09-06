@@ -21,6 +21,8 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   CLIENT_REP: "Client Representative",
   ADMIN: "Administrator",
   SUBCONTRACTOR_PM: "Subcontractor Manager",
+  OFFICE_ENGINEER: "Office Engineer",
+  COMPANY_STAFF: "Company Staff",
 };
 
 export const PARTY_LABELS: Record<PartyType, string> = {
@@ -153,4 +155,5 @@ export const ROLE_DEFAULT_MODULE: Partial<Record<UserRole, ProjectModuleId>> = {
   CONSULTANT_ENGINEER: "quality",
   CLIENT_REP: "overview",
   ADMIN: "overview",
+  OFFICE_ENGINEER: "documents",
 };

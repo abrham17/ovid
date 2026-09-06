@@ -1,4 +1,4 @@
-import type { UserRole, PartyType } from "@/generated/prisma/enums";
+import type { UserRole, PartyType, CompanyStaffRole } from "@/generated/prisma/enums";
 import type { SessionUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 
@@ -38,6 +38,22 @@ export type Resource =
   | "assignment"
   | "dispute"
   | "contract";
+
+export type CompanyResource =
+  | "company_staff"
+  | "portfolio"
+  | "tendering"
+  | "project_approval"
+  | "contractor_onboarding"
+  | "legal_escalation"
+  | "planning_monitoring"
+  | "engineering_standards"
+  | "equipment_capital"
+  | "finance_approval"
+  | "audit_compliance"
+  | "audit_findings"
+  | "executive_intervention"
+  | "executive_approval";
 
 /** Role capabilities — conservative defaults; refine per organisation policy */
 const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionAction[]>>> = {
@@ -228,6 +244,12 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
     assignment: ["read", "create", "update"],
     notification: ["read"],
   },
+  OFFICE_ENGINEER: {
+    project: ["read"], wbs: ["read"], schedule: ["read"], daily_report: ["read", "create", "update"],
+    document: ["read", "create", "update"], risk: ["read", "create"], variation: ["read", "create", "update"],
+    procurement: ["read"], assignment: ["read", "create", "update"], dispute: ["read", "create"], notification: ["read"],
+  },
+  COMPANY_STAFF: { project: ["read"], wbs: ["read"], schedule: ["read"], daily_report: ["read"], quality: ["read"], safety: ["read"], cost: ["read"], measurement: ["read"], variation: ["read"], procurement: ["read"], labor: ["read"], equipment: ["read"], document: ["read"], risk: ["read"], contract: ["read"], notification: ["read"] },
   ADMIN: {
     project: ["read", "create", "update", "delete"],
     wbs: ["read", "create", "update", "delete"],
@@ -250,6 +272,45 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
     notification: ["read", "create"],
   },
 };
+
+export const COMPANY_ROLE_PERMISSIONS: Record<CompanyStaffRole, Partial<Record<CompanyResource, PermissionAction[]>>> = {
+  GENERAL_MANAGER: { portfolio: ["read"], project_approval: ["approve"], contractor_onboarding: ["approve"], equipment_capital: ["approve"], audit_compliance: ["read"], executive_intervention: ["read", "create", "update", "approve"], executive_approval: ["read", "approve"] },
+  LEGAL_SERVICE_MANAGER: { portfolio: ["read"], tendering: ["read", "update", "approve"], legal_escalation: ["read", "create", "approve"], executive_intervention: ["read", "update"] },
+  HEAD_TENDERING: { portfolio: ["read"], tendering: ["read", "create", "update", "approve"], project_approval: ["create"], contractor_onboarding: ["create"], legal_escalation: ["read", "create"], executive_intervention: ["read", "update"] },
+  TENDERING_OFFICER: { portfolio: ["read"], tendering: ["read", "create", "update"] },
+  HEAD_PLANNING_MONITORING: { portfolio: ["read"], planning_monitoring: ["read", "create", "update"], executive_intervention: ["read", "update"] },
+  PLANNING_OFFICER: { portfolio: ["read"], planning_monitoring: ["read", "update"], executive_intervention: ["read", "update"] },
+  ENGINEERING_DEPT_MANAGER: { portfolio: ["read"], engineering_standards: ["read", "approve"], tendering: ["read", "approve"], equipment_capital: ["approve"], legal_escalation: ["approve"], executive_intervention: ["read", "update"] },
+  HEAD_ENGINEERING_SERVICES: { portfolio: ["read"], engineering_standards: ["read", "create", "update", "approve"], executive_intervention: ["read", "update"] },
+  ENGINEERING_SERVICES_OFFICER: { portfolio: ["read"], engineering_standards: ["read", "create", "update"] },
+  EQUIPMENT_ADMIN_MANAGER: { portfolio: ["read"], equipment_capital: ["read", "create", "update"], executive_intervention: ["read", "update"] },
+  FINANCE_DEPT_MANAGER: { portfolio: ["read"], finance_approval: ["read", "approve"], audit_compliance: ["read"], executive_intervention: ["read", "update"] },
+  INTERNAL_AUDITOR: { audit_compliance: ["read"], audit_findings: ["read", "create", "update"], portfolio: ["read"] },
+};
+
+export function companyRoleCan(role: CompanyStaffRole, resource: CompanyResource, action: PermissionAction) {
+  return COMPANY_ROLE_PERMISSIONS[role]?.[resource]?.includes(action) ?? false;
+}
+
+export async function getActiveCompanyRoles(userId: string, organizationId: string): Promise<CompanyStaffRole[]> {
+  const rows = await db.companyStaffAssignment.findMany({ where: { userId, organizationId, active: true }, select: { role: true } });
+  return rows.map((r) => r.role);
+}
+
+export async function hasCompanyRole(user: SessionUser, role: CompanyStaffRole) {
+  const roles = await getActiveCompanyRoles(user.id, user.organizationId);
+  return roles.includes(role);
+}
+
+export async function canCompany(user: SessionUser, resource: CompanyResource, action: PermissionAction) {
+  if (user.role === "ADMIN" && resource === "company_staff") return ["read", "create", "update", "delete"].includes(action);
+  const roles = await getActiveCompanyRoles(user.id, user.organizationId);
+  return roles.some((role) => COMPANY_ROLE_PERMISSIONS[role]?.[resource]?.includes(action));
+}
+
+export async function assertCompanyPermission(user: SessionUser, resource: CompanyResource, action: PermissionAction) {
+  if (!(await canCompany(user, resource, action))) throw new PermissionError(`Company role cannot ${action} ${resource}`);
+}
 
 export function can(
   role: UserRole,
@@ -289,6 +350,10 @@ export async function assertProjectAccess(
   user: SessionUser,
   projectId: string
 ) {
+  if ((user.companyRoles?.length ?? 0) > 0 && await canCompany(user, "portfolio", "read")) {
+    const project = await db.project.findFirst({ where: { id: projectId, OR: [{ contractorOrgId: user.organizationId }, { clientOrgId: user.organizationId }, { consultantOrgId: user.organizationId }] } });
+    if (project) return { role: user.role as UserRole, project };
+  }
   // ADMIN: any project linked to their org as contractor / client / consultant
   if (user.role === "ADMIN") {
     const project = await db.project.findFirst({

@@ -1,0 +1,7 @@
+import { NextRequest } from "next/server";
+import { z } from "zod";
+import { requireSession } from "@/lib/auth";
+import { created, handleApiError, ok, parseJson } from "@/lib/api";
+import { createCompanyTemplate, listCompanyFleet, listCompanyTemplates, requestEquipmentCapital } from "@/lib/services/company-assets.service";
+export async function GET(req: NextRequest) { try { const user = await requireSession(); return ok(new URL(req.url).searchParams.get("kind") === "fleet" ? await listCompanyFleet(user) : await listCompanyTemplates(user)); } catch (e) { return handleApiError(e); } }
+export async function POST(req: NextRequest) { try { const user = await requireSession(); const b = await parseJson<any>(req); if (b.kind === "equipment") return created(await requestEquipmentCapital(user, z.object({ action: z.enum(["ACQUIRE","DISPOSE"]), equipmentId: z.string().cuid().optional(), equipmentType: z.string().min(1), plateNo: z.string().optional(), serialNo: z.string().optional(), amount: z.coerce.number().nonnegative(), comment: z.string().optional() }).parse(b))); return created(await createCompanyTemplate(user, z.object({ docNo: z.string().min(1), title: z.string().min(1), issuingDepartment: z.enum(["ENG","QC","HSE","FINANCE","HR","PROCUREMENT","CONTRACTS"]), revisionNo: z.coerce.number().int().positive(), effectiveDate: z.string(), formSchema: z.unknown().optional() }).parse(b))); } catch (e) { return handleApiError(e); } }

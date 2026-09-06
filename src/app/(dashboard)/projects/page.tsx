@@ -22,11 +22,7 @@ export default async function ProjectsPage() {
       <PageHeader
         title="Projects"
         description={`${projects.length} project${projects.length === 1 ? "" : "s"} in ${session.organizationName}`}
-        actions={
-          (session.role === "SENIOR_PM" || session.role === "ADMIN")
-            ? [{ label: "New project", icon: "Plus", href: "/projects/new" }]
-            : undefined
-        }
+        actions={undefined}
       />
 
       {projects.length === 0 ? (

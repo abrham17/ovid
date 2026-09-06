@@ -14,6 +14,8 @@ import {
   ChevronDown,
   Search,
   LogOut,
+  Users,
+  ListChecks,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -48,6 +50,7 @@ type DashboardShellProps = {
     role: string;
     organizationName: string;
     partyType: string;
+    companyRoles?: string[];
   };
 };
 
@@ -77,6 +80,19 @@ export function DashboardShell({ children, session }: DashboardShellProps) {
 
   const roleLabel = ROLE_LABELS[session.role as keyof typeof ROLE_LABELS] ?? session.role;
 
+  const companyRoles = new Set(session.companyRoles ?? []);
+  const companyNav = [
+    { href: "/dashboard", label: "Company", icon: LayoutDashboard, show: true },
+    { href: "/company/tenders", label: "Tendering", icon: FolderKanban, show: ["HEAD_TENDERING", "TENDERING_OFFICER", "LEGAL_SERVICE_MANAGER", "ENGINEERING_DEPT_MANAGER"].some((r) => companyRoles.has(r)) },
+    { href: "/company/approvals", label: "Approvals", icon: LayoutDashboard, show: true },
+    { href: "/company/assets", label: "Standards & Fleet", icon: HardHat, show: ["ENGINEERING_DEPT_MANAGER", "HEAD_ENGINEERING_SERVICES", "ENGINEERING_SERVICES_OFFICER", "EQUIPMENT_ADMIN_MANAGER", "GENERAL_MANAGER"].some((r) => companyRoles.has(r)) },
+    { href: "/company/audit", label: "Audit & Compliance", icon: Search, show: companyRoles.has("INTERNAL_AUDITOR") || companyRoles.has("GENERAL_MANAGER") },
+    { href: "/company/interventions", label: "Executive Actions", icon: ListChecks, show: [...companyRoles].some((r) => ["GENERAL_MANAGER", "LEGAL_SERVICE_MANAGER", "HEAD_TENDERING", "HEAD_PLANNING_MONITORING", "PLANNING_OFFICER", "ENGINEERING_DEPT_MANAGER", "HEAD_ENGINEERING_SERVICES", "EQUIPMENT_ADMIN_MANAGER", "FINANCE_DEPT_MANAGER"].includes(r)) },
+    { href: "/dashboard?workspace=project", label: "Project Dashboard", icon: HardHat, show: true },
+  ].filter((item) => item.show).map(({ show: _show, ...item }) => item);
+  const navItems = session.role === "ADMIN"
+    ? [...NAV_ITEMS, { href: "/company/staff", label: "Company Staff", icon: Users }]
+    : session.companyRoles?.length ? [...companyNav, ...NAV_ITEMS.slice(1)] : NAV_ITEMS;
   const SidebarContent = () => (
     <div className="flex h-full flex-col bg-[#fdfcf9]">
 
@@ -99,7 +115,7 @@ export function DashboardShell({ children, session }: DashboardShellProps) {
         <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-widest text-[#a08f7a] font-sans">
           Main
         </p>
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const active = isActive(item.href);
           return (
             <Link

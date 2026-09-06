@@ -9,6 +9,10 @@ import type {
 } from "@/lib/validations/cost";
 import { Prisma } from "@/generated/prisma/client";
 import {
+  ensureCompanyApprovalRequest,
+  ensureExecutiveCountersignature,
+} from "@/lib/services/company-approval.service";
+import {
   DomainError,
   assertNonNegative,
   assertStatusTransition,
@@ -242,6 +246,15 @@ export async function updateMeasurementStatus(
     assertPermission(user, "measurement", "update");
   }
 
+  if (status === "PAID") {
+    const amount = Number(entry.quantity) * Number(entry.unitRate);
+    const threshold = Number(process.env.HIGH_VALUE_IPC_THRESHOLD_ETB ?? 5000000);
+    if (amount > threshold) {
+      const gate = await ensureCompanyApprovalRequest(user, { type: "IPC_PAYMENT", entityType: "MeasurementEntry", entityId: entry.id, amount, comment: "High-value IPC requires treasury authorization", thresholdSnapshot: { threshold, projectId, certificateNo: entry.certificateNo } });
+      if (!gate.approved) throw new DomainError(`Company finance approval request ${gate.pending.id} is pending`, 409);
+    }
+  }
+
   return db.measurementEntry.update({
     where: { id: measurementId },
     data: { status },
@@ -306,6 +319,24 @@ export async function updateVariationStatus(
     assertPermission(user, "cost", "approve");
   } else {
     assertPermission(user, "cost", "update");
+  }
+
+  if (status === "CONSULTANT_APPROVED" && Number(vo.costImpact ?? 0) > Number(process.env.HIGH_VALUE_VARIATION_THRESHOLD_ETB ?? 10000000)) {
+    const threshold = Number(process.env.HIGH_VALUE_VARIATION_THRESHOLD_ETB ?? 10000000);
+    const gate = await ensureCompanyApprovalRequest(user, { type: "HIGH_VALUE_VARIATION", entityType: "VariationOrder", entityId: vo.id, amount: Number(vo.costImpact), comment: "High-value variation requires company legal review", thresholdSnapshot: { threshold, projectId, itemNo: vo.itemNo } });
+    if (!gate.approved) throw new DomainError(`Company legal approval request ${gate.pending.id} is pending`, 409);
+    const executiveThreshold = Number(process.env.GM_VARIATION_COUNTERSIGN_THRESHOLD_ETB ?? 25000000);
+    if (Number(vo.costImpact) >= executiveThreshold) {
+      const executiveGate = await ensureExecutiveCountersignature(user, {
+        type: "EXECUTIVE_VARIATION",
+        entityType: "VariationOrder",
+        entityId: vo.id,
+        amount: Number(vo.costImpact),
+        comment: "General Manager countersignature required for this variation value",
+        thresholdSnapshot: { threshold: executiveThreshold, projectId, itemNo: vo.itemNo },
+      });
+      if (!executiveGate.approved) throw new DomainError(`General Manager countersignature ${executiveGate.pending.id} is pending`, 409);
+    }
   }
 
   return db.variationOrder.update({

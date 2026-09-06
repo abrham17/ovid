@@ -750,10 +750,6 @@ export type InvitationUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.InvitationScalarWhereInput | Prisma.InvitationScalarWhereInput[]
 }
 
-export type EnumInvitationStatusFieldUpdateOperationsInput = {
-  set?: $Enums.InvitationStatus
-}
-
 export type InvitationCreateWithoutOrganizationInput = {
   id?: string
   email: string

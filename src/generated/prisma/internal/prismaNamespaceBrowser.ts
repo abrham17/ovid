@@ -52,6 +52,13 @@ export const ModelName = {
   Organization: 'Organization',
   User: 'User',
   ProjectMembership: 'ProjectMembership',
+  CompanyStaffAssignment: 'CompanyStaffAssignment',
+  CompanyInvitation: 'CompanyInvitation',
+  CompanyApproval: 'CompanyApproval',
+  DesignReview: 'DesignReview',
+  AuditFinding: 'AuditFinding',
+  ExecutiveIntervention: 'ExecutiveIntervention',
+  ExecutiveInterventionEvent: 'ExecutiveInterventionEvent',
   DocumentTemplate: 'DocumentTemplate',
   SignOff: 'SignOff',
   Project: 'Project',
@@ -82,6 +89,7 @@ export const ModelName = {
   LaborAssignment: 'LaborAssignment',
   Equipment: 'Equipment',
   EquipmentUsageLog: 'EquipmentUsageLog',
+  EquipmentAllocation: 'EquipmentAllocation',
   MaterialItem: 'MaterialItem',
   MaterialDemand: 'MaterialDemand',
   CustodyLog: 'CustodyLog',
@@ -151,6 +159,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   signatureImageUrl: 'signatureImageUrl',
   active: 'active',
+  mustChangePassword: 'mustChangePassword',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -167,6 +176,145 @@ export const ProjectMembershipScalarFieldEnum = {
 } as const
 
 export type ProjectMembershipScalarFieldEnum = (typeof ProjectMembershipScalarFieldEnum)[keyof typeof ProjectMembershipScalarFieldEnum]
+
+
+export const CompanyStaffAssignmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  role: 'role',
+  active: 'active',
+  assignedAt: 'assignedAt',
+  endedAt: 'endedAt',
+  assignedById: 'assignedById',
+  reason: 'reason'
+} as const
+
+export type CompanyStaffAssignmentScalarFieldEnum = (typeof CompanyStaffAssignmentScalarFieldEnum)[keyof typeof CompanyStaffAssignmentScalarFieldEnum]
+
+
+export const CompanyInvitationScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  fullName: 'fullName',
+  jobTitle: 'jobTitle',
+  role: 'role',
+  organizationId: 'organizationId',
+  invitedById: 'invitedById',
+  tokenHash: 'tokenHash',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  acceptedAt: 'acceptedAt',
+  acceptedUserId: 'acceptedUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyInvitationScalarFieldEnum = (typeof CompanyInvitationScalarFieldEnum)[keyof typeof CompanyInvitationScalarFieldEnum]
+
+
+export const CompanyApprovalScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  type: 'type',
+  status: 'status',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  requestedById: 'requestedById',
+  reviewedById: 'reviewedById',
+  amount: 'amount',
+  thresholdSnapshot: 'thresholdSnapshot',
+  comment: 'comment',
+  requestedAt: 'requestedAt',
+  reviewedAt: 'reviewedAt'
+} as const
+
+export type CompanyApprovalScalarFieldEnum = (typeof CompanyApprovalScalarFieldEnum)[keyof typeof CompanyApprovalScalarFieldEnum]
+
+
+export const DesignReviewScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  wbsNodeId: 'wbsNodeId',
+  title: 'title',
+  documentRef: 'documentRef',
+  reviewType: 'reviewType',
+  safetyCritical: 'safetyCritical',
+  status: 'status',
+  findings: 'findings',
+  resolution: 'resolution',
+  submittedById: 'submittedById',
+  reviewedById: 'reviewedById',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DesignReviewScalarFieldEnum = (typeof DesignReviewScalarFieldEnum)[keyof typeof DesignReviewScalarFieldEnum]
+
+
+export const AuditFindingScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  title: 'title',
+  description: 'description',
+  severity: 'severity',
+  status: 'status',
+  evidenceRef: 'evidenceRef',
+  remediationPlan: 'remediationPlan',
+  managementReply: 'managementReply',
+  dueAt: 'dueAt',
+  raisedById: 'raisedById',
+  ownerId: 'ownerId',
+  verifiedById: 'verifiedById',
+  verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuditFindingScalarFieldEnum = (typeof AuditFindingScalarFieldEnum)[keyof typeof AuditFindingScalarFieldEnum]
+
+
+export const ExecutiveInterventionScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  category: 'category',
+  priority: 'priority',
+  status: 'status',
+  title: 'title',
+  description: 'description',
+  requiredAction: 'requiredAction',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  accountableUserId: 'accountableUserId',
+  createdById: 'createdById',
+  dueAt: 'dueAt',
+  closedById: 'closedById',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExecutiveInterventionScalarFieldEnum = (typeof ExecutiveInterventionScalarFieldEnum)[keyof typeof ExecutiveInterventionScalarFieldEnum]
+
+
+export const ExecutiveInterventionEventScalarFieldEnum = {
+  id: 'id',
+  interventionId: 'interventionId',
+  type: 'type',
+  authorId: 'authorId',
+  comment: 'comment',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  oldDueAt: 'oldDueAt',
+  newDueAt: 'newDueAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ExecutiveInterventionEventScalarFieldEnum = (typeof ExecutiveInterventionEventScalarFieldEnum)[keyof typeof ExecutiveInterventionEventScalarFieldEnum]
 
 
 export const DocumentTemplateScalarFieldEnum = {
@@ -692,6 +840,21 @@ export const EquipmentUsageLogScalarFieldEnum = {
 export type EquipmentUsageLogScalarFieldEnum = (typeof EquipmentUsageLogScalarFieldEnum)[keyof typeof EquipmentUsageLogScalarFieldEnum]
 
 
+export const EquipmentAllocationScalarFieldEnum = {
+  id: 'id',
+  equipmentId: 'equipmentId',
+  projectId: 'projectId',
+  allocatedFrom: 'allocatedFrom',
+  allocatedTo: 'allocatedTo',
+  purpose: 'purpose',
+  allocatedById: 'allocatedById',
+  releasedAt: 'releasedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EquipmentAllocationScalarFieldEnum = (typeof EquipmentAllocationScalarFieldEnum)[keyof typeof EquipmentAllocationScalarFieldEnum]
+
+
 export const MaterialItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -919,6 +1082,7 @@ export type MaterialReceiptScalarFieldEnum = (typeof MaterialReceiptScalarFieldE
 export const BidTenderScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
+  ownerOrgId: 'ownerOrgId',
   supplierOrgId: 'supplierOrgId',
   bidNo: 'bidNo',
   title: 'title',
@@ -927,6 +1091,10 @@ export const BidTenderScalarFieldEnum = {
   submittedAt: 'submittedAt',
   result: 'result',
   submittedByUserId: 'submittedByUserId',
+  tenderOwnerId: 'tenderOwnerId',
+  awardedAt: 'awardedAt',
+  conversionProposedAt: 'conversionProposedAt',
+  convertedAt: 'convertedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1094,19 +1262,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

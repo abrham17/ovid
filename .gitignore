@@ -61,3 +61,4 @@ next-env.d.ts
 # Prisma (keep migrations and schema, ignore dev database if using SQLite)
 # prisma/dev.db
 # prisma/migrations/**/migration.sql
+.opencode

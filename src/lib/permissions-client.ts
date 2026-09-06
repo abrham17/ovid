@@ -226,6 +226,12 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
     assignment: ["read", "create", "update"],
     notification: ["read"],
   },
+  OFFICE_ENGINEER: {
+    project: ["read"], wbs: ["read"], schedule: ["read"], daily_report: ["read", "create", "update"],
+    document: ["read", "create", "update"], risk: ["read", "create"], variation: ["read", "create", "update"],
+    procurement: ["read"], assignment: ["read", "create", "update"], dispute: ["read", "create"], notification: ["read"],
+  },
+  COMPANY_STAFF: { project: ["read"], wbs: ["read"], schedule: ["read"], daily_report: ["read"], quality: ["read"], safety: ["read"], cost: ["read"], measurement: ["read"], variation: ["read"], procurement: ["read"], labor: ["read"], equipment: ["read"], document: ["read"], risk: ["read"], contract: ["read"], notification: ["read"] },
   ADMIN: {
     project: ["read", "create", "update", "delete"],
     wbs: ["read", "create", "update", "delete"],

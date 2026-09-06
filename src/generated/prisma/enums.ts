@@ -54,10 +54,122 @@ export const UserRole = {
   CONSULTANT_ENGINEER: 'CONSULTANT_ENGINEER',
   CLIENT_REP: 'CLIENT_REP',
   ADMIN: 'ADMIN',
-  SUBCONTRACTOR_PM: 'SUBCONTRACTOR_PM'
+  SUBCONTRACTOR_PM: 'SUBCONTRACTOR_PM',
+  OFFICE_ENGINEER: 'OFFICE_ENGINEER',
+  COMPANY_STAFF: 'COMPANY_STAFF'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const CompanyStaffRole = {
+  GENERAL_MANAGER: 'GENERAL_MANAGER',
+  LEGAL_SERVICE_MANAGER: 'LEGAL_SERVICE_MANAGER',
+  HEAD_TENDERING: 'HEAD_TENDERING',
+  TENDERING_OFFICER: 'TENDERING_OFFICER',
+  HEAD_PLANNING_MONITORING: 'HEAD_PLANNING_MONITORING',
+  PLANNING_OFFICER: 'PLANNING_OFFICER',
+  ENGINEERING_DEPT_MANAGER: 'ENGINEERING_DEPT_MANAGER',
+  HEAD_ENGINEERING_SERVICES: 'HEAD_ENGINEERING_SERVICES',
+  ENGINEERING_SERVICES_OFFICER: 'ENGINEERING_SERVICES_OFFICER',
+  EQUIPMENT_ADMIN_MANAGER: 'EQUIPMENT_ADMIN_MANAGER',
+  FINANCE_DEPT_MANAGER: 'FINANCE_DEPT_MANAGER',
+  INTERNAL_AUDITOR: 'INTERNAL_AUDITOR'
+} as const
+
+export type CompanyStaffRole = (typeof CompanyStaffRole)[keyof typeof CompanyStaffRole]
+
+
+export const CompanyApprovalType = {
+  PROJECT_CREATION: 'PROJECT_CREATION',
+  CONTRACTOR_ONBOARDING: 'CONTRACTOR_ONBOARDING',
+  CONTRACT_TEMPLATE: 'CONTRACT_TEMPLATE',
+  HIGH_VALUE_CONTRACT: 'HIGH_VALUE_CONTRACT',
+  HIGH_VALUE_VARIATION: 'HIGH_VALUE_VARIATION',
+  DESIGN_STANDARD: 'DESIGN_STANDARD',
+  EQUIPMENT_CAPITAL: 'EQUIPMENT_CAPITAL',
+  IPC_PAYMENT: 'IPC_PAYMENT',
+  EXECUTIVE_CONTRACT: 'EXECUTIVE_CONTRACT',
+  EXECUTIVE_VARIATION: 'EXECUTIVE_VARIATION'
+} as const
+
+export type CompanyApprovalType = (typeof CompanyApprovalType)[keyof typeof CompanyApprovalType]
+
+
+export const CompanyApprovalStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type CompanyApprovalStatus = (typeof CompanyApprovalStatus)[keyof typeof CompanyApprovalStatus]
+
+
+export const DesignReviewStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  CHANGES_REQUIRED: 'CHANGES_REQUIRED',
+  APPROVED: 'APPROVED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type DesignReviewStatus = (typeof DesignReviewStatus)[keyof typeof DesignReviewStatus]
+
+
+export const AuditFindingStatus = {
+  OPEN: 'OPEN',
+  REMEDIATION_IN_PROGRESS: 'REMEDIATION_IN_PROGRESS',
+  READY_FOR_VERIFICATION: 'READY_FOR_VERIFICATION',
+  CLOSED: 'CLOSED'
+} as const
+
+export type AuditFindingStatus = (typeof AuditFindingStatus)[keyof typeof AuditFindingStatus]
+
+
+export const ExecutiveInterventionCategory = {
+  SCHEDULE: 'SCHEDULE',
+  COST: 'COST',
+  SAFETY: 'SAFETY',
+  COMPLIANCE: 'COMPLIANCE',
+  AUDIT: 'AUDIT',
+  CONTRACT: 'CONTRACT',
+  RESOURCE: 'RESOURCE',
+  OTHER: 'OTHER'
+} as const
+
+export type ExecutiveInterventionCategory = (typeof ExecutiveInterventionCategory)[keyof typeof ExecutiveInterventionCategory]
+
+
+export const ExecutiveInterventionPriority = {
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type ExecutiveInterventionPriority = (typeof ExecutiveInterventionPriority)[keyof typeof ExecutiveInterventionPriority]
+
+
+export const ExecutiveInterventionStatus = {
+  OPEN: 'OPEN',
+  ACKNOWLEDGED: 'ACKNOWLEDGED',
+  ACTION_IN_PROGRESS: 'ACTION_IN_PROGRESS',
+  READY_FOR_REVIEW: 'READY_FOR_REVIEW',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ExecutiveInterventionStatus = (typeof ExecutiveInterventionStatus)[keyof typeof ExecutiveInterventionStatus]
+
+
+export const ExecutiveInterventionEventType = {
+  CREATED: 'CREATED',
+  MANAGEMENT_RESPONSE: 'MANAGEMENT_RESPONSE',
+  CEO_DIRECTION: 'CEO_DIRECTION',
+  STATUS_CHANGE: 'STATUS_CHANGE',
+  DUE_DATE_CHANGE: 'DUE_DATE_CHANGE'
+} as const
+
+export type ExecutiveInterventionEventType = (typeof ExecutiveInterventionEventType)[keyof typeof ExecutiveInterventionEventType]
 
 
 export const DocDept = {

@@ -3,6 +3,10 @@ import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
 import { DomainError } from "@/lib/domain-rules";
 import { Prisma } from "@/generated/prisma/client";
+import {
+  ensureCompanyApprovalRequest,
+  ensureExecutiveCountersignature,
+} from "@/lib/services/company-approval.service";
 
 type CreateContractInput = {
   projectId: string;
@@ -83,6 +87,24 @@ export async function createContract(
   assertPermission(user, "project", "update");
 
   await assertNoBranchOverlap(input.scopeWbsNodeId, input.projectId);
+
+  if (input.contractValue > Number(process.env.HIGH_VALUE_CONTRACT_THRESHOLD_ETB ?? 50000000)) {
+    const entityId = `${input.projectId}:${input.contractorOrgId}:${input.scopeWbsNodeId}`;
+    const gate = await ensureCompanyApprovalRequest(user, { type: "HIGH_VALUE_CONTRACT", entityType: "ContractProposal", entityId, amount: input.contractValue, comment: "High-value subcontract requires company legal review", thresholdSnapshot: { threshold: Number(process.env.HIGH_VALUE_CONTRACT_THRESHOLD_ETB ?? 50000000), ...input } });
+    if (!gate.approved) throw new DomainError(`Company legal approval request ${gate.pending.id} is pending`, 409);
+    const executiveThreshold = Number(process.env.GM_CONTRACT_COUNTERSIGN_THRESHOLD_ETB ?? 100000000);
+    if (input.contractValue >= executiveThreshold) {
+      const executiveGate = await ensureExecutiveCountersignature(user, {
+        type: "EXECUTIVE_CONTRACT",
+        entityType: "ContractProposal",
+        entityId,
+        amount: input.contractValue,
+        comment: "General Manager countersignature required for this contract value",
+        thresholdSnapshot: { threshold: executiveThreshold, ...input },
+      });
+      if (!executiveGate.approved) throw new DomainError(`General Manager countersignature ${executiveGate.pending.id} is pending`, 409);
+    }
+  }
 
   const wbsNode = await db.wbsNode.findUnique({
     where: { id: input.scopeWbsNodeId },

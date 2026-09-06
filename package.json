@@ -11,10 +11,14 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed": "node --env-file=.env --import tsx prisma/seed.ts",
+    "db:bootstrap-admin": "node --env-file=.env --import tsx prisma/bootstrap-admin.ts",
     "db:reset": "prisma migrate reset --force",
     "db:studio": "prisma studio",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:company-rbac": "node --env-file=.env --import tsx src/lib/company-rbac.test.ts",
+    "test:company-portfolio": "node --import tsx src/lib/company-portfolio.test.ts",
+    "test": "npm run test:company-rbac && npm run test:company-portfolio"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",

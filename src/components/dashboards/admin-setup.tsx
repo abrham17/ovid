@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/ui/page-header";
+export function AdminSetup({ organizationName }: { organizationName: string }) { return <div className="mx-auto max-w-4xl space-y-6 p-6"><PageHeader title="Company setup" description={`Complete the first-deployment setup for ${organizationName}`} /><Card><CardHeader><CardTitle>Technical administrator ready</CardTitle></CardHeader><CardContent className="space-y-3 text-sm"><p>Invite the General Manager and assign the company leadership team. Company roles are separate from project memberships.</p><Link className="inline-flex rounded-md bg-primary px-4 py-2 text-primary-foreground" href="/company/staff">Open Company Staff administration</Link></CardContent></Card></div>; }

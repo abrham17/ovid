@@ -8,7 +8,7 @@ export default async function NewProjectPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  if (!can(session.role, "project", "create")) {
+  if (!can(session.role, "project", "create") || session.role === "ADMIN" || session.companyRoles?.length) {
     redirect("/projects");
   }
 

@@ -1,0 +1,7 @@
+import { NextRequest } from "next/server";
+import { requireSession } from "@/lib/auth";
+import { created, handleApiError, ok, parseJson } from "@/lib/api";
+import { createTender, listTenders, proposeProjectConversion, reviewProjectConversion, updateTender } from "@/lib/services/tender.service";
+import { z } from "zod";
+export async function GET() { try { return ok(await listTenders(await requireSession())); } catch (e) { return handleApiError(e); } }
+export async function POST(req: NextRequest) { try { const user = await requireSession(); const b = await parseJson<any>(req); if (b.action === "update") return ok(await updateTender(user, z.string().cuid().parse(b.tenderId), z.object({ title: z.string().min(3).optional(), description: z.string().optional(), amount: z.number().nonnegative().optional(), supplierOrgId: z.string().cuid().nullable().optional(), result: z.enum(["DRAFT","SUBMITTED","WON","LOST","CANCELLED"]).optional() }).parse(b.data))); if (b.action === "propose-conversion") return created(await proposeProjectConversion(user, z.string().cuid().parse(b.tenderId), b.proposal)); if (b.action === "review-conversion") return ok(await reviewProjectConversion(user, z.string().cuid().parse(b.approvalId), Boolean(b.approved), b.comment)); return created(await createTender(user, z.object({ bidNo: z.string().min(1), title: z.string().min(3), description: z.string().optional(), amount: z.number().nonnegative().optional() }).parse(b))); } catch (e) { return handleApiError(e); } }

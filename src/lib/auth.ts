@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
-import type { UserRole, PartyType } from "@/generated/prisma/enums";
+import type { UserRole, PartyType, CompanyStaffRole } from "@/generated/prisma/enums";
 
 const COOKIE_NAME = "ovid_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
@@ -24,6 +24,8 @@ export type SessionUser = {
   organizationId: string;
   organizationName: string;
   partyType: PartyType;
+  companyRoles?: CompanyStaffRole[];
+  mustChangePassword?: boolean;
 };
 
 export type SessionPayload = {
@@ -81,7 +83,10 @@ export async function getSession(): Promise<SessionUser | null> {
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
   const payload = await verifySessionToken(token);
-  return payload?.user ?? null;
+  if (!payload?.user) return null;
+  const current = await db.user.findUnique({ where: { id: payload.user.id }, include: { organization: { select: { name: true, partyType: true } }, companyAssignments: { where: { active: true }, select: { role: true } } } });
+  if (!current?.active) return null;
+  return { id: current.id, email: current.email, name: current.fullName, role: current.role, organizationId: current.organizationId, organizationName: current.organization.name, partyType: current.organization.partyType, companyRoles: current.companyAssignments.map((a) => a.role), mustChangePassword: current.mustChangePassword };
 }
 
 export async function requireSession(): Promise<SessionUser> {
@@ -97,6 +102,7 @@ export async function loginWithCredentials(email: string, password: string): Pro
     where: { email: email.toLowerCase().trim() },
     include: {
       organization: { select: { id: true, name: true, partyType: true } },
+      companyAssignments: { where: { active: true }, select: { role: true } },
     },
   });
 
@@ -121,6 +127,8 @@ export async function loginWithCredentials(email: string, password: string): Pro
     organizationId: user.organizationId,
     organizationName: user.organization.name,
     partyType: user.organization.partyType,
+    companyRoles: user.companyAssignments.map((a) => a.role),
+    mustChangePassword: user.mustChangePassword,
   };
 }
 
@@ -138,7 +146,10 @@ export async function getSessionFromRequest(req: NextRequest): Promise<SessionUs
   const token = req.cookies.get(COOKIE_NAME)?.value;
   if (!token) return null;
   const payload = await verifySessionToken(token);
-  return payload?.user ?? null;
+  if (!payload?.user) return null;
+  const current = await db.user.findUnique({ where: { id: payload.user.id }, include: { organization: { select: { name: true, partyType: true } }, companyAssignments: { where: { active: true }, select: { role: true } } } });
+  if (!current?.active) return null;
+  return { id: current.id, email: current.email, name: current.fullName, role: current.role, organizationId: current.organizationId, organizationName: current.organization.name, partyType: current.organization.partyType, companyRoles: current.companyAssignments.map((assignment) => assignment.role), mustChangePassword: current.mustChangePassword };
 }
 
 export function unauthorizedResponse(message = "Unauthorized") {

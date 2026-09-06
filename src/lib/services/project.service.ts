@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
+import { canCompany } from "@/lib/permissions";
 import type {
   CreateProjectInput,
   UpdateProjectInput,
@@ -8,6 +9,7 @@ import type {
   UpdateWbsNodeInput,
 } from "@/lib/validations/project";
 import { Prisma } from "@/generated/prisma/client";
+import { DomainError } from "@/lib/domain-rules";
 import {
   getEffectiveScope,
   assertScopeWritable,
@@ -19,7 +21,7 @@ export async function listProjects(
   user: SessionUser,
   opts?: { status?: string; search?: string }
 ) {
-  assertPermission(user, "project", "read");
+  if (!user.companyRoles?.length) assertPermission(user, "project", "read");
 
   const where: Prisma.ProjectWhereInput = {
     OR: [
@@ -166,45 +168,8 @@ export async function getProject(user: SessionUser, projectId: string) {
 }
 
 export async function createProject(user: SessionUser, input: CreateProjectInput) {
-  assertPermission(user, "project", "create");
-
-  return db.$transaction(async (tx) => {
-    const project = await tx.project.create({
-      data: {
-        code: input.code,
-        name: input.name,
-        projectType: input.projectType,
-        contractType: input.contractType ?? "FIDIC_RED",
-        status: input.status ?? "PLANNING",
-        contractValue: new Prisma.Decimal(input.contractValue),
-        plannedStartDate: new Date(input.plannedStartDate),
-        plannedEndDate: new Date(input.plannedEndDate),
-        contractorOrgId: user.organizationId,
-        clientOrgId: input.clientOrgId,
-        consultantOrgId: input.consultantOrgId ?? null,
-      },
-    });
-
-    await tx.projectMembership.create({
-      data: {
-        projectId: project.id,
-        userId: user.id,
-        organizationId: user.organizationId,
-        projectRole: user.role,
-      },
-    });
-
-    await tx.wbsNode.create({
-      data: {
-        projectId: project.id,
-        name: "Project Root",
-        code: "0",
-        nodeType: "PHASE",
-      },
-    });
-
-    return project;
-  });
+  void user; void input;
+  throw new DomainError("Projects must be created from a won tender approved by the General Manager", 409);
 }
 
 export async function updateProject(

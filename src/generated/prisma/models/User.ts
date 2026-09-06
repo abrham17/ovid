@@ -35,6 +35,7 @@ export type UserMinAggregateOutputType = {
   role: $Enums.UserRole | null
   signatureImageUrl: string | null
   active: boolean | null
+  mustChangePassword: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +51,7 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.UserRole | null
   signatureImageUrl: string | null
   active: boolean | null
+  mustChangePassword: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +67,7 @@ export type UserCountAggregateOutputType = {
   role: number
   signatureImageUrl: number
   active: number
+  mustChangePassword: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -82,6 +85,7 @@ export type UserMinAggregateInputType = {
   role?: true
   signatureImageUrl?: true
   active?: true
+  mustChangePassword?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -97,6 +101,7 @@ export type UserMaxAggregateInputType = {
   role?: true
   signatureImageUrl?: true
   active?: true
+  mustChangePassword?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +117,7 @@ export type UserCountAggregateInputType = {
   role?: true
   signatureImageUrl?: true
   active?: true
+  mustChangePassword?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -200,6 +206,7 @@ export type UserGroupByOutputType = {
   role: $Enums.UserRole
   signatureImageUrl: string | null
   active: boolean
+  mustChangePassword: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -236,10 +243,16 @@ export type UserWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   signatureImageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
+  mustChangePassword?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   memberships?: Prisma.ProjectMembershipListRelationFilter
+  companyAssignments?: Prisma.CompanyStaffAssignmentListRelationFilter
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentListRelationFilter
+  companyInvitationsSent?: Prisma.CompanyInvitationListRelationFilter
+  companyApprovalsRequested?: Prisma.CompanyApprovalListRelationFilter
+  companyApprovalsReviewed?: Prisma.CompanyApprovalListRelationFilter
   invitationsSent?: Prisma.InvitationListRelationFilter
   invitationAccepted?: Prisma.XOR<Prisma.InvitationNullableScalarRelationFilter, Prisma.InvitationWhereInput> | null
   signOffs?: Prisma.SignOffListRelationFilter
@@ -258,6 +271,17 @@ export type UserWhereInput = {
   decisions?: Prisma.DecisionLogListRelationFilter
   lessonsLearned?: Prisma.LessonsLearnedListRelationFilter
   bidsSubmitted?: Prisma.BidTenderListRelationFilter
+  tendersOwned?: Prisma.BidTenderListRelationFilter
+  designReviewsSubmitted?: Prisma.DesignReviewListRelationFilter
+  designReviewsReviewed?: Prisma.DesignReviewListRelationFilter
+  auditFindingsRaised?: Prisma.AuditFindingListRelationFilter
+  auditFindingsOwned?: Prisma.AuditFindingListRelationFilter
+  auditFindingsVerified?: Prisma.AuditFindingListRelationFilter
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationListRelationFilter
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventListRelationFilter
   materialReceipts?: Prisma.MaterialReceiptListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   activityAssignments?: Prisma.ActivityAssignmentListRelationFilter
@@ -292,10 +316,16 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   signatureImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
+  mustChangePassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
   memberships?: Prisma.ProjectMembershipOrderByRelationAggregateInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentOrderByRelationAggregateInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentOrderByRelationAggregateInput
+  companyInvitationsSent?: Prisma.CompanyInvitationOrderByRelationAggregateInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalOrderByRelationAggregateInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalOrderByRelationAggregateInput
   invitationsSent?: Prisma.InvitationOrderByRelationAggregateInput
   invitationAccepted?: Prisma.InvitationOrderByWithRelationInput
   signOffs?: Prisma.SignOffOrderByRelationAggregateInput
@@ -314,6 +344,17 @@ export type UserOrderByWithRelationInput = {
   decisions?: Prisma.DecisionLogOrderByRelationAggregateInput
   lessonsLearned?: Prisma.LessonsLearnedOrderByRelationAggregateInput
   bidsSubmitted?: Prisma.BidTenderOrderByRelationAggregateInput
+  tendersOwned?: Prisma.BidTenderOrderByRelationAggregateInput
+  designReviewsSubmitted?: Prisma.DesignReviewOrderByRelationAggregateInput
+  designReviewsReviewed?: Prisma.DesignReviewOrderByRelationAggregateInput
+  auditFindingsRaised?: Prisma.AuditFindingOrderByRelationAggregateInput
+  auditFindingsOwned?: Prisma.AuditFindingOrderByRelationAggregateInput
+  auditFindingsVerified?: Prisma.AuditFindingOrderByRelationAggregateInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationOrderByRelationAggregateInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionOrderByRelationAggregateInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionOrderByRelationAggregateInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionOrderByRelationAggregateInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventOrderByRelationAggregateInput
   materialReceipts?: Prisma.MaterialReceiptOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   activityAssignments?: Prisma.ActivityAssignmentOrderByRelationAggregateInput
@@ -351,10 +392,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   signatureImageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
+  mustChangePassword?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   memberships?: Prisma.ProjectMembershipListRelationFilter
+  companyAssignments?: Prisma.CompanyStaffAssignmentListRelationFilter
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentListRelationFilter
+  companyInvitationsSent?: Prisma.CompanyInvitationListRelationFilter
+  companyApprovalsRequested?: Prisma.CompanyApprovalListRelationFilter
+  companyApprovalsReviewed?: Prisma.CompanyApprovalListRelationFilter
   invitationsSent?: Prisma.InvitationListRelationFilter
   invitationAccepted?: Prisma.XOR<Prisma.InvitationNullableScalarRelationFilter, Prisma.InvitationWhereInput> | null
   signOffs?: Prisma.SignOffListRelationFilter
@@ -373,6 +420,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   decisions?: Prisma.DecisionLogListRelationFilter
   lessonsLearned?: Prisma.LessonsLearnedListRelationFilter
   bidsSubmitted?: Prisma.BidTenderListRelationFilter
+  tendersOwned?: Prisma.BidTenderListRelationFilter
+  designReviewsSubmitted?: Prisma.DesignReviewListRelationFilter
+  designReviewsReviewed?: Prisma.DesignReviewListRelationFilter
+  auditFindingsRaised?: Prisma.AuditFindingListRelationFilter
+  auditFindingsOwned?: Prisma.AuditFindingListRelationFilter
+  auditFindingsVerified?: Prisma.AuditFindingListRelationFilter
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationListRelationFilter
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionListRelationFilter
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventListRelationFilter
   materialReceipts?: Prisma.MaterialReceiptListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   activityAssignments?: Prisma.ActivityAssignmentListRelationFilter
@@ -407,6 +465,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   signatureImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
+  mustChangePassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -428,6 +487,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   signatureImageUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  mustChangePassword?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -442,10 +502,16 @@ export type UserCreateInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -464,6 +530,17 @@ export type UserCreateInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -498,9 +575,15 @@ export type UserUncheckedCreateInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -519,6 +602,17 @@ export type UserUncheckedCreateInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -552,10 +646,16 @@ export type UserUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -574,6 +674,17 @@ export type UserUpdateInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -608,9 +719,15 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -629,6 +746,17 @@ export type UserUncheckedUpdateInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -663,6 +791,7 @@ export type UserCreateManyInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -677,6 +806,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -692,6 +822,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -717,6 +848,7 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   signatureImageUrl?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  mustChangePassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -732,6 +864,7 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   signatureImageUrl?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  mustChangePassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -747,6 +880,7 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   signatureImageUrl?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  mustChangePassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -823,6 +957,214 @@ export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMembershipsInput, Prisma.UserUpdateWithoutMembershipsInput>, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutCompanyAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedCreateWithoutCompanyAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedCompanyRolesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedCreateWithoutAssignedCompanyRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompanyRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCompanyAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedCreateWithoutCompanyAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutCompanyAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyAssignmentsInput, Prisma.UserUpdateWithoutCompanyAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutCompanyAssignmentsInput>
+}
+
+export type UserUpdateOneWithoutAssignedCompanyRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedCreateWithoutAssignedCompanyRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompanyRolesInput
+  upsert?: Prisma.UserUpsertWithoutAssignedCompanyRolesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedCompanyRolesInput, Prisma.UserUpdateWithoutAssignedCompanyRolesInput>, Prisma.UserUncheckedUpdateWithoutAssignedCompanyRolesInput>
+}
+
+export type UserCreateNestedOneWithoutCompanyInvitationsSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedCreateWithoutCompanyInvitationsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInvitationsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCompanyInvitationsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedCreateWithoutCompanyInvitationsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInvitationsSentInput
+  upsert?: Prisma.UserUpsertWithoutCompanyInvitationsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyInvitationsSentInput, Prisma.UserUpdateWithoutCompanyInvitationsSentInput>, Prisma.UserUncheckedUpdateWithoutCompanyInvitationsSentInput>
+}
+
+export type UserCreateNestedOneWithoutCompanyApprovalsRequestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyApprovalsRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCompanyApprovalsReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyApprovalsReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCompanyApprovalsRequestedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyApprovalsRequestedInput
+  upsert?: Prisma.UserUpsertWithoutCompanyApprovalsRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyApprovalsRequestedInput, Prisma.UserUpdateWithoutCompanyApprovalsRequestedInput>, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput>
+}
+
+export type UserUpdateOneWithoutCompanyApprovalsReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyApprovalsReviewedInput
+  upsert?: Prisma.UserUpsertWithoutCompanyApprovalsReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyApprovalsReviewedInput, Prisma.UserUpdateWithoutCompanyApprovalsReviewedInput>, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput>
+}
+
+export type UserCreateNestedOneWithoutDesignReviewsSubmittedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDesignReviewsSubmittedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutDesignReviewsReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDesignReviewsReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDesignReviewsSubmittedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDesignReviewsSubmittedInput
+  upsert?: Prisma.UserUpsertWithoutDesignReviewsSubmittedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDesignReviewsSubmittedInput, Prisma.UserUpdateWithoutDesignReviewsSubmittedInput>, Prisma.UserUncheckedUpdateWithoutDesignReviewsSubmittedInput>
+}
+
+export type UserUpdateOneWithoutDesignReviewsReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDesignReviewsReviewedInput
+  upsert?: Prisma.UserUpsertWithoutDesignReviewsReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDesignReviewsReviewedInput, Prisma.UserUpdateWithoutDesignReviewsReviewedInput>, Prisma.UserUncheckedUpdateWithoutDesignReviewsReviewedInput>
+}
+
+export type UserCreateNestedOneWithoutAuditFindingsRaisedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsRaisedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsRaisedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAuditFindingsOwnedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAuditFindingsVerifiedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsVerifiedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAuditFindingsRaisedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsRaisedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsRaisedInput
+  upsert?: Prisma.UserUpsertWithoutAuditFindingsRaisedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditFindingsRaisedInput, Prisma.UserUpdateWithoutAuditFindingsRaisedInput>, Prisma.UserUncheckedUpdateWithoutAuditFindingsRaisedInput>
+}
+
+export type UserUpdateOneWithoutAuditFindingsOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsOwnedInput
+  upsert?: Prisma.UserUpsertWithoutAuditFindingsOwnedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditFindingsOwnedInput, Prisma.UserUpdateWithoutAuditFindingsOwnedInput>, Prisma.UserUncheckedUpdateWithoutAuditFindingsOwnedInput>
+}
+
+export type UserUpdateOneWithoutAuditFindingsVerifiedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditFindingsVerifiedInput
+  upsert?: Prisma.UserUpsertWithoutAuditFindingsVerifiedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditFindingsVerifiedInput, Prisma.UserUpdateWithoutAuditFindingsVerifiedInput>, Prisma.UserUncheckedUpdateWithoutAuditFindingsVerifiedInput>
+}
+
+export type UserCreateNestedOneWithoutExecutiveInterventionsOwnedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutExecutiveInterventionsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutExecutiveInterventionsClosedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsClosedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsClosedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutExecutiveInterventionsOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsOwnedInput
+  upsert?: Prisma.UserUpsertWithoutExecutiveInterventionsOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExecutiveInterventionsOwnedInput, Prisma.UserUpdateWithoutExecutiveInterventionsOwnedInput>, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput>
+}
+
+export type UserUpdateOneRequiredWithoutExecutiveInterventionsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutExecutiveInterventionsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExecutiveInterventionsCreatedInput, Prisma.UserUpdateWithoutExecutiveInterventionsCreatedInput>, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput>
+}
+
+export type UserUpdateOneWithoutExecutiveInterventionsClosedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsClosedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionsClosedInput
+  upsert?: Prisma.UserUpsertWithoutExecutiveInterventionsClosedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExecutiveInterventionsClosedInput, Prisma.UserUpdateWithoutExecutiveInterventionsClosedInput>, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput>
+}
+
+export type UserCreateNestedOneWithoutExecutiveInterventionEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutExecutiveInterventionEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutiveInterventionEventsInput
+  upsert?: Prisma.UserUpsertWithoutExecutiveInterventionEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExecutiveInterventionEventsInput, Prisma.UserUpdateWithoutExecutiveInterventionEventsInput>, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionEventsInput>
 }
 
 export type UserCreateNestedOneWithoutSignOffsInput = {
@@ -1057,6 +1399,20 @@ export type UserUpdateOneWithoutDisputesResolvedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputesResolvedInput, Prisma.UserUpdateWithoutDisputesResolvedInput>, Prisma.UserUncheckedUpdateWithoutDisputesResolvedInput>
 }
 
+export type UserCreateNestedOneWithoutEquipmentAllocationsMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedCreateWithoutEquipmentAllocationsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEquipmentAllocationsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEquipmentAllocationsMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedCreateWithoutEquipmentAllocationsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEquipmentAllocationsMadeInput
+  upsert?: Prisma.UserUpsertWithoutEquipmentAllocationsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEquipmentAllocationsMadeInput, Prisma.UserUpdateWithoutEquipmentAllocationsMadeInput>, Prisma.UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput>
+}
+
 export type UserCreateNestedOneWithoutCustodyTransfersInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCustodyTransfersInput, Prisma.UserUncheckedCreateWithoutCustodyTransfersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustodyTransfersInput
@@ -1179,6 +1535,12 @@ export type UserCreateNestedOneWithoutBidsSubmittedInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutTendersOwnedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTendersOwnedInput, Prisma.UserUncheckedCreateWithoutTendersOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTendersOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneWithoutBidsSubmittedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutBidsSubmittedInput, Prisma.UserUncheckedCreateWithoutBidsSubmittedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidsSubmittedInput
@@ -1187,6 +1549,16 @@ export type UserUpdateOneWithoutBidsSubmittedNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidsSubmittedInput, Prisma.UserUpdateWithoutBidsSubmittedInput>, Prisma.UserUncheckedUpdateWithoutBidsSubmittedInput>
+}
+
+export type UserUpdateOneWithoutTendersOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTendersOwnedInput, Prisma.UserUncheckedCreateWithoutTendersOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTendersOwnedInput
+  upsert?: Prisma.UserUpsertWithoutTendersOwnedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTendersOwnedInput, Prisma.UserUpdateWithoutTendersOwnedInput>, Prisma.UserUncheckedUpdateWithoutTendersOwnedInput>
 }
 
 export type UserCreateNestedOneWithoutSectionAssignmentsInput = {
@@ -1403,9 +1775,15 @@ export type UserCreateWithoutOrganizationInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -1424,6 +1802,17 @@ export type UserCreateWithoutOrganizationInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -1457,9 +1846,15 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -1478,6 +1873,17 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -1541,6 +1947,7 @@ export type UserScalarWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   signatureImageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
+  mustChangePassword?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
@@ -1555,9 +1962,15 @@ export type UserCreateWithoutMembershipsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -1576,6 +1989,17 @@ export type UserCreateWithoutMembershipsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -1610,8 +2034,14 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -1630,6 +2060,17 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -1679,9 +2120,15 @@ export type UserUpdateWithoutMembershipsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -1700,6 +2147,17 @@ export type UserUpdateWithoutMembershipsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -1734,8 +2192,14 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -1754,6 +2218,4217 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutCompanyAssignmentsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutCompanyAssignmentsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutCompanyAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedCreateWithoutCompanyAssignmentsInput>
+}
+
+export type UserCreateWithoutAssignedCompanyRolesInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedCompanyRolesInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedCompanyRolesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedCreateWithoutAssignedCompanyRolesInput>
+}
+
+export type UserUpsertWithoutCompanyAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedUpdateWithoutCompanyAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedCreateWithoutCompanyAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompanyAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyAssignmentsInput, Prisma.UserUncheckedUpdateWithoutCompanyAssignmentsInput>
+}
+
+export type UserUpdateWithoutCompanyAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompanyAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedCompanyRolesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedCompanyRolesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedCreateWithoutAssignedCompanyRolesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedCompanyRolesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCompanyRolesInput, Prisma.UserUncheckedUpdateWithoutAssignedCompanyRolesInput>
+}
+
+export type UserUpdateWithoutAssignedCompanyRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedCompanyRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutCompanyInvitationsSentInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutCompanyInvitationsSentInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutCompanyInvitationsSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedCreateWithoutCompanyInvitationsSentInput>
+}
+
+export type UserUpsertWithoutCompanyInvitationsSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedUpdateWithoutCompanyInvitationsSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedCreateWithoutCompanyInvitationsSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompanyInvitationsSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInvitationsSentInput, Prisma.UserUncheckedUpdateWithoutCompanyInvitationsSentInput>
+}
+
+export type UserUpdateWithoutCompanyInvitationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompanyInvitationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutCompanyApprovalsRequestedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutCompanyApprovalsRequestedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutCompanyApprovalsRequestedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsRequestedInput>
+}
+
+export type UserCreateWithoutCompanyApprovalsReviewedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutCompanyApprovalsReviewedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutCompanyApprovalsReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsReviewedInput>
+}
+
+export type UserUpsertWithoutCompanyApprovalsRequestedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsRequestedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompanyApprovalsRequestedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyApprovalsRequestedInput, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput>
+}
+
+export type UserUpdateWithoutCompanyApprovalsRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutCompanyApprovalsReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedCreateWithoutCompanyApprovalsReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompanyApprovalsReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyApprovalsReviewedInput, Prisma.UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput>
+}
+
+export type UserUpdateWithoutCompanyApprovalsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutDesignReviewsSubmittedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutDesignReviewsSubmittedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutDesignReviewsSubmittedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsSubmittedInput>
+}
+
+export type UserCreateWithoutDesignReviewsReviewedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutDesignReviewsReviewedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutDesignReviewsReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsReviewedInput>
+}
+
+export type UserUpsertWithoutDesignReviewsSubmittedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedUpdateWithoutDesignReviewsSubmittedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsSubmittedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDesignReviewsSubmittedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDesignReviewsSubmittedInput, Prisma.UserUncheckedUpdateWithoutDesignReviewsSubmittedInput>
+}
+
+export type UserUpdateWithoutDesignReviewsSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDesignReviewsSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutDesignReviewsReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedUpdateWithoutDesignReviewsReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedCreateWithoutDesignReviewsReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDesignReviewsReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDesignReviewsReviewedInput, Prisma.UserUncheckedUpdateWithoutDesignReviewsReviewedInput>
+}
+
+export type UserUpdateWithoutDesignReviewsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDesignReviewsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutAuditFindingsRaisedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAuditFindingsRaisedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAuditFindingsRaisedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsRaisedInput>
+}
+
+export type UserCreateWithoutAuditFindingsOwnedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAuditFindingsOwnedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAuditFindingsOwnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsOwnedInput>
+}
+
+export type UserCreateWithoutAuditFindingsVerifiedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAuditFindingsVerifiedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAuditFindingsVerifiedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsVerifiedInput>
+}
+
+export type UserUpsertWithoutAuditFindingsRaisedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsRaisedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsRaisedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditFindingsRaisedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsRaisedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsRaisedInput>
+}
+
+export type UserUpdateWithoutAuditFindingsRaisedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditFindingsRaisedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAuditFindingsOwnedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsOwnedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsOwnedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditFindingsOwnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsOwnedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsOwnedInput>
+}
+
+export type UserUpdateWithoutAuditFindingsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditFindingsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAuditFindingsVerifiedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsVerifiedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedCreateWithoutAuditFindingsVerifiedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditFindingsVerifiedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditFindingsVerifiedInput, Prisma.UserUncheckedUpdateWithoutAuditFindingsVerifiedInput>
+}
+
+export type UserUpdateWithoutAuditFindingsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditFindingsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutExecutiveInterventionsOwnedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutExecutiveInterventionsOwnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput>
+}
+
+export type UserCreateWithoutExecutiveInterventionsCreatedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutExecutiveInterventionsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput>
+}
+
+export type UserCreateWithoutExecutiveInterventionsClosedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutExecutiveInterventionsClosedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutExecutiveInterventionsClosedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsClosedInput>
+}
+
+export type UserUpsertWithoutExecutiveInterventionsOwnedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExecutiveInterventionsOwnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsOwnedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput>
+}
+
+export type UserUpdateWithoutExecutiveInterventionsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutExecutiveInterventionsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExecutiveInterventionsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsCreatedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput>
+}
+
+export type UserUpdateWithoutExecutiveInterventionsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutExecutiveInterventionsClosedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionsClosedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExecutiveInterventionsClosedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionsClosedInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput>
+}
+
+export type UserUpdateWithoutExecutiveInterventionsClosedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutExecutiveInterventionEventsInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutExecutiveInterventionEventsInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutExecutiveInterventionEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionEventsInput>
+}
+
+export type UserUpsertWithoutExecutiveInterventionEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedCreateWithoutExecutiveInterventionEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExecutiveInterventionEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExecutiveInterventionEventsInput, Prisma.UserUncheckedUpdateWithoutExecutiveInterventionEventsInput>
+}
+
+export type UserUpdateWithoutExecutiveInterventionEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExecutiveInterventionEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -1787,10 +6462,16 @@ export type UserCreateWithoutSignOffsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
@@ -1808,6 +6489,17 @@ export type UserCreateWithoutSignOffsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -1842,9 +6534,15 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
@@ -1862,6 +6560,17 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -1911,10 +6620,16 @@ export type UserUpdateWithoutSignOffsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
@@ -1932,6 +6647,17 @@ export type UserUpdateWithoutSignOffsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -1966,9 +6692,15 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1986,6 +6718,17 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -2019,10 +6762,16 @@ export type UserCreateWithoutInvitationsSentInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
   riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
@@ -2040,6 +6789,17 @@ export type UserCreateWithoutInvitationsSentInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -2074,9 +6834,15 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
   riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
@@ -2094,6 +6860,17 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -2132,10 +6909,16 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
   riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
@@ -2153,6 +6936,17 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -2187,9 +6981,15 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
   riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
@@ -2207,6 +7007,17 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -2256,10 +7067,16 @@ export type UserUpdateWithoutInvitationsSentInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
   riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
@@ -2277,6 +7094,17 @@ export type UserUpdateWithoutInvitationsSentInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -2311,9 +7139,15 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
   riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2331,6 +7165,17 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -2375,10 +7220,16 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
   riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
@@ -2396,6 +7247,17 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -2430,9 +7292,15 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
   riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2450,6 +7318,17 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -2483,10 +7362,16 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -2505,6 +7390,17 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
@@ -2538,9 +7434,15 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -2559,6 +7461,17 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
@@ -2596,10 +7509,16 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -2618,6 +7537,17 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -2651,9 +7581,15 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -2672,6 +7608,17 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -2720,10 +7667,16 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -2742,6 +7695,17 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
@@ -2775,9 +7739,15 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -2796,6 +7766,17 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
@@ -2839,10 +7820,16 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -2861,6 +7848,17 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -2894,9 +7892,15 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -2915,6 +7919,17 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -2947,10 +7962,16 @@ export type UserCreateWithoutDependencyRequestsMadeInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -2969,6 +7990,17 @@ export type UserCreateWithoutDependencyRequestsMadeInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -3002,9 +8034,15 @@ export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -3023,6 +8061,17 @@ export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -3060,10 +8109,16 @@ export type UserCreateWithoutDependencyRequestsReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -3082,6 +8137,17 @@ export type UserCreateWithoutDependencyRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -3115,9 +8181,15 @@ export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -3136,6 +8208,17 @@ export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -3184,10 +8267,16 @@ export type UserUpdateWithoutDependencyRequestsMadeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -3206,6 +8295,17 @@ export type UserUpdateWithoutDependencyRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -3239,9 +8339,15 @@ export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -3260,6 +8366,17 @@ export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -3303,10 +8420,16 @@ export type UserUpdateWithoutDependencyRequestsReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -3325,6 +8448,17 @@ export type UserUpdateWithoutDependencyRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -3358,9 +8492,15 @@ export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -3379,6 +8519,17 @@ export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -3411,10 +8562,16 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -3432,6 +8589,17 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -3466,9 +8634,15 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -3486,6 +8660,17 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -3535,10 +8720,16 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -3556,6 +8747,17 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -3590,9 +8792,15 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -3610,6 +8818,17 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -3643,10 +8862,16 @@ export type UserCreateWithoutStructureEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -3664,6 +8889,17 @@ export type UserCreateWithoutStructureEntriesInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -3698,9 +8934,15 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -3718,6 +8960,17 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -3767,10 +9020,16 @@ export type UserUpdateWithoutStructureEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -3788,6 +9047,17 @@ export type UserUpdateWithoutStructureEntriesInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -3822,9 +9092,15 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -3842,6 +9118,17 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -3875,10 +9162,16 @@ export type UserCreateWithoutRebarEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -3896,6 +9189,17 @@ export type UserCreateWithoutRebarEntriesInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -3930,9 +9234,15 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -3950,6 +9260,17 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -3999,10 +9320,16 @@ export type UserUpdateWithoutRebarEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -4020,6 +9347,17 @@ export type UserUpdateWithoutRebarEntriesInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -4054,9 +9392,15 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -4074,6 +9418,17 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -4107,10 +9462,16 @@ export type UserCreateWithoutRiskOwnerInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -4128,6 +9489,17 @@ export type UserCreateWithoutRiskOwnerInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -4162,9 +9534,15 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -4182,6 +9560,17 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -4231,10 +9620,16 @@ export type UserUpdateWithoutRiskOwnerInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -4252,6 +9647,17 @@ export type UserUpdateWithoutRiskOwnerInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -4286,9 +9692,15 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -4306,6 +9718,17 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -4339,10 +9762,16 @@ export type UserCreateWithoutObservationsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -4360,6 +9789,17 @@ export type UserCreateWithoutObservationsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -4394,9 +9834,15 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -4414,6 +9860,17 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -4463,10 +9920,16 @@ export type UserUpdateWithoutObservationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -4484,6 +9947,17 @@ export type UserUpdateWithoutObservationsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -4518,9 +9992,15 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -4538,6 +10018,17 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -4571,10 +10062,16 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -4592,6 +10089,17 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -4626,9 +10134,15 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -4646,6 +10160,17 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -4695,10 +10220,16 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -4716,6 +10247,17 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -4750,9 +10292,15 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -4770,6 +10318,17 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -4803,10 +10362,16 @@ export type UserCreateWithoutInspectionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -4824,6 +10389,17 @@ export type UserCreateWithoutInspectionsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -4858,9 +10434,15 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -4878,6 +10460,17 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -4927,10 +10520,16 @@ export type UserUpdateWithoutInspectionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -4948,6 +10547,17 @@ export type UserUpdateWithoutInspectionsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -4982,9 +10592,15 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -5002,6 +10618,17 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -5035,10 +10662,16 @@ export type UserCreateWithoutDisputesOpenedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -5057,6 +10690,17 @@ export type UserCreateWithoutDisputesOpenedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -5090,9 +10734,15 @@ export type UserUncheckedCreateWithoutDisputesOpenedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -5111,6 +10761,17 @@ export type UserUncheckedCreateWithoutDisputesOpenedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -5148,10 +10809,16 @@ export type UserCreateWithoutDisputesResolvedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -5170,6 +10837,17 @@ export type UserCreateWithoutDisputesResolvedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -5203,9 +10881,15 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -5224,6 +10908,17 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -5272,10 +10967,16 @@ export type UserUpdateWithoutDisputesOpenedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -5294,6 +10995,17 @@ export type UserUpdateWithoutDisputesOpenedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -5327,9 +11039,15 @@ export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -5348,6 +11066,17 @@ export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -5391,10 +11120,16 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -5413,6 +11148,17 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -5446,9 +11192,15 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -5467,6 +11219,17 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -5476,6 +11239,306 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
   disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutEquipmentAllocationsMadeInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutEquipmentAllocationsMadeInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutEquipmentAllocationsMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedCreateWithoutEquipmentAllocationsMadeInput>
+}
+
+export type UserUpsertWithoutEquipmentAllocationsMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedCreateWithoutEquipmentAllocationsMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEquipmentAllocationsMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEquipmentAllocationsMadeInput, Prisma.UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput>
+}
+
+export type UserUpdateWithoutEquipmentAllocationsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
   scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -5499,10 +11562,16 @@ export type UserCreateWithoutCustodyTransfersInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -5520,6 +11589,17 @@ export type UserCreateWithoutCustodyTransfersInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -5554,9 +11634,15 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -5574,6 +11660,17 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -5612,10 +11709,16 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -5633,6 +11736,17 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -5667,9 +11781,15 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -5687,6 +11807,17 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -5736,10 +11867,16 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -5757,6 +11894,17 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -5791,9 +11939,15 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -5811,6 +11965,17 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -5855,10 +12020,16 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -5876,6 +12047,17 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -5910,9 +12092,15 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -5930,6 +12118,17 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -5963,10 +12162,16 @@ export type UserCreateWithoutAuditEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -5984,6 +12189,17 @@ export type UserCreateWithoutAuditEntriesInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -6018,9 +12234,15 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -6038,6 +12260,17 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -6087,10 +12320,16 @@ export type UserUpdateWithoutAuditEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -6108,6 +12347,17 @@ export type UserUpdateWithoutAuditEntriesInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -6142,9 +12392,15 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -6162,6 +12418,17 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -6195,10 +12462,16 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -6216,6 +12489,17 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -6250,9 +12534,15 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -6270,6 +12560,17 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -6308,10 +12609,16 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -6329,6 +12636,17 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -6363,9 +12681,15 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -6383,6 +12707,17 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -6432,10 +12767,16 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -6453,6 +12794,17 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -6487,9 +12839,15 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -6507,6 +12865,17 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -6551,10 +12920,16 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -6572,6 +12947,17 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -6606,9 +12992,15 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -6626,6 +13018,17 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -6659,10 +13062,16 @@ export type UserCreateWithoutDecisionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -6680,6 +13089,17 @@ export type UserCreateWithoutDecisionsInput = {
   documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -6714,9 +13134,15 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -6734,6 +13160,17 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -6783,10 +13220,16 @@ export type UserUpdateWithoutDecisionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -6804,6 +13247,17 @@ export type UserUpdateWithoutDecisionsInput = {
   documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -6838,9 +13292,15 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -6858,6 +13318,17 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -6891,10 +13362,16 @@ export type UserCreateWithoutLessonsLearnedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -6912,6 +13389,17 @@ export type UserCreateWithoutLessonsLearnedInput = {
   documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -6946,9 +13434,15 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -6966,6 +13460,17 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -7015,10 +13520,16 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -7036,6 +13547,17 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -7070,9 +13592,15 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -7090,6 +13618,17 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -7123,10 +13662,16 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -7145,6 +13690,17 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
@@ -7178,9 +13734,15 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -7199,6 +13761,17 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
@@ -7247,10 +13820,16 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -7269,6 +13848,17 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
@@ -7302,9 +13892,15 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -7323,6 +13919,17 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
@@ -7355,10 +13962,16 @@ export type UserCreateWithoutBidsSubmittedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -7376,6 +13989,17 @@ export type UserCreateWithoutBidsSubmittedInput = {
   documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -7410,9 +14034,15 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -7430,6 +14060,17 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -7458,6 +14099,153 @@ export type UserCreateOrConnectWithoutBidsSubmittedInput = {
   create: Prisma.XOR<Prisma.UserCreateWithoutBidsSubmittedInput, Prisma.UserUncheckedCreateWithoutBidsSubmittedInput>
 }
 
+export type UserCreateWithoutTendersOwnedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutTendersOwnedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutTendersOwnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTendersOwnedInput, Prisma.UserUncheckedCreateWithoutTendersOwnedInput>
+}
+
 export type UserUpsertWithoutBidsSubmittedInput = {
   update: Prisma.XOR<Prisma.UserUpdateWithoutBidsSubmittedInput, Prisma.UserUncheckedUpdateWithoutBidsSubmittedInput>
   create: Prisma.XOR<Prisma.UserCreateWithoutBidsSubmittedInput, Prisma.UserUncheckedCreateWithoutBidsSubmittedInput>
@@ -7479,10 +14267,16 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -7500,6 +14294,17 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -7534,9 +14339,15 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -7554,6 +14365,170 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutTendersOwnedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTendersOwnedInput, Prisma.UserUncheckedUpdateWithoutTendersOwnedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTendersOwnedInput, Prisma.UserUncheckedCreateWithoutTendersOwnedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTendersOwnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTendersOwnedInput, Prisma.UserUncheckedUpdateWithoutTendersOwnedInput>
+}
+
+export type UserUpdateWithoutTendersOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTendersOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -7587,10 +14562,16 @@ export type UserCreateWithoutSectionAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -7609,6 +14590,17 @@ export type UserCreateWithoutSectionAssignmentsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -7642,9 +14634,15 @@ export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -7663,6 +14661,17 @@ export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -7700,10 +14709,16 @@ export type UserCreateWithoutAssignedSectionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -7722,6 +14737,17 @@ export type UserCreateWithoutAssignedSectionsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -7755,9 +14781,15 @@ export type UserUncheckedCreateWithoutAssignedSectionsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -7776,6 +14808,17 @@ export type UserUncheckedCreateWithoutAssignedSectionsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -7824,10 +14867,16 @@ export type UserUpdateWithoutSectionAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -7846,6 +14895,17 @@ export type UserUpdateWithoutSectionAssignmentsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -7879,9 +14939,15 @@ export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -7900,6 +14966,17 @@ export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -7943,10 +15020,16 @@ export type UserUpdateWithoutAssignedSectionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -7965,6 +15048,17 @@ export type UserUpdateWithoutAssignedSectionsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -7998,9 +15092,15 @@ export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -8019,6 +15119,17 @@ export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -8051,10 +15162,16 @@ export type UserCreateWithoutNotificationsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -8073,6 +15190,17 @@ export type UserCreateWithoutNotificationsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
@@ -8106,9 +15234,15 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -8127,6 +15261,17 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
@@ -8175,10 +15320,16 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -8197,6 +15348,17 @@ export type UserUpdateWithoutNotificationsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
@@ -8230,9 +15392,15 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -8251,6 +15419,17 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
@@ -8283,10 +15462,16 @@ export type UserCreateWithoutReviewCommentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -8305,6 +15490,17 @@ export type UserCreateWithoutReviewCommentsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -8338,9 +15534,15 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -8359,6 +15561,17 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -8407,10 +15620,16 @@ export type UserUpdateWithoutReviewCommentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -8429,6 +15648,17 @@ export type UserUpdateWithoutReviewCommentsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -8462,9 +15692,15 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -8483,6 +15719,17 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -8515,10 +15762,16 @@ export type UserCreateWithoutScheduleChangesRequestedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -8537,6 +15790,17 @@ export type UserCreateWithoutScheduleChangesRequestedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -8570,9 +15834,15 @@ export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -8591,6 +15861,17 @@ export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -8628,10 +15909,16 @@ export type UserCreateWithoutScheduleChangesReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -8650,6 +15937,17 @@ export type UserCreateWithoutScheduleChangesReviewedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -8683,9 +15981,15 @@ export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -8704,6 +16008,17 @@ export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -8752,10 +16067,16 @@ export type UserUpdateWithoutScheduleChangesRequestedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -8774,6 +16095,17 @@ export type UserUpdateWithoutScheduleChangesRequestedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -8807,9 +16139,15 @@ export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -8828,6 +16166,17 @@ export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -8871,10 +16220,16 @@ export type UserUpdateWithoutScheduleChangesReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -8893,6 +16248,17 @@ export type UserUpdateWithoutScheduleChangesReviewedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -8926,9 +16292,15 @@ export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -8947,6 +16319,17 @@ export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -8979,10 +16362,16 @@ export type UserCreateWithoutPlansCreatedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -9001,6 +16390,17 @@ export type UserCreateWithoutPlansCreatedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -9034,9 +16434,15 @@ export type UserUncheckedCreateWithoutPlansCreatedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -9055,6 +16461,17 @@ export type UserUncheckedCreateWithoutPlansCreatedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -9092,10 +16509,16 @@ export type UserCreateWithoutPlansSubmittedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -9114,6 +16537,17 @@ export type UserCreateWithoutPlansSubmittedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -9147,9 +16581,15 @@ export type UserUncheckedCreateWithoutPlansSubmittedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -9168,6 +16608,17 @@ export type UserUncheckedCreateWithoutPlansSubmittedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -9205,10 +16656,16 @@ export type UserCreateWithoutPlansReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -9227,6 +16684,17 @@ export type UserCreateWithoutPlansReviewedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -9260,9 +16728,15 @@ export type UserUncheckedCreateWithoutPlansReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -9281,6 +16755,17 @@ export type UserUncheckedCreateWithoutPlansReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -9329,10 +16814,16 @@ export type UserUpdateWithoutPlansCreatedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -9351,6 +16842,17 @@ export type UserUpdateWithoutPlansCreatedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -9384,9 +16886,15 @@ export type UserUncheckedUpdateWithoutPlansCreatedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -9405,6 +16913,17 @@ export type UserUncheckedUpdateWithoutPlansCreatedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -9448,10 +16967,16 @@ export type UserUpdateWithoutPlansSubmittedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -9470,6 +16995,17 @@ export type UserUpdateWithoutPlansSubmittedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -9503,9 +17039,15 @@ export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -9524,6 +17066,17 @@ export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -9567,10 +17120,16 @@ export type UserUpdateWithoutPlansReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -9589,6 +17148,17 @@ export type UserUpdateWithoutPlansReviewedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -9622,9 +17192,15 @@ export type UserUncheckedUpdateWithoutPlansReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -9643,6 +17219,17 @@ export type UserUncheckedUpdateWithoutPlansReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -9675,10 +17262,16 @@ export type UserCreateWithoutOversightAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -9697,6 +17290,17 @@ export type UserCreateWithoutOversightAssignmentsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -9730,9 +17334,15 @@ export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -9751,6 +17361,17 @@ export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -9788,10 +17409,16 @@ export type UserCreateWithoutAssignedOversightsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -9810,6 +17437,17 @@ export type UserCreateWithoutAssignedOversightsInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -9843,9 +17481,15 @@ export type UserUncheckedCreateWithoutAssignedOversightsInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -9864,6 +17508,17 @@ export type UserUncheckedCreateWithoutAssignedOversightsInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -9912,10 +17567,16 @@ export type UserUpdateWithoutOversightAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -9934,6 +17595,17 @@ export type UserUpdateWithoutOversightAssignmentsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -9967,9 +17639,15 @@ export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -9988,6 +17666,17 @@ export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10031,10 +17720,16 @@ export type UserUpdateWithoutAssignedOversightsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -10053,6 +17748,17 @@ export type UserUpdateWithoutAssignedOversightsInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -10086,9 +17792,15 @@ export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -10107,6 +17819,17 @@ export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10139,10 +17862,16 @@ export type UserCreateWithoutOversightEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -10161,6 +17890,17 @@ export type UserCreateWithoutOversightEntriesInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -10194,9 +17934,15 @@ export type UserUncheckedCreateWithoutOversightEntriesInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -10215,6 +17961,17 @@ export type UserUncheckedCreateWithoutOversightEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -10263,10 +18020,16 @@ export type UserUpdateWithoutOversightEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -10285,6 +18048,17 @@ export type UserUpdateWithoutOversightEntriesInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -10318,9 +18092,15 @@ export type UserUncheckedUpdateWithoutOversightEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -10339,6 +18119,17 @@ export type UserUncheckedUpdateWithoutOversightEntriesInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10371,10 +18162,16 @@ export type UserCreateWithoutResourceRequestsMadeInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -10393,6 +18190,17 @@ export type UserCreateWithoutResourceRequestsMadeInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -10426,9 +18234,15 @@ export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -10447,6 +18261,17 @@ export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -10484,10 +18309,16 @@ export type UserCreateWithoutResourceRequestsReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
@@ -10506,6 +18337,17 @@ export type UserCreateWithoutResourceRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
@@ -10539,9 +18381,15 @@ export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
   invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
   invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
   signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
@@ -10560,6 +18408,17 @@ export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
   bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
@@ -10608,10 +18467,16 @@ export type UserUpdateWithoutResourceRequestsMadeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -10630,6 +18495,17 @@ export type UserUpdateWithoutResourceRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -10663,9 +18539,15 @@ export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -10684,6 +18566,17 @@ export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10727,10 +18620,16 @@ export type UserUpdateWithoutResourceRequestsReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -10749,6 +18648,17 @@ export type UserUpdateWithoutResourceRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -10782,9 +18692,15 @@ export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -10803,6 +18719,17 @@ export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10835,6 +18762,7 @@ export type UserCreateManyOrganizationInput = {
   role: $Enums.UserRole
   signatureImageUrl?: string | null
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -10849,9 +18777,15 @@ export type UserUpdateWithoutOrganizationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
@@ -10870,6 +18804,17 @@ export type UserUpdateWithoutOrganizationInput = {
   decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
@@ -10903,9 +18848,15 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
   invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
   signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
@@ -10924,6 +18875,17 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
   lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
   bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
   materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
@@ -10957,6 +18919,7 @@ export type UserUncheckedUpdateManyWithoutOrganizationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -10968,6 +18931,11 @@ export type UserUncheckedUpdateManyWithoutOrganizationInput = {
 
 export type UserCountOutputType = {
   memberships: number
+  companyAssignments: number
+  assignedCompanyRoles: number
+  companyInvitationsSent: number
+  companyApprovalsRequested: number
+  companyApprovalsReviewed: number
   invitationsSent: number
   signOffs: number
   riskOwner: number
@@ -10985,6 +18953,17 @@ export type UserCountOutputType = {
   decisions: number
   lessonsLearned: number
   bidsSubmitted: number
+  tendersOwned: number
+  designReviewsSubmitted: number
+  designReviewsReviewed: number
+  auditFindingsRaised: number
+  auditFindingsOwned: number
+  auditFindingsVerified: number
+  equipmentAllocationsMade: number
+  executiveInterventionsCreated: number
+  executiveInterventionsOwned: number
+  executiveInterventionsClosed: number
+  executiveInterventionEvents: number
   materialReceipts: number
   notifications: number
   activityAssignments: number
@@ -11010,6 +18989,11 @@ export type UserCountOutputType = {
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
+  companyAssignments?: boolean | UserCountOutputTypeCountCompanyAssignmentsArgs
+  assignedCompanyRoles?: boolean | UserCountOutputTypeCountAssignedCompanyRolesArgs
+  companyInvitationsSent?: boolean | UserCountOutputTypeCountCompanyInvitationsSentArgs
+  companyApprovalsRequested?: boolean | UserCountOutputTypeCountCompanyApprovalsRequestedArgs
+  companyApprovalsReviewed?: boolean | UserCountOutputTypeCountCompanyApprovalsReviewedArgs
   invitationsSent?: boolean | UserCountOutputTypeCountInvitationsSentArgs
   signOffs?: boolean | UserCountOutputTypeCountSignOffsArgs
   riskOwner?: boolean | UserCountOutputTypeCountRiskOwnerArgs
@@ -11027,6 +19011,17 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   decisions?: boolean | UserCountOutputTypeCountDecisionsArgs
   lessonsLearned?: boolean | UserCountOutputTypeCountLessonsLearnedArgs
   bidsSubmitted?: boolean | UserCountOutputTypeCountBidsSubmittedArgs
+  tendersOwned?: boolean | UserCountOutputTypeCountTendersOwnedArgs
+  designReviewsSubmitted?: boolean | UserCountOutputTypeCountDesignReviewsSubmittedArgs
+  designReviewsReviewed?: boolean | UserCountOutputTypeCountDesignReviewsReviewedArgs
+  auditFindingsRaised?: boolean | UserCountOutputTypeCountAuditFindingsRaisedArgs
+  auditFindingsOwned?: boolean | UserCountOutputTypeCountAuditFindingsOwnedArgs
+  auditFindingsVerified?: boolean | UserCountOutputTypeCountAuditFindingsVerifiedArgs
+  equipmentAllocationsMade?: boolean | UserCountOutputTypeCountEquipmentAllocationsMadeArgs
+  executiveInterventionsCreated?: boolean | UserCountOutputTypeCountExecutiveInterventionsCreatedArgs
+  executiveInterventionsOwned?: boolean | UserCountOutputTypeCountExecutiveInterventionsOwnedArgs
+  executiveInterventionsClosed?: boolean | UserCountOutputTypeCountExecutiveInterventionsClosedArgs
+  executiveInterventionEvents?: boolean | UserCountOutputTypeCountExecutiveInterventionEventsArgs
   materialReceipts?: boolean | UserCountOutputTypeCountMaterialReceiptsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   activityAssignments?: boolean | UserCountOutputTypeCountActivityAssignmentsArgs
@@ -11065,6 +19060,41 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectMembershipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompanyAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedCompanyRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompanyInvitationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyInvitationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompanyApprovalsRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyApprovalWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompanyApprovalsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyApprovalWhereInput
 }
 
 /**
@@ -11184,6 +19214,83 @@ export type UserCountOutputTypeCountLessonsLearnedArgs<ExtArgs extends runtime.T
  */
 export type UserCountOutputTypeCountBidsSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.BidTenderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTendersOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidTenderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDesignReviewsSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DesignReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDesignReviewsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DesignReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditFindingsRaisedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditFindingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditFindingsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditFindingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditFindingsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditFindingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEquipmentAllocationsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EquipmentAllocationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExecutiveInterventionsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExecutiveInterventionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExecutiveInterventionsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExecutiveInterventionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExecutiveInterventionsClosedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExecutiveInterventionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExecutiveInterventionEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExecutiveInterventionEventWhereInput
 }
 
 /**
@@ -11345,10 +19452,16 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   signatureImageUrl?: boolean
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
+  companyAssignments?: boolean | Prisma.User$companyAssignmentsArgs<ExtArgs>
+  assignedCompanyRoles?: boolean | Prisma.User$assignedCompanyRolesArgs<ExtArgs>
+  companyInvitationsSent?: boolean | Prisma.User$companyInvitationsSentArgs<ExtArgs>
+  companyApprovalsRequested?: boolean | Prisma.User$companyApprovalsRequestedArgs<ExtArgs>
+  companyApprovalsReviewed?: boolean | Prisma.User$companyApprovalsReviewedArgs<ExtArgs>
   invitationsSent?: boolean | Prisma.User$invitationsSentArgs<ExtArgs>
   invitationAccepted?: boolean | Prisma.User$invitationAcceptedArgs<ExtArgs>
   signOffs?: boolean | Prisma.User$signOffsArgs<ExtArgs>
@@ -11367,6 +19480,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   decisions?: boolean | Prisma.User$decisionsArgs<ExtArgs>
   lessonsLearned?: boolean | Prisma.User$lessonsLearnedArgs<ExtArgs>
   bidsSubmitted?: boolean | Prisma.User$bidsSubmittedArgs<ExtArgs>
+  tendersOwned?: boolean | Prisma.User$tendersOwnedArgs<ExtArgs>
+  designReviewsSubmitted?: boolean | Prisma.User$designReviewsSubmittedArgs<ExtArgs>
+  designReviewsReviewed?: boolean | Prisma.User$designReviewsReviewedArgs<ExtArgs>
+  auditFindingsRaised?: boolean | Prisma.User$auditFindingsRaisedArgs<ExtArgs>
+  auditFindingsOwned?: boolean | Prisma.User$auditFindingsOwnedArgs<ExtArgs>
+  auditFindingsVerified?: boolean | Prisma.User$auditFindingsVerifiedArgs<ExtArgs>
+  equipmentAllocationsMade?: boolean | Prisma.User$equipmentAllocationsMadeArgs<ExtArgs>
+  executiveInterventionsCreated?: boolean | Prisma.User$executiveInterventionsCreatedArgs<ExtArgs>
+  executiveInterventionsOwned?: boolean | Prisma.User$executiveInterventionsOwnedArgs<ExtArgs>
+  executiveInterventionsClosed?: boolean | Prisma.User$executiveInterventionsClosedArgs<ExtArgs>
+  executiveInterventionEvents?: boolean | Prisma.User$executiveInterventionEventsArgs<ExtArgs>
   materialReceipts?: boolean | Prisma.User$materialReceiptsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityAssignments?: boolean | Prisma.User$activityAssignmentsArgs<ExtArgs>
@@ -11402,6 +19526,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   signatureImageUrl?: boolean
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -11418,6 +19543,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   signatureImageUrl?: boolean
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -11434,14 +19560,20 @@ export type UserSelectScalar = {
   role?: boolean
   signatureImageUrl?: boolean
   active?: boolean
+  mustChangePassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "fullName" | "email" | "passwordHash" | "phone" | "jobTitle" | "role" | "signatureImageUrl" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "fullName" | "email" | "passwordHash" | "phone" | "jobTitle" | "role" | "signatureImageUrl" | "active" | "mustChangePassword" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
+  companyAssignments?: boolean | Prisma.User$companyAssignmentsArgs<ExtArgs>
+  assignedCompanyRoles?: boolean | Prisma.User$assignedCompanyRolesArgs<ExtArgs>
+  companyInvitationsSent?: boolean | Prisma.User$companyInvitationsSentArgs<ExtArgs>
+  companyApprovalsRequested?: boolean | Prisma.User$companyApprovalsRequestedArgs<ExtArgs>
+  companyApprovalsReviewed?: boolean | Prisma.User$companyApprovalsReviewedArgs<ExtArgs>
   invitationsSent?: boolean | Prisma.User$invitationsSentArgs<ExtArgs>
   invitationAccepted?: boolean | Prisma.User$invitationAcceptedArgs<ExtArgs>
   signOffs?: boolean | Prisma.User$signOffsArgs<ExtArgs>
@@ -11460,6 +19592,17 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   decisions?: boolean | Prisma.User$decisionsArgs<ExtArgs>
   lessonsLearned?: boolean | Prisma.User$lessonsLearnedArgs<ExtArgs>
   bidsSubmitted?: boolean | Prisma.User$bidsSubmittedArgs<ExtArgs>
+  tendersOwned?: boolean | Prisma.User$tendersOwnedArgs<ExtArgs>
+  designReviewsSubmitted?: boolean | Prisma.User$designReviewsSubmittedArgs<ExtArgs>
+  designReviewsReviewed?: boolean | Prisma.User$designReviewsReviewedArgs<ExtArgs>
+  auditFindingsRaised?: boolean | Prisma.User$auditFindingsRaisedArgs<ExtArgs>
+  auditFindingsOwned?: boolean | Prisma.User$auditFindingsOwnedArgs<ExtArgs>
+  auditFindingsVerified?: boolean | Prisma.User$auditFindingsVerifiedArgs<ExtArgs>
+  equipmentAllocationsMade?: boolean | Prisma.User$equipmentAllocationsMadeArgs<ExtArgs>
+  executiveInterventionsCreated?: boolean | Prisma.User$executiveInterventionsCreatedArgs<ExtArgs>
+  executiveInterventionsOwned?: boolean | Prisma.User$executiveInterventionsOwnedArgs<ExtArgs>
+  executiveInterventionsClosed?: boolean | Prisma.User$executiveInterventionsClosedArgs<ExtArgs>
+  executiveInterventionEvents?: boolean | Prisma.User$executiveInterventionEventsArgs<ExtArgs>
   materialReceipts?: boolean | Prisma.User$materialReceiptsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityAssignments?: boolean | Prisma.User$activityAssignmentsArgs<ExtArgs>
@@ -11495,6 +19638,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     organization: Prisma.$OrganizationPayload<ExtArgs>
     memberships: Prisma.$ProjectMembershipPayload<ExtArgs>[]
+    companyAssignments: Prisma.$CompanyStaffAssignmentPayload<ExtArgs>[]
+    assignedCompanyRoles: Prisma.$CompanyStaffAssignmentPayload<ExtArgs>[]
+    companyInvitationsSent: Prisma.$CompanyInvitationPayload<ExtArgs>[]
+    companyApprovalsRequested: Prisma.$CompanyApprovalPayload<ExtArgs>[]
+    companyApprovalsReviewed: Prisma.$CompanyApprovalPayload<ExtArgs>[]
     invitationsSent: Prisma.$InvitationPayload<ExtArgs>[]
     invitationAccepted: Prisma.$InvitationPayload<ExtArgs> | null
     signOffs: Prisma.$SignOffPayload<ExtArgs>[]
@@ -11513,6 +19661,17 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     decisions: Prisma.$DecisionLogPayload<ExtArgs>[]
     lessonsLearned: Prisma.$LessonsLearnedPayload<ExtArgs>[]
     bidsSubmitted: Prisma.$BidTenderPayload<ExtArgs>[]
+    tendersOwned: Prisma.$BidTenderPayload<ExtArgs>[]
+    designReviewsSubmitted: Prisma.$DesignReviewPayload<ExtArgs>[]
+    designReviewsReviewed: Prisma.$DesignReviewPayload<ExtArgs>[]
+    auditFindingsRaised: Prisma.$AuditFindingPayload<ExtArgs>[]
+    auditFindingsOwned: Prisma.$AuditFindingPayload<ExtArgs>[]
+    auditFindingsVerified: Prisma.$AuditFindingPayload<ExtArgs>[]
+    equipmentAllocationsMade: Prisma.$EquipmentAllocationPayload<ExtArgs>[]
+    executiveInterventionsCreated: Prisma.$ExecutiveInterventionPayload<ExtArgs>[]
+    executiveInterventionsOwned: Prisma.$ExecutiveInterventionPayload<ExtArgs>[]
+    executiveInterventionsClosed: Prisma.$ExecutiveInterventionPayload<ExtArgs>[]
+    executiveInterventionEvents: Prisma.$ExecutiveInterventionEventPayload<ExtArgs>[]
     materialReceipts: Prisma.$MaterialReceiptPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     activityAssignments: Prisma.$ActivityAssignmentPayload<ExtArgs>[]
@@ -11546,6 +19705,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.UserRole
     signatureImageUrl: string | null
     active: boolean
+    mustChangePassword: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -11944,6 +20104,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyAssignments<T extends Prisma.User$companyAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyStaffAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedCompanyRoles<T extends Prisma.User$assignedCompanyRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedCompanyRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyStaffAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyInvitationsSent<T extends Prisma.User$companyInvitationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyInvitationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyApprovalsRequested<T extends Prisma.User$companyApprovalsRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyApprovalsRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyApprovalsReviewed<T extends Prisma.User$companyApprovalsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyApprovalsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invitationsSent<T extends Prisma.User$invitationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$invitationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invitationAccepted<T extends Prisma.User$invitationAcceptedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$invitationAcceptedArgs<ExtArgs>>): Prisma.Prisma__InvitationClient<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   signOffs<T extends Prisma.User$signOffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$signOffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignOffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11962,6 +20127,17 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   decisions<T extends Prisma.User$decisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$decisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DecisionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lessonsLearned<T extends Prisma.User$lessonsLearnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lessonsLearnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonsLearnedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bidsSubmitted<T extends Prisma.User$bidsSubmittedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidsSubmittedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidTenderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tendersOwned<T extends Prisma.User$tendersOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tendersOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidTenderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  designReviewsSubmitted<T extends Prisma.User$designReviewsSubmittedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$designReviewsSubmittedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DesignReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  designReviewsReviewed<T extends Prisma.User$designReviewsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$designReviewsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DesignReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditFindingsRaised<T extends Prisma.User$auditFindingsRaisedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditFindingsRaisedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditFindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditFindingsOwned<T extends Prisma.User$auditFindingsOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditFindingsOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditFindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditFindingsVerified<T extends Prisma.User$auditFindingsVerifiedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditFindingsVerifiedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditFindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  equipmentAllocationsMade<T extends Prisma.User$equipmentAllocationsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$equipmentAllocationsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentAllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executiveInterventionsCreated<T extends Prisma.User$executiveInterventionsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$executiveInterventionsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExecutiveInterventionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executiveInterventionsOwned<T extends Prisma.User$executiveInterventionsOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$executiveInterventionsOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExecutiveInterventionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executiveInterventionsClosed<T extends Prisma.User$executiveInterventionsClosedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$executiveInterventionsClosedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExecutiveInterventionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executiveInterventionEvents<T extends Prisma.User$executiveInterventionEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$executiveInterventionEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExecutiveInterventionEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialReceipts<T extends Prisma.User$materialReceiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityAssignments<T extends Prisma.User$activityAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12022,6 +20198,7 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly signatureImageUrl: Prisma.FieldRef<"User", 'String'>
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
+  readonly mustChangePassword: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -12441,6 +20618,126 @@ export type User$membershipsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ProjectMembershipScalarFieldEnum | Prisma.ProjectMembershipScalarFieldEnum[]
+}
+
+/**
+ * User.companyAssignments
+ */
+export type User$companyAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyStaffAssignment
+   */
+  select?: Prisma.CompanyStaffAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyStaffAssignment
+   */
+  omit?: Prisma.CompanyStaffAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyStaffAssignmentInclude<ExtArgs> | null
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+  orderBy?: Prisma.CompanyStaffAssignmentOrderByWithRelationInput | Prisma.CompanyStaffAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyStaffAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyStaffAssignmentScalarFieldEnum | Prisma.CompanyStaffAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.assignedCompanyRoles
+ */
+export type User$assignedCompanyRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyStaffAssignment
+   */
+  select?: Prisma.CompanyStaffAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyStaffAssignment
+   */
+  omit?: Prisma.CompanyStaffAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyStaffAssignmentInclude<ExtArgs> | null
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+  orderBy?: Prisma.CompanyStaffAssignmentOrderByWithRelationInput | Prisma.CompanyStaffAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyStaffAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyStaffAssignmentScalarFieldEnum | Prisma.CompanyStaffAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.companyInvitationsSent
+ */
+export type User$companyInvitationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyInvitation
+   */
+  select?: Prisma.CompanyInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyInvitation
+   */
+  omit?: Prisma.CompanyInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInvitationInclude<ExtArgs> | null
+  where?: Prisma.CompanyInvitationWhereInput
+  orderBy?: Prisma.CompanyInvitationOrderByWithRelationInput | Prisma.CompanyInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
+}
+
+/**
+ * User.companyApprovalsRequested
+ */
+export type User$companyApprovalsRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyApproval
+   */
+  select?: Prisma.CompanyApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyApproval
+   */
+  omit?: Prisma.CompanyApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyApprovalInclude<ExtArgs> | null
+  where?: Prisma.CompanyApprovalWhereInput
+  orderBy?: Prisma.CompanyApprovalOrderByWithRelationInput | Prisma.CompanyApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyApprovalScalarFieldEnum | Prisma.CompanyApprovalScalarFieldEnum[]
+}
+
+/**
+ * User.companyApprovalsReviewed
+ */
+export type User$companyApprovalsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyApproval
+   */
+  select?: Prisma.CompanyApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyApproval
+   */
+  omit?: Prisma.CompanyApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyApprovalInclude<ExtArgs> | null
+  where?: Prisma.CompanyApprovalWhereInput
+  orderBy?: Prisma.CompanyApprovalOrderByWithRelationInput | Prisma.CompanyApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyApprovalScalarFieldEnum | Prisma.CompanyApprovalScalarFieldEnum[]
 }
 
 /**
@@ -12868,6 +21165,270 @@ export type User$bidsSubmittedArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.BidTenderScalarFieldEnum | Prisma.BidTenderScalarFieldEnum[]
+}
+
+/**
+ * User.tendersOwned
+ */
+export type User$tendersOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidTender
+   */
+  select?: Prisma.BidTenderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidTender
+   */
+  omit?: Prisma.BidTenderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidTenderInclude<ExtArgs> | null
+  where?: Prisma.BidTenderWhereInput
+  orderBy?: Prisma.BidTenderOrderByWithRelationInput | Prisma.BidTenderOrderByWithRelationInput[]
+  cursor?: Prisma.BidTenderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidTenderScalarFieldEnum | Prisma.BidTenderScalarFieldEnum[]
+}
+
+/**
+ * User.designReviewsSubmitted
+ */
+export type User$designReviewsSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DesignReview
+   */
+  select?: Prisma.DesignReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DesignReview
+   */
+  omit?: Prisma.DesignReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DesignReviewInclude<ExtArgs> | null
+  where?: Prisma.DesignReviewWhereInput
+  orderBy?: Prisma.DesignReviewOrderByWithRelationInput | Prisma.DesignReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DesignReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DesignReviewScalarFieldEnum | Prisma.DesignReviewScalarFieldEnum[]
+}
+
+/**
+ * User.designReviewsReviewed
+ */
+export type User$designReviewsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DesignReview
+   */
+  select?: Prisma.DesignReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DesignReview
+   */
+  omit?: Prisma.DesignReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DesignReviewInclude<ExtArgs> | null
+  where?: Prisma.DesignReviewWhereInput
+  orderBy?: Prisma.DesignReviewOrderByWithRelationInput | Prisma.DesignReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DesignReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DesignReviewScalarFieldEnum | Prisma.DesignReviewScalarFieldEnum[]
+}
+
+/**
+ * User.auditFindingsRaised
+ */
+export type User$auditFindingsRaisedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditFinding
+   */
+  select?: Prisma.AuditFindingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditFinding
+   */
+  omit?: Prisma.AuditFindingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditFindingInclude<ExtArgs> | null
+  where?: Prisma.AuditFindingWhereInput
+  orderBy?: Prisma.AuditFindingOrderByWithRelationInput | Prisma.AuditFindingOrderByWithRelationInput[]
+  cursor?: Prisma.AuditFindingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditFindingScalarFieldEnum | Prisma.AuditFindingScalarFieldEnum[]
+}
+
+/**
+ * User.auditFindingsOwned
+ */
+export type User$auditFindingsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditFinding
+   */
+  select?: Prisma.AuditFindingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditFinding
+   */
+  omit?: Prisma.AuditFindingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditFindingInclude<ExtArgs> | null
+  where?: Prisma.AuditFindingWhereInput
+  orderBy?: Prisma.AuditFindingOrderByWithRelationInput | Prisma.AuditFindingOrderByWithRelationInput[]
+  cursor?: Prisma.AuditFindingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditFindingScalarFieldEnum | Prisma.AuditFindingScalarFieldEnum[]
+}
+
+/**
+ * User.auditFindingsVerified
+ */
+export type User$auditFindingsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditFinding
+   */
+  select?: Prisma.AuditFindingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditFinding
+   */
+  omit?: Prisma.AuditFindingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditFindingInclude<ExtArgs> | null
+  where?: Prisma.AuditFindingWhereInput
+  orderBy?: Prisma.AuditFindingOrderByWithRelationInput | Prisma.AuditFindingOrderByWithRelationInput[]
+  cursor?: Prisma.AuditFindingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditFindingScalarFieldEnum | Prisma.AuditFindingScalarFieldEnum[]
+}
+
+/**
+ * User.equipmentAllocationsMade
+ */
+export type User$equipmentAllocationsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EquipmentAllocation
+   */
+  select?: Prisma.EquipmentAllocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EquipmentAllocation
+   */
+  omit?: Prisma.EquipmentAllocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EquipmentAllocationInclude<ExtArgs> | null
+  where?: Prisma.EquipmentAllocationWhereInput
+  orderBy?: Prisma.EquipmentAllocationOrderByWithRelationInput | Prisma.EquipmentAllocationOrderByWithRelationInput[]
+  cursor?: Prisma.EquipmentAllocationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EquipmentAllocationScalarFieldEnum | Prisma.EquipmentAllocationScalarFieldEnum[]
+}
+
+/**
+ * User.executiveInterventionsCreated
+ */
+export type User$executiveInterventionsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExecutiveIntervention
+   */
+  select?: Prisma.ExecutiveInterventionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExecutiveIntervention
+   */
+  omit?: Prisma.ExecutiveInterventionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExecutiveInterventionInclude<ExtArgs> | null
+  where?: Prisma.ExecutiveInterventionWhereInput
+  orderBy?: Prisma.ExecutiveInterventionOrderByWithRelationInput | Prisma.ExecutiveInterventionOrderByWithRelationInput[]
+  cursor?: Prisma.ExecutiveInterventionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExecutiveInterventionScalarFieldEnum | Prisma.ExecutiveInterventionScalarFieldEnum[]
+}
+
+/**
+ * User.executiveInterventionsOwned
+ */
+export type User$executiveInterventionsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExecutiveIntervention
+   */
+  select?: Prisma.ExecutiveInterventionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExecutiveIntervention
+   */
+  omit?: Prisma.ExecutiveInterventionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExecutiveInterventionInclude<ExtArgs> | null
+  where?: Prisma.ExecutiveInterventionWhereInput
+  orderBy?: Prisma.ExecutiveInterventionOrderByWithRelationInput | Prisma.ExecutiveInterventionOrderByWithRelationInput[]
+  cursor?: Prisma.ExecutiveInterventionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExecutiveInterventionScalarFieldEnum | Prisma.ExecutiveInterventionScalarFieldEnum[]
+}
+
+/**
+ * User.executiveInterventionsClosed
+ */
+export type User$executiveInterventionsClosedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExecutiveIntervention
+   */
+  select?: Prisma.ExecutiveInterventionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExecutiveIntervention
+   */
+  omit?: Prisma.ExecutiveInterventionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExecutiveInterventionInclude<ExtArgs> | null
+  where?: Prisma.ExecutiveInterventionWhereInput
+  orderBy?: Prisma.ExecutiveInterventionOrderByWithRelationInput | Prisma.ExecutiveInterventionOrderByWithRelationInput[]
+  cursor?: Prisma.ExecutiveInterventionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExecutiveInterventionScalarFieldEnum | Prisma.ExecutiveInterventionScalarFieldEnum[]
+}
+
+/**
+ * User.executiveInterventionEvents
+ */
+export type User$executiveInterventionEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExecutiveInterventionEvent
+   */
+  select?: Prisma.ExecutiveInterventionEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExecutiveInterventionEvent
+   */
+  omit?: Prisma.ExecutiveInterventionEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExecutiveInterventionEventInclude<ExtArgs> | null
+  where?: Prisma.ExecutiveInterventionEventWhereInput
+  orderBy?: Prisma.ExecutiveInterventionEventOrderByWithRelationInput | Prisma.ExecutiveInterventionEventOrderByWithRelationInput[]
+  cursor?: Prisma.ExecutiveInterventionEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExecutiveInterventionEventScalarFieldEnum | Prisma.ExecutiveInterventionEventScalarFieldEnum[]
 }
 
 /**

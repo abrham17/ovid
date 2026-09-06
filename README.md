@@ -103,9 +103,31 @@ npm run dev
 
 Open http://localhost:3000 → Sign in with seeded accounts (password: `password123`).
 
+Company-tier demo accounts are organization-scoped and intentionally have no
+project memberships:
+
+| Company role | Demo email |
+| --- | --- |
+| General Manager | `gm@ovid.com` |
+| Legal Service Manager | `legal.manager@ovid.com` |
+| Head Tendering | `head.tendering@ovid.com` |
+| Tendering Officer | `tendering.officer@ovid.com` |
+| Head Planning & Monitoring | `head.planning@ovid.com` |
+| Planning Officer | `planning.officer@ovid.com` |
+| Engineering Department Manager | `engineering.manager@ovid.com` |
+| Head Engineering Services | `head.engineering.services@ovid.com` |
+| Engineering Services Officer | `engineering.services.officer@ovid.com` |
+| Equipment Administration Manager | `equipment.admin@ovid.com` |
+| Finance Department Manager | `finance.manager@ovid.com` |
+| Internal Auditor | `internal.auditor@ovid.com` |
+
+The project-level Office Engineer demo account is `officeengineer@ovid.com`.
+The technical administrator is `admin@ovid.com` and has no company business
+approval assignment.
+
 ## RBAC
 
-See `src/lib/permissions.ts`. 16 roles × resources × actions (`read | create | update | delete | approve`). Project access is membership-scoped (admins of the same organisation can reach any project).
+See `src/lib/permissions.ts`. Project and company permissions use separate matrices. Project access is normally membership-scoped; active company assignments receive organization-wide read access only where their company permission allows it.
 
 ## UI highlights
 

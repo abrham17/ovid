@@ -17,6 +17,9 @@ import { ConsultantEngineerDashboard } from "@/components/dashboards/consultant-
 import { ClientRepDashboard } from "@/components/dashboards/client-rep/ClientRepDashboard";
 import { AdminDashboard } from "@/components/dashboards/admin/AdminDashboard";
 import type { UserRole } from "@/generated/prisma/enums";
+import { CompanyDashboard } from "@/components/dashboards/company-dashboard";
+import { AdminSetup } from "@/components/dashboards/admin-setup";
+import { GeneralManagerDashboard } from "@/components/dashboards/general-manager-dashboard";
 
 const DASHBOARD_MAP: Record<
   UserRole,
@@ -44,11 +47,18 @@ const DASHBOARD_MAP: Record<
   CLIENT_REP: ClientRepDashboard,
   ADMIN: AdminDashboard,
   SUBCONTRACTOR_PM: SeniorPmDashboard,
+  OFFICE_ENGINEER: SiteEngineerDashboard,
+  COMPANY_STAFF: SeniorPmDashboard,
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ workspace?: string }> }) {
   const session = await getSession();
   if (!session) redirect("/login");
+
+  const params = await searchParams;
+  if (session.role === "ADMIN" && !session.companyRoles?.length && params.workspace !== "project") return <AdminSetup organizationName={session.organizationName} />;
+  if (session.companyRoles?.includes("GENERAL_MANAGER") && params.workspace !== "project") return <GeneralManagerDashboard organizationName={session.organizationName} />;
+  if (session.companyRoles?.length && params.workspace !== "project") return <CompanyDashboard organizationName={session.organizationName} roles={session.companyRoles} />;
 
   const Dashboard = DASHBOARD_MAP[session.role] ?? SeniorPmDashboard;
 

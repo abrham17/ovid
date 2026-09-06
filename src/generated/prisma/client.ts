@@ -60,6 +60,41 @@ export type User = Prisma.UserModel
  */
 export type ProjectMembership = Prisma.ProjectMembershipModel
 /**
+ * Model CompanyStaffAssignment
+ * 
+ */
+export type CompanyStaffAssignment = Prisma.CompanyStaffAssignmentModel
+/**
+ * Model CompanyInvitation
+ * 
+ */
+export type CompanyInvitation = Prisma.CompanyInvitationModel
+/**
+ * Model CompanyApproval
+ * 
+ */
+export type CompanyApproval = Prisma.CompanyApprovalModel
+/**
+ * Model DesignReview
+ * 
+ */
+export type DesignReview = Prisma.DesignReviewModel
+/**
+ * Model AuditFinding
+ * 
+ */
+export type AuditFinding = Prisma.AuditFindingModel
+/**
+ * Model ExecutiveIntervention
+ * 
+ */
+export type ExecutiveIntervention = Prisma.ExecutiveInterventionModel
+/**
+ * Model ExecutiveInterventionEvent
+ * 
+ */
+export type ExecutiveInterventionEvent = Prisma.ExecutiveInterventionEventModel
+/**
  * Model DocumentTemplate
  * 
  */
@@ -209,6 +244,11 @@ export type Equipment = Prisma.EquipmentModel
  * 
  */
 export type EquipmentUsageLog = Prisma.EquipmentUsageLogModel
+/**
+ * Model EquipmentAllocation
+ * 
+ */
+export type EquipmentAllocation = Prisma.EquipmentAllocationModel
 /**
  * Model MaterialItem
  * 

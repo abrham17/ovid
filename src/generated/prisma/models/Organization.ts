@@ -226,6 +226,13 @@ export type OrganizationWhereInput = {
   defectsResponsible?: Prisma.DefectLogListRelationFilter
   purchaseOrders?: Prisma.PurchaseOrderListRelationFilter
   bids?: Prisma.BidTenderListRelationFilter
+  bidsOwned?: Prisma.BidTenderListRelationFilter
+  companyAssignments?: Prisma.CompanyStaffAssignmentListRelationFilter
+  companyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  approvals?: Prisma.CompanyApprovalListRelationFilter
+  designReviews?: Prisma.DesignReviewListRelationFilter
+  auditFindings?: Prisma.AuditFindingListRelationFilter
+  executiveInterventions?: Prisma.ExecutiveInterventionListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -250,6 +257,13 @@ export type OrganizationOrderByWithRelationInput = {
   defectsResponsible?: Prisma.DefectLogOrderByRelationAggregateInput
   purchaseOrders?: Prisma.PurchaseOrderOrderByRelationAggregateInput
   bids?: Prisma.BidTenderOrderByRelationAggregateInput
+  bidsOwned?: Prisma.BidTenderOrderByRelationAggregateInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentOrderByRelationAggregateInput
+  companyInvitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
+  approvals?: Prisma.CompanyApprovalOrderByRelationAggregateInput
+  designReviews?: Prisma.DesignReviewOrderByRelationAggregateInput
+  auditFindings?: Prisma.AuditFindingOrderByRelationAggregateInput
+  executiveInterventions?: Prisma.ExecutiveInterventionOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +291,13 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   defectsResponsible?: Prisma.DefectLogListRelationFilter
   purchaseOrders?: Prisma.PurchaseOrderListRelationFilter
   bids?: Prisma.BidTenderListRelationFilter
+  bidsOwned?: Prisma.BidTenderListRelationFilter
+  companyAssignments?: Prisma.CompanyStaffAssignmentListRelationFilter
+  companyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  approvals?: Prisma.CompanyApprovalListRelationFilter
+  designReviews?: Prisma.DesignReviewListRelationFilter
+  auditFindings?: Prisma.AuditFindingListRelationFilter
+  executiveInterventions?: Prisma.ExecutiveInterventionListRelationFilter
 }, "id">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -331,6 +352,13 @@ export type OrganizationCreateInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -355,6 +383,13 @@ export type OrganizationUncheckedCreateInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
@@ -379,6 +414,13 @@ export type OrganizationUpdateInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -403,6 +445,13 @@ export type OrganizationUncheckedUpdateInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -535,6 +584,90 @@ export type OrganizationUpdateOneRequiredWithoutMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutMembershipsInput, Prisma.OrganizationUpdateWithoutMembershipsInput>, Prisma.OrganizationUncheckedUpdateWithoutMembershipsInput>
 }
 
+export type OrganizationCreateNestedOneWithoutCompanyAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyAssignmentsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCompanyAssignmentsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutCompanyAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyAssignmentsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCompanyAssignmentsInput
+  upsert?: Prisma.OrganizationUpsertWithoutCompanyAssignmentsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutCompanyAssignmentsInput, Prisma.OrganizationUpdateWithoutCompanyAssignmentsInput>, Prisma.OrganizationUncheckedUpdateWithoutCompanyAssignmentsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutCompanyInvitationsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyInvitationsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCompanyInvitationsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutCompanyInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyInvitationsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCompanyInvitationsInput
+  upsert?: Prisma.OrganizationUpsertWithoutCompanyInvitationsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutCompanyInvitationsInput, Prisma.OrganizationUpdateWithoutCompanyInvitationsInput>, Prisma.OrganizationUncheckedUpdateWithoutCompanyInvitationsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutApprovalsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutApprovalsInput, Prisma.OrganizationUncheckedCreateWithoutApprovalsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutApprovalsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutApprovalsInput, Prisma.OrganizationUncheckedCreateWithoutApprovalsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutApprovalsInput
+  upsert?: Prisma.OrganizationUpsertWithoutApprovalsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutApprovalsInput, Prisma.OrganizationUpdateWithoutApprovalsInput>, Prisma.OrganizationUncheckedUpdateWithoutApprovalsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutDesignReviewsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedCreateWithoutDesignReviewsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutDesignReviewsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutDesignReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedCreateWithoutDesignReviewsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutDesignReviewsInput
+  upsert?: Prisma.OrganizationUpsertWithoutDesignReviewsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutDesignReviewsInput, Prisma.OrganizationUpdateWithoutDesignReviewsInput>, Prisma.OrganizationUncheckedUpdateWithoutDesignReviewsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutAuditFindingsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedCreateWithoutAuditFindingsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAuditFindingsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutAuditFindingsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedCreateWithoutAuditFindingsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAuditFindingsInput
+  upsert?: Prisma.OrganizationUpsertWithoutAuditFindingsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutAuditFindingsInput, Prisma.OrganizationUpdateWithoutAuditFindingsInput>, Prisma.OrganizationUncheckedUpdateWithoutAuditFindingsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutExecutiveInterventionsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedCreateWithoutExecutiveInterventionsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutExecutiveInterventionsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutExecutiveInterventionsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedCreateWithoutExecutiveInterventionsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutExecutiveInterventionsInput
+  upsert?: Prisma.OrganizationUpsertWithoutExecutiveInterventionsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutExecutiveInterventionsInput, Prisma.OrganizationUpdateWithoutExecutiveInterventionsInput>, Prisma.OrganizationUncheckedUpdateWithoutExecutiveInterventionsInput>
+}
+
 export type OrganizationCreateNestedOneWithoutProjectsAsContractorInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectsAsContractorInput, Prisma.OrganizationUncheckedCreateWithoutProjectsAsContractorInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProjectsAsContractorInput
@@ -665,10 +798,26 @@ export type OrganizationUpdateOneRequiredWithoutPurchaseOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutPurchaseOrdersInput, Prisma.OrganizationUpdateWithoutPurchaseOrdersInput>, Prisma.OrganizationUncheckedUpdateWithoutPurchaseOrdersInput>
 }
 
+export type OrganizationCreateNestedOneWithoutBidsOwnedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedCreateWithoutBidsOwnedInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutBidsOwnedInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
 export type OrganizationCreateNestedOneWithoutBidsInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsInput, Prisma.OrganizationUncheckedCreateWithoutBidsInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutBidsInput
   connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneWithoutBidsOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedCreateWithoutBidsOwnedInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutBidsOwnedInput
+  upsert?: Prisma.OrganizationUpsertWithoutBidsOwnedInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutBidsOwnedInput, Prisma.OrganizationUpdateWithoutBidsOwnedInput>, Prisma.OrganizationUncheckedUpdateWithoutBidsOwnedInput>
 }
 
 export type OrganizationUpdateOneWithoutBidsNestedInput = {
@@ -702,6 +851,13 @@ export type OrganizationCreateWithoutUsersInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -725,6 +881,13 @@ export type OrganizationUncheckedCreateWithoutUsersInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -764,6 +927,13 @@ export type OrganizationUpdateWithoutUsersInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -787,6 +957,13 @@ export type OrganizationUncheckedUpdateWithoutUsersInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutMembershipsInput = {
@@ -810,6 +987,13 @@ export type OrganizationCreateWithoutMembershipsInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutMembershipsInput = {
@@ -833,6 +1017,13 @@ export type OrganizationUncheckedCreateWithoutMembershipsInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutMembershipsInput = {
@@ -872,6 +1063,13 @@ export type OrganizationUpdateWithoutMembershipsInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
@@ -895,6 +1093,829 @@ export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutCompanyAssignmentsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutCompanyAssignmentsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutCompanyAssignmentsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyAssignmentsInput>
+}
+
+export type OrganizationUpsertWithoutCompanyAssignmentsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedUpdateWithoutCompanyAssignmentsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyAssignmentsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutCompanyAssignmentsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutCompanyAssignmentsInput, Prisma.OrganizationUncheckedUpdateWithoutCompanyAssignmentsInput>
+}
+
+export type OrganizationUpdateWithoutCompanyAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutCompanyAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutCompanyInvitationsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutCompanyInvitationsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutCompanyInvitationsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyInvitationsInput>
+}
+
+export type OrganizationUpsertWithoutCompanyInvitationsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedUpdateWithoutCompanyInvitationsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutCompanyInvitationsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutCompanyInvitationsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutCompanyInvitationsInput, Prisma.OrganizationUncheckedUpdateWithoutCompanyInvitationsInput>
+}
+
+export type OrganizationUpdateWithoutCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutApprovalsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutApprovalsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutApprovalsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutApprovalsInput, Prisma.OrganizationUncheckedCreateWithoutApprovalsInput>
+}
+
+export type OrganizationUpsertWithoutApprovalsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutApprovalsInput, Prisma.OrganizationUncheckedUpdateWithoutApprovalsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutApprovalsInput, Prisma.OrganizationUncheckedCreateWithoutApprovalsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutApprovalsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutApprovalsInput, Prisma.OrganizationUncheckedUpdateWithoutApprovalsInput>
+}
+
+export type OrganizationUpdateWithoutApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutDesignReviewsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutDesignReviewsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutDesignReviewsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedCreateWithoutDesignReviewsInput>
+}
+
+export type OrganizationUpsertWithoutDesignReviewsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedUpdateWithoutDesignReviewsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedCreateWithoutDesignReviewsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutDesignReviewsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutDesignReviewsInput, Prisma.OrganizationUncheckedUpdateWithoutDesignReviewsInput>
+}
+
+export type OrganizationUpdateWithoutDesignReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutDesignReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutAuditFindingsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutAuditFindingsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutAuditFindingsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedCreateWithoutAuditFindingsInput>
+}
+
+export type OrganizationUpsertWithoutAuditFindingsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedUpdateWithoutAuditFindingsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedCreateWithoutAuditFindingsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutAuditFindingsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutAuditFindingsInput, Prisma.OrganizationUncheckedUpdateWithoutAuditFindingsInput>
+}
+
+export type OrganizationUpdateWithoutAuditFindingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutAuditFindingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutExecutiveInterventionsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutExecutiveInterventionsInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutExecutiveInterventionsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedCreateWithoutExecutiveInterventionsInput>
+}
+
+export type OrganizationUpsertWithoutExecutiveInterventionsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedUpdateWithoutExecutiveInterventionsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedCreateWithoutExecutiveInterventionsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutExecutiveInterventionsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutExecutiveInterventionsInput, Prisma.OrganizationUncheckedUpdateWithoutExecutiveInterventionsInput>
+}
+
+export type OrganizationUpdateWithoutExecutiveInterventionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutExecutiveInterventionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutProjectsAsContractorInput = {
@@ -918,6 +1939,13 @@ export type OrganizationCreateWithoutProjectsAsContractorInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProjectsAsContractorInput = {
@@ -941,6 +1969,13 @@ export type OrganizationUncheckedCreateWithoutProjectsAsContractorInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProjectsAsContractorInput = {
@@ -969,6 +2004,13 @@ export type OrganizationCreateWithoutProjectsAsClientInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProjectsAsClientInput = {
@@ -992,6 +2034,13 @@ export type OrganizationUncheckedCreateWithoutProjectsAsClientInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProjectsAsClientInput = {
@@ -1020,6 +2069,13 @@ export type OrganizationCreateWithoutProjectsAsConsultantInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProjectsAsConsultantInput = {
@@ -1043,6 +2099,13 @@ export type OrganizationUncheckedCreateWithoutProjectsAsConsultantInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProjectsAsConsultantInput = {
@@ -1082,6 +2145,13 @@ export type OrganizationUpdateWithoutProjectsAsContractorInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProjectsAsContractorInput = {
@@ -1105,6 +2175,13 @@ export type OrganizationUncheckedUpdateWithoutProjectsAsContractorInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUpsertWithoutProjectsAsClientInput = {
@@ -1139,6 +2216,13 @@ export type OrganizationUpdateWithoutProjectsAsClientInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProjectsAsClientInput = {
@@ -1162,6 +2246,13 @@ export type OrganizationUncheckedUpdateWithoutProjectsAsClientInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUpsertWithoutProjectsAsConsultantInput = {
@@ -1196,6 +2287,13 @@ export type OrganizationUpdateWithoutProjectsAsConsultantInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProjectsAsConsultantInput = {
@@ -1219,6 +2317,13 @@ export type OrganizationUncheckedUpdateWithoutProjectsAsConsultantInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutInvitationsInput = {
@@ -1242,6 +2347,13 @@ export type OrganizationCreateWithoutInvitationsInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutInvitationsInput = {
@@ -1265,6 +2377,13 @@ export type OrganizationUncheckedCreateWithoutInvitationsInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutInvitationsInput = {
@@ -1304,6 +2423,13 @@ export type OrganizationUpdateWithoutInvitationsInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutInvitationsInput = {
@@ -1327,6 +2453,13 @@ export type OrganizationUncheckedUpdateWithoutInvitationsInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutContractsExecutedInput = {
@@ -1350,6 +2483,13 @@ export type OrganizationCreateWithoutContractsExecutedInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutContractsExecutedInput = {
@@ -1373,6 +2513,13 @@ export type OrganizationUncheckedCreateWithoutContractsExecutedInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutContractsExecutedInput = {
@@ -1412,6 +2559,13 @@ export type OrganizationUpdateWithoutContractsExecutedInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutContractsExecutedInput = {
@@ -1435,6 +2589,13 @@ export type OrganizationUncheckedUpdateWithoutContractsExecutedInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutDefectsResponsibleInput = {
@@ -1458,6 +2619,13 @@ export type OrganizationCreateWithoutDefectsResponsibleInput = {
   equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutDefectsResponsibleInput = {
@@ -1481,6 +2649,13 @@ export type OrganizationUncheckedCreateWithoutDefectsResponsibleInput = {
   equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutDefectsResponsibleInput = {
@@ -1520,6 +2695,13 @@ export type OrganizationUpdateWithoutDefectsResponsibleInput = {
   equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutDefectsResponsibleInput = {
@@ -1543,6 +2725,13 @@ export type OrganizationUncheckedUpdateWithoutDefectsResponsibleInput = {
   equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutEmployeesInput = {
@@ -1566,6 +2755,13 @@ export type OrganizationCreateWithoutEmployeesInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutEmployeesInput = {
@@ -1589,6 +2785,13 @@ export type OrganizationUncheckedCreateWithoutEmployeesInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutEmployeesInput = {
@@ -1628,6 +2831,13 @@ export type OrganizationUpdateWithoutEmployeesInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
@@ -1651,6 +2861,13 @@ export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutEquipmentInput = {
@@ -1674,6 +2891,13 @@ export type OrganizationCreateWithoutEquipmentInput = {
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutEquipmentInput = {
@@ -1697,6 +2921,13 @@ export type OrganizationUncheckedCreateWithoutEquipmentInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutEquipmentInput = {
@@ -1736,6 +2967,13 @@ export type OrganizationUpdateWithoutEquipmentInput = {
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutEquipmentInput = {
@@ -1759,6 +2997,13 @@ export type OrganizationUncheckedUpdateWithoutEquipmentInput = {
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutPurchaseOrdersInput = {
@@ -1782,6 +3027,13 @@ export type OrganizationCreateWithoutPurchaseOrdersInput = {
   equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -1805,6 +3057,13 @@ export type OrganizationUncheckedCreateWithoutPurchaseOrdersInput = {
   equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -1844,6 +3103,13 @@ export type OrganizationUpdateWithoutPurchaseOrdersInput = {
   equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -1867,6 +3133,78 @@ export type OrganizationUncheckedUpdateWithoutPurchaseOrdersInput = {
   equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutBidsOwnedInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderCreateNestedManyWithoutSupplierInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutBidsOwnedInput = {
+  id?: string
+  name: string
+  nameAmharic?: string | null
+  partyType: $Enums.PartyType
+  contractorGrade?: $Enums.ContractorGrade | null
+  licenseNumber?: string | null
+  taxId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  projectsAsContractor?: Prisma.ProjectUncheckedCreateNestedManyWithoutContractorOrgInput
+  projectsAsClient?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrgInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedCreateNestedManyWithoutConsultantOrgInput
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  contractsExecuted?: Prisma.ContractUncheckedCreateNestedManyWithoutContractorOrgInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
+  defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bids?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSupplierInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutBidsOwnedInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedCreateWithoutBidsOwnedInput>
 }
 
 export type OrganizationCreateWithoutBidsInput = {
@@ -1890,6 +3228,13 @@ export type OrganizationCreateWithoutBidsInput = {
   equipment?: Prisma.EquipmentCreateNestedManyWithoutOrganizationInput
   defectsResponsible?: Prisma.DefectLogCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutBidsInput = {
@@ -1913,11 +3258,89 @@ export type OrganizationUncheckedCreateWithoutBidsInput = {
   equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutOrganizationInput
   defectsResponsible?: Prisma.DefectLogUncheckedCreateNestedManyWithoutResponsibleOrgInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutSupplierInput
+  bidsOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutOwnerOrgInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutOrganizationInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  approvals?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutOrganizationInput
+  designReviews?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutOrganizationInput
+  auditFindings?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOrganizationInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutBidsInput = {
   where: Prisma.OrganizationWhereUniqueInput
   create: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsInput, Prisma.OrganizationUncheckedCreateWithoutBidsInput>
+}
+
+export type OrganizationUpsertWithoutBidsOwnedInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedUpdateWithoutBidsOwnedInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedCreateWithoutBidsOwnedInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutBidsOwnedInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutBidsOwnedInput, Prisma.OrganizationUncheckedUpdateWithoutBidsOwnedInput>
+}
+
+export type OrganizationUpdateWithoutBidsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUpdateManyWithoutSupplierNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutBidsOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  nameAmharic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partyType?: Prisma.EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+  contractorGrade?: Prisma.NullableEnumContractorGradeFieldUpdateOperationsInput | $Enums.ContractorGrade | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectsAsContractor?: Prisma.ProjectUncheckedUpdateManyWithoutContractorOrgNestedInput
+  projectsAsClient?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrgNestedInput
+  projectsAsConsultant?: Prisma.ProjectUncheckedUpdateManyWithoutConsultantOrgNestedInput
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  contractsExecuted?: Prisma.ContractUncheckedUpdateManyWithoutContractorOrgNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bids?: Prisma.BidTenderUncheckedUpdateManyWithoutSupplierNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUpsertWithoutBidsInput = {
@@ -1952,6 +3375,13 @@ export type OrganizationUpdateWithoutBidsInput = {
   equipment?: Prisma.EquipmentUpdateManyWithoutOrganizationNestedInput
   defectsResponsible?: Prisma.DefectLogUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutBidsInput = {
@@ -1975,6 +3405,13 @@ export type OrganizationUncheckedUpdateWithoutBidsInput = {
   equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutOrganizationNestedInput
   defectsResponsible?: Prisma.DefectLogUncheckedUpdateManyWithoutResponsibleOrgNestedInput
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutSupplierNestedInput
+  bidsOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutOwnerOrgNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  companyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  approvals?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutOrganizationNestedInput
+  designReviews?: Prisma.DesignReviewUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditFindings?: Prisma.AuditFindingUncheckedUpdateManyWithoutOrganizationNestedInput
+  executiveInterventions?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -1995,6 +3432,13 @@ export type OrganizationCountOutputType = {
   defectsResponsible: number
   purchaseOrders: number
   bids: number
+  bidsOwned: number
+  companyAssignments: number
+  companyInvitations: number
+  approvals: number
+  designReviews: number
+  auditFindings: number
+  executiveInterventions: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2010,6 +3454,13 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   defectsResponsible?: boolean | OrganizationCountOutputTypeCountDefectsResponsibleArgs
   purchaseOrders?: boolean | OrganizationCountOutputTypeCountPurchaseOrdersArgs
   bids?: boolean | OrganizationCountOutputTypeCountBidsArgs
+  bidsOwned?: boolean | OrganizationCountOutputTypeCountBidsOwnedArgs
+  companyAssignments?: boolean | OrganizationCountOutputTypeCountCompanyAssignmentsArgs
+  companyInvitations?: boolean | OrganizationCountOutputTypeCountCompanyInvitationsArgs
+  approvals?: boolean | OrganizationCountOutputTypeCountApprovalsArgs
+  designReviews?: boolean | OrganizationCountOutputTypeCountDesignReviewsArgs
+  auditFindings?: boolean | OrganizationCountOutputTypeCountAuditFindingsArgs
+  executiveInterventions?: boolean | OrganizationCountOutputTypeCountExecutiveInterventionsArgs
 }
 
 /**
@@ -2106,6 +3557,55 @@ export type OrganizationCountOutputTypeCountBidsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.BidTenderWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountBidsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidTenderWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountCompanyAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountCompanyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyInvitationWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyApprovalWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountDesignReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DesignReviewWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountAuditFindingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditFindingWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountExecutiveInterventionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExecutiveInterventionWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2129,6 +3629,13 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   defectsResponsible?: boolean | Prisma.Organization$defectsResponsibleArgs<ExtArgs>
   purchaseOrders?: boolean | Prisma.Organization$purchaseOrdersArgs<ExtArgs>
   bids?: boolean | Prisma.Organization$bidsArgs<ExtArgs>
+  bidsOwned?: boolean | Prisma.Organization$bidsOwnedArgs<ExtArgs>
+  companyAssignments?: boolean | Prisma.Organization$companyAssignmentsArgs<ExtArgs>
+  companyInvitations?: boolean | Prisma.Organization$companyInvitationsArgs<ExtArgs>
+  approvals?: boolean | Prisma.Organization$approvalsArgs<ExtArgs>
+  designReviews?: boolean | Prisma.Organization$designReviewsArgs<ExtArgs>
+  auditFindings?: boolean | Prisma.Organization$auditFindingsArgs<ExtArgs>
+  executiveInterventions?: boolean | Prisma.Organization$executiveInterventionsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -2182,6 +3689,13 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   defectsResponsible?: boolean | Prisma.Organization$defectsResponsibleArgs<ExtArgs>
   purchaseOrders?: boolean | Prisma.Organization$purchaseOrdersArgs<ExtArgs>
   bids?: boolean | Prisma.Organization$bidsArgs<ExtArgs>
+  bidsOwned?: boolean | Prisma.Organization$bidsOwnedArgs<ExtArgs>
+  companyAssignments?: boolean | Prisma.Organization$companyAssignmentsArgs<ExtArgs>
+  companyInvitations?: boolean | Prisma.Organization$companyInvitationsArgs<ExtArgs>
+  approvals?: boolean | Prisma.Organization$approvalsArgs<ExtArgs>
+  designReviews?: boolean | Prisma.Organization$designReviewsArgs<ExtArgs>
+  auditFindings?: boolean | Prisma.Organization$auditFindingsArgs<ExtArgs>
+  executiveInterventions?: boolean | Prisma.Organization$executiveInterventionsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2202,6 +3716,13 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     defectsResponsible: Prisma.$DefectLogPayload<ExtArgs>[]
     purchaseOrders: Prisma.$PurchaseOrderPayload<ExtArgs>[]
     bids: Prisma.$BidTenderPayload<ExtArgs>[]
+    bidsOwned: Prisma.$BidTenderPayload<ExtArgs>[]
+    companyAssignments: Prisma.$CompanyStaffAssignmentPayload<ExtArgs>[]
+    companyInvitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
+    approvals: Prisma.$CompanyApprovalPayload<ExtArgs>[]
+    designReviews: Prisma.$DesignReviewPayload<ExtArgs>[]
+    auditFindings: Prisma.$AuditFindingPayload<ExtArgs>[]
+    executiveInterventions: Prisma.$ExecutiveInterventionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2619,6 +4140,13 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   defectsResponsible<T extends Prisma.Organization$defectsResponsibleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$defectsResponsibleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseOrders<T extends Prisma.Organization$purchaseOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$purchaseOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bids<T extends Prisma.Organization$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidTenderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidsOwned<T extends Prisma.Organization$bidsOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$bidsOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidTenderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyAssignments<T extends Prisma.Organization$companyAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$companyAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyStaffAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyInvitations<T extends Prisma.Organization$companyInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$companyInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvals<T extends Prisma.Organization$approvalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$approvalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  designReviews<T extends Prisma.Organization$designReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$designReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DesignReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditFindings<T extends Prisma.Organization$auditFindingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$auditFindingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditFindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executiveInterventions<T extends Prisma.Organization$executiveInterventionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$executiveInterventionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExecutiveInterventionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3330,6 +4858,174 @@ export type Organization$bidsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BidTenderScalarFieldEnum | Prisma.BidTenderScalarFieldEnum[]
+}
+
+/**
+ * Organization.bidsOwned
+ */
+export type Organization$bidsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidTender
+   */
+  select?: Prisma.BidTenderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidTender
+   */
+  omit?: Prisma.BidTenderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidTenderInclude<ExtArgs> | null
+  where?: Prisma.BidTenderWhereInput
+  orderBy?: Prisma.BidTenderOrderByWithRelationInput | Prisma.BidTenderOrderByWithRelationInput[]
+  cursor?: Prisma.BidTenderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidTenderScalarFieldEnum | Prisma.BidTenderScalarFieldEnum[]
+}
+
+/**
+ * Organization.companyAssignments
+ */
+export type Organization$companyAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyStaffAssignment
+   */
+  select?: Prisma.CompanyStaffAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyStaffAssignment
+   */
+  omit?: Prisma.CompanyStaffAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyStaffAssignmentInclude<ExtArgs> | null
+  where?: Prisma.CompanyStaffAssignmentWhereInput
+  orderBy?: Prisma.CompanyStaffAssignmentOrderByWithRelationInput | Prisma.CompanyStaffAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyStaffAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyStaffAssignmentScalarFieldEnum | Prisma.CompanyStaffAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Organization.companyInvitations
+ */
+export type Organization$companyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyInvitation
+   */
+  select?: Prisma.CompanyInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyInvitation
+   */
+  omit?: Prisma.CompanyInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInvitationInclude<ExtArgs> | null
+  where?: Prisma.CompanyInvitationWhereInput
+  orderBy?: Prisma.CompanyInvitationOrderByWithRelationInput | Prisma.CompanyInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
+}
+
+/**
+ * Organization.approvals
+ */
+export type Organization$approvalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyApproval
+   */
+  select?: Prisma.CompanyApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyApproval
+   */
+  omit?: Prisma.CompanyApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyApprovalInclude<ExtArgs> | null
+  where?: Prisma.CompanyApprovalWhereInput
+  orderBy?: Prisma.CompanyApprovalOrderByWithRelationInput | Prisma.CompanyApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyApprovalScalarFieldEnum | Prisma.CompanyApprovalScalarFieldEnum[]
+}
+
+/**
+ * Organization.designReviews
+ */
+export type Organization$designReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DesignReview
+   */
+  select?: Prisma.DesignReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DesignReview
+   */
+  omit?: Prisma.DesignReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DesignReviewInclude<ExtArgs> | null
+  where?: Prisma.DesignReviewWhereInput
+  orderBy?: Prisma.DesignReviewOrderByWithRelationInput | Prisma.DesignReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DesignReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DesignReviewScalarFieldEnum | Prisma.DesignReviewScalarFieldEnum[]
+}
+
+/**
+ * Organization.auditFindings
+ */
+export type Organization$auditFindingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditFinding
+   */
+  select?: Prisma.AuditFindingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditFinding
+   */
+  omit?: Prisma.AuditFindingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditFindingInclude<ExtArgs> | null
+  where?: Prisma.AuditFindingWhereInput
+  orderBy?: Prisma.AuditFindingOrderByWithRelationInput | Prisma.AuditFindingOrderByWithRelationInput[]
+  cursor?: Prisma.AuditFindingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditFindingScalarFieldEnum | Prisma.AuditFindingScalarFieldEnum[]
+}
+
+/**
+ * Organization.executiveInterventions
+ */
+export type Organization$executiveInterventionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExecutiveIntervention
+   */
+  select?: Prisma.ExecutiveInterventionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExecutiveIntervention
+   */
+  omit?: Prisma.ExecutiveInterventionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExecutiveInterventionInclude<ExtArgs> | null
+  where?: Prisma.ExecutiveInterventionWhereInput
+  orderBy?: Prisma.ExecutiveInterventionOrderByWithRelationInput | Prisma.ExecutiveInterventionOrderByWithRelationInput[]
+  cursor?: Prisma.ExecutiveInterventionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExecutiveInterventionScalarFieldEnum | Prisma.ExecutiveInterventionScalarFieldEnum[]
 }
 
 /**

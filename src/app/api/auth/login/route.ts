@@ -26,6 +26,8 @@ export async function POST(req: NextRequest) {
         organizationId: user.organizationId,
         organizationName: user.organizationName,
         partyType: user.partyType,
+        companyRoles: user.companyRoles,
+        mustChangePassword: user.mustChangePassword,
       },
     });
   } catch (err) {
