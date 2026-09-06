@@ -68,7 +68,6 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
     quality: ["read", "create", "update"],
     schedule: ["read", "create", "update"],
     wbs: ["read", "update"],
-    cost: ["read"],
     document: ["read", "create"],
     project: ["read"],
     assignment: ["read", "create", "update"],
