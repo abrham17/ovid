@@ -271,18 +271,85 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
 };
 
 export const COMPANY_ROLE_PERMISSIONS: Record<CompanyStaffRole, Partial<Record<CompanyResource, PermissionAction[]>>> = {
-  GENERAL_MANAGER: { portfolio: ["read"], project_approval: ["approve"], contractor_onboarding: ["approve"], equipment_capital: ["approve"], audit_compliance: ["read"], executive_intervention: ["read", "create", "update", "approve"], executive_approval: ["read", "approve"] },
-  LEGAL_SERVICE_MANAGER: { portfolio: ["read"], tendering: ["read", "update", "approve"], legal_escalation: ["read", "create", "approve"], executive_intervention: ["read", "update"] },
-  HEAD_TENDERING: { portfolio: ["read"], tendering: ["read", "create", "update", "approve"], project_approval: ["create"], contractor_onboarding: ["create"], legal_escalation: ["read", "create"], executive_intervention: ["read", "update"] },
-  TENDERING_OFFICER: { portfolio: ["read"], tendering: ["read", "create", "update"] },
-  HEAD_PLANNING_MONITORING: { portfolio: ["read"], planning_monitoring: ["read", "create", "update"], executive_intervention: ["read", "update"] },
-  PLANNING_OFFICER: { portfolio: ["read"], planning_monitoring: ["read", "update"], executive_intervention: ["read", "update"] },
-  ENGINEERING_DEPT_MANAGER: { portfolio: ["read"], engineering_standards: ["read", "approve"], tendering: ["read", "approve"], equipment_capital: ["approve"], legal_escalation: ["approve"], executive_intervention: ["read", "update"] },
-  HEAD_ENGINEERING_SERVICES: { portfolio: ["read"], engineering_standards: ["read", "create", "update", "approve"], executive_intervention: ["read", "update"] },
-  ENGINEERING_SERVICES_OFFICER: { portfolio: ["read"], engineering_standards: ["read", "create", "update"] },
-  EQUIPMENT_ADMIN_MANAGER: { portfolio: ["read"], equipment_capital: ["read", "create", "update"], executive_intervention: ["read", "update"] },
-  FINANCE_DEPT_MANAGER: { portfolio: ["read"], finance_approval: ["read", "approve"], audit_compliance: ["read"], executive_intervention: ["read", "update"] },
-  INTERNAL_AUDITOR: { audit_compliance: ["read"], audit_findings: ["read", "create", "update"], portfolio: ["read"] },
+  GENERAL_MANAGER: {
+    portfolio: ["read"],
+    project_approval: ["read", "approve"],
+    contractor_onboarding: ["read", "approve"],
+    equipment_capital: ["read", "approve"],
+    audit_compliance: ["read"],
+    audit_findings: ["read"],
+    executive_intervention: ["read", "create", "update", "approve"],
+    executive_approval: ["read", "approve"],
+    finance_approval: ["read", "approve"],
+    legal_escalation: ["read", "approve"],
+  },
+  LEGAL_SERVICE_MANAGER: {
+    portfolio: ["read"],
+    tendering: ["read", "update", "approve"],
+    legal_escalation: ["read", "create", "update", "approve"],
+    executive_intervention: ["read", "update"],
+    executive_approval: ["read"],
+    audit_findings: ["read"],
+  },
+  HEAD_TENDERING: {
+    portfolio: ["read"],
+    tendering: ["read", "create", "update", "approve"],
+    project_approval: ["read", "create"],
+    contractor_onboarding: ["read", "create"],
+    legal_escalation: ["read", "create"],
+    executive_intervention: ["read", "update"],
+  },
+  TENDERING_OFFICER: {
+    portfolio: ["read"],
+    tendering: ["read", "create", "update"],
+    project_approval: ["read"],
+  },
+  HEAD_PLANNING_MONITORING: {
+    portfolio: ["read"],
+    planning_monitoring: ["read", "create", "update", "approve"],
+    executive_intervention: ["read", "update"],
+    audit_findings: ["read"],
+  },
+  PLANNING_OFFICER: {
+    portfolio: ["read"],
+    planning_monitoring: ["read", "create", "update"],
+  },
+  ENGINEERING_DEPT_MANAGER: {
+    portfolio: ["read"],
+    engineering_standards: ["read", "update", "approve"],
+    tendering: ["read", "approve"],
+    equipment_capital: ["read", "approve"],
+    legal_escalation: ["read", "approve"],
+    executive_intervention: ["read", "update"],
+    audit_findings: ["read"],
+  },
+  HEAD_ENGINEERING_SERVICES: {
+    portfolio: ["read"],
+    engineering_standards: ["read", "create", "update", "approve"],
+    executive_intervention: ["read", "update"],
+  },
+  ENGINEERING_SERVICES_OFFICER: {
+    portfolio: ["read"],
+    engineering_standards: ["read", "create", "update"],
+  },
+  EQUIPMENT_ADMIN_MANAGER: {
+    portfolio: ["read"],
+    equipment_capital: ["read", "create", "update", "approve"],
+    executive_intervention: ["read", "update"],
+  },
+  FINANCE_DEPT_MANAGER: {
+    portfolio: ["read"],
+    finance_approval: ["read", "update", "approve"],
+    audit_compliance: ["read"],
+    audit_findings: ["read", "update"],
+    executive_intervention: ["read", "update"],
+  },
+  INTERNAL_AUDITOR: {
+    portfolio: ["read"],
+    audit_compliance: ["read"],
+    audit_findings: ["read", "create", "update", "approve"],
+    executive_intervention: ["read"],
+  },
 };
 
 export function companyRoleCan(role: CompanyStaffRole, resource: CompanyResource, action: PermissionAction) {
