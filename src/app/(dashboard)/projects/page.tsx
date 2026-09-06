@@ -10,12 +10,15 @@ import { formatCurrency, titleCase } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
 import { Plus, MapPin, Users } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
+import { can } from "@/lib/permissions";
 
 export default async function ProjectsPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
   const projects = await listProjects(session);
+  const canSeeContractValue = can(session.role, "cost", "read") || can(session.role, "contract", "read");
+  const canSeeTeamMembers = can(session.role, "team", "read");
 
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
@@ -59,11 +62,15 @@ export default async function ProjectsPage() {
                   </div>
                   <div className="flex items-center justify-between border-t border-border-subtle pt-3 text-xs text-fg-muted">
                     <span className="flex items-center gap-1">
-                      <Users className="h-3.5 w-3.5 text-fg-subtle" />
-                      {p._count.memberships} members
+                      {canSeeTeamMembers ? (
+                        <>
+                          <Users className="h-3.5 w-3.5 text-fg-subtle" />
+                          {p._count.memberships} members
+                        </>
+                      ) : null}
                     </span>
                     <span className="font-mono font-bold text-fg-default">
-                      {p.contractValue != null
+                      {canSeeContractValue && p.contractValue != null
                         ? formatCurrency(Number(p.contractValue), "ETB")
                         : "—"}
                     </span>
