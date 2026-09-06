@@ -43,8 +43,6 @@ const ROLE_PERMISSIONS: Record<UserRole, Partial<Record<Resource, PermissionActi
     daily_report: ["read", "create", "update"],
     safety: ["read", "create"],
     quality: ["read"],
-    labor: ["read", "create", "update"],
-    equipment: ["read"],
     schedule: ["read", "create"],
     wbs: ["read"],
     project: ["read"],
