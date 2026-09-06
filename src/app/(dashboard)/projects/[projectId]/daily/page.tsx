@@ -16,16 +16,47 @@ function flattenWbs(nodes: any[], acc: { id: string; code: string; name: string 
   return acc;
 }
 
+function serializeDailyData(data: { earthwork: any[]; structure: any[]; rebar: any[] }) {
+  const serializeVal = (val: any) => {
+    if (val === null || val === undefined) return val;
+    if (typeof val === "object" && typeof val.toNumber === "function") {
+      return val.toNumber();
+    }
+    if (Array.isArray(val)) {
+      return val.map(serializeVal);
+    }
+    if (val instanceof Date) {
+      return val;
+    }
+    if (typeof val === "object" && val.constructor === Object) {
+      const res: Record<string, any> = {};
+      for (const key of Object.keys(val)) {
+        res[key] = serializeVal(val[key]);
+      }
+      return res;
+    }
+    return val;
+  };
+
+  return {
+    earthwork: data.earthwork.map((e) => serializeVal(e)),
+    structure: data.structure.map((s) => serializeVal(s)),
+    rebar: data.rebar.map((r) => serializeVal(r)),
+  };
+}
+
 export default async function DailyPage({ params }: Props) {
   const session = await getSession();
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [data, tree, hints] = await Promise.all([
+  const [dataRaw, tree, hints] = await Promise.all([
     listDailyReports(session, projectId),
     getWbsTree(session, projectId),
     getScopeUiHints(session, projectId),
   ]);
+
+  const data = serializeDailyData(dataRaw);
 
   const wbsNodes = filterWritableWbsOptions(
     flattenWbs(tree as any[]),
