@@ -21,6 +21,12 @@ export default async function ResourcesPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
+
+  const canViewResources = can(session.role, "labor", "read") || can(session.role, "equipment", "read");
+  if (!canViewResources) {
+    redirect(`/projects/${projectId}/overview`);
+  }
+
   const [data, tree, hints] = await Promise.all([
     listResources(session, projectId),
     getWbsTree(session, projectId),

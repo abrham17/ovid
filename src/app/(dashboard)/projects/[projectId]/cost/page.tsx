@@ -21,6 +21,12 @@ export default async function CostPage({ params }: Props) {
   if (!session) redirect("/login");
 
   const { projectId } = await params;
+
+  const canViewCost = can(session.role, "cost", "read") || can(session.role, "measurement", "read");
+  if (!canViewCost) {
+    redirect(`/projects/${projectId}/overview`);
+  }
+
   const [overview, tree, hints] = await Promise.all([
     listCostOverview(session, projectId),
     getWbsTree(session, projectId),
