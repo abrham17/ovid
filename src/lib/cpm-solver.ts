@@ -77,12 +77,12 @@ export function solveCriticalPath(
 
   const projectDuration = Math.max(...Array.from(earlyFinish.values()), 0);
 
-  // Backward Pass: LS, LF
+  // Backward Pass: LS, LF using topologically sorted array in reverse order
   const lateStart = new Map<string, number>();
   const lateFinish = new Map<string, number>();
 
-  for (let i = activities.length - 1; i >= 0; i--) {
-    const act = activities[i];
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    const act = sorted[i];
     const succs = successorsMap.get(act.id) ?? [];
     let minLS = projectDuration;
 

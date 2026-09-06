@@ -1,79 +1,57 @@
-# System Architecture, RBAC & Centralized Audit Logging Strategy
+# System Architecture & Role-Based Access Control (RBAC) Master Plan
 
-## 1. Executive Governance & Expanded Role Taxonomy
+## 1. Architectural Overview & ISO Compliance Baseline
 
-To meet ISO 9001 §5.3, ISO 10006, and FIDIC project management governance requirements, the system implements a 24-role RBAC taxonomy divided across three distinct operational tiers:
+The Ovid Project Management System (PMS) is a construction controls platform designed around **ISO 9001:2015** (Quality Management), **ISO 10006:2017** (Project Quality), **ISO 21502:2020** (Project Governance), **ISO/IEC 27001:2022** (Information Security Controls), and **FIDIC / Ethiopian Grade-1 MoUDC** construction standards.
 
-### Tier 1: Corporate Top Executive Governance
-These roles possess portfolio-wide, cross-project visibility and strategic decision/approval authority:
-1. `GENERAL_MANAGER`: Full executive portfolio-wide oversight, high-value contract/variation approvals, executive interventions.
-2. `MANAGING_DIRECTOR`: Overall strategic corporate governance and company performance oversight.
-3. `CFO` / `FINANCE_DEPT_MANAGER`: Financial oversight, IPC payment release authorization, corporate budget control.
-4. `CHIEF_ENGINEER`: Engineering standard approvals, critical design review sign-offs, technical dispute escalations.
-5. `IT_ADMIN`: System maintenance, security compliance, organization settings, and audit log monitoring.
-6. `INTERNAL_AUDITOR`: Portfolio-wide read-only compliance inspection and audit finding generation.
-7. `LEGAL_SERVICE_MANAGER`: Contractual claims, disputes, and FIDIC legal compliance.
-8. `EQUIPMENT_ADMIN_MANAGER`: Corporate equipment allocation, fleet availability, and inter-project transfers.
-9. `HEAD_PLANNING_MONITORING`: Portfolio schedule monitoring, baseline change review, WBS standard enforcement.
-10. `HEAD_TENDERING` & `TENDERING_OFFICER`: Procurement, bidding, and tender management.
-
-### Tier 2: Project Management & Technical Operations
-Project-level roles tied to specific project memberships:
-11. `SENIOR_PM` / `DEPUTY_PM`: Full project execution authority, baseline change requests, subcontractor plan approvals.
-12. `SITE_ENGINEER` / `OFFICE_ENGINEER`: Daily report logging, activity progress tracking, measurement entries.
-13. `SUPERINTENDENT` / `FOREMAN`: On-site trade supervision, labor attendance, daily earthwork/structure inputs.
-14. `QC_INSPECTOR`: Inspection Test Records (ITR), defect logging, punch list verification.
-15. `HSE_OFFICER`: Safety observations, incident reports, stoppage logs.
-16. `QS` (Quantity Surveyor): Physical measurement validation, BOQ quantity tracking, IPC preparation.
-17. `CONSULTANT_ENGINEER` / `RESIDENT_ENGINEER`: Consultant sign-off, IPC certification, quality approvals.
-18. `CLIENT_REP`: Client oversight, high-level project status inspection.
-
-### Tier 3: Subcontractors & External Parties
-19. `SUBCONTRACTOR_PM`: Subcontractor WBS plan submission, resource requests, daily activity logging.
-20. `PROCUREMENT` / `FINANCE` / `HR` / `CONTRACTS_LEGAL`: Operational department roles.
+The architecture enforces a strict 3-layer authorization model:
+1. **Layer 1: Organization / Party Type** (`CONTRACTOR`, `CLIENT`, `CONSULTANT`, `SUBCONTRACTOR`, `SUPPLIER`, `REGULATOR`). Scope isolates tenant data across independent corporate entities.
+2. **Layer 2: Functional & Executive Roles** (19 `UserRole` values + 12 `CompanyStaffRole` values + 13 `ProjectRole` values). Defines functional action permissions ($R, C, U, D, A$).
+3. **Layer 3: WBS & Section Scope Isolation** (`SectionAssignment`, `OversightAssignment`, `Contract.scopeWbsNodeId`). Restricts field operations to specific WBS branches.
 
 ---
 
-## 2. Centralized Audit Logging Architecture (Before & After Diffs)
+## 2. Server Enforcement & Security Layer Architecture
 
-ISO 9001 §7.5 mandates strict document control and traceability for all system mutations. To ensure complete accountability across IT and administrative departments, all CRUD operations record pre-mutation (`before`) and post-mutation (`after`) state diffs:
+```
+HTTP Request
+   ↓
+1. JWT Session Authentication (src/lib/auth.ts)
+   ↓
+2. Route Permission Validation (src/permissions/route-permissions.json & src/lib/authorization.ts)
+   ↓
+3. Project Access & Portfolio Scope Check (assertProjectAccess & src/lib/scope.ts)
+   ↓
+4. WBS Section Writable Scope Enforcement (assertScopeWritable)
+   ↓
+5. Business Logic Mutation Execution (src/lib/services/*)
+   ↓
+6. Centralized Audit Log Capture (logAuditEntry in src/lib/services/audit.ts)
+```
 
-1. **Central Audit Logger (`lib/services/audit.ts`)**:
-   - Intercepts all CRUD operations (`CREATE`, `UPDATE`, `DELETE`, `APPROVE`, `REJECT`).
-   - Captures:
-     - `userId`: The operator executing the change.
-     - `entityType` & `entityId`: The target resource (e.g., `WbsNode`, `Contract`, `ScheduleActivity`).
-     - `action`: Audit action enum.
-     - `diff`: Full JSON payload containing `before` and `after` snapshots for complete state change auditing.
-
-2. **Audit Trapping Implementation**:
-   ```typescript
-   export async function recordAuditLog(params: {
-     userId: string;
-     entityType: string;
-     entityId: string;
-     action: 'CREATE' | 'UPDATE' | 'DELETE' | 'APPROVE' | 'REJECT';
-     reason?: string;
-     before?: Record<string, any>;
-     after?: Record<string, any>;
-   }) {
-     return await db.auditLog.create({
-       data: {
-         userId: params.userId,
-         entityType: params.entityType,
-         entityId: params.entityId,
-         action: params.action,
-         diff: {
-           before: params.before ?? null,
-           after: params.after ?? null,
-         },
-       },
-     });
-   }
-   ```
+### Key Enforcement Points
+1. **Authentication**: Enforced via `getSessionUser(req)` validating httpOnly JWT cookies (`jose` package).
+2. **Route Authorization**: Enforced via `assertRoutePermission(user, method, routePattern)` against machine-readable manifest `src/permissions/route-permissions.json`.
+3. **Project Membership**: Enforced via `assertProjectAccess(user, projectId)`.
+4. **Scope Isolation**: Enforced via `assertScopeWritable(scope, wbsNodeId)`.
+5. **Audit Logging**: Every mutation logs `{ before: Json | null, after: Json | null }` diffs into `AuditLog`.
 
 ---
 
-## 3. Executive Portfolio Access Control Matrix
+## 3. Mandatory Segregation of Duties (SoD) Rules
 
-Executives (`GENERAL_MANAGER`, `MANAGING_DIRECTOR`, `CFO`, `CHIEF_ENGINEER`, `IT_ADMIN`) bypass individual `ProjectMembership` constraints to view all projects across the organization, enabling real-time executive dashboards for schedule, cost, physical progress, and risk monitoring.
+| ISO Control Rule | Required Segregation | Code Enforcement Location |
+| :--- | :--- | :--- |
+| **Quality Independence Gate** | Execution roles (`FOREMAN`, `SITE_ENGINEER`) cannot pass ITRs or close defects. Only `QC_INSPECTOR` or `CONSULTANT_ENGINEER` can verify closure. | `src/lib/services/quality.service.ts` (`updateDefectStatus`) |
+| **Financial Approval Gate** | Quantity Surveyors (`QS`) draft measurements; only `FINANCE_DEPT_MANAGER` or `GENERAL_MANAGER` can certify payment disbursements. | `src/lib/services/cost.service.ts` & `company-approval.service.ts` |
+| **Schedule Baseline Protection** | Frontline field roles cannot edit planned activity dates on active projects. Date updates require `ScheduleChangeRequest` approved by `SENIOR_PM` or `HEAD_PLANNING_MONITORING`. | `src/lib/services/schedule.service.ts` |
+| **Subcontractor Plan Isolation** | Subcontractors create WBS nodes in `DRAFT` status under `WbsPlanSubmission`. DRAFT nodes remain invisible to live project progress rollups until approved by Main Contractor PM. | `src/lib/services/wbs-plan.service.ts` & `src/lib/weight-math.ts` |
+| **Admin Separation of Duty** | Technical `ADMIN` manages user credentials and system config, but cannot perform business sign-offs (e.g. approving variation orders or IPCs). | `src/lib/permissions.ts` (`ROLE_PERMISSIONS`) |
+
+---
+
+## 4. Implementation Verification Strategy
+
+1. **Permission Integration Tests**: Validate that unauthorized HTTP requests receive a 403 Forbidden response across all endpoints.
+2. **Audit Verification**: Confirm every CRUD service function writes pre/post state snapshots to `AuditLog`.
+3. **Decimal Component Props Protection**: Ensure `Prisma.Decimal` instances are converted to number/string types prior to passing as props to Client Components.
