@@ -133,6 +133,153 @@ export async function createActivity(
   });
 }
 
+// ── Schedule Change Requests with CPM Impact Analysis (F-007) ──────────
+
+export async function createScheduleChangeRequest(
+  user: SessionUser,
+  projectId: string,
+  input: {
+    activityId: string;
+    newStart: string;
+    newFinish: string;
+    reason: string;
+  }
+) {
+  await assertProjectAccess(user, projectId);
+  assertPermission(user, "schedule", "create");
+
+  assertDateOrder(input.newStart, input.newFinish);
+
+  const activity = await db.scheduleActivity.findFirst({
+    where: { id: input.activityId, wbsNode: { projectId } },
+  });
+  if (!activity) throw new DomainError("Schedule activity not found", 404);
+
+  // Compute CPM impact before and after change
+  const activities = await listActivities(user, projectId);
+  const target = activities.find((a) => a.id === input.activityId);
+
+  const isCriticalPathImpact = target?.isCritical ?? false;
+  const floatDeltaDays = target ? target.totalFloatDays : 0;
+
+  const impactAnalysis = {
+    activityId: input.activityId,
+    originalStart: activity.plannedStart,
+    originalFinish: activity.plannedFinish,
+    proposedStart: new Date(input.newStart),
+    proposedFinish: new Date(input.newFinish),
+    isCritical: isCriticalPathImpact,
+    floatDays: floatDeltaDays,
+  };
+
+  const changeRequest = await db.scheduleChangeRequest.create({
+    data: {
+      projectId,
+      activityId: input.activityId,
+      requestedById: user.id,
+      newStart: new Date(input.newStart),
+      newFinish: new Date(input.newFinish),
+      reason: input.reason,
+      status: "PENDING",
+      impactAnalysis,
+      isCriticalPathImpact,
+      floatDeltaDays,
+    },
+  });
+
+  const { recordAuditLog } = await import("@/lib/services/audit");
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ScheduleChangeRequest",
+    entityId: changeRequest.id,
+    action: "CREATE",
+    after: changeRequest,
+    reason: input.reason,
+    authority: user.role,
+  });
+
+  return changeRequest;
+}
+
+export async function reviewScheduleChangeRequest(
+  user: SessionUser,
+  requestId: string,
+  action: "approve" | "reject",
+  decisionReason?: string
+) {
+  const request = await db.scheduleChangeRequest.findUnique({
+    where: { id: requestId },
+    include: { activity: true },
+  });
+  if (!request) throw new DomainError("Schedule change request not found", 404);
+
+  await assertProjectAccess(user, request.projectId);
+  const { assertCapability } = await import("@/lib/permissions");
+  assertCapability(user, "schedule", "approve");
+
+  if (request.status !== "PENDING") {
+    throw new DomainError("Schedule change request has already been reviewed", 400);
+  }
+
+  if (action === "approve") {
+    await db.scheduleActivity.update({
+      where: { id: request.activityId },
+      data: {
+        plannedStart: request.newStart,
+        plannedFinish: request.newFinish,
+      },
+    });
+
+    const updatedRequest = await db.scheduleChangeRequest.update({
+      where: { id: requestId },
+      data: {
+        status: "APPROVED",
+        reviewedById: user.id,
+        reviewedAt: new Date(),
+        decisionReason: decisionReason ?? "Approved schedule modification",
+      },
+    });
+
+    const { recordAuditLog } = await import("@/lib/services/audit");
+    await recordAuditLog({
+      userId: user.id,
+      entityType: "ScheduleChangeRequest",
+      entityId: requestId,
+      action: "APPROVE",
+      before: { status: "PENDING" },
+      after: { status: "APPROVED", activityId: request.activityId },
+      reason: decisionReason ?? "Approved schedule modification",
+      authority: user.role,
+    });
+
+    return updatedRequest;
+  }
+
+  const updatedRequest = await db.scheduleChangeRequest.update({
+    where: { id: requestId },
+    data: {
+      status: "REJECTED",
+      reviewedById: user.id,
+      reviewedAt: new Date(),
+      decisionReason: decisionReason ?? "Rejected schedule modification",
+    },
+  });
+
+  const { recordAuditLog } = await import("@/lib/services/audit");
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ScheduleChangeRequest",
+    entityId: requestId,
+    action: "REJECT",
+    before: { status: "PENDING" },
+    after: { status: "REJECTED" },
+    reason: decisionReason ?? "Rejected schedule modification",
+    authority: user.role,
+  });
+
+  return updatedRequest;
+}
+
 export async function updateActivity(
   user: SessionUser,
   activityId: string,

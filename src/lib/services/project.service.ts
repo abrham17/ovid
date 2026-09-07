@@ -1,6 +1,7 @@
+import crypto from "crypto";
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
-import { assertPermission, assertProjectAccess } from "@/lib/permissions";
+import { assertPermission, assertProjectAccess, assertCapability } from "@/lib/permissions";
 import type {
   CreateProjectInput,
   UpdateProjectInput,
@@ -15,6 +16,11 @@ import {
   isWbsVisible,
 } from "@/lib/scope";
 import { recordAuditLog } from "@/lib/services/audit";
+
+export function computeSnapshotHash(snapshot: any): string {
+  const jsonStr = JSON.stringify(snapshot);
+  return crypto.createHash("sha256").update(jsonStr).digest("hex");
+}
 
 export async function listProjects(
   user: SessionUser,
@@ -210,7 +216,7 @@ export async function addProjectObjective(
 
 export async function createInitialBaseline(user: SessionUser, projectId: string) {
   await assertProjectAccess(user, projectId);
-  assertPermission(user, "project", "update");
+  assertPermission(user, "project", "create");
 
   const project = await db.project.findUniqueOrThrow({
     where: { id: projectId },
@@ -228,16 +234,19 @@ export async function createInitialBaseline(user: SessionUser, projectId: string
   });
 
   const version = (latestBaseline?.version ?? 0) + 1;
+  const snapshotObj = JSON.parse(JSON.stringify(project));
+  const snapshotHash = computeSnapshotHash(snapshotObj);
 
   const baseline = await db.projectBaseline.create({
     data: {
       projectId,
       version,
       type: "INTEGRATED",
-      snapshot: JSON.parse(JSON.stringify(project)),
+      status: "DRAFT",
+      snapshot: snapshotObj,
+      hash: snapshotHash,
+      schemaVersion: "1.0",
       createdById: user.id,
-      approvedById: user.id,
-      approvedAt: new Date(),
     },
   });
 
@@ -247,9 +256,131 @@ export async function createInitialBaseline(user: SessionUser, projectId: string
     entityId: baseline.id,
     action: "CREATE",
     after: baseline,
+    reason: "Created baseline draft",
+    authority: user.role,
   });
 
   return baseline;
+}
+
+export async function submitBaseline(user: SessionUser, projectId: string, baselineId: string) {
+  await assertProjectAccess(user, projectId);
+  assertPermission(user, "project", "update");
+
+  const baseline = await db.projectBaseline.findFirst({
+    where: { id: baselineId, projectId },
+  });
+  if (!baseline) throw new DomainError("Baseline snapshot not found", 404);
+  if (baseline.status !== "DRAFT") {
+    throw new DomainError("Only DRAFT baselines can be submitted for approval", 400);
+  }
+
+  const updated = await db.projectBaseline.update({
+    where: { id: baselineId },
+    data: {
+      status: "SUBMITTED",
+      submittedById: user.id,
+      submittedAt: new Date(),
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectBaseline",
+    entityId: baselineId,
+    action: "UPDATE",
+    before: { status: baseline.status },
+    after: { status: updated.status },
+    reason: "Submitted baseline for independent approval",
+    authority: user.role,
+  });
+
+  return updated;
+}
+
+export async function approveBaseline(
+  user: SessionUser,
+  projectId: string,
+  baselineId: string,
+  approvalComment?: string
+) {
+  await assertProjectAccess(user, projectId);
+  assertCapability(user, "project", "approve");
+
+  const baseline = await db.projectBaseline.findFirst({
+    where: { id: baselineId, projectId },
+  });
+  if (!baseline) throw new DomainError("Baseline snapshot not found", 404);
+
+  // F-004 Segregation of Duties: Author or submitter cannot self-approve
+  if (baseline.createdById === user.id || baseline.submittedById === user.id) {
+    throw new DomainError("Author or submitter cannot self-approve a project baseline (ISO 21502 SoD rule)", 403);
+  }
+
+  if (baseline.status !== "SUBMITTED" && baseline.status !== "DRAFT") {
+    throw new DomainError("Baseline must be submitted prior to approval", 400);
+  }
+
+  const now = new Date();
+  const updated = await db.projectBaseline.update({
+    where: { id: baselineId },
+    data: {
+      status: "APPROVED",
+      approvedById: user.id,
+      approvedAt: now,
+      approvalComment: approvalComment ?? "Approved per project governance review",
+      lockedAt: now,
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectBaseline",
+    entityId: baselineId,
+    action: "APPROVE",
+    before: { status: baseline.status },
+    after: { status: updated.status, approvedById: user.id },
+    reason: approvalComment ?? "Approved project baseline",
+    authority: user.role,
+  });
+
+  return updated;
+}
+
+export async function rejectBaseline(
+  user: SessionUser,
+  projectId: string,
+  baselineId: string,
+  rejectionReason: string
+) {
+  await assertProjectAccess(user, projectId);
+  assertCapability(user, "project", "approve");
+
+  const baseline = await db.projectBaseline.findFirst({
+    where: { id: baselineId, projectId },
+  });
+  if (!baseline) throw new DomainError("Baseline snapshot not found", 404);
+
+  const updated = await db.projectBaseline.update({
+    where: { id: baselineId },
+    data: {
+      status: "REJECTED",
+      approvalComment: rejectionReason,
+    },
+  });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectBaseline",
+    entityId: baselineId,
+    action: "REJECT",
+    before: { status: baseline.status },
+    after: { status: updated.status },
+    reason: rejectionReason,
+    authority: user.role,
+  });
+
+  return updated;
 }
 
 export async function transitionProjectStatus(
@@ -265,12 +396,38 @@ export async function transitionProjectStatus(
     where: { id: projectId },
   });
 
+  // Legal transitions machine
+  const validTransitions: Record<string, string[]> = {
+    PLANNING: ["ACTIVE"],
+    ACTIVE: ["SUSPENDED", "COMPLETE"],
+    SUSPENDED: ["ACTIVE"],
+    COMPLETE: ["CLOSED"],
+    CLOSED: [],
+  };
+
+  const allowedNext = validTransitions[project.status] ?? [];
+  if (!allowedNext.includes(targetStatus)) {
+    throw new DomainError(`Cannot transition project status from ${project.status} to ${targetStatus}`, 422);
+  }
+
   if (targetStatus === "ACTIVE") {
-    const baselinesCount = await db.projectBaseline.count({
-      where: { projectId },
+    const approvedBaselinesCount = await db.projectBaseline.count({
+      where: { projectId, status: "APPROVED" },
     });
-    if (baselinesCount === 0) {
-      throw new DomainError("Project cannot transition to ACTIVE without an approved baseline snapshot", 422);
+    if (approvedBaselinesCount === 0) {
+      throw new DomainError("Project cannot transition to ACTIVE without an independently APPROVED baseline snapshot (ISO 21502)", 422);
+    }
+  }
+
+  if (targetStatus === "COMPLETE" || targetStatus === "CLOSED") {
+    const openDefects = await db.defectLog.count({
+      where: {
+        wbsNode: { projectId },
+        status: { in: ["OPEN", "REWORK_IN_PROGRESS"] },
+      },
+    });
+    if (openDefects > 0) {
+      throw new DomainError(`Cannot transition to ${targetStatus} while ${openDefects} open defects exist on project WBS`, 422);
     }
   }
 
@@ -296,6 +453,8 @@ export async function transitionProjectStatus(
     action: "UPDATE",
     before: { status: project.status },
     after: { status: targetStatus },
+    reason,
+    authority: user.role,
   });
 
   return updatedProject;
@@ -309,6 +468,7 @@ export async function updateProject(
   await assertProjectAccess(user, projectId);
   assertPermission(user, "project", "update");
 
+  // F-005: Generic PATCH cannot directly mutate project status; status must go through transitionProjectStatus
   return db.project.update({
     where: { id: projectId },
     data: {
@@ -316,7 +476,6 @@ export async function updateProject(
       code: input.code,
       projectType: input.projectType,
       contractType: input.contractType,
-      status: input.status,
       contractValue:
         input.contractValue != null
           ? new Prisma.Decimal(input.contractValue)

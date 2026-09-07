@@ -25,8 +25,9 @@ export async function GET(req: NextRequest, ctx: Ctx) {
         return ok({ progressPercent: await computeWbsProgress(wbsNodeId, user) });
       }
       case "activity": {
-        if (!wbsNodeId) return fail("wbsNodeId required for scope=activity", 400);
-        return ok({ progressPercent: await computeActivityProgress(wbsNodeId) });
+        const activityId = new URL(req.url).searchParams.get("activityId") ?? wbsNodeId;
+        if (!activityId) return fail("activityId required for scope=activity", 400);
+        return ok({ progressPercent: await computeActivityProgress(activityId) });
       }
       case "project":
       default:

@@ -6632,6 +6632,12 @@ export const ProjectDocumentScalarFieldEnum = {
   revisionNo: 'revisionNo',
   status: 'status',
   filePath: 'filePath',
+  contentHash: 'contentHash',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  classification: 'classification',
+  retentionPolicy: 'retentionPolicy',
+  isLegalHold: 'isLegalHold',
   issuedByUserId: 'issuedByUserId',
   issuedAt: 'issuedAt',
   effectiveDate: 'effectiveDate',
@@ -6798,6 +6804,9 @@ export const ScheduleChangeRequestScalarFieldEnum = {
   newFinish: 'newFinish',
   reason: 'reason',
   status: 'status',
+  impactAnalysis: 'impactAnalysis',
+  isCriticalPathImpact: 'isCriticalPathImpact',
+  floatDeltaDays: 'floatDeltaDays',
   reviewedById: 'reviewedById',
   reviewedAt: 'reviewedAt',
   decisionReason: 'decisionReason',
@@ -6900,10 +6909,18 @@ export const ProjectBaselineScalarFieldEnum = {
   projectId: 'projectId',
   version: 'version',
   type: 'type',
+  status: 'status',
   snapshot: 'snapshot',
+  hash: 'hash',
+  schemaVersion: 'schemaVersion',
+  sourceVersion: 'sourceVersion',
   createdById: 'createdById',
+  submittedById: 'submittedById',
+  submittedAt: 'submittedAt',
   approvedById: 'approvedById',
   approvedAt: 'approvedAt',
+  approvalComment: 'approvalComment',
+  lockedAt: 'lockedAt',
   createdAt: 'createdAt'
 } as const
 
@@ -7936,6 +7953,20 @@ export type EnumBaselineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'BaselineType[]'
  */
 export type ListEnumBaselineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BaselineType[]'>
+
+
+
+/**
+ * Reference to a field of type 'BaselineStatus'
+ */
+export type EnumBaselineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BaselineStatus'>
+
+
+
+/**
+ * Reference to a field of type 'BaselineStatus[]'
+ */
+export type ListEnumBaselineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BaselineStatus[]'>
 
 
 

@@ -21,8 +21,18 @@ export type ScheduleChangeRequestModel = runtime.Types.Result.DefaultSelection<P
 
 export type AggregateScheduleChangeRequest = {
   _count: ScheduleChangeRequestCountAggregateOutputType | null
+  _avg: ScheduleChangeRequestAvgAggregateOutputType | null
+  _sum: ScheduleChangeRequestSumAggregateOutputType | null
   _min: ScheduleChangeRequestMinAggregateOutputType | null
   _max: ScheduleChangeRequestMaxAggregateOutputType | null
+}
+
+export type ScheduleChangeRequestAvgAggregateOutputType = {
+  floatDeltaDays: number | null
+}
+
+export type ScheduleChangeRequestSumAggregateOutputType = {
+  floatDeltaDays: number | null
 }
 
 export type ScheduleChangeRequestMinAggregateOutputType = {
@@ -34,6 +44,8 @@ export type ScheduleChangeRequestMinAggregateOutputType = {
   newFinish: Date | null
   reason: string | null
   status: $Enums.ScheduleChangeStatus | null
+  isCriticalPathImpact: boolean | null
+  floatDeltaDays: number | null
   reviewedById: string | null
   reviewedAt: Date | null
   decisionReason: string | null
@@ -50,6 +62,8 @@ export type ScheduleChangeRequestMaxAggregateOutputType = {
   newFinish: Date | null
   reason: string | null
   status: $Enums.ScheduleChangeStatus | null
+  isCriticalPathImpact: boolean | null
+  floatDeltaDays: number | null
   reviewedById: string | null
   reviewedAt: Date | null
   decisionReason: string | null
@@ -66,6 +80,9 @@ export type ScheduleChangeRequestCountAggregateOutputType = {
   newFinish: number
   reason: number
   status: number
+  impactAnalysis: number
+  isCriticalPathImpact: number
+  floatDeltaDays: number
   reviewedById: number
   reviewedAt: number
   decisionReason: number
@@ -74,6 +91,14 @@ export type ScheduleChangeRequestCountAggregateOutputType = {
   _all: number
 }
 
+
+export type ScheduleChangeRequestAvgAggregateInputType = {
+  floatDeltaDays?: true
+}
+
+export type ScheduleChangeRequestSumAggregateInputType = {
+  floatDeltaDays?: true
+}
 
 export type ScheduleChangeRequestMinAggregateInputType = {
   id?: true
@@ -84,6 +109,8 @@ export type ScheduleChangeRequestMinAggregateInputType = {
   newFinish?: true
   reason?: true
   status?: true
+  isCriticalPathImpact?: true
+  floatDeltaDays?: true
   reviewedById?: true
   reviewedAt?: true
   decisionReason?: true
@@ -100,6 +127,8 @@ export type ScheduleChangeRequestMaxAggregateInputType = {
   newFinish?: true
   reason?: true
   status?: true
+  isCriticalPathImpact?: true
+  floatDeltaDays?: true
   reviewedById?: true
   reviewedAt?: true
   decisionReason?: true
@@ -116,6 +145,9 @@ export type ScheduleChangeRequestCountAggregateInputType = {
   newFinish?: true
   reason?: true
   status?: true
+  impactAnalysis?: true
+  isCriticalPathImpact?: true
+  floatDeltaDays?: true
   reviewedById?: true
   reviewedAt?: true
   decisionReason?: true
@@ -161,6 +193,18 @@ export type ScheduleChangeRequestAggregateArgs<ExtArgs extends runtime.Types.Ext
   _count?: true | ScheduleChangeRequestCountAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   *
+   * Select which fields to average
+  **/
+  _avg?: ScheduleChangeRequestAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   *
+   * Select which fields to sum
+  **/
+  _sum?: ScheduleChangeRequestSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the minimum value
   **/
@@ -192,6 +236,8 @@ export type ScheduleChangeRequestGroupByArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   _count?: ScheduleChangeRequestCountAggregateInputType | true
+  _avg?: ScheduleChangeRequestAvgAggregateInputType
+  _sum?: ScheduleChangeRequestSumAggregateInputType
   _min?: ScheduleChangeRequestMinAggregateInputType
   _max?: ScheduleChangeRequestMaxAggregateInputType
 }
@@ -205,12 +251,17 @@ export type ScheduleChangeRequestGroupByOutputType = {
   newFinish: Date
   reason: string
   status: $Enums.ScheduleChangeStatus
+  impactAnalysis: runtime.JsonValue | null
+  isCriticalPathImpact: boolean
+  floatDeltaDays: number
   reviewedById: string | null
   reviewedAt: Date | null
   decisionReason: string | null
   createdAt: Date
   updatedAt: Date
   _count: ScheduleChangeRequestCountAggregateOutputType | null
+  _avg: ScheduleChangeRequestAvgAggregateOutputType | null
+  _sum: ScheduleChangeRequestSumAggregateOutputType | null
   _min: ScheduleChangeRequestMinAggregateOutputType | null
   _max: ScheduleChangeRequestMaxAggregateOutputType | null
 }
@@ -242,6 +293,9 @@ export type ScheduleChangeRequestWhereInput = {
   newFinish?: Prisma.DateTimeFilter<"ScheduleChangeRequest"> | Date | string
   reason?: Prisma.StringFilter<"ScheduleChangeRequest"> | string
   status?: Prisma.EnumScheduleChangeStatusFilter<"ScheduleChangeRequest"> | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.JsonNullableFilter<"ScheduleChangeRequest">
+  isCriticalPathImpact?: Prisma.BoolFilter<"ScheduleChangeRequest"> | boolean
+  floatDeltaDays?: Prisma.IntFilter<"ScheduleChangeRequest"> | number
   reviewedById?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"ScheduleChangeRequest"> | Date | string | null
   decisionReason?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
@@ -262,6 +316,9 @@ export type ScheduleChangeRequestOrderByWithRelationInput = {
   newFinish?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  impactAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  isCriticalPathImpact?: Prisma.SortOrder
+  floatDeltaDays?: Prisma.SortOrder
   reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   decisionReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -285,6 +342,9 @@ export type ScheduleChangeRequestWhereUniqueInput = Prisma.AtLeast<{
   newFinish?: Prisma.DateTimeFilter<"ScheduleChangeRequest"> | Date | string
   reason?: Prisma.StringFilter<"ScheduleChangeRequest"> | string
   status?: Prisma.EnumScheduleChangeStatusFilter<"ScheduleChangeRequest"> | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.JsonNullableFilter<"ScheduleChangeRequest">
+  isCriticalPathImpact?: Prisma.BoolFilter<"ScheduleChangeRequest"> | boolean
+  floatDeltaDays?: Prisma.IntFilter<"ScheduleChangeRequest"> | number
   reviewedById?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"ScheduleChangeRequest"> | Date | string | null
   decisionReason?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
@@ -305,14 +365,19 @@ export type ScheduleChangeRequestOrderByWithAggregationInput = {
   newFinish?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  impactAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  isCriticalPathImpact?: Prisma.SortOrder
+  floatDeltaDays?: Prisma.SortOrder
   reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   decisionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ScheduleChangeRequestCountOrderByAggregateInput
+  _avg?: Prisma.ScheduleChangeRequestAvgOrderByAggregateInput
   _max?: Prisma.ScheduleChangeRequestMaxOrderByAggregateInput
   _min?: Prisma.ScheduleChangeRequestMinOrderByAggregateInput
+  _sum?: Prisma.ScheduleChangeRequestSumOrderByAggregateInput
 }
 
 export type ScheduleChangeRequestScalarWhereWithAggregatesInput = {
@@ -327,6 +392,9 @@ export type ScheduleChangeRequestScalarWhereWithAggregatesInput = {
   newFinish?: Prisma.DateTimeWithAggregatesFilter<"ScheduleChangeRequest"> | Date | string
   reason?: Prisma.StringWithAggregatesFilter<"ScheduleChangeRequest"> | string
   status?: Prisma.EnumScheduleChangeStatusWithAggregatesFilter<"ScheduleChangeRequest"> | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.JsonNullableWithAggregatesFilter<"ScheduleChangeRequest">
+  isCriticalPathImpact?: Prisma.BoolWithAggregatesFilter<"ScheduleChangeRequest"> | boolean
+  floatDeltaDays?: Prisma.IntWithAggregatesFilter<"ScheduleChangeRequest"> | number
   reviewedById?: Prisma.StringNullableWithAggregatesFilter<"ScheduleChangeRequest"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ScheduleChangeRequest"> | Date | string | null
   decisionReason?: Prisma.StringNullableWithAggregatesFilter<"ScheduleChangeRequest"> | string | null
@@ -340,6 +408,9 @@ export type ScheduleChangeRequestCreateInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -359,6 +430,9 @@ export type ScheduleChangeRequestUncheckedCreateInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -372,6 +446,9 @@ export type ScheduleChangeRequestUpdateInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -391,6 +468,9 @@ export type ScheduleChangeRequestUncheckedUpdateInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -407,6 +487,9 @@ export type ScheduleChangeRequestCreateManyInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -420,6 +503,9 @@ export type ScheduleChangeRequestUpdateManyMutationInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -435,6 +521,9 @@ export type ScheduleChangeRequestUncheckedUpdateManyInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -461,11 +550,18 @@ export type ScheduleChangeRequestCountOrderByAggregateInput = {
   newFinish?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  impactAnalysis?: Prisma.SortOrder
+  isCriticalPathImpact?: Prisma.SortOrder
+  floatDeltaDays?: Prisma.SortOrder
   reviewedById?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   decisionReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ScheduleChangeRequestAvgOrderByAggregateInput = {
+  floatDeltaDays?: Prisma.SortOrder
 }
 
 export type ScheduleChangeRequestMaxOrderByAggregateInput = {
@@ -477,6 +573,8 @@ export type ScheduleChangeRequestMaxOrderByAggregateInput = {
   newFinish?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isCriticalPathImpact?: Prisma.SortOrder
+  floatDeltaDays?: Prisma.SortOrder
   reviewedById?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   decisionReason?: Prisma.SortOrder
@@ -493,11 +591,17 @@ export type ScheduleChangeRequestMinOrderByAggregateInput = {
   newFinish?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isCriticalPathImpact?: Prisma.SortOrder
+  floatDeltaDays?: Prisma.SortOrder
   reviewedById?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   decisionReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ScheduleChangeRequestSumOrderByAggregateInput = {
+  floatDeltaDays?: Prisma.SortOrder
 }
 
 export type ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput = {
@@ -678,6 +782,9 @@ export type ScheduleChangeRequestCreateWithoutRequestedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -695,6 +802,9 @@ export type ScheduleChangeRequestUncheckedCreateWithoutRequestedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -718,6 +828,9 @@ export type ScheduleChangeRequestCreateWithoutReviewedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -736,6 +849,9 @@ export type ScheduleChangeRequestUncheckedCreateWithoutReviewedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -780,6 +896,9 @@ export type ScheduleChangeRequestScalarWhereInput = {
   newFinish?: Prisma.DateTimeFilter<"ScheduleChangeRequest"> | Date | string
   reason?: Prisma.StringFilter<"ScheduleChangeRequest"> | string
   status?: Prisma.EnumScheduleChangeStatusFilter<"ScheduleChangeRequest"> | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.JsonNullableFilter<"ScheduleChangeRequest">
+  isCriticalPathImpact?: Prisma.BoolFilter<"ScheduleChangeRequest"> | boolean
+  floatDeltaDays?: Prisma.IntFilter<"ScheduleChangeRequest"> | number
   reviewedById?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"ScheduleChangeRequest"> | Date | string | null
   decisionReason?: Prisma.StringNullableFilter<"ScheduleChangeRequest"> | string | null
@@ -809,6 +928,9 @@ export type ScheduleChangeRequestCreateWithoutProjectInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -826,6 +948,9 @@ export type ScheduleChangeRequestUncheckedCreateWithoutProjectInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -865,6 +990,9 @@ export type ScheduleChangeRequestCreateWithoutActivityInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -882,6 +1010,9 @@ export type ScheduleChangeRequestUncheckedCreateWithoutActivityInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -923,6 +1054,9 @@ export type ScheduleChangeRequestCreateManyRequestedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -939,6 +1073,9 @@ export type ScheduleChangeRequestCreateManyReviewedByInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedAt?: Date | string | null
   decisionReason?: string | null
   createdAt?: Date | string
@@ -951,6 +1088,9 @@ export type ScheduleChangeRequestUpdateWithoutRequestedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -968,6 +1108,9 @@ export type ScheduleChangeRequestUncheckedUpdateWithoutRequestedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -983,6 +1126,9 @@ export type ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -996,6 +1142,9 @@ export type ScheduleChangeRequestUpdateWithoutReviewedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1014,6 +1163,9 @@ export type ScheduleChangeRequestUncheckedUpdateWithoutReviewedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1029,6 +1181,9 @@ export type ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1043,6 +1198,9 @@ export type ScheduleChangeRequestCreateManyProjectInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -1056,6 +1214,9 @@ export type ScheduleChangeRequestUpdateWithoutProjectInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1073,6 +1234,9 @@ export type ScheduleChangeRequestUncheckedUpdateWithoutProjectInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1088,6 +1252,9 @@ export type ScheduleChangeRequestUncheckedUpdateManyWithoutProjectInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1103,6 +1270,9 @@ export type ScheduleChangeRequestCreateManyActivityInput = {
   newFinish: Date | string
   reason: string
   status?: $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: number
   reviewedById?: string | null
   reviewedAt?: Date | string | null
   decisionReason?: string | null
@@ -1116,6 +1286,9 @@ export type ScheduleChangeRequestUpdateWithoutActivityInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1133,6 +1306,9 @@ export type ScheduleChangeRequestUncheckedUpdateWithoutActivityInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1148,6 +1324,9 @@ export type ScheduleChangeRequestUncheckedUpdateManyWithoutActivityInput = {
   newFinish?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumScheduleChangeStatusFieldUpdateOperationsInput | $Enums.ScheduleChangeStatus
+  impactAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isCriticalPathImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  floatDeltaDays?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decisionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1166,6 +1345,9 @@ export type ScheduleChangeRequestSelect<ExtArgs extends runtime.Types.Extensions
   newFinish?: boolean
   reason?: boolean
   status?: boolean
+  impactAnalysis?: boolean
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: boolean
   reviewedById?: boolean
   reviewedAt?: boolean
   decisionReason?: boolean
@@ -1186,6 +1368,9 @@ export type ScheduleChangeRequestSelectCreateManyAndReturn<ExtArgs extends runti
   newFinish?: boolean
   reason?: boolean
   status?: boolean
+  impactAnalysis?: boolean
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: boolean
   reviewedById?: boolean
   reviewedAt?: boolean
   decisionReason?: boolean
@@ -1206,6 +1391,9 @@ export type ScheduleChangeRequestSelectUpdateManyAndReturn<ExtArgs extends runti
   newFinish?: boolean
   reason?: boolean
   status?: boolean
+  impactAnalysis?: boolean
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: boolean
   reviewedById?: boolean
   reviewedAt?: boolean
   decisionReason?: boolean
@@ -1226,6 +1414,9 @@ export type ScheduleChangeRequestSelectScalar = {
   newFinish?: boolean
   reason?: boolean
   status?: boolean
+  impactAnalysis?: boolean
+  isCriticalPathImpact?: boolean
+  floatDeltaDays?: boolean
   reviewedById?: boolean
   reviewedAt?: boolean
   decisionReason?: boolean
@@ -1233,7 +1424,7 @@ export type ScheduleChangeRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ScheduleChangeRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "activityId" | "requestedById" | "newStart" | "newFinish" | "reason" | "status" | "reviewedById" | "reviewedAt" | "decisionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["scheduleChangeRequest"]>
+export type ScheduleChangeRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "activityId" | "requestedById" | "newStart" | "newFinish" | "reason" | "status" | "impactAnalysis" | "isCriticalPathImpact" | "floatDeltaDays" | "reviewedById" | "reviewedAt" | "decisionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["scheduleChangeRequest"]>
 export type ScheduleChangeRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   activity?: boolean | Prisma.ScheduleActivityDefaultArgs<ExtArgs>
@@ -1270,6 +1461,9 @@ export type $ScheduleChangeRequestPayload<ExtArgs extends runtime.Types.Extensio
     newFinish: Date
     reason: string
     status: $Enums.ScheduleChangeStatus
+    impactAnalysis: runtime.JsonValue | null
+    isCriticalPathImpact: boolean
+    floatDeltaDays: number
     reviewedById: string | null
     reviewedAt: Date | null
     decisionReason: string | null
@@ -1710,6 +1904,9 @@ export interface ScheduleChangeRequestFieldRefs {
   readonly newFinish: Prisma.FieldRef<"ScheduleChangeRequest", 'DateTime'>
   readonly reason: Prisma.FieldRef<"ScheduleChangeRequest", 'String'>
   readonly status: Prisma.FieldRef<"ScheduleChangeRequest", 'ScheduleChangeStatus'>
+  readonly impactAnalysis: Prisma.FieldRef<"ScheduleChangeRequest", 'Json'>
+  readonly isCriticalPathImpact: Prisma.FieldRef<"ScheduleChangeRequest", 'Boolean'>
+  readonly floatDeltaDays: Prisma.FieldRef<"ScheduleChangeRequest", 'Int'>
   readonly reviewedById: Prisma.FieldRef<"ScheduleChangeRequest", 'String'>
   readonly reviewedAt: Prisma.FieldRef<"ScheduleChangeRequest", 'DateTime'>
   readonly decisionReason: Prisma.FieldRef<"ScheduleChangeRequest", 'String'>

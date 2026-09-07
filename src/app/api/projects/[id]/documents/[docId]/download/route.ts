@@ -1,29 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError } from "@/lib/api";
+import { NextRequest } from "next/server";
+import { requireSession } from "@/lib/auth";
+import { ok, handleApiError, fail } from "@/lib/api";
 import { db } from "@/lib/db";
-import { assertProjectAccess, assertPermission } from "@/lib/permissions";
+import { assertProjectAccess } from "@/lib/permissions";
+import { assertRoutePermission } from "@/lib/authorization";
+import { recordAuditLog } from "@/lib/services/audit";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string; docId: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId, docId } = await params;
 
     await assertProjectAccess(user, projectId);
-    assertPermission(user, "document", "read");
+    assertRoutePermission(user, "GET", "/api/projects/:id/documents/:docId/download");
 
     const doc = await db.projectDocument.findFirst({
       where: { id: docId, projectId },
     });
 
     if (!doc || !doc.filePath) {
-      return NextResponse.json({ error: "Document file not found" }, { status: 404 });
+      return fail("Document file not found", 404);
     }
 
-    return NextResponse.json({
+    // F-011 download audit trace
+    await recordAuditLog({
+      userId: user.id,
+      entityType: "ProjectDocument",
+      entityId: doc.id,
+      action: "READ",
+      after: { docNo: doc.docNo, title: doc.title, downloadedAt: new Date() },
+      reason: "Document download requested",
+      authority: user.role,
+    });
+
+    return ok({
       id: doc.id,
       docNo: doc.docNo,
       title: doc.title,
@@ -33,6 +46,6 @@ export async function GET(
       downloadUrl: doc.filePath,
     });
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

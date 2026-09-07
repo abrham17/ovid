@@ -1,20 +1,23 @@
 import { NextRequest } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError, apiResponse } from "@/lib/api";
+import { requireSession } from "@/lib/auth";
+import { ok, handleApiError } from "@/lib/api";
 import { db } from "@/lib/db";
 import { recordProgressSnapshot } from "@/lib/services/progress.service";
+import { assertProjectAccess } from "@/lib/permissions";
+import { assertRoutePermission } from "@/lib/authorization";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "POST", "/api/projects/:id/control-check");
 
-    const snapshot = await recordProgressSnapshot(projectId);
+    const snapshot = await recordProgressSnapshot(projectId, user.id);
     const spi = Number(snapshot.spi);
-    const cpi = Number(snapshot.cpi);
 
     const createdInterventions = [];
 
@@ -42,8 +45,8 @@ export async function POST(
       }
     }
 
-    return apiResponse({ snapshot, createdInterventions });
+    return ok({ snapshot, createdInterventions });
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

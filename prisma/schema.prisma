@@ -210,6 +210,13 @@ enum ProjectRole {
   OTHER
 }
 
+enum BaselineStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
 enum BaselineType {
   SCOPE
   SCHEDULE
@@ -395,6 +402,7 @@ enum AuditAction {
   DELETE
   APPROVE
   REJECT
+  READ
 }
 
 enum InvitationStatus {
@@ -574,6 +582,7 @@ model User {
   assignedByProjectRoles        ProjectRoleAssignment[]      @relation("AssignedByProjectUser")
   projectObjectivesCreated      ProjectObjective[]           @relation("ProjectObjectiveCreator")
   baselinesCreated              ProjectBaseline[]            @relation("BaselineCreatedBy")
+  baselinesSubmitted            ProjectBaseline[]            @relation("BaselineSubmittedBy")
   baselinesApproved             ProjectBaseline[]            @relation("BaselineApprovedBy")
   projectStatusChanges          ProjectStatusHistory[]
 
@@ -1807,20 +1816,26 @@ model AuditLog {
 // ============================================================
 
 model ProjectDocument {
-  id             String      @id @default(cuid())
-  projectId      String
-  wbsNodeId      String?
-  docNo          String
-  title          String
-  category       DocCategory
-  revisionNo     Int         @default(1)
-  status         DocStatus   @default(DRAFT)
-  filePath       String?
-  issuedByUserId String
-  issuedAt       DateTime    @default(now())
-  effectiveDate  DateTime?
-  approvedById   String?
-  supersededById String?
+  id              String      @id @default(cuid())
+  projectId       String
+  wbsNodeId       String?
+  docNo           String
+  title           String
+  category        DocCategory
+  revisionNo      Int         @default(1)
+  status          DocStatus   @default(DRAFT)
+  filePath        String?
+  contentHash     String?
+  mimeType        String?
+  fileSize        Int?
+  classification  String?     @default("INTERNAL")
+  retentionPolicy String?
+  isLegalHold     Boolean     @default(false)
+  issuedByUserId  String
+  issuedAt        DateTime    @default(now())
+  effectiveDate   DateTime?
+  approvedById    String?
+  supersededById  String?
 
   project      Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
   wbsNode      WbsNode?          @relation(fields: [wbsNodeId], references: [id])
@@ -2119,19 +2134,22 @@ enum ScheduleChangeStatus {
 /// A request to change an activity's planned dates while preserving the original baseline.
 /// Only PMs with schedule "approve" permission can approve/reject.
 model ScheduleChangeRequest {
-  id             String               @id @default(cuid())
-  projectId      String
-  activityId     String
-  requestedById  String
-  newStart       DateTime
-  newFinish      DateTime
-  reason         String
-  status         ScheduleChangeStatus @default(PENDING)
-  reviewedById   String?
-  reviewedAt     DateTime?
-  decisionReason String?
-  createdAt      DateTime             @default(now())
-  updatedAt      DateTime             @updatedAt
+  id                   String               @id @default(cuid())
+  projectId            String
+  activityId           String
+  requestedById        String
+  newStart             DateTime
+  newFinish            DateTime
+  reason               String
+  status               ScheduleChangeStatus @default(PENDING)
+  impactAnalysis       Json?
+  isCriticalPathImpact Boolean              @default(false)
+  floatDeltaDays       Int                  @default(0)
+  reviewedById         String?
+  reviewedAt           DateTime?
+  decisionReason       String?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
 
   project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
   activity    ScheduleActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
@@ -2339,22 +2357,32 @@ model ProjectObjective {
 }
 
 model ProjectBaseline {
-  id           String       @id @default(cuid())
-  projectId    String
-  version      Int          @default(1)
-  type         BaselineType @default(INTEGRATED)
-  snapshot     Json
-  createdById  String
-  approvedById String?
-  approvedAt   DateTime?
-  createdAt    DateTime     @default(now())
+  id              String         @id @default(cuid())
+  projectId       String
+  version         Int            @default(1)
+  type            BaselineType   @default(INTEGRATED)
+  status          BaselineStatus @default(DRAFT)
+  snapshot        Json
+  hash            String?
+  schemaVersion   String         @default("1.0")
+  sourceVersion   String?
+  createdById     String
+  submittedById   String?
+  submittedAt     DateTime?
+  approvedById    String?
+  approvedAt      DateTime?
+  approvalComment String?
+  lockedAt        DateTime?
+  createdAt       DateTime       @default(now())
 
-  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  createdBy  User    @relation("BaselineCreatedBy", fields: [createdById], references: [id])
-  approvedBy User?   @relation("BaselineApprovedBy", fields: [approvedById], references: [id])
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy   User    @relation("BaselineCreatedBy", fields: [createdById], references: [id])
+  submittedBy User?   @relation("BaselineSubmittedBy", fields: [submittedById], references: [id])
+  approvedBy  User?   @relation("BaselineApprovedBy", fields: [approvedById], references: [id])
 
   @@unique([projectId, version])
   @@index([projectId, type])
+  @@index([projectId, status])
 }
 
 model ProjectStatusHistory {

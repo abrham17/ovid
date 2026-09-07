@@ -1,11 +1,15 @@
 import { NextRequest } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError, apiResponse } from "@/lib/api";
+import { requireSession } from "@/lib/auth";
+import { ok, handleApiError } from "@/lib/api";
 import { db } from "@/lib/db";
+import { assertRoutePermission } from "@/lib/authorization";
+import { PermissionError } from "@/lib/permissions";
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
+    assertRoutePermission(user, "GET", "/api/audit-logs");
+
     const { searchParams } = new URL(req.url);
     const entityType = searchParams.get("entityType");
     const entityId = searchParams.get("entityId");
@@ -18,7 +22,7 @@ export async function GET(req: NextRequest) {
       ["INTERNAL_AUDITOR", "GENERAL_MANAGER", "MANAGING_DIRECTOR"].includes(r)
     );
     if (user.role !== "ADMIN" && !isExecutive) {
-      return apiError(new Error("Only Internal Auditors or Executives can view audit logs"), 403);
+      throw new PermissionError("Only Internal Auditors or Corporate Executives can view audit logs");
     }
 
     const logs = await db.auditLog.findMany({
@@ -30,8 +34,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return apiResponse(logs);
+    return ok(logs);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

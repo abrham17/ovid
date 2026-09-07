@@ -17,7 +17,7 @@ function flattenWbs(nodes: any[], acc: { id: string; code: string; name: string 
 }
 
 function serializeDailyData(data: { earthwork: any[]; structure: any[]; rebar: any[] }) {
-  const serializeVal = (val: any) => {
+  const serializeVal = (val: any): any => {
     if (val === null || val === undefined) return val;
     if (typeof val === "object" && typeof val.toNumber === "function") {
       return val.toNumber();

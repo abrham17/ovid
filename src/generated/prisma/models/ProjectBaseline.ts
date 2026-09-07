@@ -39,9 +39,17 @@ export type ProjectBaselineMinAggregateOutputType = {
   projectId: string | null
   version: number | null
   type: $Enums.BaselineType | null
+  status: $Enums.BaselineStatus | null
+  hash: string | null
+  schemaVersion: string | null
+  sourceVersion: string | null
   createdById: string | null
+  submittedById: string | null
+  submittedAt: Date | null
   approvedById: string | null
   approvedAt: Date | null
+  approvalComment: string | null
+  lockedAt: Date | null
   createdAt: Date | null
 }
 
@@ -50,9 +58,17 @@ export type ProjectBaselineMaxAggregateOutputType = {
   projectId: string | null
   version: number | null
   type: $Enums.BaselineType | null
+  status: $Enums.BaselineStatus | null
+  hash: string | null
+  schemaVersion: string | null
+  sourceVersion: string | null
   createdById: string | null
+  submittedById: string | null
+  submittedAt: Date | null
   approvedById: string | null
   approvedAt: Date | null
+  approvalComment: string | null
+  lockedAt: Date | null
   createdAt: Date | null
 }
 
@@ -61,10 +77,18 @@ export type ProjectBaselineCountAggregateOutputType = {
   projectId: number
   version: number
   type: number
+  status: number
   snapshot: number
+  hash: number
+  schemaVersion: number
+  sourceVersion: number
   createdById: number
+  submittedById: number
+  submittedAt: number
   approvedById: number
   approvedAt: number
+  approvalComment: number
+  lockedAt: number
   createdAt: number
   _all: number
 }
@@ -83,9 +107,17 @@ export type ProjectBaselineMinAggregateInputType = {
   projectId?: true
   version?: true
   type?: true
+  status?: true
+  hash?: true
+  schemaVersion?: true
+  sourceVersion?: true
   createdById?: true
+  submittedById?: true
+  submittedAt?: true
   approvedById?: true
   approvedAt?: true
+  approvalComment?: true
+  lockedAt?: true
   createdAt?: true
 }
 
@@ -94,9 +126,17 @@ export type ProjectBaselineMaxAggregateInputType = {
   projectId?: true
   version?: true
   type?: true
+  status?: true
+  hash?: true
+  schemaVersion?: true
+  sourceVersion?: true
   createdById?: true
+  submittedById?: true
+  submittedAt?: true
   approvedById?: true
   approvedAt?: true
+  approvalComment?: true
+  lockedAt?: true
   createdAt?: true
 }
 
@@ -105,10 +145,18 @@ export type ProjectBaselineCountAggregateInputType = {
   projectId?: true
   version?: true
   type?: true
+  status?: true
   snapshot?: true
+  hash?: true
+  schemaVersion?: true
+  sourceVersion?: true
   createdById?: true
+  submittedById?: true
+  submittedAt?: true
   approvedById?: true
   approvedAt?: true
+  approvalComment?: true
+  lockedAt?: true
   createdAt?: true
   _all?: true
 }
@@ -204,10 +252,18 @@ export type ProjectBaselineGroupByOutputType = {
   projectId: string
   version: number
   type: $Enums.BaselineType
+  status: $Enums.BaselineStatus
   snapshot: runtime.JsonValue
+  hash: string | null
+  schemaVersion: string
+  sourceVersion: string | null
   createdById: string
+  submittedById: string | null
+  submittedAt: Date | null
   approvedById: string | null
   approvedAt: Date | null
+  approvalComment: string | null
+  lockedAt: Date | null
   createdAt: Date
   _count: ProjectBaselineCountAggregateOutputType | null
   _avg: ProjectBaselineAvgAggregateOutputType | null
@@ -239,13 +295,22 @@ export type ProjectBaselineWhereInput = {
   projectId?: Prisma.StringFilter<"ProjectBaseline"> | string
   version?: Prisma.IntFilter<"ProjectBaseline"> | number
   type?: Prisma.EnumBaselineTypeFilter<"ProjectBaseline"> | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFilter<"ProjectBaseline"> | $Enums.BaselineStatus
   snapshot?: Prisma.JsonFilter<"ProjectBaseline">
+  hash?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  schemaVersion?: Prisma.StringFilter<"ProjectBaseline"> | string
+  sourceVersion?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   createdById?: Prisma.StringFilter<"ProjectBaseline"> | string
+  submittedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  submittedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
+  approvalComment?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  lockedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBaseline"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  submittedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -254,13 +319,22 @@ export type ProjectBaselineOrderByWithRelationInput = {
   projectId?: Prisma.SortOrder
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   snapshot?: Prisma.SortOrder
+  hash?: Prisma.SortOrderInput | Prisma.SortOrder
+  schemaVersion?: Prisma.SortOrder
+  sourceVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvalComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  lockedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
+  submittedBy?: Prisma.UserOrderByWithRelationInput
   approvedBy?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -273,13 +347,22 @@ export type ProjectBaselineWhereUniqueInput = Prisma.AtLeast<{
   projectId?: Prisma.StringFilter<"ProjectBaseline"> | string
   version?: Prisma.IntFilter<"ProjectBaseline"> | number
   type?: Prisma.EnumBaselineTypeFilter<"ProjectBaseline"> | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFilter<"ProjectBaseline"> | $Enums.BaselineStatus
   snapshot?: Prisma.JsonFilter<"ProjectBaseline">
+  hash?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  schemaVersion?: Prisma.StringFilter<"ProjectBaseline"> | string
+  sourceVersion?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   createdById?: Prisma.StringFilter<"ProjectBaseline"> | string
+  submittedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  submittedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
+  approvalComment?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  lockedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBaseline"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  submittedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "projectId_version">
 
@@ -288,10 +371,18 @@ export type ProjectBaselineOrderByWithAggregationInput = {
   projectId?: Prisma.SortOrder
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   snapshot?: Prisma.SortOrder
+  hash?: Prisma.SortOrderInput | Prisma.SortOrder
+  schemaVersion?: Prisma.SortOrder
+  sourceVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvalComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  lockedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ProjectBaselineCountOrderByAggregateInput
   _avg?: Prisma.ProjectBaselineAvgOrderByAggregateInput
@@ -308,10 +399,18 @@ export type ProjectBaselineScalarWhereWithAggregatesInput = {
   projectId?: Prisma.StringWithAggregatesFilter<"ProjectBaseline"> | string
   version?: Prisma.IntWithAggregatesFilter<"ProjectBaseline"> | number
   type?: Prisma.EnumBaselineTypeWithAggregatesFilter<"ProjectBaseline"> | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusWithAggregatesFilter<"ProjectBaseline"> | $Enums.BaselineStatus
   snapshot?: Prisma.JsonWithAggregatesFilter<"ProjectBaseline">
+  hash?: Prisma.StringNullableWithAggregatesFilter<"ProjectBaseline"> | string | null
+  schemaVersion?: Prisma.StringWithAggregatesFilter<"ProjectBaseline"> | string
+  sourceVersion?: Prisma.StringNullableWithAggregatesFilter<"ProjectBaseline"> | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"ProjectBaseline"> | string
+  submittedById?: Prisma.StringNullableWithAggregatesFilter<"ProjectBaseline"> | string | null
+  submittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProjectBaseline"> | Date | string | null
   approvedById?: Prisma.StringNullableWithAggregatesFilter<"ProjectBaseline"> | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProjectBaseline"> | Date | string | null
+  approvalComment?: Prisma.StringNullableWithAggregatesFilter<"ProjectBaseline"> | string | null
+  lockedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProjectBaseline"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProjectBaseline"> | Date | string
 }
 
@@ -319,11 +418,19 @@ export type ProjectBaselineCreateInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutBaselinesInput
   createdBy: Prisma.UserCreateNestedOneWithoutBaselinesCreatedInput
+  submittedBy?: Prisma.UserCreateNestedOneWithoutBaselinesSubmittedInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutBaselinesApprovedInput
 }
 
@@ -332,10 +439,18 @@ export type ProjectBaselineUncheckedCreateInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -343,11 +458,19 @@ export type ProjectBaselineUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutBaselinesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput
+  submittedBy?: Prisma.UserUpdateOneWithoutBaselinesSubmittedNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutBaselinesApprovedNestedInput
 }
 
@@ -356,10 +479,18 @@ export type ProjectBaselineUncheckedUpdateInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -368,10 +499,18 @@ export type ProjectBaselineCreateManyInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -379,8 +518,15 @@ export type ProjectBaselineUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -389,10 +535,18 @@ export type ProjectBaselineUncheckedUpdateManyInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -416,10 +570,18 @@ export type ProjectBaselineCountOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   snapshot?: Prisma.SortOrder
+  hash?: Prisma.SortOrder
+  schemaVersion?: Prisma.SortOrder
+  sourceVersion?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  approvalComment?: Prisma.SortOrder
+  lockedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -432,9 +594,17 @@ export type ProjectBaselineMaxOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  hash?: Prisma.SortOrder
+  schemaVersion?: Prisma.SortOrder
+  sourceVersion?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  approvalComment?: Prisma.SortOrder
+  lockedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -443,9 +613,17 @@ export type ProjectBaselineMinOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  hash?: Prisma.SortOrder
+  schemaVersion?: Prisma.SortOrder
+  sourceVersion?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  approvalComment?: Prisma.SortOrder
+  lockedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -460,6 +638,13 @@ export type ProjectBaselineCreateNestedManyWithoutCreatedByInput = {
   connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
 }
 
+export type ProjectBaselineCreateNestedManyWithoutSubmittedByInput = {
+  create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput> | Prisma.ProjectBaselineCreateWithoutSubmittedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput[]
+  createMany?: Prisma.ProjectBaselineCreateManySubmittedByInputEnvelope
+  connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+}
+
 export type ProjectBaselineCreateNestedManyWithoutApprovedByInput = {
   create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutApprovedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutApprovedByInput> | Prisma.ProjectBaselineCreateWithoutApprovedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutApprovedByInput[]
   connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutApprovedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutApprovedByInput[]
@@ -471,6 +656,13 @@ export type ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutCreatedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutCreatedByInput> | Prisma.ProjectBaselineCreateWithoutCreatedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutCreatedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutCreatedByInput[]
   createMany?: Prisma.ProjectBaselineCreateManyCreatedByInputEnvelope
+  connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+}
+
+export type ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput = {
+  create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput> | Prisma.ProjectBaselineCreateWithoutSubmittedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput[]
+  createMany?: Prisma.ProjectBaselineCreateManySubmittedByInputEnvelope
   connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
 }
 
@@ -492,6 +684,20 @@ export type ProjectBaselineUpdateManyWithoutCreatedByNestedInput = {
   connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
   update?: Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutCreatedByInput[]
   updateMany?: Prisma.ProjectBaselineUpdateManyWithWhereWithoutCreatedByInput | Prisma.ProjectBaselineUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.ProjectBaselineScalarWhereInput | Prisma.ProjectBaselineScalarWhereInput[]
+}
+
+export type ProjectBaselineUpdateManyWithoutSubmittedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput> | Prisma.ProjectBaselineCreateWithoutSubmittedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput[]
+  upsert?: Prisma.ProjectBaselineUpsertWithWhereUniqueWithoutSubmittedByInput | Prisma.ProjectBaselineUpsertWithWhereUniqueWithoutSubmittedByInput[]
+  createMany?: Prisma.ProjectBaselineCreateManySubmittedByInputEnvelope
+  set?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  disconnect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  delete?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  update?: Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutSubmittedByInput | Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutSubmittedByInput[]
+  updateMany?: Prisma.ProjectBaselineUpdateManyWithWhereWithoutSubmittedByInput | Prisma.ProjectBaselineUpdateManyWithWhereWithoutSubmittedByInput[]
   deleteMany?: Prisma.ProjectBaselineScalarWhereInput | Prisma.ProjectBaselineScalarWhereInput[]
 }
 
@@ -520,6 +726,20 @@ export type ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput = {
   connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
   update?: Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutCreatedByInput[]
   updateMany?: Prisma.ProjectBaselineUpdateManyWithWhereWithoutCreatedByInput | Prisma.ProjectBaselineUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.ProjectBaselineScalarWhereInput | Prisma.ProjectBaselineScalarWhereInput[]
+}
+
+export type ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput> | Prisma.ProjectBaselineCreateWithoutSubmittedByInput[] | Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput | Prisma.ProjectBaselineCreateOrConnectWithoutSubmittedByInput[]
+  upsert?: Prisma.ProjectBaselineUpsertWithWhereUniqueWithoutSubmittedByInput | Prisma.ProjectBaselineUpsertWithWhereUniqueWithoutSubmittedByInput[]
+  createMany?: Prisma.ProjectBaselineCreateManySubmittedByInputEnvelope
+  set?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  disconnect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  delete?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  connect?: Prisma.ProjectBaselineWhereUniqueInput | Prisma.ProjectBaselineWhereUniqueInput[]
+  update?: Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutSubmittedByInput | Prisma.ProjectBaselineUpdateWithWhereUniqueWithoutSubmittedByInput[]
+  updateMany?: Prisma.ProjectBaselineUpdateManyWithWhereWithoutSubmittedByInput | Prisma.ProjectBaselineUpdateManyWithWhereWithoutSubmittedByInput[]
   deleteMany?: Prisma.ProjectBaselineScalarWhereInput | Prisma.ProjectBaselineScalarWhereInput[]
 }
 
@@ -583,14 +803,26 @@ export type EnumBaselineTypeFieldUpdateOperationsInput = {
   set?: $Enums.BaselineType
 }
 
+export type EnumBaselineStatusFieldUpdateOperationsInput = {
+  set?: $Enums.BaselineStatus
+}
+
 export type ProjectBaselineCreateWithoutCreatedByInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutBaselinesInput
+  submittedBy?: Prisma.UserCreateNestedOneWithoutBaselinesSubmittedInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutBaselinesApprovedInput
 }
 
@@ -599,9 +831,17 @@ export type ProjectBaselineUncheckedCreateWithoutCreatedByInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -615,15 +855,71 @@ export type ProjectBaselineCreateManyCreatedByInputEnvelope = {
   skipDuplicates?: boolean
 }
 
+export type ProjectBaselineCreateWithoutSubmittedByInput = {
+  id?: string
+  version?: number
+  type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
+  snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutBaselinesInput
+  createdBy: Prisma.UserCreateNestedOneWithoutBaselinesCreatedInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutBaselinesApprovedInput
+}
+
+export type ProjectBaselineUncheckedCreateWithoutSubmittedByInput = {
+  id?: string
+  projectId: string
+  version?: number
+  type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
+  snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  createdById: string
+  submittedAt?: Date | string | null
+  approvedById?: string | null
+  approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type ProjectBaselineCreateOrConnectWithoutSubmittedByInput = {
+  where: Prisma.ProjectBaselineWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput>
+}
+
+export type ProjectBaselineCreateManySubmittedByInputEnvelope = {
+  data: Prisma.ProjectBaselineCreateManySubmittedByInput | Prisma.ProjectBaselineCreateManySubmittedByInput[]
+  skipDuplicates?: boolean
+}
+
 export type ProjectBaselineCreateWithoutApprovedByInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutBaselinesInput
   createdBy: Prisma.UserCreateNestedOneWithoutBaselinesCreatedInput
+  submittedBy?: Prisma.UserCreateNestedOneWithoutBaselinesSubmittedInput
 }
 
 export type ProjectBaselineUncheckedCreateWithoutApprovedByInput = {
@@ -631,9 +927,17 @@ export type ProjectBaselineUncheckedCreateWithoutApprovedByInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -671,11 +975,35 @@ export type ProjectBaselineScalarWhereInput = {
   projectId?: Prisma.StringFilter<"ProjectBaseline"> | string
   version?: Prisma.IntFilter<"ProjectBaseline"> | number
   type?: Prisma.EnumBaselineTypeFilter<"ProjectBaseline"> | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFilter<"ProjectBaseline"> | $Enums.BaselineStatus
   snapshot?: Prisma.JsonFilter<"ProjectBaseline">
+  hash?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  schemaVersion?: Prisma.StringFilter<"ProjectBaseline"> | string
+  sourceVersion?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   createdById?: Prisma.StringFilter<"ProjectBaseline"> | string
+  submittedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  submittedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
+  approvalComment?: Prisma.StringNullableFilter<"ProjectBaseline"> | string | null
+  lockedAt?: Prisma.DateTimeNullableFilter<"ProjectBaseline"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBaseline"> | Date | string
+}
+
+export type ProjectBaselineUpsertWithWhereUniqueWithoutSubmittedByInput = {
+  where: Prisma.ProjectBaselineWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProjectBaselineUpdateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedUpdateWithoutSubmittedByInput>
+  create: Prisma.XOR<Prisma.ProjectBaselineCreateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedCreateWithoutSubmittedByInput>
+}
+
+export type ProjectBaselineUpdateWithWhereUniqueWithoutSubmittedByInput = {
+  where: Prisma.ProjectBaselineWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProjectBaselineUpdateWithoutSubmittedByInput, Prisma.ProjectBaselineUncheckedUpdateWithoutSubmittedByInput>
+}
+
+export type ProjectBaselineUpdateManyWithWhereWithoutSubmittedByInput = {
+  where: Prisma.ProjectBaselineScalarWhereInput
+  data: Prisma.XOR<Prisma.ProjectBaselineUpdateManyMutationInput, Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByInput>
 }
 
 export type ProjectBaselineUpsertWithWhereUniqueWithoutApprovedByInput = {
@@ -698,10 +1026,18 @@ export type ProjectBaselineCreateWithoutProjectInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutBaselinesCreatedInput
+  submittedBy?: Prisma.UserCreateNestedOneWithoutBaselinesSubmittedInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutBaselinesApprovedInput
 }
 
@@ -709,10 +1045,18 @@ export type ProjectBaselineUncheckedCreateWithoutProjectInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -747,9 +1091,36 @@ export type ProjectBaselineCreateManyCreatedByInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type ProjectBaselineCreateManySubmittedByInput = {
+  id?: string
+  projectId: string
+  version?: number
+  type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
+  snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
+  createdById: string
+  submittedAt?: Date | string | null
+  approvedById?: string | null
+  approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -758,9 +1129,17 @@ export type ProjectBaselineCreateManyApprovedByInput = {
   projectId: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -768,10 +1147,18 @@ export type ProjectBaselineUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutBaselinesNestedInput
+  submittedBy?: Prisma.UserUpdateOneWithoutBaselinesSubmittedNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutBaselinesApprovedNestedInput
 }
 
@@ -780,9 +1167,17 @@ export type ProjectBaselineUncheckedUpdateWithoutCreatedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -791,9 +1186,74 @@ export type ProjectBaselineUncheckedUpdateManyWithoutCreatedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProjectBaselineUpdateWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
+  snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutBaselinesNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutBaselinesApprovedNestedInput
+}
+
+export type ProjectBaselineUncheckedUpdateWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
+  snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProjectBaselineUncheckedUpdateManyWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
+  snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -801,11 +1261,19 @@ export type ProjectBaselineUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutBaselinesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput
+  submittedBy?: Prisma.UserUpdateOneWithoutBaselinesSubmittedNestedInput
 }
 
 export type ProjectBaselineUncheckedUpdateWithoutApprovedByInput = {
@@ -813,9 +1281,17 @@ export type ProjectBaselineUncheckedUpdateWithoutApprovedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -824,9 +1300,17 @@ export type ProjectBaselineUncheckedUpdateManyWithoutApprovedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -834,10 +1318,18 @@ export type ProjectBaselineCreateManyProjectInput = {
   id?: string
   version?: number
   type?: $Enums.BaselineType
+  status?: $Enums.BaselineStatus
   snapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: string | null
+  schemaVersion?: string
+  sourceVersion?: string | null
   createdById: string
+  submittedById?: string | null
+  submittedAt?: Date | string | null
   approvedById?: string | null
   approvedAt?: Date | string | null
+  approvalComment?: string | null
+  lockedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -845,10 +1337,18 @@ export type ProjectBaselineUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput
+  submittedBy?: Prisma.UserUpdateOneWithoutBaselinesSubmittedNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutBaselinesApprovedNestedInput
 }
 
@@ -856,10 +1356,18 @@ export type ProjectBaselineUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -867,10 +1375,18 @@ export type ProjectBaselineUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumBaselineTypeFieldUpdateOperationsInput | $Enums.BaselineType
+  status?: Prisma.EnumBaselineStatusFieldUpdateOperationsInput | $Enums.BaselineStatus
   snapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schemaVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -881,13 +1397,22 @@ export type ProjectBaselineSelect<ExtArgs extends runtime.Types.Extensions.Inter
   projectId?: boolean
   version?: boolean
   type?: boolean
+  status?: boolean
   snapshot?: boolean
+  hash?: boolean
+  schemaVersion?: boolean
+  sourceVersion?: boolean
   createdById?: boolean
+  submittedById?: boolean
+  submittedAt?: boolean
   approvedById?: boolean
   approvedAt?: boolean
+  approvalComment?: boolean
+  lockedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["projectBaseline"]>
 
@@ -896,13 +1421,22 @@ export type ProjectBaselineSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   projectId?: boolean
   version?: boolean
   type?: boolean
+  status?: boolean
   snapshot?: boolean
+  hash?: boolean
+  schemaVersion?: boolean
+  sourceVersion?: boolean
   createdById?: boolean
+  submittedById?: boolean
+  submittedAt?: boolean
   approvedById?: boolean
   approvedAt?: boolean
+  approvalComment?: boolean
+  lockedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["projectBaseline"]>
 
@@ -911,13 +1445,22 @@ export type ProjectBaselineSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   projectId?: boolean
   version?: boolean
   type?: boolean
+  status?: boolean
   snapshot?: boolean
+  hash?: boolean
+  schemaVersion?: boolean
+  sourceVersion?: boolean
   createdById?: boolean
+  submittedById?: boolean
+  submittedAt?: boolean
   approvedById?: boolean
   approvedAt?: boolean
+  approvalComment?: boolean
+  lockedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["projectBaseline"]>
 
@@ -926,27 +1469,38 @@ export type ProjectBaselineSelectScalar = {
   projectId?: boolean
   version?: boolean
   type?: boolean
+  status?: boolean
   snapshot?: boolean
+  hash?: boolean
+  schemaVersion?: boolean
+  sourceVersion?: boolean
   createdById?: boolean
+  submittedById?: boolean
+  submittedAt?: boolean
   approvedById?: boolean
   approvedAt?: boolean
+  approvalComment?: boolean
+  lockedAt?: boolean
   createdAt?: boolean
 }
 
-export type ProjectBaselineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "version" | "type" | "snapshot" | "createdById" | "approvedById" | "approvedAt" | "createdAt", ExtArgs["result"]["projectBaseline"]>
+export type ProjectBaselineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "version" | "type" | "status" | "snapshot" | "hash" | "schemaVersion" | "sourceVersion" | "createdById" | "submittedById" | "submittedAt" | "approvedById" | "approvedAt" | "approvalComment" | "lockedAt" | "createdAt", ExtArgs["result"]["projectBaseline"]>
 export type ProjectBaselineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }
 export type ProjectBaselineIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }
 export type ProjectBaselineIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.ProjectBaseline$submittedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.ProjectBaseline$approvedByArgs<ExtArgs>
 }
 
@@ -955,6 +1509,7 @@ export type $ProjectBaselinePayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
+    submittedBy: Prisma.$UserPayload<ExtArgs> | null
     approvedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -962,10 +1517,18 @@ export type $ProjectBaselinePayload<ExtArgs extends runtime.Types.Extensions.Int
     projectId: string
     version: number
     type: $Enums.BaselineType
+    status: $Enums.BaselineStatus
     snapshot: runtime.JsonValue
+    hash: string | null
+    schemaVersion: string
+    sourceVersion: string | null
     createdById: string
+    submittedById: string | null
+    submittedAt: Date | null
     approvedById: string | null
     approvedAt: Date | null
+    approvalComment: string | null
+    lockedAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["projectBaseline"]>
   composites: {}
@@ -1363,6 +1926,7 @@ export interface Prisma__ProjectBaselineClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  submittedBy<T extends Prisma.ProjectBaseline$submittedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectBaseline$submittedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvedBy<T extends Prisma.ProjectBaseline$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectBaseline$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1397,10 +1961,18 @@ export interface ProjectBaselineFieldRefs {
   readonly projectId: Prisma.FieldRef<"ProjectBaseline", 'String'>
   readonly version: Prisma.FieldRef<"ProjectBaseline", 'Int'>
   readonly type: Prisma.FieldRef<"ProjectBaseline", 'BaselineType'>
+  readonly status: Prisma.FieldRef<"ProjectBaseline", 'BaselineStatus'>
   readonly snapshot: Prisma.FieldRef<"ProjectBaseline", 'Json'>
+  readonly hash: Prisma.FieldRef<"ProjectBaseline", 'String'>
+  readonly schemaVersion: Prisma.FieldRef<"ProjectBaseline", 'String'>
+  readonly sourceVersion: Prisma.FieldRef<"ProjectBaseline", 'String'>
   readonly createdById: Prisma.FieldRef<"ProjectBaseline", 'String'>
+  readonly submittedById: Prisma.FieldRef<"ProjectBaseline", 'String'>
+  readonly submittedAt: Prisma.FieldRef<"ProjectBaseline", 'DateTime'>
   readonly approvedById: Prisma.FieldRef<"ProjectBaseline", 'String'>
   readonly approvedAt: Prisma.FieldRef<"ProjectBaseline", 'DateTime'>
+  readonly approvalComment: Prisma.FieldRef<"ProjectBaseline", 'String'>
+  readonly lockedAt: Prisma.FieldRef<"ProjectBaseline", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ProjectBaseline", 'DateTime'>
 }
 
@@ -1795,6 +2367,25 @@ export type ProjectBaselineDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many ProjectBaselines to delete.
    */
   limit?: number
+}
+
+/**
+ * ProjectBaseline.submittedBy
+ */
+export type ProjectBaseline$submittedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

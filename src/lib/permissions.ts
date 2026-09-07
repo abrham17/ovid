@@ -334,7 +334,7 @@ export const COMPANY_ROLE_PERMISSIONS: Record<CompanyStaffRole, Partial<Record<C
   },
   EQUIPMENT_ADMIN_MANAGER: {
     portfolio: ["read"],
-    equipment_capital: ["read", "create", "update", "approve"],
+    equipment_capital: ["read", "create", "update"],
     executive_intervention: ["read", "update"],
   },
   FINANCE_DEPT_MANAGER: {
@@ -347,7 +347,7 @@ export const COMPANY_ROLE_PERMISSIONS: Record<CompanyStaffRole, Partial<Record<C
   INTERNAL_AUDITOR: {
     portfolio: ["read"],
     audit_compliance: ["read"],
-    audit_findings: ["read", "create", "update", "approve"],
+    audit_findings: ["read", "create", "update"],
     executive_intervention: ["read"],
   },
 };
@@ -410,14 +410,70 @@ export class PermissionError extends Error {
  * Verify the user is a member of the given project (or is ADMIN of the same org).
  * Returns the membership record when present.
  */
+export async function resolveEffectiveProjectRoles(
+  user: SessionUser,
+  projectId: string
+): Promise<{ effectiveRoles: UserRole[]; primaryRole: UserRole; isExecutiveOversight: boolean }> {
+  const membership = await db.projectMembership.findFirst({
+    where: { projectId, userId: user.id },
+  });
+
+  const isExecutiveOversight =
+    (user.companyRoles?.length ?? 0) > 0 && (await canCompany(user, "portfolio", "read"));
+
+  const effectiveRoles: UserRole[] = [];
+
+  if (membership?.projectRole) {
+    effectiveRoles.push(membership.projectRole as UserRole);
+  }
+  if (user.role && (isExecutiveOversight || user.role === "ADMIN" || effectiveRoles.length === 0)) {
+    if (!effectiveRoles.includes(user.role)) {
+      effectiveRoles.push(user.role);
+    }
+  }
+
+  const primaryRole = membership?.projectRole ? (membership.projectRole as UserRole) : user.role;
+
+  return { effectiveRoles, primaryRole, isExecutiveOversight };
+}
+
+export function assertCapability(
+  user: SessionUser,
+  resource: Resource,
+  action: PermissionAction,
+  effectiveRole?: UserRole
+) {
+  const roleToCheck = effectiveRole || user.role;
+  if (!can(roleToCheck, resource, action)) {
+    throw new PermissionError(
+      `Role ${roleToCheck} does not have capability to ${action} ${resource}`
+    );
+  }
+}
+
+/**
+ * Verify the user is a member of the given project or holds executive portfolio oversight.
+ * F-001: Denies access if user has no membership and no portfolio oversight grant.
+ */
 export async function assertProjectAccess(
   user: SessionUser,
   projectId: string
 ) {
-  if ((user.companyRoles?.length ?? 0) > 0 && await canCompany(user, "portfolio", "read")) {
-    const project = await db.project.findFirst({ where: { id: projectId, OR: [{ contractorOrgId: user.organizationId }, { clientOrgId: user.organizationId }, { consultantOrgId: user.organizationId }] } });
+  // Check company portfolio oversight role first
+  if ((user.companyRoles?.length ?? 0) > 0 && (await canCompany(user, "portfolio", "read"))) {
+    const project = await db.project.findFirst({
+      where: {
+        id: projectId,
+        OR: [
+          { contractorOrgId: user.organizationId },
+          { clientOrgId: user.organizationId },
+          { consultantOrgId: user.organizationId },
+        ],
+      },
+    });
     if (project) return { role: user.role as UserRole, project };
   }
+
   // ADMIN: any project linked to their org as contractor / client / consultant
   if (user.role === "ADMIN") {
     const project = await db.project.findFirst({
@@ -443,22 +499,11 @@ export async function assertProjectAccess(
   });
 
   if (!membership) {
-    // Also allow same-org contractor staff without explicit membership for read paths
-    const project = await db.project.findFirst({
-      where: {
-        id: projectId,
-        OR: [
-          { contractorOrgId: user.organizationId },
-          { clientOrgId: user.organizationId },
-          { consultantOrgId: user.organizationId },
-        ],
-      },
-    });
-    if (!project) throw new PermissionError("You are not a member of this project");
-    return { role: user.role as UserRole, project };
+    throw new PermissionError("You are not an active member of this project");
   }
 
-  return { role: (membership.projectRole as UserRole) || user.role, project: membership.project };
+  const effectiveRole = (membership.projectRole as UserRole) || user.role;
+  return { role: effectiveRole, project: membership.project };
 }
 
 /** Roles that can invite new users into a project */

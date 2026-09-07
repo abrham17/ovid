@@ -1,7 +1,8 @@
+import crypto from "crypto";
 import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/auth";
 import { assertPermission, assertProjectAccess } from "@/lib/permissions";
-import { assertStatusTransition, DOC_TRANSITIONS } from "@/lib/domain-rules";
+import { assertStatusTransition, DOC_TRANSITIONS, DomainError } from "@/lib/domain-rules";
 import type { CreateDocumentInput } from "@/lib/validations/document";
 import {
   getEffectiveScope,
@@ -9,6 +10,7 @@ import {
   isAll,
   getAncestorIds,
 } from "@/lib/scope";
+import { recordAuditLog } from "@/lib/services/audit";
 
 /**
  * Document control — visible nodes + ancestor inheritance; never sibling branches outside scope.
@@ -70,7 +72,11 @@ export async function createDocument(
     assertScopeWritable(scope, input.wbsNodeId);
   }
 
-  return db.projectDocument.create({
+  const contentHash = input.filePath
+    ? crypto.createHash("sha256").update(input.filePath + ":" + input.docNo + ":" + (input.revisionNo ?? 1)).digest("hex")
+    : null;
+
+  const doc = await db.projectDocument.create({
     data: {
       projectId,
       wbsNodeId: input.wbsNodeId ?? null,
@@ -80,10 +86,23 @@ export async function createDocument(
       revisionNo: input.revisionNo ?? 1,
       status: "DRAFT",
       filePath: input.filePath ?? null,
+      contentHash,
       issuedByUserId: user.id,
       effectiveDate: input.effectiveDate ? new Date(input.effectiveDate) : null,
     },
   });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectDocument",
+    entityId: doc.id,
+    action: "CREATE",
+    after: doc,
+    reason: "Created project document draft",
+    authority: user.role,
+  });
+
+  return doc;
 }
 
 /** DRAFT → UNDER_REVIEW → ISSUED (approve) · SUPERSEDED · WITHDRAWN */
@@ -101,19 +120,49 @@ export async function updateDocumentStatus(
   if (!doc) throw new Error("Document not found");
   assertStatusTransition(doc.status, status, DOC_TRANSITIONS, "Document status");
 
+  if (doc.isLegalHold) {
+    throw new DomainError("Document status cannot be changed while on legal hold (ISO 15489 control)", 403);
+  }
+
   if (status === "ISSUED") {
     assertPermission(user, "document", "approve");
-    return db.projectDocument.update({
+    const updated = await db.projectDocument.update({
       where: { id: documentId },
       data: { status: "ISSUED", approvedById: user.id },
     });
+
+    await recordAuditLog({
+      userId: user.id,
+      entityType: "ProjectDocument",
+      entityId: documentId,
+      action: "APPROVE",
+      before: { status: doc.status },
+      after: { status: "ISSUED" },
+      reason: "Approved and issued project document",
+      authority: user.role,
+    });
+
+    return updated;
   }
 
   assertPermission(user, "document", "update");
-  return db.projectDocument.update({
+  const updated = await db.projectDocument.update({
     where: { id: documentId },
     data: { status },
   });
+
+  await recordAuditLog({
+    userId: user.id,
+    entityType: "ProjectDocument",
+    entityId: documentId,
+    action: "UPDATE",
+    before: { status: doc.status },
+    after: { status },
+    reason: `Updated document status to ${status}`,
+    authority: user.role,
+  });
+
+  return updated;
 }
 
 /**
