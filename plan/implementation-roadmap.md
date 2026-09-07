@@ -1,114 +1,47 @@
-# Master Implementation Roadmap — ISO Standard Alignment
+# ISO-Aligned Implementation Roadmap
 
-## 1. Executive Summary & Sequential Execution Strategy
+This is the execution order for findings in `00-iso-pms-assessment.md`. Do not start UI redesign or broad refactoring before P0 controls are complete.
 
-This implementation roadmap outlines the sequential, dependency-ordered rollout plan to achieve 100% compliance with ISO 9001:2015, ISO 10006:2017, ISO 21502:2020, and ISO/IEC 27001 across the Ovid PMS codebase.
+## Phase 0 — restore a verifiable foundation (P0)
 
-To ensure system stability, all changes follow a strict dependency order:
-$$\text{Foundational RBAC \& Audit} \longrightarrow \text{Project Baseline Engine} \longrightarrow \text{WBS \& Planning} \longrightarrow \text{Physical Site Operations} \longrightarrow \text{CPM Schedule \& EVM} \longrightarrow \text{Quality \& Controls} \longrightarrow \text{Change \& Risk} \longrightarrow \text{Executive Dashboards}$$
+1. **Build health (F-015).** Fix legacy auth/API imports in audit, baseline, control-check, progress-history, objectives, transition and document-download routes; annotate `serializeVal`; correct the generated Prisma import in `audit.ts`. Add CI `typecheck`, build and migration checks.
+2. **Canonical policy (F-002/F-003).** Define typed capabilities, effective project role resolution, policy wrappers, and a route registry that enumerates every API method. Replace direct `user.role` authorization with policy calls. Preserve existing resource matrix as migration input, not as the final authority.
+3. **Project isolation (F-001).** Require active membership or a documented time-bounded oversight/access grant. Apply the predicate in project discovery, every service query and all legacy `[id]` routes. Add cross-organization and no-membership tests.
+4. **Audit transaction boundary (F-010).** Add request/correlation metadata and mandatory before/after/reason/authority fields. Wrap mutations and status changes in transactions; prohibit uncontrolled hard deletion. Scope audit reads to organization and auditor assignment.
 
----
+## Phase 1 — governance, lifecycle and controlled foundation (P0/P1)
 
-## 2. Sequential Phase Rollout
+5. **Baseline workflow (F-004).** Migrate `ProjectBaseline` with status, hash, schema/source versions, submission/review fields and lock. Create submit/review APIs, independent approval and gate evidence. Remove self-approval and generic status mutation.
+6. **Lifecycle gates (F-005).** Add a legal state machine and gate checklist for planning, active, suspended, complete and closed. Gate ACTIVE on approved scope/schedule/cost and team; gate COMPLETE/CLOSED on deliverables, open-risk disposition, quality acceptance and records freeze.
+7. **Project foundation completeness.** Extend project creation/conversion to persist objectives, scope statement, stakeholder register, organization/role assignments, contract, initial WBS and approval provenance. Preserve tender-to-project conversion and company approval services.
 
-### Phase 1: Foundation, Governance & Audit Infrastructure
-- **Objective**: Establish universal audit trail, route-level permission manifest, and strict RBAC enforcement.
-- **Key Tasks**:
-  1. Add `ProjectRole` enum and `ProjectRoleAssignment` model to `prisma/schema.prisma`.
-  2. Implement standardized `logAuditEntry()` helper in `src/lib/services/audit.ts` capturing `{ before, after }` state diffs.
-  3. Create `src/permissions/route-permissions.json` mapping all API routes to required domain permissions.
-  4. Build central API route authorization wrapper (`assertRoutePermission`).
-- **Dependencies**: None.
-- **Priority**: Critical (P1)
-- **Deliverables**: `route-permissions.json`, `audit.ts`, database migrations.
+## Phase 2 — integrated planning and execution (P1)
 
-### Phase 2: Project Creation, Chartering & Baseline Engine
-- **Objective**: Enforce won-tender conversion, structured objectives, and immutable project baselines.
-- **Key Tasks**:
-  1. Add `ProjectObjective`, `ProjectStatusHistory`, and `ProjectBaseline` models to `prisma/schema.prisma`.
-  2. Implement tender-to-project conversion engine in `project.service.ts` requiring General Manager approval.
-  3. Enforce phase gate transitions in `project.service.ts` (`PLANNING` $\rightarrow$ `ACTIVE` requires approved baseline).
-  4. Build project charter and baseline UI components.
-- **Dependencies**: Phase 1.
-- **Priority**: High (P2)
-- **Deliverables**: `ProjectBaseline` snapshot engine, phase gate transition checks.
+8. **Work package/task lifecycle (F-008).** Add governed `Task` or extend `ScheduleActivity` with responsibility, planned/actual effort, acceptance, evidence, verification, approval, reopen and escalation history. Link tasks to WBS, schedule, resources, quality and risks.
+9. **Schedule revisions (F-007).** Extend change requests with impact analysis, affected activities, critical-path/float deltas, downstream forecasts and baseline/version linkage. Enforce explicit approve capability and immutable change history.
+10. **Resource controls (F-013).** Add availability/capacity/competency and allocation periods, conflict detection, assignment acceptance and planned-vs-actual usage. Link resource requests to contract/WBS and approval thresholds.
+11. **Quality/risk/CAPA closure (F-012).** Add residual risk, treatment due dates, issue/problem/CAPA linkage, root cause, effectiveness verification and escalation. Make failed inspection/safety events block completion or create controlled corrective work.
 
-### Phase 3: WBS Decomposition, Subcontractor Isolation & Work Delegation
-- **Objective**: Enforce 100% WBS sibling weight rule and isolate subcontractor plan submissions.
-- **Key Tasks**:
-  1. Implement recursive 100%-Rule validator in `src/lib/weight-math.ts`.
-  2. Gate `WbsPlanSubmission` approval on zero weight validation errors in `wbs-plan.service.ts`.
-  3. Integrate real-time notification dispatches (`ACTIVITY_ASSIGNED`) into `assignment.service.ts`.
-  4. Build WBS weight balance helper UI.
-- **Dependencies**: Phase 2.
-- **Priority**: High (P3)
-- **Deliverables**: Weight math validator, `WbsPlanSubmission` approval gate.
+## Phase 3 — truthful monitoring and reporting (P0/P1)
 
-### Phase 4: Physical Quantity Bottom-Up Progress & S-Curve Engine
-- **Objective**: Eliminate subjective percentage estimates; derive progress bottom-up from physical daily site logs.
-- **Key Tasks**:
-  1. Add `ProgressSnapshot` model to `prisma/schema.prisma`.
-  2. Integrate daily site entries (Earthwork, Structure, Rebar) directly into physical progress calculations.
-  3. Implement daily scheduled progress snapshot job in `progress.service.ts`.
-  4. Build S-curve chart component (Planned Value vs Earned Value vs Actual Cost).
-- **Dependencies**: Phase 3.
-- **Priority**: High (P4)
-- **Deliverables**: Physical progress calculation engine, `ProgressSnapshot` time-series data.
+12. **Progress/EVM (F-006/F-009).** Link snapshots to approved baselines; calculate time-phased PV, accepted EV and reconciled AC at an as-of cut-off. Store immutable snapshots, quality-cleared delta, forecast dates, thresholds and evidence. Fix activity-ID API semantics and protect history/control-check endpoints.
+13. **Control cycle.** Implement threshold → exception → accountable owner → corrective action → verification → closure; deduplicate interventions and expose source snapshot/decision links. Add management reports for schedule, cost, quality, safety, risk, resources and change.
 
-### Phase 5: Critical Path Method (CPM) Schedule Solver & Control Loop
-- **Objective**: Calculate Early/Late dates, Total Float, Free Float, and Critical Path; automate executive intervention triggers.
-- **Key Tasks**:
-  1. Build topological CPM solver in `src/lib/cpm-solver.ts`.
-  2. Enforce `ScheduleChangeRequest` approval before modifying activity dates on active projects.
-  3. Implement automated control metric evaluator in `dashboard.service.ts` auto-creating `ExecutiveIntervention` when $SPI < 0.85$ or $CPI < 0.85$.
-  4. Highlight critical path activities in Gantt view UI.
-- **Dependencies**: Phase 4.
-- **Priority**: High (P5)
-- **Deliverables**: `cpm-solver.ts`, automated executive intervention triggers.
+## Phase 4 — controlled information and assurance (P1/P2)
 
-### Phase 6: Quality Release Gates & Document Control
-- **Objective**: Gate activity completion on passed ITRs/closed defects; enforce ISO 9001 §7.5 document versioning.
-- **Key Tasks**:
-  1. Implement `assertQualityGatePassed(wbsNodeId)` in `quality.service.ts`.
-  2. Block activity completion and IPC payment certification when open defects exist.
-  3. Secure file downloads behind authenticated stream routes in `document.service.ts`.
-  4. Build document revision tree UI.
-- **Dependencies**: Phase 5.
-- **Priority**: High (P6)
-- **Deliverables**: Quality gate enforcement, secure document download API.
+14. **Document records (F-011).** Add content hash, MIME/size, object-store key, classification, retention/disposal, legal hold, download audit, issue/approval/rejection workflow and immutable supersession chain. Preserve WBS ancestor inheritance.
+15. **Database invariants (F-014).** Add composite/project consistency constraints, typed JSON validation/versioning and migration checks for contracts, measurements, WBS, activities and documents.
+16. **Audit and assurance tests (F-010/F-015).** Add end-to-end evidence queries proving who/what/when/why/authority/result; independent auditor views; deletion/tombstone tests; permission matrix/property tests; scheduled snapshot reproducibility tests.
 
-### Phase 7: Integrated Change Control & Risk Stoppage Realization
-- **Objective**: Link cost/schedule change controls; realize risks into site work stoppages.
-- **Key Tasks**:
-  1. Link `VariationOrder` and `ScheduleChangeRequest` in `prisma/schema.prisma`.
-  2. Trigger automatic `ProjectBaseline` version increments upon major variation approval.
-  3. Implement atomic `realizeRisk()` function in `risk.service.ts` generating `StoppageEntry` records.
-  4. Build 5x5 Risk Heatmap matrix UI.
-- **Dependencies**: Phase 6.
-- **Priority**: Medium (P7)
-- **Deliverables**: Integrated variation approval engine, risk heatmap matrix.
+## Phase 5 — role-based UX and operational adoption (P1/P2)
 
-### Phase 8: Executive Portfolio Dashboards & Final System Verification
-- **Objective**: Provide corporate leadership with cross-project portfolio oversight and execute final end-to-end verification.
-- **Key Tasks**:
-  1. Verify 24-role RBAC tab matrix and portfolio dashboard access.
-  2. Ensure `Prisma.Decimal` serialization handling across all Server/Client Component boundaries.
-  3. Run comprehensive integration and E2E test suite.
-- **Dependencies**: Phase 1–7.
-- **Priority**: Medium (P8)
-- **Deliverables**: Fully verified, standard-compliant PMS codebase.
+17. Return server-derived effective capabilities, scope, redaction and pending approvals to dashboards. Adapt existing role dashboards and project tabs; do not duplicate authorization in components.
+18. Add inboxes for assignment acceptance, verification, approvals, overdue items, corrective actions and interventions. Display as-of dates, baseline version, evidence and decision history.
+19. Publish controlled procedures, role descriptions, approval thresholds, retention rules, exception handling and administrator/break-glass instructions in the existing `plan/` and operational documentation set.
 
----
+## Cross-cutting verification
 
-## 3. Verification Criteria & Acceptance Sign-off Matrix
-
-| Phase | Core Verification Check | Target Standard | Expected Outcome |
-| :--- | :--- | :--- | :--- |
-| **Phase 1** | Route authorization & audit diff test | ISO 27001 / ISO 9001 §7.5 | 100% REST endpoints enforce permissions; all CRUD ops write `{ before, after }` JSON diffs. |
-| **Phase 2** | Project activation gate check | ISO 21502 §6.2 | Moving project to `ACTIVE` without `ProjectBaseline` returns HTTP 422 error. |
-| **Phase 3** | Recursive WBS weight 100% rule | ISO 21502 §7.2 | Approving plan submission with unaligned sibling weights returns HTTP 400 error. |
-| **Phase 4** | Physical quantity progress math | ISO 10006 §7.4 | Physical completion percentage perfectly matches certified daily site quantities vs BOQ target. |
-| **Phase 5** | CPM solver float accuracy | ISO 21502 §7.4 | Zero total float calculated for critical path activities; Gantt highlights critical path. |
-| **Phase 6** | Quality gate activity completion | ISO 9001 §8.6 | Marking activity `COMPLETE` with open `DefectLog` returns HTTP 422 quality error. |
-| **Phase 7** | Baseline version increment | ISO 21502 §7.10 | Approving variation order increments `ProjectBaseline.version` and updates contract value. |
-| **Phase 8** | Full system regression & portfolio access | ISO 9001 / ISO 27001 | 100% test pass rate; executive portfolio dashboards function seamlessly. |
+- Every phase has Prisma migration, service tests, API authorization tests and UI smoke tests.
+- Security tests cover IDOR, cross-party access, revoked users, expired assignments, self-approval and direct API calls.
+- Control tests cover baseline immutability, schedule variance, EVM calculations, quality gates, CAPA effectiveness and audit completeness.
+- Release gate: `npm run typecheck`, `npm test`, production build, migration deploy, seeded role matrix and a disposable PostgreSQL integration suite all pass.
