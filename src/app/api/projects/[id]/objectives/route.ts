@@ -1,23 +1,29 @@
 import { NextRequest } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError, apiResponse } from "@/lib/api";
+import { requireSession } from "@/lib/auth";
+import { ok, created, handleApiError, parseJson } from "@/lib/api";
 import { addProjectObjective } from "@/lib/services/project.service";
 import { db } from "@/lib/db";
+import { assertProjectAccess } from "@/lib/permissions";
+import { assertRoutePermission } from "@/lib/authorization";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
+
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "GET", "/api/projects/:id/objectives");
+
     const objectives = await db.projectObjective.findMany({
       where: { projectId },
       orderBy: { createdAt: "desc" },
     });
-    return apiResponse(objectives);
+    return ok(objectives);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }
 
@@ -26,12 +32,16 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
-    const body = await req.json();
+
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "POST", "/api/projects/:id/objectives");
+
+    const body = await parseJson<any>(req);
     const objective = await addProjectObjective(user, projectId, body);
-    return apiResponse(objective, 201);
+    return created(objective);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

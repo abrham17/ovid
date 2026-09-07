@@ -9,14 +9,24 @@
     "POST /api/projects/:id/wbs": { "resource": "wbs", "action": "create" },
     "PATCH /api/projects/:id/wbs/:nodeId": { "resource": "wbs", "action": "update" },
     "DELETE /api/projects/:id/wbs/:nodeId": { "resource": "wbs", "action": "delete" },
-    "GET /api/projects/:id/daily": { "resource": "dailyReport", "action": "read" },
-    "POST /api/projects/:id/daily": { "resource": "dailyReport", "action": "create" },
+    "GET /api/projects/:id/daily": { "resource": "daily_report", "action": "read" },
+    "POST /api/projects/:id/daily": { "resource": "daily_report", "action": "create" },
     "GET /api/projects/:id/quality": { "resource": "quality", "action": "read" },
     "POST /api/projects/:id/quality": { "resource": "quality", "action": "create" },
     "GET /api/projects/:id/safety": { "resource": "safety", "action": "read" },
     "POST /api/projects/:id/safety": { "resource": "safety", "action": "create" },
+    "GET /api/projects/:id/baselines": { "resource": "project", "action": "read" },
+    "POST /api/projects/:id/baselines": { "resource": "project", "action": "create" },
+    "POST /api/projects/:id/control-check": { "resource": "project", "action": "update" },
+    "GET /api/projects/:id/documents/:docId/download": { "resource": "document", "action": "read" },
+    "GET /api/projects/:id/objectives": { "resource": "project", "action": "read" },
+    "POST /api/projects/:id/objectives": { "resource": "project", "action": "create" },
+    "GET /api/projects/:id/progress/history": { "resource": "project", "action": "read" },
+    "POST /api/projects/:id/progress/history": { "resource": "project", "action": "create" },
+    "POST /api/projects/:id/transition": { "resource": "project", "action": "update" },
+    "GET /api/audit-logs": { "resource": "admin", "action": "read" },
     "GET /api/invitations": { "resource": "invitation", "action": "read" },
     "POST /api/invitations": { "resource": "invitation", "action": "create" },
-    "GET /api/dashboard": { "resource": "dashboard", "action": "read" }
+    "GET /api/dashboard": { "resource": "project", "action": "read" }
   }
 }

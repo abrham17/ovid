@@ -307,6 +307,7 @@ export type UserWhereInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
   projectObjectivesCreated?: Prisma.ProjectObjectiveListRelationFilter
   baselinesCreated?: Prisma.ProjectBaselineListRelationFilter
+  baselinesSubmitted?: Prisma.ProjectBaselineListRelationFilter
   baselinesApproved?: Prisma.ProjectBaselineListRelationFilter
   projectStatusChanges?: Prisma.ProjectStatusHistoryListRelationFilter
 }
@@ -386,6 +387,7 @@ export type UserOrderByWithRelationInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentOrderByRelationAggregateInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveOrderByRelationAggregateInput
   baselinesCreated?: Prisma.ProjectBaselineOrderByRelationAggregateInput
+  baselinesSubmitted?: Prisma.ProjectBaselineOrderByRelationAggregateInput
   baselinesApproved?: Prisma.ProjectBaselineOrderByRelationAggregateInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryOrderByRelationAggregateInput
 }
@@ -468,6 +470,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentListRelationFilter
   projectObjectivesCreated?: Prisma.ProjectObjectiveListRelationFilter
   baselinesCreated?: Prisma.ProjectBaselineListRelationFilter
+  baselinesSubmitted?: Prisma.ProjectBaselineListRelationFilter
   baselinesApproved?: Prisma.ProjectBaselineListRelationFilter
   projectStatusChanges?: Prisma.ProjectStatusHistoryListRelationFilter
 }, "id" | "email">
@@ -584,6 +587,7 @@ export type UserCreateInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -662,6 +666,7 @@ export type UserUncheckedCreateInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -740,6 +745,7 @@ export type UserUpdateInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -818,6 +824,7 @@ export type UserUncheckedUpdateInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -1825,6 +1832,12 @@ export type UserCreateNestedOneWithoutBaselinesCreatedInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutBaselinesSubmittedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedCreateWithoutBaselinesSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesSubmittedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserCreateNestedOneWithoutBaselinesApprovedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesApprovedInput, Prisma.UserUncheckedCreateWithoutBaselinesApprovedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesApprovedInput
@@ -1837,6 +1850,16 @@ export type UserUpdateOneRequiredWithoutBaselinesCreatedNestedInput = {
   upsert?: Prisma.UserUpsertWithoutBaselinesCreatedInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBaselinesCreatedInput, Prisma.UserUpdateWithoutBaselinesCreatedInput>, Prisma.UserUncheckedUpdateWithoutBaselinesCreatedInput>
+}
+
+export type UserUpdateOneWithoutBaselinesSubmittedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedCreateWithoutBaselinesSubmittedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBaselinesSubmittedInput
+  upsert?: Prisma.UserUpsertWithoutBaselinesSubmittedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBaselinesSubmittedInput, Prisma.UserUpdateWithoutBaselinesSubmittedInput>, Prisma.UserUncheckedUpdateWithoutBaselinesSubmittedInput>
 }
 
 export type UserUpdateOneWithoutBaselinesApprovedNestedInput = {
@@ -1966,6 +1989,7 @@ export type UserCreateWithoutOrganizationInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -2043,6 +2067,7 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -2165,6 +2190,7 @@ export type UserCreateWithoutMembershipsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -2242,6 +2268,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -2335,6 +2362,7 @@ export type UserUpdateWithoutMembershipsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -2412,6 +2440,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -2489,6 +2518,7 @@ export type UserCreateWithoutCompanyAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -2566,6 +2596,7 @@ export type UserUncheckedCreateWithoutCompanyAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -2648,6 +2679,7 @@ export type UserCreateWithoutAssignedCompanyRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -2725,6 +2757,7 @@ export type UserUncheckedCreateWithoutAssignedCompanyRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -2818,6 +2851,7 @@ export type UserUpdateWithoutCompanyAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -2895,6 +2929,7 @@ export type UserUncheckedUpdateWithoutCompanyAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -2983,6 +3018,7 @@ export type UserUpdateWithoutAssignedCompanyRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -3060,6 +3096,7 @@ export type UserUncheckedUpdateWithoutAssignedCompanyRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -3137,6 +3174,7 @@ export type UserCreateWithoutCompanyInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -3214,6 +3252,7 @@ export type UserUncheckedCreateWithoutCompanyInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -3307,6 +3346,7 @@ export type UserUpdateWithoutCompanyInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -3384,6 +3424,7 @@ export type UserUncheckedUpdateWithoutCompanyInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -3461,6 +3502,7 @@ export type UserCreateWithoutCompanyApprovalsRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -3538,6 +3580,7 @@ export type UserUncheckedCreateWithoutCompanyApprovalsRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -3620,6 +3663,7 @@ export type UserCreateWithoutCompanyApprovalsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -3697,6 +3741,7 @@ export type UserUncheckedCreateWithoutCompanyApprovalsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -3790,6 +3835,7 @@ export type UserUpdateWithoutCompanyApprovalsRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -3867,6 +3913,7 @@ export type UserUncheckedUpdateWithoutCompanyApprovalsRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -3955,6 +4002,7 @@ export type UserUpdateWithoutCompanyApprovalsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -4032,6 +4080,7 @@ export type UserUncheckedUpdateWithoutCompanyApprovalsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -4109,6 +4158,7 @@ export type UserCreateWithoutDesignReviewsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -4186,6 +4236,7 @@ export type UserUncheckedCreateWithoutDesignReviewsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -4268,6 +4319,7 @@ export type UserCreateWithoutDesignReviewsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -4345,6 +4397,7 @@ export type UserUncheckedCreateWithoutDesignReviewsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -4438,6 +4491,7 @@ export type UserUpdateWithoutDesignReviewsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -4515,6 +4569,7 @@ export type UserUncheckedUpdateWithoutDesignReviewsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -4603,6 +4658,7 @@ export type UserUpdateWithoutDesignReviewsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -4680,6 +4736,7 @@ export type UserUncheckedUpdateWithoutDesignReviewsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -4757,6 +4814,7 @@ export type UserCreateWithoutAuditFindingsRaisedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -4834,6 +4892,7 @@ export type UserUncheckedCreateWithoutAuditFindingsRaisedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -4916,6 +4975,7 @@ export type UserCreateWithoutAuditFindingsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -4993,6 +5053,7 @@ export type UserUncheckedCreateWithoutAuditFindingsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -5075,6 +5136,7 @@ export type UserCreateWithoutAuditFindingsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -5152,6 +5214,7 @@ export type UserUncheckedCreateWithoutAuditFindingsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -5245,6 +5308,7 @@ export type UserUpdateWithoutAuditFindingsRaisedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -5322,6 +5386,7 @@ export type UserUncheckedUpdateWithoutAuditFindingsRaisedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -5410,6 +5475,7 @@ export type UserUpdateWithoutAuditFindingsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -5487,6 +5553,7 @@ export type UserUncheckedUpdateWithoutAuditFindingsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -5575,6 +5642,7 @@ export type UserUpdateWithoutAuditFindingsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -5652,6 +5720,7 @@ export type UserUncheckedUpdateWithoutAuditFindingsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -5729,6 +5798,7 @@ export type UserCreateWithoutExecutiveInterventionsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -5806,6 +5876,7 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -5888,6 +5959,7 @@ export type UserCreateWithoutExecutiveInterventionsCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -5965,6 +6037,7 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -6047,6 +6120,7 @@ export type UserCreateWithoutExecutiveInterventionsClosedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -6124,6 +6198,7 @@ export type UserUncheckedCreateWithoutExecutiveInterventionsClosedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -6217,6 +6292,7 @@ export type UserUpdateWithoutExecutiveInterventionsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -6294,6 +6370,7 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -6382,6 +6459,7 @@ export type UserUpdateWithoutExecutiveInterventionsCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -6459,6 +6537,7 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -6547,6 +6626,7 @@ export type UserUpdateWithoutExecutiveInterventionsClosedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -6624,6 +6704,7 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionsClosedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -6701,6 +6782,7 @@ export type UserCreateWithoutExecutiveInterventionEventsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -6778,6 +6860,7 @@ export type UserUncheckedCreateWithoutExecutiveInterventionEventsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -6871,6 +6954,7 @@ export type UserUpdateWithoutExecutiveInterventionEventsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -6948,6 +7032,7 @@ export type UserUncheckedUpdateWithoutExecutiveInterventionEventsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -7025,6 +7110,7 @@ export type UserCreateWithoutSignOffsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -7102,6 +7188,7 @@ export type UserUncheckedCreateWithoutSignOffsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -7195,6 +7282,7 @@ export type UserUpdateWithoutSignOffsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -7272,6 +7360,7 @@ export type UserUncheckedUpdateWithoutSignOffsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -7349,6 +7438,7 @@ export type UserCreateWithoutInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -7426,6 +7516,7 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -7508,6 +7599,7 @@ export type UserCreateWithoutInvitationAcceptedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -7585,6 +7677,7 @@ export type UserUncheckedCreateWithoutInvitationAcceptedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -7678,6 +7771,7 @@ export type UserUpdateWithoutInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -7755,6 +7849,7 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -7843,6 +7938,7 @@ export type UserUpdateWithoutInvitationAcceptedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -7920,6 +8016,7 @@ export type UserUncheckedUpdateWithoutInvitationAcceptedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -7997,6 +8094,7 @@ export type UserCreateWithoutActivityAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -8074,6 +8172,7 @@ export type UserUncheckedCreateWithoutActivityAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -8156,6 +8255,7 @@ export type UserCreateWithoutAssignedAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -8233,6 +8333,7 @@ export type UserUncheckedCreateWithoutAssignedAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -8326,6 +8427,7 @@ export type UserUpdateWithoutActivityAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -8403,6 +8505,7 @@ export type UserUncheckedUpdateWithoutActivityAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -8491,6 +8594,7 @@ export type UserUpdateWithoutAssignedAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -8568,6 +8672,7 @@ export type UserUncheckedUpdateWithoutAssignedAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -8645,6 +8750,7 @@ export type UserCreateWithoutDependencyRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -8722,6 +8828,7 @@ export type UserUncheckedCreateWithoutDependencyRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -8804,6 +8911,7 @@ export type UserCreateWithoutDependencyRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -8881,6 +8989,7 @@ export type UserUncheckedCreateWithoutDependencyRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -8974,6 +9083,7 @@ export type UserUpdateWithoutDependencyRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -9051,6 +9161,7 @@ export type UserUncheckedUpdateWithoutDependencyRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -9139,6 +9250,7 @@ export type UserUpdateWithoutDependencyRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -9216,6 +9328,7 @@ export type UserUncheckedUpdateWithoutDependencyRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -9293,6 +9406,7 @@ export type UserCreateWithoutEarthworkEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -9370,6 +9484,7 @@ export type UserUncheckedCreateWithoutEarthworkEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -9463,6 +9578,7 @@ export type UserUpdateWithoutEarthworkEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -9540,6 +9656,7 @@ export type UserUncheckedUpdateWithoutEarthworkEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -9617,6 +9734,7 @@ export type UserCreateWithoutStructureEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -9694,6 +9812,7 @@ export type UserUncheckedCreateWithoutStructureEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -9787,6 +9906,7 @@ export type UserUpdateWithoutStructureEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -9864,6 +9984,7 @@ export type UserUncheckedUpdateWithoutStructureEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -9941,6 +10062,7 @@ export type UserCreateWithoutRebarEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -10018,6 +10140,7 @@ export type UserUncheckedCreateWithoutRebarEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -10111,6 +10234,7 @@ export type UserUpdateWithoutRebarEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -10188,6 +10312,7 @@ export type UserUncheckedUpdateWithoutRebarEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -10265,6 +10390,7 @@ export type UserCreateWithoutRiskOwnerInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -10342,6 +10468,7 @@ export type UserUncheckedCreateWithoutRiskOwnerInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -10435,6 +10562,7 @@ export type UserUpdateWithoutRiskOwnerInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -10512,6 +10640,7 @@ export type UserUncheckedUpdateWithoutRiskOwnerInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -10589,6 +10718,7 @@ export type UserCreateWithoutObservationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -10666,6 +10796,7 @@ export type UserUncheckedCreateWithoutObservationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -10759,6 +10890,7 @@ export type UserUpdateWithoutObservationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -10836,6 +10968,7 @@ export type UserUncheckedUpdateWithoutObservationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -10913,6 +11046,7 @@ export type UserCreateWithoutIncidentsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -10990,6 +11124,7 @@ export type UserUncheckedCreateWithoutIncidentsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -11083,6 +11218,7 @@ export type UserUpdateWithoutIncidentsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -11160,6 +11296,7 @@ export type UserUncheckedUpdateWithoutIncidentsVerifiedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -11237,6 +11374,7 @@ export type UserCreateWithoutInspectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -11314,6 +11452,7 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -11407,6 +11546,7 @@ export type UserUpdateWithoutInspectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -11484,6 +11624,7 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -11561,6 +11702,7 @@ export type UserCreateWithoutDisputesOpenedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -11638,6 +11780,7 @@ export type UserUncheckedCreateWithoutDisputesOpenedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -11720,6 +11863,7 @@ export type UserCreateWithoutDisputesResolvedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -11797,6 +11941,7 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -11890,6 +12035,7 @@ export type UserUpdateWithoutDisputesOpenedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -11967,6 +12113,7 @@ export type UserUncheckedUpdateWithoutDisputesOpenedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -12055,6 +12202,7 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -12132,6 +12280,7 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -12209,6 +12358,7 @@ export type UserCreateWithoutEquipmentAllocationsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -12286,6 +12436,7 @@ export type UserUncheckedCreateWithoutEquipmentAllocationsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -12379,6 +12530,7 @@ export type UserUpdateWithoutEquipmentAllocationsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -12456,6 +12608,7 @@ export type UserUncheckedUpdateWithoutEquipmentAllocationsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -12533,6 +12686,7 @@ export type UserCreateWithoutCustodyTransfersInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -12610,6 +12764,7 @@ export type UserUncheckedCreateWithoutCustodyTransfersInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -12692,6 +12847,7 @@ export type UserCreateWithoutCustodyReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -12769,6 +12925,7 @@ export type UserUncheckedCreateWithoutCustodyReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -12862,6 +13019,7 @@ export type UserUpdateWithoutCustodyTransfersInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -12939,6 +13097,7 @@ export type UserUncheckedUpdateWithoutCustodyTransfersInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -13027,6 +13186,7 @@ export type UserUpdateWithoutCustodyReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -13104,6 +13264,7 @@ export type UserUncheckedUpdateWithoutCustodyReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -13181,6 +13342,7 @@ export type UserCreateWithoutAuditEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -13258,6 +13420,7 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -13351,6 +13514,7 @@ export type UserUpdateWithoutAuditEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -13428,6 +13592,7 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -13505,6 +13670,7 @@ export type UserCreateWithoutDocumentsIssuedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -13582,6 +13748,7 @@ export type UserUncheckedCreateWithoutDocumentsIssuedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -13664,6 +13831,7 @@ export type UserCreateWithoutDocumentsApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -13741,6 +13909,7 @@ export type UserUncheckedCreateWithoutDocumentsApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -13834,6 +14003,7 @@ export type UserUpdateWithoutDocumentsIssuedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -13911,6 +14081,7 @@ export type UserUncheckedUpdateWithoutDocumentsIssuedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -13999,6 +14170,7 @@ export type UserUpdateWithoutDocumentsApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -14076,6 +14248,7 @@ export type UserUncheckedUpdateWithoutDocumentsApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -14153,6 +14326,7 @@ export type UserCreateWithoutDecisionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -14230,6 +14404,7 @@ export type UserUncheckedCreateWithoutDecisionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -14323,6 +14498,7 @@ export type UserUpdateWithoutDecisionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -14400,6 +14576,7 @@ export type UserUncheckedUpdateWithoutDecisionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -14477,6 +14654,7 @@ export type UserCreateWithoutLessonsLearnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -14554,6 +14732,7 @@ export type UserUncheckedCreateWithoutLessonsLearnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -14647,6 +14826,7 @@ export type UserUpdateWithoutLessonsLearnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -14724,6 +14904,7 @@ export type UserUncheckedUpdateWithoutLessonsLearnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -14801,6 +14982,7 @@ export type UserCreateWithoutMaterialReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -14878,6 +15060,7 @@ export type UserUncheckedCreateWithoutMaterialReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -14971,6 +15154,7 @@ export type UserUpdateWithoutMaterialReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -15048,6 +15232,7 @@ export type UserUncheckedUpdateWithoutMaterialReceiptsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -15125,6 +15310,7 @@ export type UserCreateWithoutBidsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -15202,6 +15388,7 @@ export type UserUncheckedCreateWithoutBidsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -15284,6 +15471,7 @@ export type UserCreateWithoutTendersOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -15361,6 +15549,7 @@ export type UserUncheckedCreateWithoutTendersOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -15454,6 +15643,7 @@ export type UserUpdateWithoutBidsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -15531,6 +15721,7 @@ export type UserUncheckedUpdateWithoutBidsSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -15619,6 +15810,7 @@ export type UserUpdateWithoutTendersOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -15696,6 +15888,7 @@ export type UserUncheckedUpdateWithoutTendersOwnedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -15773,6 +15966,7 @@ export type UserCreateWithoutSectionAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -15850,6 +16044,7 @@ export type UserUncheckedCreateWithoutSectionAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -15932,6 +16127,7 @@ export type UserCreateWithoutAssignedSectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -16009,6 +16205,7 @@ export type UserUncheckedCreateWithoutAssignedSectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -16102,6 +16299,7 @@ export type UserUpdateWithoutSectionAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -16179,6 +16377,7 @@ export type UserUncheckedUpdateWithoutSectionAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -16267,6 +16466,7 @@ export type UserUpdateWithoutAssignedSectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -16344,6 +16544,7 @@ export type UserUncheckedUpdateWithoutAssignedSectionsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -16421,6 +16622,7 @@ export type UserCreateWithoutNotificationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -16498,6 +16700,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -16591,6 +16794,7 @@ export type UserUpdateWithoutNotificationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -16668,6 +16872,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -16745,6 +16950,7 @@ export type UserCreateWithoutReviewCommentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -16822,6 +17028,7 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -16915,6 +17122,7 @@ export type UserUpdateWithoutReviewCommentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -16992,6 +17200,7 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -17069,6 +17278,7 @@ export type UserCreateWithoutScheduleChangesRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -17146,6 +17356,7 @@ export type UserUncheckedCreateWithoutScheduleChangesRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -17228,6 +17439,7 @@ export type UserCreateWithoutScheduleChangesReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -17305,6 +17517,7 @@ export type UserUncheckedCreateWithoutScheduleChangesReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -17398,6 +17611,7 @@ export type UserUpdateWithoutScheduleChangesRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -17475,6 +17689,7 @@ export type UserUncheckedUpdateWithoutScheduleChangesRequestedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -17563,6 +17778,7 @@ export type UserUpdateWithoutScheduleChangesReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -17640,6 +17856,7 @@ export type UserUncheckedUpdateWithoutScheduleChangesReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -17717,6 +17934,7 @@ export type UserCreateWithoutPlansCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -17794,6 +18012,7 @@ export type UserUncheckedCreateWithoutPlansCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -17876,6 +18095,7 @@ export type UserCreateWithoutPlansSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -17953,6 +18173,7 @@ export type UserUncheckedCreateWithoutPlansSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -18035,6 +18256,7 @@ export type UserCreateWithoutPlansReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -18112,6 +18334,7 @@ export type UserUncheckedCreateWithoutPlansReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -18205,6 +18428,7 @@ export type UserUpdateWithoutPlansCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -18282,6 +18506,7 @@ export type UserUncheckedUpdateWithoutPlansCreatedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -18370,6 +18595,7 @@ export type UserUpdateWithoutPlansSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -18447,6 +18673,7 @@ export type UserUncheckedUpdateWithoutPlansSubmittedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -18535,6 +18762,7 @@ export type UserUpdateWithoutPlansReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -18612,6 +18840,7 @@ export type UserUncheckedUpdateWithoutPlansReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -18689,6 +18918,7 @@ export type UserCreateWithoutOversightAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -18766,6 +18996,7 @@ export type UserUncheckedCreateWithoutOversightAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -18848,6 +19079,7 @@ export type UserCreateWithoutAssignedOversightsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -18925,6 +19157,7 @@ export type UserUncheckedCreateWithoutAssignedOversightsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -19018,6 +19251,7 @@ export type UserUpdateWithoutOversightAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -19095,6 +19329,7 @@ export type UserUncheckedUpdateWithoutOversightAssignmentsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -19183,6 +19418,7 @@ export type UserUpdateWithoutAssignedOversightsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -19260,6 +19496,7 @@ export type UserUncheckedUpdateWithoutAssignedOversightsInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -19337,6 +19574,7 @@ export type UserCreateWithoutOversightEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -19414,6 +19652,7 @@ export type UserUncheckedCreateWithoutOversightEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -19507,6 +19746,7 @@ export type UserUpdateWithoutOversightEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -19584,6 +19824,7 @@ export type UserUncheckedUpdateWithoutOversightEntriesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -19661,6 +19902,7 @@ export type UserCreateWithoutAssignedProjectRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -19738,6 +19980,7 @@ export type UserUncheckedCreateWithoutAssignedProjectRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -19820,6 +20063,7 @@ export type UserCreateWithoutAssignedByProjectRolesInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -19897,6 +20141,7 @@ export type UserUncheckedCreateWithoutAssignedByProjectRolesInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -19990,6 +20235,7 @@ export type UserUpdateWithoutAssignedProjectRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -20067,6 +20313,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectRolesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -20155,6 +20402,7 @@ export type UserUpdateWithoutAssignedByProjectRolesInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -20232,6 +20480,7 @@ export type UserUncheckedUpdateWithoutAssignedByProjectRolesInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -20309,6 +20558,7 @@ export type UserCreateWithoutProjectObjectivesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -20386,6 +20636,7 @@ export type UserUncheckedCreateWithoutProjectObjectivesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -20479,6 +20730,7 @@ export type UserUpdateWithoutProjectObjectivesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -20556,6 +20808,7 @@ export type UserUncheckedUpdateWithoutProjectObjectivesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -20633,6 +20886,7 @@ export type UserCreateWithoutBaselinesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -20710,6 +20964,7 @@ export type UserUncheckedCreateWithoutBaselinesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -20717,6 +20972,167 @@ export type UserUncheckedCreateWithoutBaselinesCreatedInput = {
 export type UserCreateOrConnectWithoutBaselinesCreatedInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesCreatedInput, Prisma.UserUncheckedCreateWithoutBaselinesCreatedInput>
+}
+
+export type UserCreateWithoutBaselinesSubmittedInput = {
+  id?: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  memberships?: Prisma.ProjectMembershipCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutBaselinesSubmittedInput = {
+  id?: string
+  organizationId: string
+  fullName: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  jobTitle: string
+  role: $Enums.UserRole
+  signatureImageUrl?: string | null
+  active?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedCreateNestedManyWithoutUserInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutRequestedByInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedCreateNestedManyWithoutReviewedByInput
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  invitationAccepted?: Prisma.InvitationUncheckedCreateNestedOneWithoutAcceptedUserInput
+  signOffs?: Prisma.SignOffUncheckedCreateNestedManyWithoutUserInput
+  riskOwner?: Prisma.RiskEntryUncheckedCreateNestedManyWithoutOwnerInput
+  observations?: Prisma.SafetyObservationUncheckedCreateNestedManyWithoutObservedByInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedCreateNestedManyWithoutCorrectiveActionVerifiedByInput
+  inspections?: Prisma.InspectionTestRecordUncheckedCreateNestedManyWithoutInspectedByInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutTransferredByInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedCreateNestedManyWithoutReceivedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutIssuedByInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedCreateNestedManyWithoutApprovedByInput
+  decisions?: Prisma.DecisionLogUncheckedCreateNestedManyWithoutMadeByInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedCreateNestedManyWithoutRecordedByInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedCreateNestedManyWithoutSubmittedByInput
+  tendersOwned?: Prisma.BidTenderUncheckedCreateNestedManyWithoutTenderOwnerInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutSubmittedByInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutRaisedByInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutOwnerInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedCreateNestedManyWithoutVerifiedByInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedCreateNestedManyWithoutAllocatedByInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutCreatedByInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutAccountableUserInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedCreateNestedManyWithoutClosedByInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedCreateNestedManyWithoutAuthorInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedCreateNestedManyWithoutReceivedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutDisputedByInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedCreateNestedManyWithoutResolvedByInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutUserInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutCreatedByInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutSubmittedByInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutBaselinesSubmittedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedCreateWithoutBaselinesSubmittedInput>
 }
 
 export type UserCreateWithoutBaselinesApprovedInput = {
@@ -20793,6 +21209,7 @@ export type UserCreateWithoutBaselinesApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
@@ -20870,6 +21287,7 @@ export type UserUncheckedCreateWithoutBaselinesApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
@@ -20962,6 +21380,7 @@ export type UserUpdateWithoutBaselinesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -21039,6 +21458,174 @@ export type UserUncheckedUpdateWithoutBaselinesCreatedInput = {
   assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUpsertWithoutBaselinesSubmittedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedUpdateWithoutBaselinesSubmittedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedCreateWithoutBaselinesSubmittedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBaselinesSubmittedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBaselinesSubmittedInput, Prisma.UserUncheckedUpdateWithoutBaselinesSubmittedInput>
+}
+
+export type UserUpdateWithoutBaselinesSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  memberships?: Prisma.ProjectMembershipUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
+  projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBaselinesSubmittedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  signatureImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ProjectMembershipUncheckedUpdateManyWithoutUserNestedInput
+  companyAssignments?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedCompanyRoles?: Prisma.CompanyStaffAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  companyInvitationsSent?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  companyApprovalsRequested?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutRequestedByNestedInput
+  companyApprovalsReviewed?: Prisma.CompanyApprovalUncheckedUpdateManyWithoutReviewedByNestedInput
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  invitationAccepted?: Prisma.InvitationUncheckedUpdateOneWithoutAcceptedUserNestedInput
+  signOffs?: Prisma.SignOffUncheckedUpdateManyWithoutUserNestedInput
+  riskOwner?: Prisma.RiskEntryUncheckedUpdateManyWithoutOwnerNestedInput
+  observations?: Prisma.SafetyObservationUncheckedUpdateManyWithoutObservedByNestedInput
+  incidentsVerified?: Prisma.SafetyIncidentUncheckedUpdateManyWithoutCorrectiveActionVerifiedByNestedInput
+  inspections?: Prisma.InspectionTestRecordUncheckedUpdateManyWithoutInspectedByNestedInput
+  custodyTransfers?: Prisma.CustodyLogUncheckedUpdateManyWithoutTransferredByNestedInput
+  custodyReceipts?: Prisma.CustodyLogUncheckedUpdateManyWithoutReceivedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  earthworkEntries?: Prisma.EarthworkDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  structureEntries?: Prisma.StructureDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  rebarEntries?: Prisma.RebarDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsIssued?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutIssuedByNestedInput
+  documentsApproved?: Prisma.ProjectDocumentUncheckedUpdateManyWithoutApprovedByNestedInput
+  decisions?: Prisma.DecisionLogUncheckedUpdateManyWithoutMadeByNestedInput
+  lessonsLearned?: Prisma.LessonsLearnedUncheckedUpdateManyWithoutRecordedByNestedInput
+  bidsSubmitted?: Prisma.BidTenderUncheckedUpdateManyWithoutSubmittedByNestedInput
+  tendersOwned?: Prisma.BidTenderUncheckedUpdateManyWithoutTenderOwnerNestedInput
+  designReviewsSubmitted?: Prisma.DesignReviewUncheckedUpdateManyWithoutSubmittedByNestedInput
+  designReviewsReviewed?: Prisma.DesignReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  auditFindingsRaised?: Prisma.AuditFindingUncheckedUpdateManyWithoutRaisedByNestedInput
+  auditFindingsOwned?: Prisma.AuditFindingUncheckedUpdateManyWithoutOwnerNestedInput
+  auditFindingsVerified?: Prisma.AuditFindingUncheckedUpdateManyWithoutVerifiedByNestedInput
+  equipmentAllocationsMade?: Prisma.EquipmentAllocationUncheckedUpdateManyWithoutAllocatedByNestedInput
+  executiveInterventionsCreated?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutCreatedByNestedInput
+  executiveInterventionsOwned?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutAccountableUserNestedInput
+  executiveInterventionsClosed?: Prisma.ExecutiveInterventionUncheckedUpdateManyWithoutClosedByNestedInput
+  executiveInterventionEvents?: Prisma.ExecutiveInterventionEventUncheckedUpdateManyWithoutAuthorNestedInput
+  materialReceipts?: Prisma.MaterialReceiptUncheckedUpdateManyWithoutReceivedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedAssignments?: Prisma.ActivityAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  sectionAssignments?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedSections?: Prisma.SectionAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  dependencyRequestsMade?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  dependencyRequestsReviewed?: Prisma.PendingDependencyRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  disputesOpened?: Prisma.DisputeRecordUncheckedUpdateManyWithoutDisputedByNestedInput
+  disputesResolved?: Prisma.DisputeRecordUncheckedUpdateManyWithoutResolvedByNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutUserNestedInput
+  scheduleChangesRequested?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  scheduleChangesReviewed?: Prisma.ScheduleChangeRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  plansCreated?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  plansSubmitted?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutSubmittedByNestedInput
+  plansReviewed?: Prisma.WbsPlanSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  oversightAssignments?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedOversights?: Prisma.OversightAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  oversightEntries?: Prisma.OversightDailyEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  resourceRequestsMade?: Prisma.ResourceRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resourceRequestsReviewed?: Prisma.ResourceRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -21128,6 +21715,7 @@ export type UserUpdateWithoutBaselinesApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
@@ -21205,6 +21793,7 @@ export type UserUncheckedUpdateWithoutBaselinesApprovedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
@@ -21282,6 +21871,7 @@ export type UserCreateWithoutProjectStatusChangesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
 }
 
@@ -21359,6 +21949,7 @@ export type UserUncheckedCreateWithoutProjectStatusChangesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
 }
 
@@ -21452,6 +22043,7 @@ export type UserUpdateWithoutProjectStatusChangesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
 }
 
@@ -21529,6 +22121,7 @@ export type UserUncheckedUpdateWithoutProjectStatusChangesInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
 }
 
@@ -21605,6 +22198,7 @@ export type UserCreateWithoutResourceRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -21682,6 +22276,7 @@ export type UserUncheckedCreateWithoutResourceRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -21764,6 +22359,7 @@ export type UserCreateWithoutResourceRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryCreateNestedManyWithoutChangedByInput
 }
@@ -21841,6 +22437,7 @@ export type UserUncheckedCreateWithoutResourceRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedCreateNestedManyWithoutCreatedByInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutCreatedByInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutSubmittedByInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedCreateNestedManyWithoutApprovedByInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
@@ -21934,6 +22531,7 @@ export type UserUpdateWithoutResourceRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -22011,6 +22609,7 @@ export type UserUncheckedUpdateWithoutResourceRequestsMadeInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -22099,6 +22698,7 @@ export type UserUpdateWithoutResourceRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -22176,6 +22776,7 @@ export type UserUncheckedUpdateWithoutResourceRequestsReviewedInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -22268,6 +22869,7 @@ export type UserUpdateWithoutOrganizationInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
@@ -22345,6 +22947,7 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   assignedByProjectRoles?: Prisma.ProjectRoleAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   projectObjectivesCreated?: Prisma.ProjectObjectiveUncheckedUpdateManyWithoutCreatedByNestedInput
   baselinesCreated?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutCreatedByNestedInput
+  baselinesSubmitted?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutSubmittedByNestedInput
   baselinesApproved?: Prisma.ProjectBaselineUncheckedUpdateManyWithoutApprovedByNestedInput
   projectStatusChanges?: Prisma.ProjectStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
@@ -22429,6 +23032,7 @@ export type UserCountOutputType = {
   assignedByProjectRoles: number
   projectObjectivesCreated: number
   baselinesCreated: number
+  baselinesSubmitted: number
   baselinesApproved: number
   projectStatusChanges: number
 }
@@ -22493,6 +23097,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   assignedByProjectRoles?: boolean | UserCountOutputTypeCountAssignedByProjectRolesArgs
   projectObjectivesCreated?: boolean | UserCountOutputTypeCountProjectObjectivesCreatedArgs
   baselinesCreated?: boolean | UserCountOutputTypeCountBaselinesCreatedArgs
+  baselinesSubmitted?: boolean | UserCountOutputTypeCountBaselinesSubmittedArgs
   baselinesApproved?: boolean | UserCountOutputTypeCountBaselinesApprovedArgs
   projectStatusChanges?: boolean | UserCountOutputTypeCountProjectStatusChangesArgs
 }
@@ -22923,6 +23528,13 @@ export type UserCountOutputTypeCountBaselinesCreatedArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountBaselinesSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectBaselineWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountBaselinesApprovedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectBaselineWhereInput
 }
@@ -23010,6 +23622,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   assignedByProjectRoles?: boolean | Prisma.User$assignedByProjectRolesArgs<ExtArgs>
   projectObjectivesCreated?: boolean | Prisma.User$projectObjectivesCreatedArgs<ExtArgs>
   baselinesCreated?: boolean | Prisma.User$baselinesCreatedArgs<ExtArgs>
+  baselinesSubmitted?: boolean | Prisma.User$baselinesSubmittedArgs<ExtArgs>
   baselinesApproved?: boolean | Prisma.User$baselinesApprovedArgs<ExtArgs>
   projectStatusChanges?: boolean | Prisma.User$projectStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -23128,6 +23741,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   assignedByProjectRoles?: boolean | Prisma.User$assignedByProjectRolesArgs<ExtArgs>
   projectObjectivesCreated?: boolean | Prisma.User$projectObjectivesCreatedArgs<ExtArgs>
   baselinesCreated?: boolean | Prisma.User$baselinesCreatedArgs<ExtArgs>
+  baselinesSubmitted?: boolean | Prisma.User$baselinesSubmittedArgs<ExtArgs>
   baselinesApproved?: boolean | Prisma.User$baselinesApprovedArgs<ExtArgs>
   projectStatusChanges?: boolean | Prisma.User$projectStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -23203,6 +23817,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     assignedByProjectRoles: Prisma.$ProjectRoleAssignmentPayload<ExtArgs>[]
     projectObjectivesCreated: Prisma.$ProjectObjectivePayload<ExtArgs>[]
     baselinesCreated: Prisma.$ProjectBaselinePayload<ExtArgs>[]
+    baselinesSubmitted: Prisma.$ProjectBaselinePayload<ExtArgs>[]
     baselinesApproved: Prisma.$ProjectBaselinePayload<ExtArgs>[]
     projectStatusChanges: Prisma.$ProjectStatusHistoryPayload<ExtArgs>[]
   }
@@ -23675,6 +24290,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   assignedByProjectRoles<T extends Prisma.User$assignedByProjectRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedByProjectRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectObjectivesCreated<T extends Prisma.User$projectObjectivesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectObjectivesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectObjectivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   baselinesCreated<T extends Prisma.User$baselinesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$baselinesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBaselinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  baselinesSubmitted<T extends Prisma.User$baselinesSubmittedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$baselinesSubmittedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBaselinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   baselinesApproved<T extends Prisma.User$baselinesApprovedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$baselinesApprovedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBaselinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectStatusChanges<T extends Prisma.User$projectStatusChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectStatusChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -25529,6 +26145,30 @@ export type User$projectObjectivesCreatedArgs<ExtArgs extends runtime.Types.Exte
  * User.baselinesCreated
  */
 export type User$baselinesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectBaseline
+   */
+  select?: Prisma.ProjectBaselineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectBaseline
+   */
+  omit?: Prisma.ProjectBaselineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectBaselineInclude<ExtArgs> | null
+  where?: Prisma.ProjectBaselineWhereInput
+  orderBy?: Prisma.ProjectBaselineOrderByWithRelationInput | Prisma.ProjectBaselineOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectBaselineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectBaselineScalarFieldEnum | Prisma.ProjectBaselineScalarFieldEnum[]
+}
+
+/**
+ * User.baselinesSubmitted
+ */
+export type User$baselinesSubmittedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ProjectBaseline
    */

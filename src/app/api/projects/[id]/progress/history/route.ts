@@ -1,25 +1,30 @@
 import { NextRequest } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError, apiResponse } from "@/lib/api";
+import { requireSession } from "@/lib/auth";
+import { ok, created, handleApiError } from "@/lib/api";
 import { db } from "@/lib/db";
 import { recordProgressSnapshot } from "@/lib/services/progress.service";
+import { assertProjectAccess } from "@/lib/permissions";
+import { assertRoutePermission } from "@/lib/authorization";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
+
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "GET", "/api/projects/:id/progress/history");
 
     const snapshots = await db.progressSnapshot.findMany({
       where: { projectId },
       orderBy: { snapshotDate: "asc" },
     });
 
-    return apiResponse(snapshots);
+    return ok(snapshots);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }
 
@@ -28,11 +33,15 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
-    const snapshot = await recordProgressSnapshot(projectId);
-    return apiResponse(snapshot, 201);
+
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "POST", "/api/projects/:id/progress/history");
+
+    const snapshot = await recordProgressSnapshot(projectId, user.id);
+    return created(snapshot);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

@@ -1,24 +1,30 @@
 import { NextRequest } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { apiError, apiResponse } from "@/lib/api";
+import { requireSession } from "@/lib/auth";
+import { ok, handleApiError, parseJson } from "@/lib/api";
 import { transitionProjectStatus } from "@/lib/services/project.service";
+import { assertProjectAccess } from "@/lib/permissions";
+import { assertRoutePermission } from "@/lib/authorization";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getSessionUser(req);
+    const user = await requireSession();
     const { id: projectId } = await params;
-    const body = await req.json();
+
+    await assertProjectAccess(user, projectId);
+    assertRoutePermission(user, "POST", "/api/projects/:id/transition");
+
+    const body = await parseJson<any>(req);
     const updated = await transitionProjectStatus(
       user,
       projectId,
       body.targetStatus,
       body.reason ?? "Phase gate transition"
     );
-    return apiResponse(updated);
+    return ok(updated);
   } catch (err) {
-    return apiError(err);
+    return handleApiError(err);
   }
 }

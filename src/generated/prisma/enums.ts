@@ -254,6 +254,16 @@ export const ProjectRole = {
 export type ProjectRole = (typeof ProjectRole)[keyof typeof ProjectRole]
 
 
+export const BaselineStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type BaselineStatus = (typeof BaselineStatus)[keyof typeof BaselineStatus]
+
+
 export const BaselineType = {
   SCOPE: 'SCOPE',
   SCHEDULE: 'SCHEDULE',
@@ -510,7 +520,8 @@ export const AuditAction = {
   UPDATE: 'UPDATE',
   DELETE: 'DELETE',
   APPROVE: 'APPROVE',
-  REJECT: 'REJECT'
+  REJECT: 'REJECT',
+  READ: 'READ'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]

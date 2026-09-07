@@ -28,10 +28,12 @@ export type AggregateProjectDocument = {
 
 export type ProjectDocumentAvgAggregateOutputType = {
   revisionNo: number | null
+  fileSize: number | null
 }
 
 export type ProjectDocumentSumAggregateOutputType = {
   revisionNo: number | null
+  fileSize: number | null
 }
 
 export type ProjectDocumentMinAggregateOutputType = {
@@ -44,6 +46,12 @@ export type ProjectDocumentMinAggregateOutputType = {
   revisionNo: number | null
   status: $Enums.DocStatus | null
   filePath: string | null
+  contentHash: string | null
+  mimeType: string | null
+  fileSize: number | null
+  classification: string | null
+  retentionPolicy: string | null
+  isLegalHold: boolean | null
   issuedByUserId: string | null
   issuedAt: Date | null
   effectiveDate: Date | null
@@ -61,6 +69,12 @@ export type ProjectDocumentMaxAggregateOutputType = {
   revisionNo: number | null
   status: $Enums.DocStatus | null
   filePath: string | null
+  contentHash: string | null
+  mimeType: string | null
+  fileSize: number | null
+  classification: string | null
+  retentionPolicy: string | null
+  isLegalHold: boolean | null
   issuedByUserId: string | null
   issuedAt: Date | null
   effectiveDate: Date | null
@@ -78,6 +92,12 @@ export type ProjectDocumentCountAggregateOutputType = {
   revisionNo: number
   status: number
   filePath: number
+  contentHash: number
+  mimeType: number
+  fileSize: number
+  classification: number
+  retentionPolicy: number
+  isLegalHold: number
   issuedByUserId: number
   issuedAt: number
   effectiveDate: number
@@ -89,10 +109,12 @@ export type ProjectDocumentCountAggregateOutputType = {
 
 export type ProjectDocumentAvgAggregateInputType = {
   revisionNo?: true
+  fileSize?: true
 }
 
 export type ProjectDocumentSumAggregateInputType = {
   revisionNo?: true
+  fileSize?: true
 }
 
 export type ProjectDocumentMinAggregateInputType = {
@@ -105,6 +127,12 @@ export type ProjectDocumentMinAggregateInputType = {
   revisionNo?: true
   status?: true
   filePath?: true
+  contentHash?: true
+  mimeType?: true
+  fileSize?: true
+  classification?: true
+  retentionPolicy?: true
+  isLegalHold?: true
   issuedByUserId?: true
   issuedAt?: true
   effectiveDate?: true
@@ -122,6 +150,12 @@ export type ProjectDocumentMaxAggregateInputType = {
   revisionNo?: true
   status?: true
   filePath?: true
+  contentHash?: true
+  mimeType?: true
+  fileSize?: true
+  classification?: true
+  retentionPolicy?: true
+  isLegalHold?: true
   issuedByUserId?: true
   issuedAt?: true
   effectiveDate?: true
@@ -139,6 +173,12 @@ export type ProjectDocumentCountAggregateInputType = {
   revisionNo?: true
   status?: true
   filePath?: true
+  contentHash?: true
+  mimeType?: true
+  fileSize?: true
+  classification?: true
+  retentionPolicy?: true
+  isLegalHold?: true
   issuedByUserId?: true
   issuedAt?: true
   effectiveDate?: true
@@ -243,6 +283,12 @@ export type ProjectDocumentGroupByOutputType = {
   revisionNo: number
   status: $Enums.DocStatus
   filePath: string | null
+  contentHash: string | null
+  mimeType: string | null
+  fileSize: number | null
+  classification: string | null
+  retentionPolicy: string | null
+  isLegalHold: boolean
   issuedByUserId: string
   issuedAt: Date
   effectiveDate: Date | null
@@ -283,6 +329,12 @@ export type ProjectDocumentWhereInput = {
   revisionNo?: Prisma.IntFilter<"ProjectDocument"> | number
   status?: Prisma.EnumDocStatusFilter<"ProjectDocument"> | $Enums.DocStatus
   filePath?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  contentHash?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  fileSize?: Prisma.IntNullableFilter<"ProjectDocument"> | number | null
+  classification?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  retentionPolicy?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  isLegalHold?: Prisma.BoolFilter<"ProjectDocument"> | boolean
   issuedByUserId?: Prisma.StringFilter<"ProjectDocument"> | string
   issuedAt?: Prisma.DateTimeFilter<"ProjectDocument"> | Date | string
   effectiveDate?: Prisma.DateTimeNullableFilter<"ProjectDocument"> | Date | string | null
@@ -307,6 +359,12 @@ export type ProjectDocumentOrderByWithRelationInput = {
   revisionNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   filePath?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileSize?: Prisma.SortOrderInput | Prisma.SortOrder
+  classification?: Prisma.SortOrderInput | Prisma.SortOrder
+  retentionPolicy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isLegalHold?: Prisma.SortOrder
   issuedByUserId?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,6 +393,12 @@ export type ProjectDocumentWhereUniqueInput = Prisma.AtLeast<{
   revisionNo?: Prisma.IntFilter<"ProjectDocument"> | number
   status?: Prisma.EnumDocStatusFilter<"ProjectDocument"> | $Enums.DocStatus
   filePath?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  contentHash?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  fileSize?: Prisma.IntNullableFilter<"ProjectDocument"> | number | null
+  classification?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  retentionPolicy?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  isLegalHold?: Prisma.BoolFilter<"ProjectDocument"> | boolean
   issuedByUserId?: Prisma.StringFilter<"ProjectDocument"> | string
   issuedAt?: Prisma.DateTimeFilter<"ProjectDocument"> | Date | string
   effectiveDate?: Prisma.DateTimeNullableFilter<"ProjectDocument"> | Date | string | null
@@ -359,6 +423,12 @@ export type ProjectDocumentOrderByWithAggregationInput = {
   revisionNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   filePath?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileSize?: Prisma.SortOrderInput | Prisma.SortOrder
+  classification?: Prisma.SortOrderInput | Prisma.SortOrder
+  retentionPolicy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isLegalHold?: Prisma.SortOrder
   issuedByUserId?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -384,6 +454,12 @@ export type ProjectDocumentScalarWhereWithAggregatesInput = {
   revisionNo?: Prisma.IntWithAggregatesFilter<"ProjectDocument"> | number
   status?: Prisma.EnumDocStatusWithAggregatesFilter<"ProjectDocument"> | $Enums.DocStatus
   filePath?: Prisma.StringNullableWithAggregatesFilter<"ProjectDocument"> | string | null
+  contentHash?: Prisma.StringNullableWithAggregatesFilter<"ProjectDocument"> | string | null
+  mimeType?: Prisma.StringNullableWithAggregatesFilter<"ProjectDocument"> | string | null
+  fileSize?: Prisma.IntNullableWithAggregatesFilter<"ProjectDocument"> | number | null
+  classification?: Prisma.StringNullableWithAggregatesFilter<"ProjectDocument"> | string | null
+  retentionPolicy?: Prisma.StringNullableWithAggregatesFilter<"ProjectDocument"> | string | null
+  isLegalHold?: Prisma.BoolWithAggregatesFilter<"ProjectDocument"> | boolean
   issuedByUserId?: Prisma.StringWithAggregatesFilter<"ProjectDocument"> | string
   issuedAt?: Prisma.DateTimeWithAggregatesFilter<"ProjectDocument"> | Date | string
   effectiveDate?: Prisma.DateTimeNullableWithAggregatesFilter<"ProjectDocument"> | Date | string | null
@@ -399,6 +475,12 @@ export type ProjectDocumentCreateInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -420,6 +502,12 @@ export type ProjectDocumentUncheckedCreateInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -437,6 +525,12 @@ export type ProjectDocumentUpdateInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -458,6 +552,12 @@ export type ProjectDocumentUncheckedUpdateInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -477,6 +577,12 @@ export type ProjectDocumentCreateManyInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -492,6 +598,12 @@ export type ProjectDocumentUpdateManyMutationInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -506,6 +618,12 @@ export type ProjectDocumentUncheckedUpdateManyInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -544,6 +662,12 @@ export type ProjectDocumentCountOrderByAggregateInput = {
   revisionNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
+  contentHash?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  classification?: Prisma.SortOrder
+  retentionPolicy?: Prisma.SortOrder
+  isLegalHold?: Prisma.SortOrder
   issuedByUserId?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -553,6 +677,7 @@ export type ProjectDocumentCountOrderByAggregateInput = {
 
 export type ProjectDocumentAvgOrderByAggregateInput = {
   revisionNo?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
 }
 
 export type ProjectDocumentMaxOrderByAggregateInput = {
@@ -565,6 +690,12 @@ export type ProjectDocumentMaxOrderByAggregateInput = {
   revisionNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
+  contentHash?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  classification?: Prisma.SortOrder
+  retentionPolicy?: Prisma.SortOrder
+  isLegalHold?: Prisma.SortOrder
   issuedByUserId?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -582,6 +713,12 @@ export type ProjectDocumentMinOrderByAggregateInput = {
   revisionNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
+  contentHash?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  classification?: Prisma.SortOrder
+  retentionPolicy?: Prisma.SortOrder
+  isLegalHold?: Prisma.SortOrder
   issuedByUserId?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -591,6 +728,7 @@ export type ProjectDocumentMinOrderByAggregateInput = {
 
 export type ProjectDocumentSumOrderByAggregateInput = {
   revisionNo?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
 }
 
 export type ProjectDocumentCreateNestedManyWithoutIssuedByInput = {
@@ -851,6 +989,12 @@ export type ProjectDocumentCreateWithoutIssuedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -871,6 +1015,12 @@ export type ProjectDocumentUncheckedCreateWithoutIssuedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   approvedById?: string | null
@@ -897,6 +1047,12 @@ export type ProjectDocumentCreateWithoutApprovedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -917,6 +1073,12 @@ export type ProjectDocumentUncheckedCreateWithoutApprovedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -964,6 +1126,12 @@ export type ProjectDocumentScalarWhereInput = {
   revisionNo?: Prisma.IntFilter<"ProjectDocument"> | number
   status?: Prisma.EnumDocStatusFilter<"ProjectDocument"> | $Enums.DocStatus
   filePath?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  contentHash?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  fileSize?: Prisma.IntNullableFilter<"ProjectDocument"> | number | null
+  classification?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  retentionPolicy?: Prisma.StringNullableFilter<"ProjectDocument"> | string | null
+  isLegalHold?: Prisma.BoolFilter<"ProjectDocument"> | boolean
   issuedByUserId?: Prisma.StringFilter<"ProjectDocument"> | string
   issuedAt?: Prisma.DateTimeFilter<"ProjectDocument"> | Date | string
   effectiveDate?: Prisma.DateTimeNullableFilter<"ProjectDocument"> | Date | string | null
@@ -995,6 +1163,12 @@ export type ProjectDocumentCreateWithoutProjectInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   wbsNode?: Prisma.WbsNodeCreateNestedOneWithoutDocumentsInput
@@ -1014,6 +1188,12 @@ export type ProjectDocumentUncheckedCreateWithoutProjectInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1057,6 +1237,12 @@ export type ProjectDocumentCreateWithoutWbsNodeInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -1076,6 +1262,12 @@ export type ProjectDocumentUncheckedCreateWithoutWbsNodeInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1119,6 +1311,12 @@ export type ProjectDocumentCreateWithoutRevisionsInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -1139,6 +1337,12 @@ export type ProjectDocumentUncheckedCreateWithoutRevisionsInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1160,6 +1364,12 @@ export type ProjectDocumentCreateWithoutSupersededByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -1180,6 +1390,12 @@ export type ProjectDocumentUncheckedCreateWithoutSupersededByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1217,6 +1433,12 @@ export type ProjectDocumentUpdateWithoutRevisionsInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1237,6 +1459,12 @@ export type ProjectDocumentUncheckedUpdateWithoutRevisionsInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1269,6 +1497,12 @@ export type ProjectDocumentCreateWithoutDecisionsInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutDocumentsInput
@@ -1289,6 +1523,12 @@ export type ProjectDocumentUncheckedCreateWithoutDecisionsInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1321,6 +1561,12 @@ export type ProjectDocumentUpdateWithoutDecisionsInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1341,6 +1587,12 @@ export type ProjectDocumentUncheckedUpdateWithoutDecisionsInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1359,6 +1611,12 @@ export type ProjectDocumentCreateManyIssuedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
   approvedById?: string | null
@@ -1375,6 +1633,12 @@ export type ProjectDocumentCreateManyApprovedByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1389,6 +1653,12 @@ export type ProjectDocumentUpdateWithoutIssuedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1409,6 +1679,12 @@ export type ProjectDocumentUncheckedUpdateWithoutIssuedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1427,6 +1703,12 @@ export type ProjectDocumentUncheckedUpdateManyWithoutIssuedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1441,6 +1723,12 @@ export type ProjectDocumentUpdateWithoutApprovedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1461,6 +1749,12 @@ export type ProjectDocumentUncheckedUpdateWithoutApprovedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1479,6 +1773,12 @@ export type ProjectDocumentUncheckedUpdateManyWithoutApprovedByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1494,6 +1794,12 @@ export type ProjectDocumentCreateManyProjectInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1509,6 +1815,12 @@ export type ProjectDocumentUpdateWithoutProjectInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   wbsNode?: Prisma.WbsNodeUpdateOneWithoutDocumentsNestedInput
@@ -1528,6 +1840,12 @@ export type ProjectDocumentUncheckedUpdateWithoutProjectInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1546,6 +1864,12 @@ export type ProjectDocumentUncheckedUpdateManyWithoutProjectInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1562,6 +1886,12 @@ export type ProjectDocumentCreateManyWbsNodeInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1577,6 +1907,12 @@ export type ProjectDocumentUpdateWithoutWbsNodeInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1596,6 +1932,12 @@ export type ProjectDocumentUncheckedUpdateWithoutWbsNodeInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1614,6 +1956,12 @@ export type ProjectDocumentUncheckedUpdateManyWithoutWbsNodeInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1631,6 +1979,12 @@ export type ProjectDocumentCreateManySupersededByInput = {
   revisionNo?: number
   status?: $Enums.DocStatus
   filePath?: string | null
+  contentHash?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  classification?: string | null
+  retentionPolicy?: string | null
+  isLegalHold?: boolean
   issuedByUserId: string
   issuedAt?: Date | string
   effectiveDate?: Date | string | null
@@ -1645,6 +1999,12 @@ export type ProjectDocumentUpdateWithoutSupersededByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1665,6 +2025,12 @@ export type ProjectDocumentUncheckedUpdateWithoutSupersededByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1683,6 +2049,12 @@ export type ProjectDocumentUncheckedUpdateManyWithoutSupersededByInput = {
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
   filePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retentionPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLegalHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
   issuedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   effectiveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1739,6 +2111,12 @@ export type ProjectDocumentSelect<ExtArgs extends runtime.Types.Extensions.Inter
   revisionNo?: boolean
   status?: boolean
   filePath?: boolean
+  contentHash?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  classification?: boolean
+  retentionPolicy?: boolean
+  isLegalHold?: boolean
   issuedByUserId?: boolean
   issuedAt?: boolean
   effectiveDate?: boolean
@@ -1764,6 +2142,12 @@ export type ProjectDocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   revisionNo?: boolean
   status?: boolean
   filePath?: boolean
+  contentHash?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  classification?: boolean
+  retentionPolicy?: boolean
+  isLegalHold?: boolean
   issuedByUserId?: boolean
   issuedAt?: boolean
   effectiveDate?: boolean
@@ -1786,6 +2170,12 @@ export type ProjectDocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   revisionNo?: boolean
   status?: boolean
   filePath?: boolean
+  contentHash?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  classification?: boolean
+  retentionPolicy?: boolean
+  isLegalHold?: boolean
   issuedByUserId?: boolean
   issuedAt?: boolean
   effectiveDate?: boolean
@@ -1808,6 +2198,12 @@ export type ProjectDocumentSelectScalar = {
   revisionNo?: boolean
   status?: boolean
   filePath?: boolean
+  contentHash?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  classification?: boolean
+  retentionPolicy?: boolean
+  isLegalHold?: boolean
   issuedByUserId?: boolean
   issuedAt?: boolean
   effectiveDate?: boolean
@@ -1815,7 +2211,7 @@ export type ProjectDocumentSelectScalar = {
   supersededById?: boolean
 }
 
-export type ProjectDocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "wbsNodeId" | "docNo" | "title" | "category" | "revisionNo" | "status" | "filePath" | "issuedByUserId" | "issuedAt" | "effectiveDate" | "approvedById" | "supersededById", ExtArgs["result"]["projectDocument"]>
+export type ProjectDocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "wbsNodeId" | "docNo" | "title" | "category" | "revisionNo" | "status" | "filePath" | "contentHash" | "mimeType" | "fileSize" | "classification" | "retentionPolicy" | "isLegalHold" | "issuedByUserId" | "issuedAt" | "effectiveDate" | "approvedById" | "supersededById", ExtArgs["result"]["projectDocument"]>
 export type ProjectDocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   wbsNode?: boolean | Prisma.ProjectDocument$wbsNodeArgs<ExtArgs>
@@ -1862,6 +2258,12 @@ export type $ProjectDocumentPayload<ExtArgs extends runtime.Types.Extensions.Int
     revisionNo: number
     status: $Enums.DocStatus
     filePath: string | null
+    contentHash: string | null
+    mimeType: string | null
+    fileSize: number | null
+    classification: string | null
+    retentionPolicy: string | null
+    isLegalHold: boolean
     issuedByUserId: string
     issuedAt: Date
     effectiveDate: Date | null
@@ -2306,6 +2708,12 @@ export interface ProjectDocumentFieldRefs {
   readonly revisionNo: Prisma.FieldRef<"ProjectDocument", 'Int'>
   readonly status: Prisma.FieldRef<"ProjectDocument", 'DocStatus'>
   readonly filePath: Prisma.FieldRef<"ProjectDocument", 'String'>
+  readonly contentHash: Prisma.FieldRef<"ProjectDocument", 'String'>
+  readonly mimeType: Prisma.FieldRef<"ProjectDocument", 'String'>
+  readonly fileSize: Prisma.FieldRef<"ProjectDocument", 'Int'>
+  readonly classification: Prisma.FieldRef<"ProjectDocument", 'String'>
+  readonly retentionPolicy: Prisma.FieldRef<"ProjectDocument", 'String'>
+  readonly isLegalHold: Prisma.FieldRef<"ProjectDocument", 'Boolean'>
   readonly issuedByUserId: Prisma.FieldRef<"ProjectDocument", 'String'>
   readonly issuedAt: Prisma.FieldRef<"ProjectDocument", 'DateTime'>
   readonly effectiveDate: Prisma.FieldRef<"ProjectDocument", 'DateTime'>

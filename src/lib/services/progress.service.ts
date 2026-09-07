@@ -364,6 +364,7 @@ export type ProjectHealthSummary = {
 
 export async function recordProgressSnapshot(
   projectId: string,
+  userId?: string,
   snapshotDate = new Date()
 ) {
   const tree = await loadProgressTree(projectId);
@@ -371,12 +372,41 @@ export async function recordProgressSnapshot(
 
   const project = await db.project.findUnique({
     where: { id: projectId },
-    select: { contractValue: true },
+    select: { contractValue: true, plannedStartDate: true, plannedEndDate: true },
   });
 
   const contractValue = Number(project?.contractValue ?? 0);
   const earnedValue = (contractValue * physicalPercent) / 100;
-  const plannedValue = earnedValue; // Default PV = EV for simple EVM baselining
+
+  // Calculate time-phased Planned Value (PV)
+  let plannedPercent = 0;
+  if (project?.plannedStartDate && project?.plannedEndDate) {
+    const startMs = new Date(project.plannedStartDate).getTime();
+    const endMs = new Date(project.plannedEndDate).getTime();
+    const nowMs = snapshotDate.getTime();
+    const totalDuration = Math.max(1, endMs - startMs);
+    const elapsed = Math.max(0, nowMs - startMs);
+    plannedPercent = Math.min(100, (elapsed / totalDuration) * 100);
+  } else {
+    const activities = await db.scheduleActivity.findMany({
+      where: { wbsNode: { projectId } },
+      select: { plannedStart: true, plannedFinish: true },
+    });
+    if (activities.length > 0) {
+      let sumPlannedProgress = 0;
+      for (const a of activities) {
+        const startMs = new Date(a.plannedStart).getTime();
+        const finishMs = new Date(a.plannedFinish).getTime();
+        const duration = Math.max(1, finishMs - startMs);
+        const elapsed = Math.max(0, snapshotDate.getTime() - startMs);
+        const actPlanned = Math.min(100, (elapsed / duration) * 100);
+        sumPlannedProgress += actPlanned;
+      }
+      plannedPercent = sumPlannedProgress / activities.length;
+    }
+  }
+
+  const plannedValue = (contractValue * plannedPercent) / 100;
 
   const actualCostAgg = await db.costActual.aggregate({
     _sum: { amount: true },
@@ -387,9 +417,9 @@ export async function recordProgressSnapshot(
   const scheduleVariance = earnedValue - plannedValue;
   const costVariance = earnedValue - actualCost;
   const cpi = actualCost > 0 ? earnedValue / actualCost : 1;
-  const spi = plannedValue > 0 ? earnedValue / plannedValue : 1;
+  const spi = plannedValue > 0 ? earnedValue / plannedValue : (earnedValue > 0 ? 1 : 1);
 
-  return db.progressSnapshot.upsert({
+  const snapshot = await db.progressSnapshot.upsert({
     where: {
       projectId_snapshotDate: {
         projectId,
@@ -419,6 +449,20 @@ export async function recordProgressSnapshot(
       spi,
     },
   });
+
+  if (userId) {
+    const { recordAuditLog } = await import("@/lib/services/audit");
+    await recordAuditLog({
+      userId,
+      entityType: "ProgressSnapshot",
+      entityId: snapshot.id,
+      action: "CREATE",
+      after: snapshot,
+      reason: "Recorded EVM progress snapshot",
+    });
+  }
+
+  return snapshot;
 }
 
 export async function getProjectHealth(
